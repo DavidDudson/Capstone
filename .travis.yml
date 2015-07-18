@@ -1,5 +1,4 @@
 language: java
-before_install: 
 script: gradle build
 deploy:
   provider: heroku
