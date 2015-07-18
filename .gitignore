@@ -1,3 +1,4 @@
 .gradle
 build
 nbproject
+.DS_Store
