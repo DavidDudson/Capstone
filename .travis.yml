@@ -1,0 +1,5 @@
+language: java
+before_install:
+# Do Any installs before running build script
+
+script: "gradle build"
