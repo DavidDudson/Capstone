@@ -1,5 +1,10 @@
 language: java
-before_install:
-# Do Any installs before running build script
-
-script: "gradle build"
+before_install: 
+script: gradle build
+deploy:
+  provider: heroku
+  api_key:
+    secure: G8f8fsvQJ/zanm9+GsQBL9MQqI7VIpfqvO6goIyYBaAaxRSGKZTs8Gle/xOiEK6YofoJ1Eh9OqPKUwmaAEPOz4aS5TE8N/sjpMNINWRxUgQ1oKSFv1LpmirS5Kfj8ej2rSCMoAkNFizh+LrJiau7XanFYqc1M0++vzvjnep3GpZeuBWsmZVp0rBCkCrGDEqqzfDCTwqZGn96VO7xuGmNdtufUqgAdpgf3CCT0iJGQVTePaQQ1JdBbwyuxEdM+QqU+gw9nQPdsVla5sr3bYIHPOz62IRStI9393+QXDhhnwWVr7GXimI0H6iemoBTWS7wDJJDG8p6rtn0gaP6t3mz2JnrUBYB86s0UbSj45hDdAOuP3uJeavza0SQ7joHPJWyQAACQxkI1spr5JQq2g3BDVvQp5xCPOIJF8ntfPWrJEkg43x8P9TIkj9rMIuf9ocT8hTo2rOI+sEzaKud6iabwoa4yuQ/phQ625X1QiWkbBbCK+ypy094+mly4knUeFrs0hg4vdQWoOONrLx9TXRWSkIuD2zfOkuBs3P8j5NJp7yFfzhfXFUR5yJ7uZSYwB/+q3GegjQ0sbtla0rocffwJ1ooaBiOZURQcP6jkC5QKF2dmHus+NSL9TlSe8foBWW0+K9dh31tUABnWQ4oCsZ/noyghgZ2dQaMq1pOmkYmuEo=
+  app: battleships-capstone
+  on:
+    repo: DavidDudson/Capstone
