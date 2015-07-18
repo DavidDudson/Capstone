@@ -1,19 +1,58 @@
+//Import mercurial tasks
+import au.com.coherentsoftware.gradle.mercurial.task.*
 
 // Apply the java plugin to add support for Java
 apply plugin: 'java'
 
 // In this section you declare where to find the dependencies of your project
 repositories {
-    // Use 'jcenter' for resolving your dependencies.
-    // You can declare any Maven/Ivy/file repository here.
+    // Main repository for gathering plugins
     jcenter()
+}
+
+buildscript{
+  repositories {
+
+      // Main repository for gathering plugins
+      jcenter()
+  }
+
+  dependencies {
+
+    //Mercurial Helper
+    classpath 'au.com.coherentsoftware.gradle:Gradle-MercurialMqPlugin:1.1.0'
+
+  }
+}
+
+apply plugin: 'mercurial-mq'
+
+mercurialmq {
+    //Mac
+    binary '~/../usr/local/bin/hg'
 }
 
 // In this section you declare the dependencies for your production and test code
 dependencies {
+
     //Logging
     compile 'org.slf4j:slf4j-api:1.7.7'
 
     //Testing
     testCompile "junit:junit:4.11"
+}
+
+//--------Tasks---------//
+
+// Clones the SoGaCo Repository
+task cloneSoGaCo( type: HgClone ) {
+    sourceUrl = 'ssh://hg@bitbucket.org/jensdietrich/bruyere'
+    includePatchQueue = true
+    workingDir = './build/sogacoSrc'
+}
+
+task buildSoGaCo( type:Exec ) << {
+    executable 'mvn'
+    args 'clean', 'install'
+    workingDir './build/sogacoSrc'
 }
