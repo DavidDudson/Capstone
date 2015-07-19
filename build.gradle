@@ -52,7 +52,9 @@ farm {
 //--------Tasks---------//
 
 // Clones the SoGaCo Repository, uses your bitbucket Username and Password
-task cloneSogaco( type: Exec ) {
+// Debug information to get a feel for whats happening.
+task cloneSogaco( type: Exec , dependsOn: 'clean' ) {
+  mkdir './build/sogacoSrc'
   commandLine 'hg clone https://Username:Password@bitbucket.org/jensdietrich/bruyere --debug'.split()
   workingDir = './build/sogacoSrc'
 }
