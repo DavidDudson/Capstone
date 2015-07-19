@@ -34,6 +34,32 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+       <div class="gameState">
+           <table>
+
+               <%
+                   for(int i =0;i<SIZE;i++){
+
+                %>
+                    <tr>
+                <%
+                
+                       for(int j=0; i<SIZE; i++){ 
+                %>
+                        <td>
+                        </td>
+                <%
+                       }
+                %>
+                   
+                   
+                   
+               %>
+               <%
+                }
+               %>
+           </table>
+       
+       </div>
     </body>
 </html>
