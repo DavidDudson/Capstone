@@ -1,3 +1,5 @@
+//-------Plugins---------//
+
 // Apply the java plugin to add support for Java
 apply plugin: 'java'
 
@@ -5,11 +7,16 @@ apply plugin: 'java'
 apply plugin: 'war'
 apply from: 'https://raw.github.com/akhikhl/gretty/master/pluginScripts/gretty.plugin'
 
+//Apply server plugin
+apply plugin: 'org.akhikhl.gretty'
+
 // In this section you declare where to find the dependencies of your project
 repositories {
     // Main repository for gathering plugins
     jcenter()
 }
+
+//-------Dependencies---------//
 
 // Define Production dependencies
 dependencies {
@@ -32,8 +39,6 @@ buildscript {
   }
 }
 
-apply plugin: 'org.akhikhl.gretty'
-
 //Define all Wars to be loaded by server, requires updateSogaco task to be run at some point before use.
 farm {
   webapp './build/sogacoSrc/bruyere/build/target/projects/SoGaCo-Logging-0.0.3-SNAPSHOT.war'
@@ -52,17 +57,7 @@ task cloneSogaco( type: Exec ) {
   workingDir = './build/sogacoSrc'
 }
 
-task buildSogaco( type:Exec ) {
+task buildSogaco( type:Exec, dependsOn: 'cloneSogaco' ) {
     commandLine 'mvn clean install'.split()
     workingDir = './build/sogacoSrc/bruyere/build/'
-}
-
-task copySogacoOutputs( type:Copy ) {
-  from './build/sogacoSrc/bruyere/build/target/projects/'
-  into './build/output'
-}
-
-task updateSogaco( dependsOn: ['cloneSogaco', 'buildSogaco', 'copySogacoOutputs'] ){
-  buildSogaco.mustRunAfter cloneSogaco
-  copySogacoOutputs.mustRunAfter buildSogaco
 }
