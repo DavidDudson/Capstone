@@ -1,8 +1,9 @@
-//Import mercurial tasks
-import au.com.coherentsoftware.gradle.mercurial.task.*
-
 // Apply the java plugin to add support for Java
 apply plugin: 'java'
+
+//Manage war stuff
+apply plugin: 'war'
+apply from: 'https://raw.github.com/akhikhl/gretty/master/pluginScripts/gretty.plugin'
 
 // In this section you declare where to find the dependencies of your project
 repositories {
@@ -10,7 +11,7 @@ repositories {
     jcenter()
 }
 
-// In this section you declare the dependencies for your production and test code
+// Define Production dependencies
 dependencies {
 
     //Logging
@@ -18,6 +19,29 @@ dependencies {
 
     //Testing
     testCompile "junit:junit:4.11"
+}
+
+//Define buildscript dependencies
+buildscript {
+  repositories {
+    jcenter()
+  }
+
+  dependencies {
+    classpath 'org.akhikhl.gretty:gretty:+'
+  }
+}
+
+apply plugin: 'org.akhikhl.gretty'
+
+//Define all Wars to be loaded by server, requires updateSogaco task to be run at some point before use.
+farm {
+  webapp './build/sogacoSrc/bruyere/build/target/projects/SoGaCo-Logging-0.0.3-SNAPSHOT.war'
+  webapp './build/sogacoSrc/bruyere/build/target/projects/SoGaCo-Web-Home-0.0.3-SNAPSHOT.war'
+  webapp './build/sogacoSrc/bruyere/build/target/projects/SoGaCo-Web-Mancala-0.0.3-SNAPSHOT.war'
+  webapp './build/sogacoSrc/bruyere/build/target/projects/SoGaCo-Web-Othello-0.0.3-SNAPSHOT.war'
+  webapp './build/sogacoSrc/bruyere/build/target/projects/SoGaCo-Web-Primegame-0.0.3-SNAPSHOT.war'
+  webapp './build/sogacoSrc/bruyere/build/target/projects/SoGaCo-Web-Resources-0.0.3-SNAPSHOT.war'
 }
 
 //--------Tasks---------//
@@ -36,4 +60,9 @@ task buildSogaco( type:Exec ) {
 task copySogacoOutputs( type:Copy ) {
   from './build/sogacoSrc/bruyere/build/target/projects/'
   into './build/output'
+}
+
+task updateSogaco( dependsOn: ['cloneSogaco', 'buildSogaco', 'copySogacoOutputs'] ){
+  buildSogaco.mustRunAfter cloneSogaco
+  copySogacoOutputs.mustRunAfter buildSogaco
 }
