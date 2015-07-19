@@ -10,28 +10,6 @@ repositories {
     jcenter()
 }
 
-buildscript{
-  repositories {
-
-      // Main repository for gathering plugins
-      jcenter()
-  }
-
-  dependencies {
-
-    //Mercurial Helper
-    classpath 'au.com.coherentsoftware.gradle:Gradle-MercurialMqPlugin:1.1.0'
-
-  }
-}
-
-apply plugin: 'mercurial-mq'
-
-mercurialmq {
-    //Mac
-    binary '~/../usr/local/bin/hg'
-}
-
 // In this section you declare the dependencies for your production and test code
 dependencies {
 
@@ -44,15 +22,18 @@ dependencies {
 
 //--------Tasks---------//
 
-// Clones the SoGaCo Repository
-task cloneSoGaCo( type: HgClone ) {
-    sourceUrl = 'ssh://hg@bitbucket.org/jensdietrich/bruyere'
-    includePatchQueue = true
-    workingDir = './build/sogacoSrc'
+// Clones the SoGaCo Repository, uses your bitbucket Username and Password
+task cloneSogaco( type: Exec ) {
+  commandLine 'hg clone https://Username:Password@bitbucket.org/jensdietrich/bruyere --debug'.split()
+  workingDir = './build/sogacoSrc'
 }
 
-task buildSoGaCo( type:Exec ) << {
-    executable 'mvn'
-    args 'clean', 'install'
-    workingDir './build/sogacoSrc'
+task buildSogaco( type:Exec ) {
+    commandLine 'mvn clean install'.split()
+    workingDir = './build/sogacoSrc/bruyere/build/'
+}
+
+task copySogacoOutputs( type:Copy ) {
+  from './build/sogacoSrc/bruyere/build/target/projects/'
+  into './build/output'
 }
