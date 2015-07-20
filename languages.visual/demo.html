@@ -6,6 +6,13 @@
     <script src="blockly/blockly_compressed.js"></script>
     <script src="blockly/blocks_compressed.js"></script>
     <script src="blockly/msg/js/en.js"></script>
+    <script>
+        function updateXml() {
+            var xml = Blockly.Xml.workspaceToDom(workspace);
+            var xml_text = Blockly.Xml.domToPrettyText(xml);
+            alert(xml_text);
+        }
+    </script>
 </head>
 <body>
     <xml id="toolbox" style="display: none;">
@@ -18,6 +25,8 @@
         <block type="text_print"></block>
     </xml>
     <div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
+    <br/>
+    <button onclick="updateXml()">Display XML</button>
     <script>
         var workspace = Blockly.inject('blocklyDiv',
                 {toolbox: document.getElementById('toolbox')});
