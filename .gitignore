@@ -3,6 +3,9 @@ build
 nbproject
 .DS_Store
 null
+<<<<<<< HEAD
 games.battlships
 languages.visal
+=======
+>>>>>>> visualLanguage
 .nb-gradle
