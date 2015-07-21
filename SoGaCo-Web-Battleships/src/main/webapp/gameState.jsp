@@ -6,15 +6,15 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="battleShipGame.Grid"%>
-<%! 
+<%!
     int SIZE = 10;
-    Grid botGrid1 = new Grid(10);   
-    Grid botGrid2 = new Grid(10); 
-    
+    Grid botGrid1 = new Grid(10);
+    Grid botGrid2 = new Grid(10);
+
     public void updateGrid(Grid grid, int position){
         //update the grid from a position
     }
-    
+
     public void updateGUI(Grid grid){
         //update the GUI from the grid
     }
