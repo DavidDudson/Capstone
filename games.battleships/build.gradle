@@ -1,0 +1,16 @@
+apply plugin: 'java'
+
+//-------Dependencies---------//
+
+// Define Production dependencies
+dependencies {
+
+    //Logging
+    compile 'org.slf4j:slf4j-api:1.7.7'
+
+    //Testing
+    testCompile "junit:junit:4.11"
+}
+
+//Define output Dir
+libsDirName = '../build/lib'
