@@ -1,0 +1,19 @@
+apply plugin: 'java'
+apply plugin: 'war'
+
+//-------Dependencies---------//
+
+dependencies {
+
+    //Make this project depends on games.battleships
+    compile project(':games.battleships')
+
+    //Logging
+    compile 'org.slf4j:slf4j-api:1.7.7'
+
+    //Testing
+    testCompile "junit:junit:4.11"
+}
+
+//Define output Dir
+libsDirName = '../build/lib'

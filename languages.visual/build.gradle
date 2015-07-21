@@ -1,0 +1,4 @@
+apply plugin: 'java'
+
+//Define output Dir
+libsDirName = '../build/lib'
