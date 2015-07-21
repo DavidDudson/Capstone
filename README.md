@@ -9,6 +9,7 @@ Mac/Linux: gradle SOME-TASK
 Windows: gradlew.bat SOME-TASK
 
 If you want to clone & build SoGaCO
+
 1. Go into build.gradle
 2. Find the task cloneSogaco
 3. Add in you bitbucket username and password.
