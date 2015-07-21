@@ -5,8 +5,9 @@
         <group>
             <file>file:/C:/Users/adhoulih/Documents/NetBeansProjects/battleshipGameState/web/gameState.jsp</file>
             <file>file:/C:/Users/adhoulih/Documents/NetBeansProjects/battleshipGameState/src/java/battleShipGame/test.java</file>
-            <file>file:/C:/Users/adhoulih/Documents/NetBeansProjects/battleshipGameState/src/java/battleShipGame/Ship.java</file>
+            <file>file:/C:/Users/adhoulih/Documents/NetBeansProjects/battleshipGameState/src/java/battleShipGame/ShipLinkedList.java</file>
             <file>file:/C:/Users/adhoulih/Documents/NetBeansProjects/battleshipGameState/src/java/battleShipGame/Grid.java</file>
+            <file>file:/C:/Users/adhoulih/Documents/NetBeansProjects/battleshipGameState/src/java/battleShipServlet/battleShipServlet.java</file>
             <file>file:/C:/Users/adhoulih/Documents/NetBeansProjects/battleshipGameState/src/java/battleShipGame/testBot.java</file>
             <file>file:/C:/Users/adhoulih/Documents/NetBeansProjects/battleshipGameState/src/java/battleShipGame/Section.java</file>
         </group>
