@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : gameState
     Created on : 16/07/2015, 10:26:48 AM
     Author     : adhoulih
@@ -11,30 +11,15 @@
 <%@page import="battleShipGame.Grid"%>
 <%!
     int SIZE = 10;
-<<<<<<< HEAD:SoGaCo-Web-Battleships/src/main/webapp/gameState.jsp
-    Grid botGrid1 = new Grid(10);
-    Grid botGrid2 = new Grid(10);
-
-    public void updateGrid(Grid grid, int position){
-        //update the grid from a position
-    }
-
-    public void updateGUI(Grid grid){
-=======
-
     testBot bot1 = new testBot();
     Grid bot1Grid = new Grid(10);
     int[][] bot1Moves = new int[100][2];
-
     public void updateGrid(Grid grid, int position) {
         //update the grid from a position
     }
-
     public void updateGUI(Grid grid) {
->>>>>>> commandLineImplementaion:build/web/gameState.jsp
         //update the GUI from the grid
     }
-
     public void gameRun() {
         Boolean allDeadShips = false;
         int movesIndex = 0;
@@ -53,11 +38,8 @@
             if (deadShips == bot1Grid.getShips().size()) {
                 allDeadShips = true;
             }
-
         }
     }
-
-
 %>
 <%bot1Grid.generateShips();
     bot1Grid.loadGrid();
@@ -67,8 +49,6 @@
         width:50px;
         height:50px;
         background-color: red;
-
-
     }
 </style>
 
@@ -89,10 +69,9 @@
                 <%
                     int count = 0;
                     for (int i = 0; i < SIZE; i++) {
-
                 %>
                 <tr>
-                    <%                    
+                    <%
                         for (int j = 0; j < SIZE; j++) {
                     %>
                     <td id="<%=count%>">
@@ -116,16 +95,15 @@
             <Button>prevMove</button>
             <Button onclick="nextMove()">nextMove</button>
         </div>
-            
-            
+
+
 <script>
-    
+
     var currentMoveCount = 0;
     var gameMovePositions
     new Array(10);
     for (var i = 0; i < 10; i++) {
         gameMovePositions[i] = new Array(10);
-
     }
     <% for (int i = 0; i < bot1Grid.getGrid().length; i++) {
             for (int j = 0; j < bot1Grid.getGrid().length; j++) {
@@ -141,14 +119,13 @@
             case 5: sectionColor = green;
             case 6: sectionColor = black;
             case 7: sectionColor = white;
-            
+
         }
         document.getElementById(<%=i+j%>).style.backgroundColor = '#003F87';
-        
+
         gameMovePositions[<%= i%>][<%= j%>] = sectionStatus;
     <%      }
         }%>
-
     function nextMove() {
         alert(gameMovePosition[currentMoveCount][0]);
         var pos = gameMovePosition[currentMoveCount][0] + gameMovePosition[currentMoveCount][1];
