@@ -12,5 +12,8 @@ dependencies {
     testCompile "junit:junit:4.11"
 }
 
-//Define output Dir
-libsDirName = '../build/lib'
+jar {
+  destinationDir = file('../build/libs')
+}
+
+buildDir = '../build/'

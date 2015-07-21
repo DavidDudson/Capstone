@@ -1,4 +1,7 @@
 apply plugin: 'java'
 
-//Define output Dir
-libsDirName = '../build/lib'
+jar {
+  destinationDir = file('../build/libs')
+}
+
+buildDir = '../build/'
