@@ -1,0 +1,5 @@
+//Complete Project
+rootProject.name = 'Capstone'
+
+//Include all projects
+include 'ui.battleships', 'games.battleships', 'languages.visual', 'SoGaCo-Web-Battleships'
