@@ -7,7 +7,7 @@
     <script src="blockly/blockly_uncompressed.js"></script>
     <script src="blockly/blocks_compressed.js"></script>
     <script src="blockly/msg/js/en.js"></script>
-    <script src="blockly/blocks/customBlocks.js"></script>
+    <script src="customBlocks.js"></script>
     <script>
         function updateXml() {
             var xml = Blockly.Xml.workspaceToDom(workspace);
@@ -241,6 +241,7 @@
                 {toolbox: document.getElementById('toolbox')});
 
 //        TODO: Want to read startTemplate.xml and load into workspace
+//        TODO: Make XML for toolbox in a separate file
     </script>
 </body>
 </html>
