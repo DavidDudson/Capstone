@@ -11,63 +11,46 @@ package battleShipGame;
  * @author adhoulih
  */
 public class test {
-    
+    int SIZE = 10;
+
+    static testBot bot1 = new testBot();
+    static Grid bot1Grid = new Grid(10);
+    static int[][] bot1Moves = new int[100][2];    
     public static void main(String [] args){
-        Grid grid = new Grid(10);
-        testBot bot1 = new testBot();
-        
-        grid.generateShips();
-        grid.loadGrid();
+        bot1Grid.generateShips();
+        gameRun();
+    
+    }
+    
+
+    public void updateGrid(Grid grid, int position) {
+        //update the grid from a position
+    }
+
+    public void updateGUI(Grid grid) {
+        //update the GUI from the grid
+    }
+
+    public static void gameRun() {
         Boolean allDeadShips = false;
-        System.out.print(printGrid(grid));
-  
-        while(!allDeadShips){
+        int movesIndex = 0;
+        while (!allDeadShips) {
             int deadShips = 0;
-//            System.out.println(validMoves(grid));
-            int[] retVals= new int[2];
-            retVals = bot1.runMove(grid.getGrid());
-            grid.playMove(retVals[0], retVals[1]);
-            for(ShipLinkedList ship: grid.getShips()){
-                if(!ship.getShipStatus()){
+            int[] retVals = new int[2];
+            retVals = bot1.runMove(bot1Grid.getGrid());
+            bot1Moves[movesIndex][0] = retVals[0];
+            bot1Moves[movesIndex][1] = retVals[1];
+            bot1Grid.playMove(retVals[0], retVals[1]);
+            for (ShipLinkedList ship : bot1Grid.getShips()) {
+                if (!ship.getShipStatus()) {
                     deadShips++;
                 }
             }
-            if(deadShips == grid.getShips().size()){
+            if (deadShips == bot1Grid.getShips().size()) {
                 allDeadShips = true;
             }
-            
+
         }
-        System.out.print(printGrid(grid));
-        System.out.println("game over");
-            
-        
-    }
-    public static StringBuilder printGrid(Grid grid){
-        StringBuilder outGrid = new StringBuilder();
-        for(Section[] rowSection:grid.getGrid()){
-            outGrid.append("---------------------\n");
-            StringBuilder row = new StringBuilder();    
-            for(Section colSection:rowSection){
-                row.append("|").append(colSection.getSectionStatus());
-            }
-            row.append("|\n");
-            
-            outGrid.append(row);
-            
-                    
-        }
-        return outGrid;
-    }
-    public static int validMoves(Grid grid){
-        int count = 0;
-        for (Section[] rowSection: grid.getGrid()){
-            for(Section colSection:rowSection){
-                if(colSection.getSectionStatus() != 6){
-                    count++;
-                }
-            }
-        }
-        return count;
     }
     
 }
