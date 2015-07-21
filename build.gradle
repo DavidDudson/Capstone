@@ -38,7 +38,7 @@ farm {
 // Debug information to get a feel for whats happening.
 task cloneSogaco( type: Exec ) {
   mkdir './build/sogacoSrc'
-  commandLine 'hg clone https://DavidDudson:Kartdog333@bitbucket.org/jensdietrich/bruyere --debug -r 0.0.1'.split()
+  commandLine 'hg clone https://Username:Password@bitbucket.org/jensdietrich/bruyere --debug -r 0.0.1'.split()
   workingDir = './build/sogacoSrc'
 }
 
