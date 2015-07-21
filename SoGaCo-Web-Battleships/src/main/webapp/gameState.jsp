@@ -11,6 +11,7 @@
 <%@page import="battleShipGame.Grid"%>
 <%!
     int SIZE = 10;
+<<<<<<< HEAD:build/web/gameState.jsp
 
     testBot bot1 = new testBot();
     Grid bot1Grid = new Grid(10);
@@ -21,6 +22,16 @@
     }
 
     public void updateGUI(Grid grid) {
+=======
+    Grid botGrid1 = new Grid(10);
+    Grid botGrid2 = new Grid(10);
+
+    public void updateGrid(Grid grid, int position){
+        //update the grid from a position
+    }
+
+    public void updateGUI(Grid grid){
+>>>>>>> origin/master:SoGaCo-Web-Battleships/src/main/webapp/gameState.jsp
         //update the GUI from the grid
     }
 
