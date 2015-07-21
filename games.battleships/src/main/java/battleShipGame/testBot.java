@@ -19,11 +19,11 @@ public class testBot {
     private int AIRCRAFTCARRIER = 5;
     private int HIT = 6;
     private int MISS = 7;
-    
-    
-    
+
+
+
     public testBot(){
-        
+
     }
     public int[] runMove(Section[][] grid){
         int[] retCoord = new int[2];
@@ -36,9 +36,9 @@ public class testBot {
         }
         retCoord[0] = randX;
         retCoord[1] = randY;
-        
+
         return retCoord;
-        
+
     }
-    
+
 }
