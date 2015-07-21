@@ -29,8 +29,8 @@ This may not be running perfectly on windows As I havn't tested it yet. Please d
 
 The server is set up very simply.
 
-localhost:8080/SoGaCo-Web-Home/ -> Main Sogaco Home page
-localhost:8080/SoGaCo-Web-Battleships/gameState.jsp -> Our current test jsp page
-localhost:8080/SoGaCo-Web-Battleships/static/demo.html -> Current Blockly demo
+- localhost:8080/SoGaCo-Web-Home/ -> Main Sogaco Home page
+- localhost:8080/SoGaCo-Web-Battleships/gameState.jsp -> Our current test jsp page
+- localhost:8080/SoGaCo-Web-Battleships/static/demo.html -> Current Blockly demo
 
 Ill fix routing when we have something worth actually fixing.
