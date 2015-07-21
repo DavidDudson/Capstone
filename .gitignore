@@ -6,3 +6,10 @@ null
 games.battlships
 languages.visal
 .nb-gradle
+.idea
+Capstone.iml
+SoGaCo-Web-Battleships/SoGaCo-Web-Battleships.iml
+games.battleships/games.battleships.iml
+languages.visual/languages.visual.iml
+ui.battleships/ui.battleships.iml
+classes
