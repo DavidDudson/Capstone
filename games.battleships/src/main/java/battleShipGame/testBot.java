@@ -34,9 +34,9 @@ public class testBot {
             randX = rand.nextInt((10 - 0));
             randY = rand.nextInt((10 - 0));
         }
-        retCoord[0] = randX;
         retCoord[1] = randY;
-
+        retCoord[0] = randX;
+        System.out.println(retCoord[0] + " " + retCoord[1]);
         return retCoord;
 
     }
