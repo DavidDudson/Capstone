@@ -19,7 +19,7 @@ public class test {
         grid.generateShips();
         grid.loadGrid();
         Boolean allDeadShips = false;
-        System.out.print(printGrid(grid));
+//        System.out.print(printGrid(grid));
 
         while(!allDeadShips){
             int deadShips = 0;

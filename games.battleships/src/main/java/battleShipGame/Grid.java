@@ -180,11 +180,9 @@ public class Grid {
         }
         //check to see if the ship is still alive updates bool if not
         if (grid[positionY][positionX].getShipID()!= 0) {
-            System.out.println(grid[positionY][positionX].getShipID());
             ShipLinkedList hitShip = Ships.get(grid[positionY][positionX].getShipID() - 1);
             for (int i = 0; i<hitShip.getShipType(); i++) {
                 if (hitShip.getShipSection(i).getSectionStatus() == HIT) {
-                    System.out.println("hit");
                     continue;
                 } else {
                     return;
