@@ -1,0 +1,6 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+    <block type="procedures_defreturn" id="1" deletable="false" x="100" y="100">
+        <mutation></mutation>
+        <field name="NAME">getNextMove</field>
+    </block>
+</xml>
