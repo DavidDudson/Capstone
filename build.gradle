@@ -17,15 +17,20 @@ buildscript {
   }
 }
 
-//Configure Server plugin
-gretty{
-  //AutoReload of jars
-  managedClassReload = true
-  fastReload = true
-}
-
 //Apply server plugin
 apply plugin: 'org.akhikhl.gretty'
+
+//Configure Server plugin
+gretty{
+  //AutoReload of everything
+  managedClassReload = true
+  fastReload = true
+  scanDirs = './SoGaCo-Web-Battleships/src/main/webapp/'
+  onScanFilesChanged {print 'Huzzah'}
+  //Apply server plugin
+  apply plugin: 'org.akhikhl.gretty'
+}
+
 
 //Define all Wars to be loaded by server, requires updateSogaco task to be run at some point before use.
 farm {
