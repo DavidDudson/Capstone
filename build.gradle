@@ -1,5 +1,4 @@
-//-------Plugins---------//
-
+//Define repository
 allprojects{
   repositories {
       // Main repository for gathering plugins
@@ -18,18 +17,25 @@ buildscript {
   }
 }
 
+//Configure Server plugin
+gretty{
+  //AutoReload of jars
+  managedClassReload = true
+  fastReload = true
+}
+
 //Apply server plugin
 apply plugin: 'org.akhikhl.gretty'
 
 //Define all Wars to be loaded by server, requires updateSogaco task to be run at some point before use.
 farm {
-  webapp './build/libs/SoGaCo-Logging-0.0.3-SNAPSHOT.war'
-  webapp './build/libs/SoGaCo-Web-Home-0.0.3-SNAPSHOT.war'
-  webapp './build/libs/SoGaCo-Web-Mancala-0.0.3-SNAPSHOT.war'
-  webapp './build/libs/SoGaCo-Web-Othello-0.0.3-SNAPSHOT.war'
-  webapp './build/libs/SoGaCo-Web-Primegame-0.0.3-SNAPSHOT.war'
-  webapp './build/libs/SoGaCo-Web-Resources-0.0.3-SNAPSHOT.war'
-  webapp './build/libs/SoGaCo-Web-Battleships.war'
+  webapp './build/wars/SoGaCo-Logging-0.0.3-SNAPSHOT.war'
+  webapp './build/wars/SoGaCo-Web-Home-0.0.3-SNAPSHOT.war'
+  webapp './build/wars/SoGaCo-Web-Mancala-0.0.3-SNAPSHOT.war'
+  webapp './build/wars/SoGaCo-Web-Othello-0.0.3-SNAPSHOT.war'
+  webapp './build/wars/SoGaCo-Web-Primegame-0.0.3-SNAPSHOT.war'
+  webapp './build/wars/SoGaCo-Web-Resources-0.0.3-SNAPSHOT.war'
+  webapp './build/wars/SoGaCo-Web-Battleships.war'
 }
 
 //--------Tasks---------//
@@ -44,7 +50,6 @@ task cloneSogaco( type: Exec ) << {
 
 // Clone only when SoGaCo isnt in the build folder
 cloneSogaco.onlyIf { !file('./build/sogacoSrc/bruyere/').exists() }
-
 
 //Build SoGaCo from source
 task buildSogaco( type: Exec  , dependsOn: 'cloneSogaco' ) << {
