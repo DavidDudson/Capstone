@@ -47,12 +47,12 @@ farm {
 // Debug information to get a feel for whats happening.
 task cloneSogaco( type: Exec ) {
   mkdir './build/sogacoSrc'
-  commandLine 'hg clone https://CapstoneGroup1:Capstone@bitbucket.org/DavidDudson/bruyere -r 0.0.1 --debug'.split()
+  commandLine 'hg clone --debug https://CapstoneGroup1:Capstone@bitbucket.org/DavidDudson/bruyere'.split()
   workingDir = './build/sogacoSrc'
 }
 
 // Clone only when SoGaCo isnt in the build folder
-cloneSogaco.onlyIf { !file('./build/sogacoSrc/bruyere/').exists() }
+//cloneSogaco.onlyIf { !file('./build/sogacoSrc/bruyere/').exists() }
 
 //Build SoGaCo from source
 task buildSogaco( type: Exec  , dependsOn: 'cloneSogaco' ) {
