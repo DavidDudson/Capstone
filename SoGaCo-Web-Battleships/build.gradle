@@ -5,8 +5,9 @@ apply plugin: 'war'
 
 dependencies {
 
-    //Make this project depends on games.battleships
+    //Make this project depends on other Projects
     compile project(':games.battleships')
+    compile project(':languages.visual')
 
     //Logging
     compile 'org.slf4j:slf4j-api:1.7.7'
@@ -16,7 +17,7 @@ dependencies {
 }
 
 war {
-  destinationDir = file('../build/libs')
+  destinationDir = file('../build/wars')
 }
 
 buildDir = '../build/'

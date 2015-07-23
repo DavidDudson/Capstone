@@ -1,7 +1,7 @@
 apply plugin: 'java'
 
 jar {
-  destinationDir = file('../build/libs')
+  destinationDir = file('../build/jars')
 }
 
 buildDir = '../build/'
