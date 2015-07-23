@@ -1,5 +1,6 @@
 language: java
-script: gradle build
+script:
+  - ./gradlew buildAll
 deploy:
   provider: heroku
   api_key:

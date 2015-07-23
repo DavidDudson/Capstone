@@ -27,8 +27,6 @@ gretty{
   fastReload = true
   scanDirs = './SoGaCo-Web-Battleships/src/main/webapp/'
   onScanFilesChanged {print 'Huzzah'}
-  //Apply server plugin
-  apply plugin: 'org.akhikhl.gretty'
 }
 
 
@@ -79,3 +77,6 @@ task buildAll( type:GradleBuild ,dependsOn: 'copySogaco'){
 
 //Run the developement server on localhost with Gretty
 task runDevServer( dependsOn: ['buildAll','farmRun'])
+
+//What heroku uses to deploy
+task stage(dependsOn: ['clean', 'buildAll'])
