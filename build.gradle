@@ -78,5 +78,15 @@ task buildAll( type:GradleBuild ,dependsOn: 'copySogaco'){
 //Run the developement server on localhost with Gretty
 task runDevServer( dependsOn: ['buildAll','farmRun'])
 
+//Setup Mercurial and maven
+task herokuDependencies(type: Exec){
+      commandLine 'pip install hg maven'.split()
+}
+
+//Setup Heroku Build
+task herokuBuild(type: GradleBuild, dependsOn: 'herokuDependencies'){
+    tasks = ['build']
+}
+
 //What heroku uses to deploy
-task stage(dependsOn: ['buildAll'])
+task stage(dependsOn: ['herokuBuild'])
