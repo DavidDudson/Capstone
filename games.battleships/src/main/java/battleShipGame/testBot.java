@@ -17,7 +17,7 @@ public class testBot {
     private int DESTROYER = 3;
     private int BATTLESHIP = 4;
     private int AIRCRAFTCARRIER = 5;
-    private int HIT = 6
+    private int HIT = 6;
     private int MISS = 7;
 
 
