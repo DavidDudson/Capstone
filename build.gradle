@@ -79,4 +79,4 @@ task buildAll( type:GradleBuild ,dependsOn: 'copySogaco'){
 task runDevServer( dependsOn: ['buildAll','farmRun'])
 
 //What heroku uses to deploy
-task stage(dependsOn: ['clean', 'buildAll'])
+task stage(dependsOn: ['buildAll'])
