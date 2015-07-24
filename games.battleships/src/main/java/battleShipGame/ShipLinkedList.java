@@ -10,12 +10,12 @@ package battleShipGame;
  * @author adhoulih
  */
 public final class ShipLinkedList {
-
+    
     private Section head;
     private int shipType;
     private int shipID;
     private Boolean shipStatus = true;
-
+    
     ShipLinkedList(int shipType, int shipID){
         this.shipType = shipType;
         this.shipID = shipID;
@@ -23,25 +23,25 @@ public final class ShipLinkedList {
         for(int i =1; i< shipType; i++){
             this.addShipSection(new Section(shipType, shipID));
         }
-
+        
     }
-
+    
     public void addShipSection(Section section){
         if(head == null){
             head = section;
         }
-
+        
         Section currentSection = head;
         while(currentSection.getNextShipSection() != null){
             currentSection = currentSection.getNextShipSection();
         }
         currentSection.setNextShipSection(section);
     }
-
+    
     public Section getShipSection(int index){
         //returns section based on index value
         Section currentSection = head;
-        for(int i = 1; i< index; i++){
+        for(int i = 0; i< index; i++){
             if(currentSection.getNextShipSection() == null){
                 return null;
             }
@@ -91,5 +91,5 @@ public final class ShipLinkedList {
     public Boolean getShipStatus() {
         return shipStatus;
     }
-
+    
 }
