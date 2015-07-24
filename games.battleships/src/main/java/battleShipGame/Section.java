@@ -5,34 +5,34 @@ package battleShipGame;
  * @author adhoulih
  */
 public class Section{
-
+    
     private int sectionStatus;
-    private int shipID;
-    private Section nextShipSection;
-
+    private final int nodeID;
+    private Section nextNodeSection;
+    
     public Section(int sectionStatus, int shipID){
         this.sectionStatus = sectionStatus;
-        this.shipID = shipID;
+        this.nodeID = shipID;
     }
-
+    
     public Section getNextShipSection(){
-        return this.nextShipSection;
+        return this.nextNodeSection;
     }
     public void setNextShipSection(Section section){
-        this.nextShipSection = section;
+        this.nextNodeSection = section;
     }
-
+    
     public void setSectionStatus(int status){
         this.sectionStatus = status;
     }
     public int getSectionStatus(){
         return this.sectionStatus;
     }
-
+    
     public int getShipID(){
-        return this.shipID;
-
+        return this.nodeID;
+    
     }
 
-
+    
 }

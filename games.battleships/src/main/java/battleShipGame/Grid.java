@@ -38,7 +38,7 @@ public class Grid {
 
     public void generateShips() {
         // Generate a fixed amount of ships and placed in a list
-        Ships = new ArrayList<ShipLinkedList>();
+        Ships = new ArrayList();
         Ships.add(new ShipLinkedList(DESTROYER, 1));
         Ships.add(new ShipLinkedList(BATTLESHIP, 2));
         Ships.add(new ShipLinkedList(BATTLESHIP, 3));
@@ -59,7 +59,7 @@ public class Grid {
             int countDec = 0;
             int rootCount = 0;
 
-            //preform check on weather positions to the left/right up/down were
+            //preform check on weather positions to the left/right up/down were 
             //free to place a ship
             while (countInc < Ships.get(indx).getShipType()
                     && countDec < Ships.get(indx).getShipType()
@@ -91,7 +91,7 @@ public class Grid {
                 rootCount++;
 
             }
-            //if free places ship sections on grid else decrements
+            //if free places ship sections on grid else decrements 
             //the loop and tries again in a different position
             if (horizontal) {
                 if (countInc == Ships.get(indx).getShipType()
@@ -163,28 +163,31 @@ public class Grid {
         return this.Ships;
     }
 
-    public void playMove(int positionX, int positionY) {
+    public void playMove(int positionY, int positionX) {
         //play move based on postion choosen by the bot\
-
+        
         switch (grid[positionY][positionX].getSectionStatus()) {
             case 0:
                 grid[positionY][positionX].setSectionStatus(MISS);
+                break;
             case 2:
                 grid[positionY][positionX].setSectionStatus(HIT);
+                break;
             case 3:
                 grid[positionY][positionX].setSectionStatus(HIT);
+                break;
             case 4:
                 grid[positionY][positionX].setSectionStatus(HIT);
+                break;
             case 5:
                 grid[positionY][positionX].setSectionStatus(HIT);
+                break;
         }
         //check to see if the ship is still alive updates bool if not
-        if (grid[positionY][positionX].getShipID()!= 0) {
+        if (grid[positionY][positionX].getShipID()!= WATER) {
             ShipLinkedList hitShip = Ships.get(grid[positionY][positionX].getShipID() - 1);
             for (int i = 0; i<hitShip.getShipType(); i++) {
-                if (hitShip.getShipSection(i).getSectionStatus() == HIT) {
-                    continue;
-                } else {
+                if (hitShip.getShipSection(i).getSectionStatus() != HIT) {
                     return;
                 }
 
