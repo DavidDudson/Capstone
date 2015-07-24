@@ -1,5 +1,4 @@
-//-------Plugins---------//
-
+//Define repository
 allprojects{
   repositories {
       // Main repository for gathering plugins
@@ -21,15 +20,25 @@ buildscript {
 //Apply server plugin
 apply plugin: 'org.akhikhl.gretty'
 
+//Configure Server plugin
+gretty{
+  //AutoReload of everything
+  managedClassReload = true
+  fastReload = true
+  scanDirs = './SoGaCo-Web-Battleships/src/main/webapp/'
+  onScanFilesChanged {print 'Huzzah'}
+}
+
+
 //Define all Wars to be loaded by server, requires updateSogaco task to be run at some point before use.
 farm {
-  webapp './build/sogacoSrc/bruyere/build/target/projects/SoGaCo-Logging-0.0.3-SNAPSHOT.war'
-  webapp './build/sogacoSrc/bruyere/build/target/projects/SoGaCo-Web-Home-0.0.3-SNAPSHOT.war'
-  webapp './build/sogacoSrc/bruyere/build/target/projects/SoGaCo-Web-Mancala-0.0.3-SNAPSHOT.war'
-  webapp './build/sogacoSrc/bruyere/build/target/projects/SoGaCo-Web-Othello-0.0.3-SNAPSHOT.war'
-  webapp './build/sogacoSrc/bruyere/build/target/projects/SoGaCo-Web-Primegame-0.0.3-SNAPSHOT.war'
-  webapp './build/sogacoSrc/bruyere/build/target/projects/SoGaCo-Web-Resources-0.0.3-SNAPSHOT.war'
-  webapp './build/libs/SoGaCo-Web-Battleships.war'
+  webapp './build/wars/SoGaCo-Logging-0.0.3-SNAPSHOT.war'
+  webapp './build/wars/SoGaCo-Web-Home-0.0.3-SNAPSHOT.war'
+  webapp './build/wars/SoGaCo-Web-Mancala-0.0.3-SNAPSHOT.war'
+  webapp './build/wars/SoGaCo-Web-Othello-0.0.3-SNAPSHOT.war'
+  webapp './build/wars/SoGaCo-Web-Primegame-0.0.3-SNAPSHOT.war'
+  webapp './build/wars/SoGaCo-Web-Resources-0.0.3-SNAPSHOT.war'
+  webapp './build/wars/SoGaCo-Web-Battleships.war'
 }
 
 //--------Tasks---------//
@@ -38,11 +47,46 @@ farm {
 // Debug information to get a feel for whats happening.
 task cloneSogaco( type: Exec ) {
   mkdir './build/sogacoSrc'
-  commandLine 'hg clone https://Username:Password@bitbucket.org/jensdietrich/bruyere --debug -r 0.0.1'.split()
+  commandLine 'hg clone https://CapstoneGroup1:Capstone@bitbucket.org/DavidDudson/bruyere'.split()
   workingDir = './build/sogacoSrc'
 }
 
-task buildSogaco( type:Exec, dependsOn: 'cloneSogaco' ) {
+// Clone only when SoGaCo isnt in the build folder
+//cloneSogaco.onlyIf { !file('./build/sogacoSrc/bruyere/').exists() }
+
+//Build SoGaCo from source
+task buildSogaco( type: Exec  , dependsOn: 'cloneSogaco' ) {
     commandLine 'mvn clean install'.split()
     workingDir = './build/sogacoSrc/bruyere/build/'
 }
+
+// Build only when SoGaCo hasn't been built before
+buildSogaco.onlyIf { !file('./build/sogacoSrc/bruyere/build/target/projects/').exists()}
+
+//Copy SoGaCo to out target Directory
+task copySogaco( type: Copy , dependsOn: 'buildSogaco' ) {
+  from './build/sogacoSrc/bruyere/build/target/projects'
+  into './build/wars'
+  include '**/*.war'
+}
+
+//Build All Code and output to target Dir
+task buildAll( type:GradleBuild ,dependsOn: 'copySogaco'){
+  tasks = ['build']
+}
+
+//Run the developement server on localhost with Gretty
+task runDevServer( dependsOn: ['buildAll','farmRun'])
+
+//Setup Mercurial and maven
+task herokuDependencies(type: Exec){
+      commandLine 'pip install hg maven'.split()
+}
+
+//Setup Heroku Build
+task herokuBuild(type: GradleBuild, dependsOn: 'herokuDependencies'){
+    tasks = ['build']
+}
+
+//What heroku uses to deploy
+task stage(dependsOn: ['herokuBuild'])

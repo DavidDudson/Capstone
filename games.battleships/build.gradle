@@ -4,16 +4,12 @@ apply plugin: 'java'
 
 // Define Production dependencies
 dependencies {
-
-    //Logging
-    compile 'org.slf4j:slf4j-api:1.7.7'
-
     //Testing
     testCompile "junit:junit:4.11"
 }
 
 jar {
-  destinationDir = file('../build/libs')
+  destinationDir = file('../build/jars')
 }
 
 buildDir = '../build/'
