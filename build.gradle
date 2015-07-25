@@ -52,7 +52,7 @@ task cloneSogaco( type: Exec ) {
 }
 
 // Clone only when SoGaCo isnt in the build folder
-//cloneSogaco.onlyIf { !file('./build/sogacoSrc/bruyere/').exists() }
+cloneSogaco.onlyIf { !file('./build/sogacoSrc/bruyere/').exists() }
 
 //Build SoGaCo from source
 task buildSogaco( type: Exec  , dependsOn: 'cloneSogaco' ) {
@@ -63,7 +63,7 @@ task buildSogaco( type: Exec  , dependsOn: 'cloneSogaco' ) {
 // Build only when SoGaCo hasn't been built before
 buildSogaco.onlyIf { !file('./build/sogacoSrc/bruyere/build/target/projects/').exists()}
 
-//Copy SoGaCo to out target Directory
+//Copy cloned SoGaCo to out target Directory
 task copySogaco( type: Copy , dependsOn: 'buildSogaco' ) {
   from './build/sogacoSrc/bruyere/build/target/projects'
   into './build/wars'
@@ -71,22 +71,19 @@ task copySogaco( type: Copy , dependsOn: 'buildSogaco' ) {
 }
 
 //Build All Code and output to target Dir
-task buildAll( type:GradleBuild ,dependsOn: 'copySogaco'){
+task buildAll( type: GradleBuild ,dependsOn: 'copySogaco'){
   tasks = ['build']
+}
+
+//Copy temperary war's into the Gretty Server dir
+task herokuDependencies(type: Copy){
+  from './heroku-libs/'
+  into './build/wars'
+  include '**/*.war'
 }
 
 //Run the developement server on localhost with Gretty
 task runDevServer( dependsOn: ['buildAll','farmRun'])
 
-//Setup Mercurial and maven
-task herokuDependencies(type: Exec){
-      commandLine 'pip install hg maven'.split()
-}
-
-//Setup Heroku Build
-task herokuBuild(type: GradleBuild, dependsOn: 'herokuDependencies'){
-    tasks = ['build']
-}
-
 //What heroku uses to deploy
-task stage(dependsOn: ['herokuBuild'])
+task stage(dependsOn: ['build','herokuDependencies'])
