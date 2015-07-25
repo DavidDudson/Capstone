@@ -19,26 +19,30 @@ public class testBot {
     private int AIRCRAFTCARRIER = 5;
     private int HIT = 6;
     private int MISS = 7;
-
-
-
+    
+    
+    
     public testBot(){
-
+        
     }
     public int[] runMove(Section[][] grid){
         int[] retCoord = new int[2];
         Random rand = new Random();
-        int randX = rand.nextInt((10 - 0));
-        int randY = rand.nextInt((10 - 0));
-        while(grid[randY][randX].getSectionStatus() == HIT){
-            randX = rand.nextInt((10 - 0));
-            randY = rand.nextInt((10 - 0));
+        int randY = rand.nextInt((10));
+        int randX = rand.nextInt((10));
+        while(grid[randY][randX].getSectionStatus() == HIT || grid[randY][randX].getSectionStatus() == MISS){
+            randX = rand.nextInt((10));
+            randY = rand.nextInt((10));
+            
         }
-        retCoord[1] = randY;
-        retCoord[0] = randX;
-        System.out.println(retCoord[0] + " " + retCoord[1]);
+        System.out.println(grid[randY][randX].getSectionStatus());
+        retCoord[0] = randY;
+        retCoord[1] = randX;
+        
+        
+        
         return retCoord;
-
+        
     }
-
+    
 }
