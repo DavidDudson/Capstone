@@ -1,4 +1,4 @@
-<%--
+<%-- 
     /* global j */
 
 /* global j */
@@ -77,7 +77,7 @@ Document   : gameState
 
                 %>
                 <tr>
-                    <%
+                    <%                        
                         for (int j = 0; j < SIZE; j++) {
                     %>
                     <td id="<%=count%>">
@@ -90,8 +90,8 @@ Document   : gameState
             </table>
 
             <Button onclick="prevMove()">prevMove</button>
-            <Button onclick="nextMove()">nextMove</button>
-        </div>
+            <Button onclick="nextMove()">nextMove</button>         
+        </div> 
         <script>
             var gameArray = new Array(10);
             for (var z = 0; z < 10; z++) {
@@ -101,14 +101,14 @@ Document   : gameState
                 for (int i = 0; i < bot1Grid.getGrid().length; i++) {
                     for (int j = 0; j < bot1Grid.getGrid().length; j++) {
             %>
-
+                
             gameArray[<%= i%>][<%= j%>] = <%= bot1Grid.getGrid()[i][j].getSectionStatus()%>;
-
+    
             <%
                     }
                 }
             %>
-
+            
 
             for (var i = 0; i < 10; i++) {
                 for (var j = 0; j < 10; j++) {
@@ -147,14 +147,14 @@ Document   : gameState
             }
             }
             var bot1Moves = new Array(100);
-
-
+  
+            
             for (var k = 0; k < 100; k++) {
                 bot1Moves[k] = new Array(2);
             }
-            <%
-                    gameRun();
-
+            <%           
+                    gameRun();  
+                    
                     for (int yCoord = 0; yCoord < bot1Moves.length; yCoord++) {
 
             %>
@@ -168,7 +168,7 @@ Document   : gameState
                     var yCoord = bot1Moves[currentMoveCount][0];
                     var xCoord = bot1Moves[currentMoveCount][1];
                     var pos = yCoord * 10 + xCoord;
-
+                    
                     switch (gameArray[yCoord][xCoord].toString()) {
                     case '0':
                         upSectCol = "#FFFFFF";
@@ -193,10 +193,10 @@ Document   : gameState
                     document.getElementById(pos).style.backgroundColor = upSectCol;
                     currentMoveCount++;
 
-
+            
         }
 
-
+ 
 
         </script>
     </body>
