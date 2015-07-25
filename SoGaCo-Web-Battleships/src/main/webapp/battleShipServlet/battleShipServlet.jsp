@@ -7,13 +7,15 @@ Document   : gameState
     Created on : 16/07/2015, 10:26:48 AM
     Author     : adhoulih
 --%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+         pageEncoding="ISO-8859-1"%>
+
 <%@page import="battleShipGame.test"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="battleShipGame.ShipLinkedList"%>
 <%@page import="battleShipGame.testBot"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-         pageEncoding="ISO-8859-1"%>
 <%@page import="battleShipGame.Grid"%>
+
 <%!
     int SIZE = 10;
     testBot bot1 = new testBot();
@@ -26,7 +28,7 @@ Document   : gameState
 
         while (true) {
             int deadShips = 0;
-            
+
             retVals = bot1.runMove(bot1Grid.getGrid());
             bot1Moves[movesIndex] = retVals;
             bot1Grid.playMove(retVals[0], retVals[1]);
@@ -35,22 +37,21 @@ Document   : gameState
                     deadShips++;
                 }
             }
-            System.out.println(deadShips);
             if (deadShips == bot1Grid.getShips().size()) {
                 break;
             }
-            
-            movesIndex++;
 
+
+           movesIndex++;
         }
     }
 
 
 %>
+
 <%
     bot1Grid.generateShips();
     bot1Grid.loadGrid();
-    System.out.println(test.printGrid(bot1Grid));
 %>
 <style>
     .node {
@@ -76,7 +77,8 @@ Document   : gameState
 
                 %>
                 <tr>
-                    <%                        for (int j = 0; j < SIZE; j++) {
+                    <%                        
+                        for (int j = 0; j < SIZE; j++) {
                     %>
                     <td id="<%=count%>">
                         <%= count%>
@@ -91,28 +93,28 @@ Document   : gameState
             <Button onclick="nextMove()">nextMove</button>         
         </div> 
         <script>
-            var currentMoveCount = 0;
             var gameArray = new Array(10);
-
-            var bot1Moves = new Array(100);
-
             for (var z = 0; z < 10; z++) {
                 gameArray[z] = new Array(10);
             }
             <%
-
                 for (int i = 0; i < bot1Grid.getGrid().length; i++) {
                     for (int j = 0; j < bot1Grid.getGrid().length; j++) {
             %>
+                
             gameArray[<%= i%>][<%= j%>] = <%= bot1Grid.getGrid()[i][j].getSectionStatus()%>;
-            <%      }
-                }%>
+    
+            <%
+                    }
+                }
+            %>
+            
 
             for (var i = 0; i < 10; i++) {
                 for (var j = 0; j < 10; j++) {
 
-                    var sectionColor;
-                    switch (gameArray[i][j]) {
+                        var sectionColor;
+                        switch (gameArray[i][j]) {
                         case 0:
                             sectionColor = "#A6B8ED";
                             break;
@@ -139,45 +141,63 @@ Document   : gameState
                             break;
                         default:
                             sectionColor = "#FFFFFF";
-
-                    }
-
-                    document.getElementById(i * 10 + j).style.backgroundColor = sectionColor;
                 }
-            }
 
+            document.getElementById(i * 10 + j).style.backgroundColor = sectionColor;
+            }
+            }
+            var bot1Moves = new Array(100);
+  
+            
             for (var k = 0; k < 100; k++) {
                 bot1Moves[k] = new Array(2);
             }
-            <%
-                gameRun();
-                System.out.println(Arrays.deepToString(bot1Moves));
-                System.out.println(test.printGrid(bot1Grid));
-                for (int t = 0; t < bot1Moves.length; t++) {
-            %>
+            <%           
+                    gameRun();  
+                    
+                    for (int yCoord = 0; yCoord < bot1Moves.length; yCoord++) {
 
-            bot1Moves[<%=t%>][0] = <%= bot1Moves[t][0]%>
-            bot1Moves[<%=t%>][1] = <%= bot1Moves[t][1]%>
+            %>
+                    bot1Moves[<%=yCoord%>][0] = <%= bot1Moves[yCoord][0]%>
+                    bot1Moves[<%=yCoord%>][1] = <%= bot1Moves[yCoord][1]%>
 
             <%}%>
-
-
-
+            var currentMoveCount = 0;
             function nextMove() {
-                var pos = bot1Moves[currentMoveCount][0] * 10 + bot1Moves[currentMoveCount][1];
-                document.getElementById(pos).style.backgroundColor = '#009999';
-                if (currentMoveCount !== 99) {
-                    currentMoveCount++;
-                }
-            }
-            function prevMove() {
-                if (currentMoveCount !== 0) {
-                    currentMoveCount--;
-                }
-                var pos = bot1Moves[currentMoveCount][0] * 10 + bot1Moves[currentMoveCount][1];
-                document.getElementById(pos).style.backgroundColor = '#A6B8ED';
+                    var upSectCol;
+                    var yCoord = bot1Moves[currentMoveCount][0];
+                    var xCoord = bot1Moves[currentMoveCount][1];
+                    var pos = yCoord * 10 + xCoord;
+                    
+                    switch (gameArray[yCoord][xCoord].toString()) {
+                    case '0':
+                        upSectCol = "#FFFFFF";
+                        break;
+                    case '1':
+                        upSectCol = "#FF1919";
+                        break;
+                    case '2':
+                        upSectCol = "#FF1919";
+                        break;
+                    case '3':
+                        upSectCol = "#FF1919";
+                        break;
+                    case '4':
+                        upSectCol = "#FF1919";
+                        break;
+                    case '5':
+                        upSectCol = "#FF1919";
+                        break;
 
             }
+                    document.getElementById(pos).style.backgroundColor = upSectCol;
+                    currentMoveCount++;
+
+            
+        }
+
+ 
+
         </script>
     </body>
 </html>
