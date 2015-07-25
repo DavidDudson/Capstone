@@ -86,4 +86,6 @@ task herokuDependencies(type: Copy){
 task runDevServer( dependsOn: ['buildAll','farmRun'])
 
 //What heroku uses to deploy
-task stage(dependsOn: ['build','herokuDependencies'])
+task stage(type: GradleBuild ,dependsOn: ['herokuDependencies']){
+    tasks = ['build']
+}
