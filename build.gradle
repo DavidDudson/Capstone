@@ -66,7 +66,7 @@ buildSogaco.onlyIf { !file('./build/sogacoSrc/bruyere/build/target/projects/').e
 //Copy cloned SoGaCo to out target Directory
 task copySogaco( type: Copy , dependsOn: 'buildSogaco' ) {
   from './build/sogacoSrc/bruyere/build/target/projects'
-  into './build/wars'
+  into './target'
   include '**/*.war'
 }
 
@@ -78,7 +78,7 @@ task buildAll( type: GradleBuild ,dependsOn: 'copySogaco'){
 //Copy temperary war's into the Gretty Server dir
 task herokuDependencies(type: Copy){
   from './heroku-libs/'
-  into './build/wars'
+  into './target'
   include '**/*.war'
 }
 
