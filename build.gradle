@@ -20,25 +20,31 @@ buildscript {
 //Apply server plugin
 apply plugin: 'org.akhikhl.gretty'
 
+//Apply code coverage
+apply plugin: "jacoco"
+
 //Configure Server plugin
 gretty{
   //AutoReload of everything
   managedClassReload = true
   fastReload = true
   scanDirs = './SoGaCo-Web-Battleships/src/main/webapp/'
-  onScanFilesChanged {print 'Huzzah'}
 }
 
+jacoco {
+    toolVersion = "0.7.1.201405082137"
+    reportsDir = file("$buildDir/ReportDir")
+}
 
 //Define all Wars to be loaded by server, requires updateSogaco task to be run at some point before use.
 farm {
-  webapp './build/wars/SoGaCo-Logging-0.0.3-SNAPSHOT.war'
-  webapp './build/wars/SoGaCo-Web-Home-0.0.3-SNAPSHOT.war'
-  webapp './build/wars/SoGaCo-Web-Mancala-0.0.3-SNAPSHOT.war'
-  webapp './build/wars/SoGaCo-Web-Othello-0.0.3-SNAPSHOT.war'
-  webapp './build/wars/SoGaCo-Web-Primegame-0.0.3-SNAPSHOT.war'
-  webapp './build/wars/SoGaCo-Web-Resources-0.0.3-SNAPSHOT.war'
-  webapp './build/wars/SoGaCo-Web-Battleships.war'
+  webapp './target/SoGaCo-Logging-0.0.3-SNAPSHOT.war'
+  webapp './target/SoGaCo-Web-Home-0.0.3-SNAPSHOT.war'
+  webapp './target/SoGaCo-Web-Mancala-0.0.3-SNAPSHOT.war'
+  webapp './target/SoGaCo-Web-Othello-0.0.3-SNAPSHOT.war'
+  webapp './target/SoGaCo-Web-Primegame-0.0.3-SNAPSHOT.war'
+  webapp './target/SoGaCo-Web-Resources-0.0.3-SNAPSHOT.war'
+  webapp './target/SoGaCo-Web-Battleships.war'
 }
 
 //--------Tasks---------//
