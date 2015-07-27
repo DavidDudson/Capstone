@@ -25,7 +25,12 @@ public final class ShipLinkedList {
         }
         
     }
-    
+
+    /**
+     * Add a ship section to the ship linked list
+     *
+     * @param section ship section node
+     */
     public void addShipSection(Section section){
         if(head == null){
             head = section;
@@ -37,7 +42,12 @@ public final class ShipLinkedList {
         }
         currentSection.setNextShipSection(section);
     }
-    
+
+    /**
+     * Get the shipSection based on index
+     * @param index index value of ship section
+     * @return ship section node
+     */
     public Section getShipSection(int index){
         //returns section based on index value
         Section currentSection = head;
@@ -58,7 +68,7 @@ public final class ShipLinkedList {
     }
 
     /**
-     * @param shipType the shipType to set
+     * @param shipType to set
      */
     public void setShipType(int shipType) {
         this.shipType = shipType;
@@ -72,14 +82,14 @@ public final class ShipLinkedList {
     }
 
     /**
-     * @param shipID the shipID to set
+     * @param shipID to set
      */
     public void setShipID(int shipID) {
         this.shipID = shipID;
     }
 
     /**
-     * @param shipStatus the shipStatus to set
+     * @param shipStatus to set
      */
     public void setShipStatus(Boolean shipStatus) {
         this.shipStatus = shipStatus;
