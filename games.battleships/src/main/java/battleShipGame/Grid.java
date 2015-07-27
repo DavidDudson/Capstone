@@ -36,6 +36,9 @@ public class Grid {
 
     }
 
+    /**
+     * Generate ships. ship numbers are hard-coded.
+     */
     public void generateShips() {
         // Generate a fixed amount of ships and placed in a list
         Ships = new ArrayList();
@@ -48,11 +51,14 @@ public class Grid {
 
     }
 
+    /**
+     * loads grid from generated ships and computes the positions
+     */
     public void loadGrid() {
         // Load ships into grid computing randomly their positions
         Random rn = new Random();
         for (int indx = 0; indx < Ships.size(); indx++) {
-            int randomNum = rn.nextInt((9 - 0));
+            int randomNum = rn.nextInt(9);
             Boolean horizontal = rn.nextBoolean();
 
             int countInc = 0;
@@ -152,17 +158,30 @@ public class Grid {
         }
     }
 
+    /**
+     * get current grid state
+     * @return current grid
+     */
     public Section[][] getGrid() {
         // Get current grid state
         return this.grid;
 
     }
 
+    /**
+     * get array of ships
+     * @return current array of ships
+     */
     public ArrayList<ShipLinkedList> getShips() {
         // return array of ships
         return this.Ships;
     }
 
+    /**
+     * play a move computed by the bot
+     * @param positionY y-coord grid index value
+     * @param positionX x-coord grid index value
+     */
     public void playMove(int positionY, int positionX) {
         //play move based on postion choosen by the bot\
         
