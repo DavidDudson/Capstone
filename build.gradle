@@ -1,3 +1,17 @@
+//get version string from git details
+def getVersionName = { ->
+    def stdout = new ByteArrayOutputStream()
+    exec {
+        commandLine 'git', 'describe', '--tags'
+        standardOutput = stdout
+    }
+    return stdout.toString().trim()
+}
+
+//Define name of project etc.
+version = getVersionName()
+
+
 //Define repository
 allprojects{
   repositories {
@@ -44,7 +58,7 @@ farm {
   webapp './target/SoGaCo-Web-Othello-0.0.3-SNAPSHOT.war'
   webapp './target/SoGaCo-Web-Primegame-0.0.3-SNAPSHOT.war'
   webapp './target/SoGaCo-Web-Resources-0.0.3-SNAPSHOT.war'
-  webapp './target/SoGaCo-Web-Battleships.war'
+  webapp './target/SoGaCo-Web-Battleships-' + getVersionName() + '.war'
 }
 
 //--------Tasks---------//
@@ -76,8 +90,14 @@ task copySogaco( type: Copy , dependsOn: 'buildSogaco' ) {
   include '**/*.war'
 }
 
+task cleanTargetDir(type: Delete) {
+  delete fileTree(dir: "target")
+}
+
+copySogaco.mustRunAfter('cleanTargetDir')
+
 //Build All Code and output to target Dir
-task buildAll( type: GradleBuild ,dependsOn: 'copySogaco'){
+task buildAll( type: GradleBuild ,dependsOn: ['copySogaco','cleanTargetDir']){
   tasks = ['build']
 }
 
