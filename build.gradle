@@ -39,6 +39,7 @@ apply plugin: "jacoco"
 
 //Configure Server plugin
 gretty{
+  servletContainer = 'jetty9'
   //AutoReload of everything
   managedClassReload = true
   fastReload = true
@@ -90,6 +91,7 @@ task copySogaco( type: Copy , dependsOn: 'buildSogaco' ) {
   include '**/*.war'
 }
 
+//Cleans the target directory
 task cleanTargetDir(type: Delete) {
   delete fileTree(dir: "target")
 }
