@@ -7,7 +7,7 @@ import java.util.Random;
  *
  * @author adhoulih
  */
-public class Grid {
+public class Grid implements Cloneable{
 
     // Grid matrix size
     private int SIZE;
@@ -50,12 +50,17 @@ public class Grid {
 
     }
 
+    @Override
     public Object clone() throws CloneNotSupportedException {
+        Grid cloned  = (Grid) super.clone();
         return super.clone();
     }
 
     /**
      * loads grid from generated ships and computes the positions
+     * @param curShip current ship
+     * @param yCoord current grid y coordinate
+     * @param xCoord current grid x coordinate
      */
     public int viableDirection(ShipLinkedList curShip, int yCoord, int xCoord) {
         int[] viableDirections = {0, 1, 2, 3};
@@ -89,10 +94,10 @@ public class Grid {
         }
         return chosenDirection;
     }
-
+    /**
+     * Load ships into grid computing randomly their positions
+     */
     public void loadGrid() {
-        // Load ships into grid computing randomly their positions
-        System.out.println("called");
         Random rand = new Random();
         for (int i = 0; i < Ships.size(); i++) {
 
