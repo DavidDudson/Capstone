@@ -1,13 +1,15 @@
 package battleShipGame;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
+import org.apache.commons.lang.SerializationUtils;
 
 /**
  *
  * @author adhoulih
  */
-public class Grid implements Cloneable{
+public class Grid implements Serializable{
 
     // Grid matrix size
     private int SIZE;
@@ -50,10 +52,8 @@ public class Grid implements Cloneable{
 
     }
 
-    @Override
-    public Object clone() throws CloneNotSupportedException {
-        Grid cloned  = (Grid) super.clone();
-        return super.clone();
+    public Grid deepClone() throws CloneNotSupportedException {
+        return (Grid) SerializationUtils.clone(this);
     }
 
     /**

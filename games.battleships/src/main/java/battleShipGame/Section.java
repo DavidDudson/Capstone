@@ -1,10 +1,12 @@
 package battleShipGame;
 
+import java.io.Serializable;
+
 /**
  *
  * @author adhoulih
  */
-public class Section{
+public class Section implements Serializable{
     
     private int sectionStatus;
     private final int nodeID;
