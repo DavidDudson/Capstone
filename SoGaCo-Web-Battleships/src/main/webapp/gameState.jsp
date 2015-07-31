@@ -19,7 +19,7 @@ Document   : gameState
     testBot bot1 = new testBot();
     Grid bot1Grid;
     int[][] bot1Moves = new int[100][2];
-    
+
     testBot bot2 = new testBot();
     Grid bot2Grid;
     int[][] bot2Moves = new int[100][2];
@@ -43,23 +43,25 @@ Document   : gameState
             }
             movesIndex++;
         }
+        if (movesIndex < 99) {
+            botMoves[movesIndex + 1][0] = -1;
+            botMoves[movesIndex + 1][1] = -1;
+        }
+
         return botMoves;
     }
-    public Grid returnClone(Grid grid) throws Exception{
-        return (Grid) grid.clone();
-    }
-    public static StringBuilder printGrid(Grid grid){
+
+    public static StringBuilder printGrid(Grid grid) {
         StringBuilder outGrid = new StringBuilder();
-        for(Section[] rowSection:grid.getGrid()){
+        for (Section[] rowSection : grid.getGrid()) {
             outGrid.append("---------------------\n");
             StringBuilder row = new StringBuilder();
-            for(Section colSection:rowSection){
+            for (Section colSection : rowSection) {
                 row.append("|").append(colSection.getSectionStatus());
             }
             row.append("|\n");
 
             outGrid.append(row);
-
 
         }
         return outGrid;
@@ -70,17 +72,34 @@ Document   : gameState
     bot1Grid = new Grid(SIZE);
     bot1Grid.generateShips();
     bot1Grid.loadGrid();
-    
-    bot2Grid = returnClone(bot1Grid);
 
-
+    bot2Grid = bot1Grid.deepClone();
 
 
 %>
 <style>
+
+    .grids {
+        float: left;
+        width: 500px;
+        height: 245px;
+
+    }
+    .currentShips {
+        float: right
+    }
+    .gameState1 {
+        float: left;
+        margin-right: 20px;
+    }
+    .gameState2 {
+        float: right;
+        margin-left: 20px;
+    }
+
     .node {
-        width:50px;
-        height:50px;
+        width:10px;
+        height:10px;
         background-color: red;
     }
 </style>
@@ -112,10 +131,64 @@ Document   : gameState
             case 7:
                 sectionColor = "#FFFFFF";
                 break;
-            default:
-                sectionColor = "#FFFFFF";
         }
         return sectionColor;
+
+    }
+
+    function retHitOrMiss(gameArrIndex) {
+        var newSectCol;
+        switch (gameArrIndex) {
+            case 0:
+                newSectCol = "#FFFFFF";
+                break;
+            case 1:
+                newSectCol = "#FF0000";
+                break;
+            case 2:
+                newSectCol = "#FF0000";
+                break;
+            case 3:
+                newSectCol = "#FF0000";
+                break;
+            case 4:
+                newSectCol = "#FF0000";
+                break;
+            case 5:
+                newSectCol = "#FF0000";
+                break;
+        }
+        return newSectCol;
+
+    }
+
+    function nextMove() {
+        if (bot1Moves[bot1MoveCount][0] === -1) {
+            document.getElementById("nextButton").disabled = true;
+            alert("bot1 wins");
+        }
+        if (bot2Moves[bot2MoveCount][0] === -1) {
+            document.getElementById("nextButton").disabled = true;
+            alert("bot2 wins");
+        }
+
+        if (player1Move) {
+            var yCoordA = bot1Moves[bot1MoveCount][0];
+            var xCoordA = bot1Moves[bot1MoveCount][1];
+            var posA = "a" + (yCoordA * 10 + xCoordA);
+            document.getElementById(posA).style.backgroundColor = retHitOrMiss(gameArrayA[yCoordA][xCoordA]);
+            bot1MoveCount++;
+
+        } else {
+            var yCoordB = bot2Moves[bot2MoveCount][0];
+            var xCoordB = bot2Moves[bot2MoveCount][1];
+            var posB = "b" + (yCoordB * 10 + xCoordB);
+            document.getElementById(posB).style.backgroundColor = retHitOrMiss(gameArrayB[yCoordB][xCoordB]);
+            bot2MoveCount++;
+        }
+        player1Move = !player1Move;
+
+
 
     }
 
@@ -123,50 +196,92 @@ Document   : gameState
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Cache-Control" content="no-store" />
         <title>JSP Page</title>
     </head>
     <body>
-        <p id="demo"></p>
-        <div class="gameState">
-            <table class="node" border="1">
-                <%                    int countA = 0;
-                    for (int i = 0; i < SIZE; i++) {
-                %>
-                <tr>
-                    <%
-                        for (int j = 0; j < SIZE; j++) {
+        <div class="grids">
+            <div class="gameState1">
+                <table class="node" border="1">
+                    <%                    int countA = 0;
+                        for (int i = 0; i < SIZE; i++) {
                     %>
-                    <td id="a<%=countA%>">
-                        <%= countA%>
-                        <%countA++; %>
-                    </td>
+                    <tr>
+                        <%
+                            for (int j = 0; j < SIZE; j++) {
+                        %>
+                        <td id="a<%=countA%>">
+                            <%= countA%>
+                            <%countA++; %>
+                        </td>
+                        <%}%>
+                    </tr>
                     <%}%>
+                </table>
+
+            </div> 
+            <div class="gameState2">
+                <table class="node" border="1">
+                    <%                    int countB = 0;
+                        for (int i = 0; i < SIZE; i++) {
+                    %>
+                    <tr>
+                        <%
+                            for (int j = 0; j < SIZE; j++) {
+                        %>
+                        <td id="b<%=countB%>">
+                            <%= countB%>
+                            <%countB++; %>
+                        </td>
+                        <%}%>
+                    </tr>
+                    <%}%>
+                </table>
+                <Button id="nextButton" onclick="nextMove()">nextMove</button>    
+
+            </div>
+        </div>
+        <div class="currentShips">
+            <table>
+                <tr>
+                    <td>boats type
+                        <div class="node"></div>
+                        <div class="node"></div>
+                        <div class="node"></div>
+                        <div class="node"></div>
+                        <div class="node"></div>
+                    </td>
+                    <td>player 1</td>
+                    <td>player 2</td> 
                 </tr>
-                <%}%>
+                <tr>
+                    <td>Aircraft carrier</td>
+                    <td>1</td> 
+                    <td>1</td>
+                </tr>
+                                <tr>
+                    <td>Battleship</td>
+                    <td>2</td> 
+                    <td>2</td>
+                </tr>
+                                <tr>
+                    <td>Destroyer</td>
+                    <td>2</td> 
+                    <td>2</td>
+                </tr>
+                                <tr>
+                    <td>Patrol boat</td>
+                    <td>2</td> 
+                    <td>2</td>
+                </tr>
+                
             </table>
 
-        </div> 
-        <div class="gameState">
-            <table class="node" border="1">
-                <%                    int countB = 0;
-                    for (int i = 0; i < SIZE; i++) {
-                %>
-                <tr>
-                    <%
-                        for (int j = 0; j < SIZE; j++) {
-                    %>
-                    <td id="b<%=countB%>">
-                        <%= countB%>
-                        <%countB++; %>
-                    </td>
-                    <%}%>
-                </tr>
-                <%}%>
-            </table>
-            <Button onclick="prevMove()">prevMove</button>
-            <Button onclick="nextMove()">nextMove</button>    
 
-        </div> 
+
+
+        </div>
+
         <script>
             var gameArrayA = new Array(10);
             var gameArrayB = new Array(10);
@@ -177,7 +292,7 @@ Document   : gameState
             <%
                 for (int i = 0; i < SIZE; i++) {
                     for (int j = 0; j < SIZE; j++) {
-            %>                                        
+            %>
             gameArrayA[<%= i%>][<%= j%>] = <%= bot1Grid.getGrid()[i][j].getSectionStatus()%>;
             gameArrayB[<%= i%>][<%= j%>] = <%= bot2Grid.getGrid()[i][j].getSectionStatus()%>;
 
@@ -202,35 +317,23 @@ Document   : gameState
             }
             <%
                 bot1Moves = gameRun(bot1Grid, bot1);
-                System.out.println(printGrid(bot2Grid));  
+                System.out.println(printGrid(bot2Grid));
                 bot2Moves = gameRun(bot2Grid, bot1);
                 for (int yCoord = 0; yCoord < bot1Moves.length; yCoord++) {
             %>
             bot1Moves[<%=yCoord%>][0] = <%= bot1Moves[yCoord][0]%>
             bot1Moves[<%=yCoord%>][1] = <%= bot1Moves[yCoord][1]%>
-            
+
             bot2Moves[<%=yCoord%>][0] = <%= bot2Moves[yCoord][0]%>
             bot2Moves[<%=yCoord%>][1] = <%= bot2Moves[yCoord][1]%>
             <%}%>
-            var currentMoveCount = 0;
+
+            var player1Move = true;
+
+            var bot1MoveCount = 0;
+            var bot2MoveCount = 0;
 
 
-
-            function nextMove() {
-                var yCoordA = bot1Moves[currentMoveCount][0];
-                var xCoordA = bot1Moves[currentMoveCount][1];
-                
-                var yCoordB = bot2Moves[currentMoveCount][0];
-                var xCoordB = bot2Moves[currentMoveCount][1];
-                
-                var posA = yCoordA * 10 + xCoordA;
-                var posB = yCoordB * 10 + xCoordB;
-                document.getElementById(posA).style.backgroundColor = getSectColor(gameArrayA[yCoordA][xCoordA]);
-                document.getElementById(posB).style.backgroundColor = getSectColor(gameArrayB[yCoordB][xCoordB]);
-                
-                currentMoveCount++;
-
-            }
 
         </script>
     </body>
