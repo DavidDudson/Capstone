@@ -6,6 +6,8 @@ apply plugin: 'java'
 dependencies {
     //Testing
     testCompile "junit:junit:4.11"
+
+    compile 'org.apache.directory.studio:org.apache.commons.lang:2.6'
 }
 
 jar {
