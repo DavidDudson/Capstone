@@ -2,4 +2,4 @@
 rootProject.name = 'Capstone'
 
 //Include all projects
-include 'ui.battleships', 'games.battleships', 'languages.visual', 'SoGaCo-Web-Battleships'
+include 'games.battleships', 'SoGaCo-Web-Battleships'

@@ -7,7 +7,6 @@ dependencies {
 
     //Make this project depends on other Projects
     compile project(':games.battleships')
-    compile project(':languages.visual')
 
     //Logging
     compile 'org.slf4j:slf4j-api:1.7.7'
@@ -18,6 +17,14 @@ dependencies {
 
 war {
   destinationDir = file('../target')
+  from('../build/docs/javadoc') {
+      include '**/*'
+      into 'javadoc'
+  }
+  from('../build/reports/tests/') {
+      include '**/*'
+      into 'reports'
+  }
 }
 
 buildDir = '../build/'
