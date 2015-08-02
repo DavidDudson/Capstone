@@ -18,28 +18,27 @@ Document   : gameState
     int SIZE = 10;
     testBot bot1 = new testBot();
     Grid bot1Grid;
-    int[][] bot1Moves = new int[100][2];
+    int[][] bot1Moves = new int[100][3];
 
     testBot bot2 = new testBot();
     Grid bot2Grid;
-    int[][] bot2Moves = new int[100][2];
+    int[][] bot2Moves = new int[100][3];
 
     public int[][] gameRun(Grid grid, testBot bot) {
-        int[][] botMoves = new int[100][2];
+        int[][] botMoves = new int[100][4];
         int movesIndex = 0;
-        int[] retVals = new int[2];
-        while (true) {
-            int deadShips = 0;
+        int[] retVals = new int[4];
+        int deadShips = 0;
+        while (deadShips != grid.getShips().size()) {
             retVals = bot.runMove(grid.getGrid());
-            botMoves[movesIndex] = retVals;
-            grid.playMove(retVals[0], retVals[1]);
-            for (ShipLinkedList ship : grid.getShips()) {
-                if (!ship.getShipStatus()) {
-                    deadShips++;
-                }
-            }
-            if (deadShips == grid.getShips().size()) {
-                break;
+            botMoves[movesIndex][0] = retVals[0];
+            botMoves[movesIndex][1] = retVals[1];
+            botMoves[movesIndex][2] = grid.getGrid()[retVals[0]][retVals[1]].getSectionStatus();
+            botMoves[movesIndex][3] = grid.playMove(retVals[0], retVals[1]);
+
+            if (botMoves[movesIndex][3] != 0) {
+                deadShips++;
+
             }
             movesIndex++;
         }
@@ -97,13 +96,22 @@ Document   : gameState
         margin-left: 20px;
     }
 
-    .node {
-        width:10px;
-        height:10px;
-        background-color: red;
+    .nodeSection {
+        width:20px;
+        height:20px;
+        border-color: blue;
+        border-style: solid;
+        border-left-width:   5px;
+        float: left;;
     }
 </style>
 <script type="text/javascript">
+    var player1Move = true;
+    var bot1MoveCount = 0;
+    var bot2MoveCount = 0;
+
+
+
     function getSectColor(gameArrIndex) {
         var sectionColor;
         switch (gameArrIndex) {
@@ -162,7 +170,52 @@ Document   : gameState
 
     }
 
+    function alterBoatLiveGUI(sunkBoat, player) {
+        var playerBoat;
+        switch (sunkBoat) {
+            case 2:
+                playerBoat = document.getElementById(player + "Patrol");
+                break;
+            case 3:
+                playerBoat = document.getElementById(player + "Destroyer");
+                break;
+            case 4:
+                playerBoat = document.getElementById(player + "Battle");
+                break;
+            case 5:
+                playerBoat = document.getElementById(player + "AirCarry");
+                break;
+
+        }
+        var num = playerBoat.innerHTML;
+        num--;
+        playerBoat.innerHTML = num;
+
+    }
+
     function nextMove() {
+        if (player1Move) {
+            var yCoordA = bot1Moves[bot1MoveCount][0];
+            var xCoordA = bot1Moves[bot1MoveCount][1];
+            var posA = "a" + (yCoordA * 10 + xCoordA);
+            document.getElementById(posA).style.backgroundColor = retHitOrMiss(gameArrayA[yCoordA][xCoordA]);
+
+            if (bot1Moves[bot1MoveCount][3] !== 0) {
+                alterBoatLiveGUI(bot1Moves[bot1MoveCount][3], "p1");
+            }
+            bot1MoveCount++;
+
+        } else {
+            var yCoordB = bot2Moves[bot2MoveCount][0];
+            var xCoordB = bot2Moves[bot2MoveCount][1];
+            var posB = "b" + (yCoordB * 10 + xCoordB);
+            document.getElementById(posB).style.backgroundColor = retHitOrMiss(gameArrayB[yCoordB][xCoordB]);
+
+            if (bot2Moves[bot2MoveCount][3] !== 0) {
+                alterBoatLiveGUI(bot2Moves[bot2MoveCount][3], "p2");
+            }
+            bot2MoveCount++;
+        }
         if (bot1Moves[bot1MoveCount][0] === -1) {
             document.getElementById("nextButton").disabled = true;
             alert("bot1 wins");
@@ -171,26 +224,68 @@ Document   : gameState
             document.getElementById("nextButton").disabled = true;
             alert("bot2 wins");
         }
-
-        if (player1Move) {
-            var yCoordA = bot1Moves[bot1MoveCount][0];
-            var xCoordA = bot1Moves[bot1MoveCount][1];
-            var posA = "a" + (yCoordA * 10 + xCoordA);
-            document.getElementById(posA).style.backgroundColor = retHitOrMiss(gameArrayA[yCoordA][xCoordA]);
-            bot1MoveCount++;
-
-        } else {
-            var yCoordB = bot2Moves[bot2MoveCount][0];
-            var xCoordB = bot2Moves[bot2MoveCount][1];
-            var posB = "b" + (yCoordB * 10 + xCoordB);
-            document.getElementById(posB).style.backgroundColor = retHitOrMiss(gameArrayB[yCoordB][xCoordB]);
-            bot2MoveCount++;
+        if (bot1MoveCount !== 0) {
+            document.getElementById("prevMove").disabled = false;
         }
+
         player1Move = !player1Move;
 
 
 
     }
+    function prevMove() {
+        player1Move = !player1Move;
+
+        if (bot1Moves[bot1MoveCount][0] !== -1) {
+            document.getElementById("nextButton").disabled = false;
+        }
+        if (bot1MoveCount === 0){
+            document.getElementById("prevButton").disabled = true;
+        }
+        else if (player1Move) {
+            bot1MoveCount--;
+            var yCoordA = bot1Moves[bot1MoveCount][0];
+            var xCoordA = bot1Moves[bot1MoveCount][1];
+            var posA = "a" + (yCoordA * 10 + xCoordA);
+
+            document.getElementById(posA).style.backgroundColor = getSectColor(bot1Moves[bot1MoveCount][2]);
+
+            if (bot1Moves[bot1MoveCount][2] !== 0) {
+                alterBoatLiveGUI(bot1Moves[bot1MoveCount][2], "p1");
+            }
+
+
+        } else if (bot2MoveCount !== 0) {
+            bot2MoveCount--;
+
+            var yCoordB = bot2Moves[bot2MoveCount][0];
+            var xCoordB = bot2Moves[bot2MoveCount][1];
+            var posB = "b" + (yCoordB * 10 + xCoordB);
+            document.getElementById(posB).style.backgroundColor = getSectColor(bot2Moves[bot2MoveCount][2]);
+
+            if (bot2Moves[bot2MoveCount][2] !== 0) {
+                alterBoatLiveGUI(bot2Moves[bot2MoveCount][2], "p2");
+            }
+
+        }
+
+
+
+    }
+    function endGame() {
+
+        while (!document.getElementById("nextButton").disabled) {
+            nextMove();
+        }
+
+    }
+    function startOfGame() {
+        while (!document.getElementById("prevMove").disabled) {
+            prevMove();
+        }
+    }
+
+
 
 </script>
 <html>
@@ -237,44 +332,68 @@ Document   : gameState
                     </tr>
                     <%}%>
                 </table>
-                <Button id="nextButton" onclick="nextMove()">nextMove</button>    
+
 
             </div>
         </div>
         <div class="currentShips">
             <table>
+                </tr>
+                <Button id="startOfGame" onclick="startOfGame()">start Of Game</button> 
+                <Button id="prevMove" onclick="prevMove()">previous move</button> 
+                <Button id="pausePlay" onclick="pausePlay()">pause/play</button> 
+                <Button id="nextButton" onclick="nextMove()">next move</button>    
+                <Button id="endGame" onclick="endGame()">end game</button> 
+                </tr>
                 <tr>
                     <td>boats type
-                        <div class="node"></div>
-                        <div class="node"></div>
-                        <div class="node"></div>
-                        <div class="node"></div>
-                        <div class="node"></div>
                     </td>
                     <td>player 1</td>
                     <td>player 2</td> 
                 </tr>
                 <tr>
-                    <td>Aircraft carrier</td>
-                    <td>1</td> 
-                    <td>1</td>
+                    <td>
+                        <p>Aircraft carrier</p>
+                        <div class="nodeSection"></div>
+                        <div class="nodeSection"></div>
+                        <div class="nodeSection"></div>
+                        <div class="nodeSection"></div>
+                        <div class="nodeSection"></div>
+                    </td>
+                    <td><p id="p1AirCarry">1</p></td> 
+                    <td><p id="p2AirCarry">1</p></td>
                 </tr>
-                                <tr>
-                    <td>Battleship</td>
-                    <td>2</td> 
-                    <td>2</td>
+                <tr>
+                    <td>
+                        <p>Battleship</p>
+                        <div class="nodeSection"></div>
+                        <div class="nodeSection"></div>
+                        <div class="nodeSection"></div>
+                        <div class="nodeSection"></div>
+                    </td>
+                    <td><p id="p1Battle">2</p></td> 
+                    <td><p id="p2Battle">2</p></td>
                 </tr>
-                                <tr>
-                    <td>Destroyer</td>
-                    <td>2</td> 
-                    <td>2</td>
+                <tr>
+                    <td>
+                        <p>Destroyer</p>
+                        <div class="nodeSection"></div>
+                        <div class="nodeSection"></div>
+                        <div class="nodeSection"></div>
+                    </td>
+                    <td><p id="p1Destroyer">2</p></td> 
+                    <td><p id="p2Destroyer">2</p></td>
                 </tr>
-                                <tr>
-                    <td>Patrol boat</td>
-                    <td>2</td> 
-                    <td>2</td>
+                <tr>
+                    <td>
+                        <p>Patrol boat</p>
+                        <div class="nodeSection"></div>
+                        <div class="nodeSection"></div>
+                    </td>
+                    <td><p id="p1Patrol">2</p></td> 
+                    <td><p id="p2Patrol" >2</p></td>
                 </tr>
-                
+
             </table>
 
 
@@ -283,6 +402,8 @@ Document   : gameState
         </div>
 
         <script>
+            document.getElementById("prevMove").disabled = true;
+
             var gameArrayA = new Array(10);
             var gameArrayB = new Array(10);
             for (var z = 0; z < 10; z++) {
@@ -312,26 +433,26 @@ Document   : gameState
             var bot2Moves = new Array(100);
 
             for (var k = 0; k < 100; k++) {
-                bot1Moves[k] = new Array(2);
-                bot2Moves[k] = new Array(2);
+                bot1Moves[k] = new Array(4);
+                bot2Moves[k] = new Array(4);
             }
             <%
                 bot1Moves = gameRun(bot1Grid, bot1);
-                System.out.println(printGrid(bot2Grid));
                 bot2Moves = gameRun(bot2Grid, bot1);
                 for (int yCoord = 0; yCoord < bot1Moves.length; yCoord++) {
             %>
             bot1Moves[<%=yCoord%>][0] = <%= bot1Moves[yCoord][0]%>
             bot1Moves[<%=yCoord%>][1] = <%= bot1Moves[yCoord][1]%>
+            bot1Moves[<%=yCoord%>][2] = <%= bot1Moves[yCoord][2]%>
+            bot1Moves[<%=yCoord%>][3] = <%= bot1Moves[yCoord][3]%>
 
             bot2Moves[<%=yCoord%>][0] = <%= bot2Moves[yCoord][0]%>
             bot2Moves[<%=yCoord%>][1] = <%= bot2Moves[yCoord][1]%>
+            bot2Moves[<%=yCoord%>][2] = <%= bot2Moves[yCoord][2]%>
+            bot2Moves[<%=yCoord%>][3] = <%= bot2Moves[yCoord][3]%>
+
             <%}%>
 
-            var player1Move = true;
-
-            var bot1MoveCount = 0;
-            var bot2MoveCount = 0;
 
 
 
