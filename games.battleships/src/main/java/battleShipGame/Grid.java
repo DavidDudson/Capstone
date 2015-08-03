@@ -42,7 +42,7 @@ public class Grid implements Serializable{
      * Generate ships. ship numbers are hard-coded.
      */
     public void generateShips() {
-        Ships = new ArrayList();
+        Ships = new ArrayList<ShipLinkedList>();
         Ships.add(new ShipLinkedList(DESTROYER, 1));
         Ships.add(new ShipLinkedList(BATTLESHIP, 2));
         Ships.add(new ShipLinkedList(BATTLESHIP, 3));
