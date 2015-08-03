@@ -2,8 +2,21 @@ apply plugin: 'java'
 
 //-------Dependencies---------//
 
+repositories{
+  // Treat SoGaCo build output as a repository
+  flatDir {
+     dirs '../build/sogacoSrc/bruyere/build/target/projects/'
+  }
+}
+
 // Define Production dependencies
 dependencies {
+
+    //SoGaCo Dependencies
+    compile name: 'gamecore-0.0.3-SNAPSHOT'
+    compile name: 'services-0.0.3-SNAPSHOT'
+    compile name: 'languages.java-0.0.3-SNAPSHOT'
+
     //Testing
     testCompile "junit:junit:4.11"
 }
