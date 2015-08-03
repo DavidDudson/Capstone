@@ -14,8 +14,8 @@ public class EverySecondSquareBot extends BattleshipBot{
     private int moveCount = -1;
     private boolean goingDown = false;
 
-    public EverySecondSquareBot(String botId) {
-        super(botId);
+    public EverySecondSquareBot() {
+        super(EverySecondSquareBot.class.getName());
     }
 
     @Override
