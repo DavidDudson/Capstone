@@ -13,3 +13,5 @@ ui.battleships/ui.battleships.iml
 classes
 web
 target
+derby.log
+.gradletasknamecache
