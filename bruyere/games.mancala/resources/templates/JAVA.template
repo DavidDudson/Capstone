@@ -1,0 +1,26 @@
+import nz.ac.massey.cs.ig.games.mancala.Mancala;
+import nz.ac.massey.cs.ig.games.mancala.MancalaBot;
+
+/**
+ * This is the starting point to implement your own bot.
+ * @author <your name here>
+ */
+
+public class %s extends MancalaBot {
+
+	public %s(String botId) {
+		super(botId);
+	}
+
+	/**
+	 * Implement this method to pit. TODO: link to documentation of Mancala.
+	 */
+	@Override
+	 public Integer nextMove(Mancala board) {
+		// for instance, lets pick the first pit that is not empty
+		for (int i=0;i<6;i++) {
+			if (board.getStonesInMyPit(i)>0) return i;
+		}
+	 	return 0; 	 
+	 }
+};

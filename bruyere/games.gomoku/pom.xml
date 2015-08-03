@@ -1,0 +1,63 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>nz.ac.massey.cs.ig.games</groupId>
+	<artifactId>games.gomoku</artifactId>
+
+	<parent>
+		<groupId>nz.ac.massey.cs.ig</groupId>
+		<artifactId>reactor-build</artifactId>
+		<version>0.0.3-SNAPSHOT</version>
+		<relativePath>../build/pom.xml</relativePath>
+	</parent>
+
+	<name>games.gomoku</name>
+
+	<!-- current deployment type -->
+	<packaging>jar</packaging>
+
+	<!-- Compiler settings -->
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+		<testSourceDirectory>src-tests</testSourceDirectory>
+		<resources>
+			<resource>
+				<filtering>false</filtering>
+				<directory>src/META-INF/services</directory>
+				<targetPath>META-INF/services</targetPath>
+				<includes>
+					<include>*</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>resources</directory>
+                <targetPath>resources</targetPath>
+			</resource>
+		</resources>
+	</build>
+
+	<dependencies>
+
+		<!-- BUILD DEPENDENCIES -->
+		<dependency>
+			<groupId>nz.ac.massey.cs.ig</groupId>
+			<artifactId>gamecore</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20140107</version>
+		</dependency>
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>2.7</version>
+		</dependency>
+	</dependencies>
+</project>

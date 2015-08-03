@@ -1,0 +1,37 @@
+/* 
+    Document   : styles for about page
+    Created on : 25 May 2015
+    Author     : Jens Dietrich
+*/
+
+.contributor {
+	background-color: darkgrey;
+	width: 200px;
+	margin: 5px;
+	padding: 10px;
+	float: left;
+	height: 350px;
+}
+
+.contributor-name {
+	text-align: center;
+	padding-left: 25px;
+	padding-right: 20px;
+	padding-bottom: 10px;
+	padding-top: 5px;
+	font-weight: bold;
+}
+
+.contributor-blurb {
+	color: black;
+	padding-left: 10px;
+	padding-right: 20px;
+	font-size: 75%;
+}
+
+.contributor-pic {
+	color: white;
+	padding-left: 10px;
+	padding-right: 10px;
+	height: 175px;
+}

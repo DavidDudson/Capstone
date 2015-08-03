@@ -1,0 +1,10 @@
+# Complete the 'nextMove' function
+
+# - 'mancalaBoard' is an instance of Mancala and 
+# 	you have to return an integer to show which pit you want to play.
+# - See documentation for more details.
+def nextMove(mancalaBoard):
+    for i in range(6):
+        if mancalaBoard.getStonesInMyPit(i) > 0:
+            return i
+    return 0 	 

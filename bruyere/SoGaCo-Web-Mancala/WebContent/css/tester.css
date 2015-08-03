@@ -1,0 +1,197 @@
+/* 
+    Document   : Additional styles used by the mancala tester ui.
+    Author     : Jens Dietrich
+*/
+
+.mancala-top-pit{
+    height:46px;
+    width:33px;
+    float:left;
+    border: solid black;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    border-top-width: 4px; 
+    border-bottom-width: 0px; 
+    text-align: center;
+    padding: 5px 2px;
+    line-height: 46px;
+    background-color: darkgrey;
+}
+.mancala-top-pit-inner{
+    height:40px;
+    width:28px;
+    float:left;
+    border: solid black;
+    border-width: 1px;
+    text-align: center;
+    padding: 2px 2px;
+    line-height: 40px;
+    border-radius: 25px;
+}
+.mancala-bottom-pit{
+    height:46px;
+    width:33px;
+    float:left;
+    border: solid black;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    border-top-width: 0px; 
+    border-bottom-width: 4px; 
+    text-align: center;
+    padding: 5px 2px;
+    line-height: 46px;
+    background-color: darkgrey;
+}
+.mancala-bottom-pit-inner{
+    height:40px;
+    width:28px;
+    float:left;
+    border: solid black;
+    border-width: 1px;
+    text-align: center;
+    padding: 2px 2px;
+    line-height: 40px;
+    border-radius: 25px;
+}
+.mancala-left-mancala{
+    height:102px;
+    width:40px;
+    float:left;
+    border: solid black;
+    border-left-width: 4px;
+    border-right-width: 0px;
+    border-top-width: 4px; 
+    border-bottom-width: 4px; 
+    text-align: center;
+    padding: 5px 2px;
+    line-height: 102px;
+    border-radius: 42px 0px 0px 42px;
+    background-color: darkgrey;
+}
+
+.mancala-left-mancala-inner{
+    height:80px;
+    width:25px;
+    float:left;
+    border: solid black;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px; 
+    border-bottom-width: 1px; 
+    text-align: center;
+    padding: 8px 2px 2px 2px;
+    line-height: 80px;
+    border-radius: 30px 10px 10px 30px;
+    margin-top:5px;
+    margin-left: 2px;
+    font-weight: bold;
+}
+
+.mancala-right-mancala{
+    height:102px;
+    width:40px;
+    float:left;
+    border: solid black;
+    border-left-width: 0px;
+    border-right-width: 4px;
+    border-top-width: 4px; 
+    border-bottom-width: 4px; 
+    text-align: center;
+    padding: 5px 2px;
+    line-height: 102px;
+    border-radius: 0px 42px 42px 0px;
+    background-color: darkgrey;
+}
+
+.mancala-right-mancala-inner{
+    height:80px;
+    width:25px;
+    float:left;
+    border: solid black;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px; 
+    border-bottom-width: 1px; 
+    text-align: center;
+    padding: 8px 2px 2px 2px;
+    line-height: 80px;
+    border-radius: 10px 30px 30px 10px;
+    margin-top:5px;
+    margin-left:6px;
+    font-weight: bold;
+}
+
+
+
+.player1Pit {
+	background-color: #eff7ff;
+}
+
+.player1PitPlayed{
+    background-color: #55F;
+}
+
+.player1PitChanged{
+    background-color: #9DF;
+}
+
+.player2Pit{
+    background-color: #ffcccc;
+}
+
+.player2PitPlayed{
+    background-color: #F44;
+}
+
+.player2PitChanged{
+    background-color: #F99;
+}
+
+/* 
+different classes for key - they are static and them application will not set/unset them.
+note: they must be kept consistent with the matching non-key classes
+*/
+
+.player1PitKey {
+	background-color: #eff7ff;
+}
+
+.player1PitPlayedKey{
+    background-color: #55F;
+}
+
+.player1PitChangedKey{
+    background-color: #9DF;
+}
+
+.player2PitKey{
+    background-color: #ffcccc;
+}
+
+.player2PitPlayedKey{
+    background-color: #F44;
+}
+
+.player2PitChangedKey{
+    background-color: #F99;
+}
+
+.pitKey{
+    height:20px;
+    width:14px;
+    float:left;
+    border: solid black;
+    border-width: 1px;
+    text-align: center;
+    padding: 2px 2px;
+    line-height: 20px;
+    border-radius: 12px;
+}
+
+.mancala-key-label{
+	float:left;
+	height:40px;
+	line-height: 20px;
+	text-align: left;
+  	margin-left: 10px;  
+}

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archetype-descriptor xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd" name="games.primegame"
+    xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <fileSets>
+    <fileSet filtered="true" packaged="true" encoding="UTF-8">
+      <directory>src/</directory>
+      <includes>
+        <include>**/*.java</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="true" packaged="true" encoding="UTF-8">
+      <directory>src-tests/</directory>
+      <includes>
+        <include>**/*.java</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="true" encoding="UTF-8">
+      <directory>src/META-INF</directory>
+      <includes>
+        <include>**/*.MF</include>
+        <include>**/*.GameSupport</include>
+      </includes>
+    </fileSet>
+    <fileSet encoding="UTF-8">
+      <directory>resources</directory>
+      <includes>
+        <include>**</include>
+      </includes>
+    </fileSet>
+    <fileSet encoding="UTF-8">
+      <directory>.settings</directory>
+      <includes>
+        <include>**/*.component</include>
+        <include>**/*.xml</include>
+        <include>**/*.prefs</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="true" encoding="UTF-8">
+      <directory></directory>
+      <includes>
+        <include>.classpath</include>
+        <include>.project</include>
+      </includes>
+    </fileSet>
+  </fileSets>
+
+  <requiredProperties>
+    <requiredProperty key="groupId">
+      <defaultValue>nz.ac.massey.cs.ig.games</defaultValue>
+    </requiredProperty>  
+    <requiredProperty key="artifactId">
+      <defaultValue>games.custom</defaultValue>
+    </requiredProperty>  
+    <requiredProperty key="version">
+      <defaultValue>1.0-SNAPSHOT</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="package">
+      <defaultValue>nz.ac.massey.cs.ig.games.custom</defaultValue>
+    </requiredProperty>   
+  </requiredProperties>
+
+</archetype-descriptor>
