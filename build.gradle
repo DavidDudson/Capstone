@@ -1,3 +1,5 @@
+//-------Helper Functions---------//
+
 //get version string from git details
 def getVersionName = { ->
     def stdout = new ByteArrayOutputStream()
@@ -8,19 +10,31 @@ def getVersionName = { ->
     return stdout.toString().trim()
 }
 
-//Define name of project etc.
-version = getVersionName()
+apply plugin: 'java'
+apply plugin: 'war'
 
+//-------Dependencies---------//
 
 //Define repository
 allprojects{
+
+  //Define name of project etc.
+  version = getVersionName()
+
+  //Apply code coverage
+  apply plugin: "jacoco"
+
+  jacoco {
+      toolVersion = "0.7.1.201405082137"
+      reportsDir = file("$buildDir/ReportDir")
+  }
+
   repositories {
       // Main repository for gathering plugins
       jcenter()
   }
 }
 
-//Define buildscript dependencies
 buildscript {
   repositories {
     jcenter()
@@ -34,32 +48,62 @@ buildscript {
 //Apply server plugin
 apply plugin: 'org.akhikhl.gretty'
 
-//Apply code coverage
-apply plugin: "jacoco"
+repositories{
+  // Treat SoGaCo build output as a repository
+  flatDir {
+     dirs 'build/sogacoSrc/bruyere/build/target/projects/'
+  }
+}
+
+
+dependencies {
+
+    //Make this project depends on other Projects
+    compile project(':games.battleships')
+
+    //SoGaCo Dependencies
+    compile name: 'gamecore-0.0.3-SNAPSHOT'
+    compile name: 'services-0.0.3-SNAPSHOT'
+    compile name: 'languages.java-0.0.3-SNAPSHOT'
+
+    //Logging
+    compile 'org.slf4j:slf4j-api:1.7.7'
+
+    compile 'org.apache.derby:derby:10.11.1.1'
+
+    //Testing
+    testCompile "junit:junit:4.11"
+}
+
+//-------Configuration---------//
 
 //Configure Server plugin
 gretty{
+  servletContainer = 'jetty9'
   //AutoReload of everything
   managedClassReload = true
   fastReload = true
-  scanDirs = './SoGaCo-Web-Battleships/src/main/webapp/'
 }
 
-jacoco {
-    toolVersion = "0.7.1.201405082137"
-    reportsDir = file("$buildDir/ReportDir")
+war {
+  destinationDir = file('./target')
+  //Copy Generated Javadocs
+  from('./build/docs/javadoc') {
+      include '**/*'
+      into 'javadoc'
+  }
+  //Copy Generated Reports
+  from('./build/reports/tests/') {
+      include '**/*'
+      into 'reports'
+  }
+
+  baseName = 'SoGaCo-Web-Battleships'
+  version = getVersionName()
 }
 
-//Define all Wars to be loaded by server, requires updateSogaco task to be run at some point before use.
-farm {
-  webapp './target/SoGaCo-Logging-0.0.3-SNAPSHOT.war'
-  webapp './target/SoGaCo-Web-Home-0.0.3-SNAPSHOT.war'
-  webapp './target/SoGaCo-Web-Mancala-0.0.3-SNAPSHOT.war'
-  webapp './target/SoGaCo-Web-Othello-0.0.3-SNAPSHOT.war'
-  webapp './target/SoGaCo-Web-Primegame-0.0.3-SNAPSHOT.war'
-  webapp './target/SoGaCo-Web-Resources-0.0.3-SNAPSHOT.war'
-  webapp './target/SoGaCo-Web-Battleships-' + getVersionName() + '.war'
-}
+buildDir = './build/'
+
 
 //--------Tasks---------//
 
@@ -90,6 +134,7 @@ task copySogaco( type: Copy , dependsOn: 'buildSogaco' ) {
   include '**/*.war'
 }
 
+//Cleans the target directory
 task cleanTargetDir(type: Delete) {
   delete fileTree(dir: "target")
 }
@@ -108,8 +153,9 @@ task herokuDependencies(type: Copy){
   include '**/*.war'
 }
 
-//Run the developement server on localhost with Gretty
-task runDevServer( dependsOn: ['buildAll','farmRun'])
+task runDevServer(type: GradleBuild,dependsOn: ['buildAll']){
+  tasks = ['appStart']
+}
 
 //What heroku uses to deploy
 task stage(type: GradleBuild ,dependsOn: ['herokuDependencies']){
