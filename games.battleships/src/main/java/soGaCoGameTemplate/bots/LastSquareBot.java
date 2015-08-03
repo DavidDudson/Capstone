@@ -13,8 +13,8 @@ public class LastSquareBot extends BattleshipBot{
 
     private int moveCount = 100;
 
-    public LastSquareBot(String botId) {
-        super(botId);
+    public LastSquareBot() {
+        super(LastSquareBot.class.getName());
     }
 
     @Override
