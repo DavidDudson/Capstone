@@ -54,10 +54,6 @@ public class BattleshipsGameSupport extends DefaultGameSupport {
      */
     @Override
     public boolean isLanguageSupported(String languageId) {
-        if(Objects.equals(languageId, "java") || Objects.equals(languageId, "visual")){
-            return true;
-        } else{
-            return false;
-        }
+        return Objects.equals(languageId, "java");
     }
 }
