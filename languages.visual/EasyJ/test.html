@@ -3,52 +3,25 @@
 <head>
 <meta charset="utf-8">
 <title>Blockly Playground</title>
-<script type="text/javascript" src="../blockly_uncompressed.js"></script>
-<script type="text/javascript" src="../generators/javascript.js"></script>
-<script type="text/javascript" src="../generators/javascript/logic.js"></script>
-<script type="text/javascript" src="../generators/javascript/loops.js"></script>
-<script type="text/javascript" src="../generators/javascript/math.js"></script>
-<script type="text/javascript" src="../generators/javascript/text.js"></script>
-<script type="text/javascript" src="../generators/javascript/lists.js"></script>
-<script type="text/javascript" src="../generators/javascript/colour.js"></script>
-<script type="text/javascript" src="../generators/javascript/variables.js"></script>
-<script type="text/javascript" src="../generators/javascript/procedures.js"></script>
-<script type="text/javascript" src="../generators/python.js"></script>
-<script type="text/javascript" src="../generators/python/logic.js"></script>
-<script type="text/javascript" src="../generators/python/loops.js"></script>
-<script type="text/javascript" src="../generators/python/math.js"></script>
-<script type="text/javascript" src="../generators/python/text.js"></script>
-<script type="text/javascript" src="../generators/python/lists.js"></script>
-<script type="text/javascript" src="../generators/python/colour.js"></script>
-<script type="text/javascript" src="../generators/python/variables.js"></script>
-<script type="text/javascript" src="../generators/python/procedures.js"></script>
-<script type="text/javascript" src="../generators/dart.js"></script>
-<script type="text/javascript" src="../generators/dart/logic.js"></script>
-<script type="text/javascript" src="../generators/dart/loops.js"></script>
-<script type="text/javascript" src="../generators/dart/math.js"></script>
-<script type="text/javascript" src="../generators/dart/text.js"></script>
-<script type="text/javascript" src="../generators/dart/lists.js"></script>
-<script type="text/javascript" src="../generators/dart/colour.js"></script>
-<script type="text/javascript" src="../generators/dart/variables.js"></script>
-<script type="text/javascript" src="../generators/dart/procedures.js"></script>
-<script type="text/javascript" src="../generators/java.js"></script>
-<script type="text/javascript" src="../generators/java/logic.js"></script>
-<script type="text/javascript" src="../generators/java/loops.js"></script>
-<script type="text/javascript" src="../generators/java/math.js"></script>
-<script type="text/javascript" src="../generators/java/text.js"></script>
-<script type="text/javascript" src="../generators/java/lists.js"></script>
-<script type="text/javascript" src="../generators/java/colour.js"></script>
-<script type="text/javascript" src="../generators/java/variables.js"></script>
-<script type="text/javascript" src="../generators/java/procedures.js"></script>
-<script type="text/javascript" src="../msg/messages.js"></script>
-<script type="text/javascript" src="../blocks/logic.js"></script>
-<script type="text/javascript" src="../blocks/loops.js"></script>
-<script type="text/javascript" src="../blocks/math.js"></script>
-<script type="text/javascript" src="../blocks/text.js"></script>
-<script type="text/javascript" src="../blocks/lists.js"></script>
-<script type="text/javascript" src="../blocks/colour.js"></script>
-<script type="text/javascript" src="../blocks/variables.js"></script>
-<script type="text/javascript" src="../blocks/procedures.js"></script>
+<script type="text/javascript" src="blockly_uncompressed.js"></script>
+<script type="text/javascript" src="java.js"></script>
+<script type="text/javascript" src="java/logic.js"></script>
+<script type="text/javascript" src="java/loops.js"></script>
+<script type="text/javascript" src="java/math.js"></script>
+<script type="text/javascript" src="java/text.js"></script>
+<script type="text/javascript" src="java/lists.js"></script>
+<script type="text/javascript" src="java/colour.js"></script>
+<script type="text/javascript" src="java/variables.js"></script>
+<script type="text/javascript" src="java/procedures.js"></script>
+<script type="text/javascript" src="messages.js"></script>
+<script type="text/javascript" src="blocks/logic.js"></script>
+<script type="text/javascript" src="blocks/loops.js"></script>
+<script type="text/javascript" src="blocks/math.js"></script>
+<script type="text/javascript" src="blocks/text.js"></script>
+<script type="text/javascript" src="blocks/lists.js"></script>
+<script type="text/javascript" src="blocks/colour.js"></script>
+<script type="text/javascript" src="blocks/variables.js"></script>
+<script type="text/javascript" src="blocks/testBlock.js"></script>
 <!-- Load the Google Drive SDK Realtime libraries. -->
 <script type="text/javascript" src="https://apis.google.com/js/api.js"></script>
 <script type="text/javascript">
@@ -156,6 +129,7 @@ h1 {
 
   <xml id="toolbox" style="display: none">
     <category name="Logic">
+      <block type="text_length"></block>
       <block type="controls_if"></block>
       <block type="logic_compare"></block>
       <block type="logic_operation"></block>
@@ -273,7 +247,7 @@ h1 {
       <block type="text_prompt"></block>
     </category>
     <category name="Lists">
-      <block type="lists_create_empty"></block>
+      <block type="get_Length"></block>
       <block type="lists_create_with"></block>
       <block type="lists_repeat">
         <value name="NUM">
@@ -323,63 +297,11 @@ h1 {
     <category name="Functions" custom="PROCEDURE"></category>
   </xml>
 
-  <h1>Blockly Playground</h1>
-
-  <p><a href="javascript:void([document.getElementById('blocklyDiv').style.display = 'block', Blockly.mainWorkspace.render()])">Show</a>
-   - <a href="javascript:void(document.getElementById('blocklyDiv').style.display = 'none')">Hide</a></p>
-
-  <script type="text/javascript">
-    if (rtl) {
-      document.write('[ &larr; RTL. Switch to <A HREF="?ltr">LTR</A>. ]');
-    } else {
-      document.write('[ &rarr; LTR. Switch to <A HREF="?rtl">RTL</A>. ]');
-    }
-  </script>
-
   <p>
-    <input type="button" value="Export to XML" onclick="toXml()">
-    &nbsp;
-    <input type="button" value="Import from XML" onclick="fromXml()">
-    <br>
-    <input type="button" value="To JavaScript" onclick="toCode('JavaScript')">
-    &nbsp;
     <input type="button" value="To Java" onclick="toCode('Java')">
     &nbsp;
-    <input type="button" value="To Python" onclick="toCode('Python')">
-    &nbsp;
-    <input type="button" value="To Dart" onclick="toCode('Dart')">
-    <br>
     <textarea id="importExport" style="width: 26%; height: 12em"></textarea>
   </p>
-  <hr>
 
-  <p>
-    Stress test with an <input type="button" value="Airstrike!" onclick="airstrike(100)">
-  </p>
-
-  <!-- Realtime setup buttons. -->
-
-  <div id="realtime" style="display: none">
-
-    <p>Test realtime collaboration by opening
-      <a target="_blank" href="#" onmouseover="this.href = window.location.href">
-        this link</a> in a separate browser window or tab and they will be
-      synchronized.  You can even share the link with a friend!.</p>
-
-    <br>
-    <br>
-
-    <!-- Undo and redo buttons. -->
-    <!-- TODO: Uncomment this when undo/redo are fixed. -->
-    <!--
-      <button id="undoButton" disabled>Undo</button>
-      <button id="redoButton" disabled>Redo</button>
-      <br />
-    -->
-
-    <!-- Text area that will be used for our collaborative chat box. -->
-    <textarea id="chatbox" style="width: 26%; height: 12em" disabled="true"></textarea>
-
-  </div>
 </body>
 </html>
