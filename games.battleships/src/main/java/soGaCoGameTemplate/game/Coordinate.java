@@ -2,7 +2,7 @@ package soGaCoGameTemplate.game;
 
 /**
  * Created by David J. Dudson on 4/08/15.
- *
+ * <p>
  * Coordinate in an integer based grid system indexes stating at 0
  */
 public class Coordinate {
@@ -12,6 +12,7 @@ public class Coordinate {
 
     /**
      * Makes a coordinate tuple from 2 ints.
+     *
      * @param row which row value
      * @param col which column Value
      */
@@ -20,8 +21,13 @@ public class Coordinate {
         this.col = col;
     }
 
+    public Coordinate(Coordinate coordinate){
+        this(coordinate.getRow(),coordinate.getCol());
+    }
+
     /**
      * Get the which row in the array
+     *
      * @return the row number
      */
     public int getRow() {
@@ -30,6 +36,7 @@ public class Coordinate {
 
     /**
      * Get the which column in the array
+     *
      * @return the column number
      */
     public int getCol() {
@@ -38,10 +45,11 @@ public class Coordinate {
 
     /**
      * Prints out the coordinate like this: (x,y)
+     *
      * @return the String format of the coordinate
      */
     @Override
     public String toString() {
-        return "(" + row +  "," + col + ")";
+        return "(" + row + "," + col + ")";
     }
 }

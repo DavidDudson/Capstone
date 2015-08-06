@@ -2,7 +2,7 @@ package soGaCoGameTemplate.game;
 
 /**
  * Created by David J. Dudson on 4/08/15.
- *
+ * <p>
  * A grid that the bot fills out to kill all ships before winning.
  */
 public class BotMap extends GameBoard {
@@ -26,12 +26,13 @@ public class BotMap extends GameBoard {
      * Call the superclass contructor and return an empty
      * map with the default sizes
      */
-    public BotMap(){
+    public BotMap() {
         super();
     }
 
     /**
      * Returns true if the value is 1 or 2
+     *
      * @param val The value to check
      * @return Whether or not the grid value is valid
      */

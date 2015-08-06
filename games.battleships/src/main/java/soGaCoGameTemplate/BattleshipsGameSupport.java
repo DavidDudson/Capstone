@@ -1,13 +1,9 @@
 package soGaCoGameTemplate;
 
-import nz.ac.massey.cs.ig.core.game.Bot;
-import nz.ac.massey.cs.ig.core.game.Game;
 import nz.ac.massey.cs.ig.core.game.GameFactory;
 import nz.ac.massey.cs.ig.core.game.model.BotData;
-import nz.ac.massey.cs.ig.core.services.defaults.DefaultGameSupport;
 import nz.ac.massey.cs.ig.core.services.Serializer;
-import nz.ac.massey.cs.ig.core.services.TemplateFactory;
-import nz.ac.massey.cs.ig.core.utils.ResourceUtils;
+import nz.ac.massey.cs.ig.core.services.defaults.DefaultGameSupport;
 
 import java.util.Collection;
 import java.util.List;
@@ -37,6 +33,7 @@ public class BattleshipsGameSupport extends DefaultGameSupport {
 
     /**
      * Generates an instance of the battleship game factory to create games with
+     *
      * @return the created instance
      */
     @Override
@@ -46,6 +43,7 @@ public class BattleshipsGameSupport extends DefaultGameSupport {
 
     /**
      * Genrates a serializer instance for tranporting the complete game to the client
+     *
      * @return The serializer instance
      */
     @Override
@@ -55,6 +53,7 @@ public class BattleshipsGameSupport extends DefaultGameSupport {
 
     /**
      * Support only Java and the visual language
+     *
      * @param languageId the language name to query
      * @return whether or not the language is supported
      */
