@@ -1,9 +1,10 @@
 package battleShipGame;
 
+import org.apache.commons.lang.SerializationUtils;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
-import org.apache.commons.lang.SerializationUtils;
 
 /**
  *

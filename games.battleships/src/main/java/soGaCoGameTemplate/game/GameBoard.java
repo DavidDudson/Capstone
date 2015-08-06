@@ -1,6 +1,8 @@
 package soGaCoGameTemplate.game;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.IntStream;
 
 /**
  * Created by David J. Dudson on 4/08/15.
@@ -9,15 +11,14 @@ import java.util.Arrays;
  */
 public abstract class GameBoard {
 
+    protected int[][] grid;
+    protected int width;
+    protected int height;
     private int patrolBoatCount;
     private int destroyerCount;
     private int battleshipCount;
     private int aircraftCarrierCount;
     private int remainingShips;
-    protected int[][] grid;
-
-    protected int width;
-    protected int height;
 
     /**
      * Creates a map initally set to all 0's
@@ -111,6 +112,15 @@ public abstract class GameBoard {
      */
     protected int getRemainingShips() {
         return remainingShips;
+    }
+
+    protected ArrayList<Integer> getShipList() {
+        ArrayList<Integer> shipList = new ArrayList<>(getTotalShips());
+        IntStream.range(0, patrolBoatCount).forEach(shipList::add);
+        IntStream.range(0, destroyerCount).forEach(shipList::add);
+        IntStream.range(0, battleshipCount).forEach(shipList::add);
+        IntStream.range(0, aircraftCarrierCount).forEach(shipList::add);
+        return shipList;
     }
 
     /**

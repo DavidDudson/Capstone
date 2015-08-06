@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * Created by David J. Dudson on 4/08/15.
- *
+ * <p>
  * Serialization Class of Battleships Game
  */
 public class BattleshipsSerializer implements Serializer {
@@ -22,12 +22,12 @@ public class BattleshipsSerializer implements Serializer {
         BattleshipGame game = (BattleshipGame) _game;
         List<BattleshipGameMove> history = game.getHistory();
         Gson gson = new GsonBuilder().create();
-        history.stream().forEach(move -> gson.toJson(move,out));
-        if(game.getError() != null){
+        history.stream().forEach(move -> gson.toJson(move, out));
+        if (game.getError() != null) {
             Throwable error = game.getError();
-            gson.toJson(error.getClass().getName(),out);
-            gson.toJson(error.getMessage(),out);
-            gson.toJson(error.getStackTrace(),out);
+            gson.toJson(error.getClass().getName(), out);
+            gson.toJson(error.getMessage(), out);
+            gson.toJson(error.getStackTrace(), out);
         }
     }
 
