@@ -20,6 +20,8 @@ dependencies {
     //Testing
     testCompile "junit:junit:4.11"
 
+    compile 'com.google.code.gson:gson:2.3.1'
+
     compile 'org.apache.directory.studio:org.apache.commons.lang:2.6'
 }
 

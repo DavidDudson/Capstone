@@ -1,59 +1,124 @@
 package soGaCoGameTemplate.game;
 
+import java.util.Arrays;
+
 /**
  * Created by David J. Dudson on 4/08/15.
  * <p>
- * The Gameboard itself
+ * The abstract class GameBoards are based off
  */
-public class GameBoard {
+public abstract class GameBoard {
 
     private int patrolBoatCount;
     private int destroyerCount;
     private int battleshipCount;
     private int aircraftCarrierCount;
-
-    private int boardWidth;
-    private int boardHeight;
-
     private int remainingShips;
+    protected int[][] grid;
 
-    public GameBoard(int _patrolBoatCount, int _destroyerCount, int _battleshipCount,
-                     int _aircraftCarrier, int _boardWidth, int _boardHeight) {
+    protected int width;
+    protected int height;
+
+    /**
+     * Creates a map initally set to all 0's
+     *
+     * @param _patrolBoatCount      The number of PatrolBoats (Size 2)
+     * @param _destroyerCount       The number of Destroyers or Submarines (Size 3)
+     * @param _battleshipCount      The number of Battleships (Size 4)
+     * @param _aircraftCarrierCount The number of Aircraft Carriers (Size 5)
+     * @param _width                The width of the grid
+     * @param _height               The height of the grid
+     */
+    GameBoard(int _patrolBoatCount, int _destroyerCount, int _battleshipCount,
+              int _aircraftCarrierCount, int _width, int _height) {
+        this.width = _width;
+        this.height = _height;
         this.patrolBoatCount = _patrolBoatCount;
         this.destroyerCount = _destroyerCount;
         this.battleshipCount = _battleshipCount;
-        this.aircraftCarrierCount = _aircraftCarrier;
-        this.boardWidth = _boardWidth;
-        this.boardHeight = _boardHeight;
+        this.aircraftCarrierCount = _aircraftCarrierCount;
         this.remainingShips = getTotalShips();
+
+        fillGrid();
     }
 
-    public GameBoard(GameBoard _gameboard) {
-        this(_gameboard.patrolBoatCount,
-                _gameboard.destroyerCount,
-                _gameboard.battleshipCount,
-                _gameboard.aircraftCarrierCount,
-                _gameboard.boardWidth,
-                _gameboard.boardHeight);
-    }
-
-    public GameBoard() {
-        //Plug in default values from the popular hasbro Board game
-        //10x10 grid with 2 battleships/submarines (3 long) and 1 of everything else
+    /**
+     * Default Constructor, just calls main constructor with a default grid of 10*10 and the hasbro ships values
+     */
+    GameBoard() {
         this(1, 2, 1, 1, 10, 10);
     }
 
-    public int getTotalShips() {
-        return patrolBoatCount + destroyerCount + battleshipCount + aircraftCarrierCount;
+    /**
+     * Returns whether or not the value is a valid placement
+     * This should not be used during the generation of the initial array
+     *
+     * @param val The vale to check
+     * @return Whether or not the grid value would be valid
+     */
+    protected abstract boolean isValidGridValue(int val);
+
+
+    /**
+     * Returns a copy of the array
+     *
+     * @return The duplicate grid instance
+     */
+    public int[][] getGrid() {
+        return Arrays.stream(grid)
+                .map(int[]::clone)
+                .toArray(int[][]::new);
     }
 
-    public int getTotalGridSquares() {
-        return boardHeight * boardWidth;
+    /**
+     * Returns the value inside the array
+     *
+     * @param row The Row
+     * @param col The Column
+     * @return The Value
+     */
+    public int getSquare(int row, int col) {
+        return grid[row][col];
     }
 
-    public int getRemainingShips() {
+    /**
+     * Sets a grid square to a specific value
+     *
+     * @param row The row
+     * @param col The column
+     * @param val The Value
+     */
+    public void setSquareTo(int row, int col, int val) {
+        if (isValidGridValue(val)) {
+            grid[row][col] = val;
+        } else {
+            throw new IllegalArgumentException("Tried to set an invalid grid value " + val);
+        }
+    }
+
+    /**
+     * Fills the grid with 0's
+     */
+    public void fillGrid() {
+        Arrays.stream(grid).forEach(x -> Arrays.fill(x, 0));
+    }
+
+    /**
+     * Returns the remaining alive ships
+     * Includes partially destroyed ships
+     *
+     * @return The number of remaining ships
+     */
+    protected int getRemainingShips() {
         return remainingShips;
     }
 
-
+    /**
+     * Returns the total number of ships including all ship types
+     *
+     * @return The total number of ships
+     */
+    protected int getTotalShips() {
+        return patrolBoatCount + destroyerCount + battleshipCount + aircraftCarrierCount;
+    }
 }

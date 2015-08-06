@@ -1,5 +1,7 @@
 package soGaCoGameTemplate;
 
+import nz.ac.massey.cs.ig.core.game.Bot;
+import nz.ac.massey.cs.ig.core.game.Game;
 import nz.ac.massey.cs.ig.core.game.GameFactory;
 import nz.ac.massey.cs.ig.core.game.model.BotData;
 import nz.ac.massey.cs.ig.core.services.defaults.DefaultGameSupport;
@@ -39,12 +41,16 @@ public class BattleshipsGameSupport extends DefaultGameSupport {
      */
     @Override
     public GameFactory getGameFactory() {
-        return new BattleshipsGameFactory();
+        return BattleshipGame::new;
     }
 
+    /**
+     * Genrates a serializer instance for tranporting the complete game to the client
+     * @return The serializer instance
+     */
     @Override
     public Serializer getSerializer() {
-        return null;
+        return new BattleshipsSerializer();
     }
 
     /**
