@@ -7,31 +7,80 @@ package soGaCoGameTemplate.game;
  */
 public class Coordinate {
 
-    private int row;
-    private int col;
+    private int x;
+    private int y;
 
     /**
      * Makes a coordinate tuple from 2 ints.
      *
-     * @param row which row value
-     * @param col which column Value
+     * @param _x which x value
+     * @param _y which column Value
      */
-    public Coordinate(int row, int col) {
-        this.row = row;
-        this.col = col;
-    }
-
-    public Coordinate(Coordinate coordinate){
-        this(coordinate.getRow(),coordinate.getCol());
+    public Coordinate(int _x, int _y) {
+        this.x = _x;
+        this.y = _y;
     }
 
     /**
-     * Get the which row in the array
-     *
-     * @return the row number
+     * Copy Contructor
+     * @param coordinate coordinate to copy
      */
-    public int getRow() {
-        return row;
+    public Coordinate(Coordinate coordinate){
+        this(coordinate.getX(),coordinate.getY());
+    }
+
+    /**
+     * Add amount to X value of coord
+     * @param amount the amount to increment x by
+     * @return The new coordinate
+     */
+    public Coordinate addToX(int amount){
+        Coordinate coord = new Coordinate(this);
+        coord.x += amount;
+        return coord;
+    }
+
+    /**
+     * Minus amount from X value of coord
+     * @param amount the amount to decrement x by
+     * @return The new coordinate
+     */
+    public Coordinate takeFromX(int amount){
+        Coordinate coord = new Coordinate(this);
+        coord.x -= amount;
+        return coord;
+    }
+
+    /**
+     * Add amount to Y value of coord
+     * @param amount The amount to increment Y by
+     * @return The new Coordinate
+     */
+    public Coordinate addToY(int amount){
+        Coordinate coord = new Coordinate(this);
+        coord.y += amount;
+        return coord;
+    }
+
+    /**
+     * Minus amount from Y value of coord
+     * @param amount The amount to decrement Y by
+     * @return The new Coordinate
+     */
+    public Coordinate takeFromY(int amount){
+        Coordinate coord = new Coordinate(this);
+        coord.y -= amount;
+        return coord;
+    }
+
+
+    /**
+     * Get the which x in the array
+     *
+     * @return the x number
+     */
+    public int getX() {
+        return x;
     }
 
     /**
@@ -39,8 +88,8 @@ public class Coordinate {
      *
      * @return the column number
      */
-    public int getCol() {
-        return col;
+    public int getY() {
+        return y;
     }
 
     /**
@@ -50,6 +99,6 @@ public class Coordinate {
      */
     @Override
     public String toString() {
-        return "(" + row + "," + col + ")";
+        return "(" + x + "," + y + ")";
     }
 }

@@ -74,24 +74,22 @@ public abstract class GameBoard {
     /**
      * Returns the value inside the array
      *
-     * @param row The Row
-     * @param col The Column
+     * @param coord The Coordinate to get
      * @return The Value
      */
-    public int getSquare(int row, int col) {
-        return grid[row][col];
+    public int getCell(Coordinate coord) {
+        return grid[coord.getX()][coord.getY()];
     }
 
     /**
      * Sets a grid square to a specific value
      *
-     * @param row The row
-     * @param col The column
+     * @param coord The Coordinate to set
      * @param val The Value
      */
-    public void setSquareTo(int row, int col, int val) {
+    public void setCellTo(Coordinate coord, int val) {
         if (isValidGridValue(val)) {
-            grid[row][col] = val;
+            grid[coord.getX()][coord.getY()] = val;
         } else {
             throw new IllegalArgumentException("Tried to set an invalid grid value " + val);
         }
@@ -110,7 +108,7 @@ public abstract class GameBoard {
      *
      * @return The number of remaining ships
      */
-    protected int getRemainingShips() {
+    public int getRemainingShips() {
         return remainingShips;
     }
 

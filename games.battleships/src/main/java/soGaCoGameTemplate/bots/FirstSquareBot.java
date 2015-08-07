@@ -4,6 +4,7 @@ import soGaCoGameTemplate.BattleshipBot;
 import soGaCoGameTemplate.game.BotMap;
 import soGaCoGameTemplate.game.Coordinate;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
 /**
@@ -19,7 +20,9 @@ public class FirstSquareBot extends BattleshipBot {
 
     @Override
     public Coordinate nextMove(BotMap botMap) {
-        Arrays.stream(botMap.getGrid()).flatMapToInt();
+        Arrays.stream(botMap.getGrid())
+                .flatMapToInt(Arrays::stream)
+                        .filter(y -> y == 0).findFirst();
         return null;
     }
 }

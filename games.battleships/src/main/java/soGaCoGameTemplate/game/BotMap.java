@@ -1,5 +1,10 @@
 package soGaCoGameTemplate.game;
 
+import com.google.common.primitives.Ints;
+
+import java.util.Arrays;
+import java.util.stream.IntStream;
+
 /**
  * Created by David J. Dudson on 4/08/15.
  * <p>
@@ -38,7 +43,9 @@ public class BotMap extends GameBoard {
      */
     @Override
     protected boolean isValidGridValue(int val) {
-        return val == 1 || val == 2 || val == 3;
+        int[] possibleValues = {1,2,3};
+        return Ints.contains(possibleValues,val);
+
     }
 
 

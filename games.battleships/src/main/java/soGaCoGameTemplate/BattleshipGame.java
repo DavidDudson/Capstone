@@ -3,10 +3,7 @@ package soGaCoGameTemplate;
 import nz.ac.massey.cs.ig.core.game.Bot;
 import nz.ac.massey.cs.ig.core.game.IllegalMoveException;
 import nz.ac.massey.cs.ig.core.game.SimpleGame;
-import soGaCoGameTemplate.game.BotMap;
-import soGaCoGameTemplate.game.Coordinate;
-import soGaCoGameTemplate.game.GameBoard;
-import soGaCoGameTemplate.game.ShipMap;
+import soGaCoGameTemplate.game.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +21,9 @@ public class BattleshipGame extends SimpleGame<GameBoard, Coordinate> {
     private StringBuilder historyInURLToken = new StringBuilder();
 
     private ShipMap shipMap;
-    private BotMap player1Map;
-    private BotMap player2Map;
+    private BotMap bot1map;
+    private BotMap bot2map;
+    private int winner = 0; //0 = Not known, 1 = Bot1, 2 = Bot2.
     private List<BattleshipGameMove> history = new ArrayList<>(100);
 
     /**
@@ -39,26 +37,25 @@ public class BattleshipGame extends SimpleGame<GameBoard, Coordinate> {
     public BattleshipGame(String uid, Bot<?, ?> player1, Bot<?, ?> player2) {
         super(uid, (Bot<GameBoard, Coordinate>) player1, (Bot<GameBoard, Coordinate>) player2);
         this.shipMap = new ShipMap();
-        this.player1Map = new BotMap();
-        this.player2Map = new BotMap();
+        this.bot1map = new BotMap();
+        this.bot2map = new BotMap();
     }
 
     /**
      * Do a single move
      *
-     * @param coordinate The coordinate to "Attack"
+     * @param coord The coordinate to "Attack"
      * @param bot        the bot whose move it is
      */
     @Override
-    protected void doMove(Coordinate coordinate, Bot<GameBoard, Coordinate> bot) {
-        GameBoard gameBoard = (bot == player1) ? player1Map : player2Map;
-        int row = coordinate.getRow();
-        int col = coordinate.getCol();
+    protected void doMove(Coordinate coord, Bot<GameBoard, Coordinate> bot) {
+        GameBoard botMap = (bot == player1) ? bot1map : bot2map;
         //Add 1 due to compensating for the fact that bot map has 3 states (Including unknown) and shipMap has 2
-        int newValue = shipMap.getSquare(row, col) + 1;
-        gameBoard.setSquareTo(row, col, newValue);
-        boolean wasShip = newValue == 2;
-        history.add(new BattleshipGameMove(bot.getId(), row, col, wasShip));
+        int cellState = shipMap.getCell(coord) + 1;
+        botMap.setCellTo(coord, cellState);
+        boolean wasShip = cellState == 2;
+        history.add(new BattleshipGameMove(bot.getId(), coord, wasShip));
+
     }
 
     /**
@@ -91,7 +88,7 @@ public class BattleshipGame extends SimpleGame<GameBoard, Coordinate> {
      */
     @Override
     protected void checkGameTermination() {
-
+        winner = bot1map.getRemainingShips() == 0 ? 1 : 2;
     }
 
     /**
