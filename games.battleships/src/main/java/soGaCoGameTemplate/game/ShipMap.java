@@ -1,9 +1,6 @@
 package soGaCoGameTemplate.game;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.IntStream;
 
 /**
@@ -15,6 +12,7 @@ public class ShipMap extends GameBoard {
 
     private long seed;
     private Random rand;
+    private Map<Coordinate, Ship> coordinateList = new HashMap<>();
 
     /**
      * Creates a map of all ship locations based off
@@ -75,14 +73,20 @@ public class ShipMap extends GameBoard {
     }
 
     /**
-     * Check if a specific grid square contains a ship
+     * Override default method so that we can check whether or not
      *
-     * @param row The Row
-     * @param col the Column
-     * @return If the grid square does contain a ship
+     * @param coord The Coordinate to get
+     * @return The result
      */
-    public boolean squareContainsShip(int row, int col) {
-        return grid[row][col] == 1;
+    @Override
+    public int getCell(Coordinate coord) {
+        int value = super.getCell(coord);
+        if (value == 1) {
+            Ship attackedShip = coordinateList.get(coord).reduceHealth();
+            return !attackedShip.isAlive() ? 2 : 1;
+        } else {
+            return value;
+        }
     }
 
     /**
@@ -102,15 +106,17 @@ public class ShipMap extends GameBoard {
      */
     private void placeShip(Integer shipSize) {
         Ship ship = createNewShip(shipSize);
-        ship.getCoordinates().forEach(coord -> setSquareTo(coord.getRow(),coord.getCol(),1));
+        ship.getCoordinates().forEach(coord -> setCellTo(coord, 1));
+        ship.getCoordinates().forEach(coord -> coordinateList.put(coord, ship));
     }
 
     /**
      * Get a new ship with valid coordinates
+     *
      * @param shipSize The ship length
      * @return A ship instance
      */
-    private Ship createNewShip(int shipSize){
+    private Ship createNewShip(int shipSize) {
         int direction = -1;
         int timesTried = 0;
         int row = 0;
@@ -118,8 +124,9 @@ public class ShipMap extends GameBoard {
         while (direction == -1) {
             row = rand.nextInt(9);
             col = rand.nextInt(9);
+            Coordinate coord = new Coordinate(row,col);
 
-            direction = chooseADirection(row, col, shipSize);
+            direction = chooseADirection(coord, shipSize);
             if (timesTried < 100) {
                 timesTried++;
             } else {
@@ -132,40 +139,38 @@ public class ShipMap extends GameBoard {
     /**
      * Chooses which direction at random to place the ship
      *
-     * @param row      The Row
-     * @param col      The Column
+     * @param coord    The location of the ship starting point
      * @param shipSize The length of the ship
      * @return the direction to go
      */
-    private int chooseADirection(int row, int col, Integer shipSize) {
+    private int chooseADirection(Coordinate coord, Integer shipSize) {
         Random directionRand = new Random(seed); //Make it easier to repeat the generation of ships
-        int[] possibleDirections = IntStream.range(0, 3).filter(x -> isValidDirection(row, col, shipSize, x)).toArray();
-        return possibleDirections[directionRand.nextInt(3)];
+        int[] possibleDirections = IntStream.range(0, 3).filter(x -> isValidDirection(coord, shipSize, x)).toArray();
+        return possibleDirections[directionRand.nextInt(possibleDirections.length)];
     }
 
     /**
      * Checks whether or not a ship can be placed in a certain direction
      *
-     * @param row       The Row
-     * @param col       The Column
+     * @param coord     The location of the ship starting point
      * @param shipSize  The length of the ship
      * @param direction The direction in question
      * @return Whether a ship can be placed in that direction
      */
-    private boolean isValidDirection(int row, int col, int shipSize, int direction) {
+    private boolean isValidDirection(Coordinate coord, int shipSize, int direction) {
         boolean valid = false;
         switch (direction) {
             case 0:
-                valid = IntStream.range(0, shipSize).allMatch(x -> getSquare(row + x, col) == 0);
+                valid = IntStream.range(0, shipSize).allMatch(x -> getCell(coord.addToX(x)) == 0);
                 break;
             case 1:
-                valid = IntStream.range(0, shipSize).allMatch(x -> getSquare(row - x, col) == 0);
+                valid = IntStream.range(0, shipSize).allMatch(x -> getCell(coord.takeFromX(x)) == 0);
                 break;
             case 2:
-                valid = IntStream.range(0, shipSize).allMatch(x -> getSquare(row, col + x) == 0);
+                valid = IntStream.range(0, shipSize).allMatch(x -> getCell(coord.addToY(x)) == 0);
                 break;
             case 3:
-                valid = IntStream.range(0, shipSize).allMatch(x -> getSquare(row, col - x) == 0);
+                valid = IntStream.range(0, shipSize).allMatch(x -> getCell(coord.takeFromY(x)) == 0);
         }
         return valid;
     }
