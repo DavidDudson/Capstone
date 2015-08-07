@@ -15,3 +15,5 @@ web
 target
 derby.log
 .gradletasknamecache
+closure-library-read-only
+closure-library
