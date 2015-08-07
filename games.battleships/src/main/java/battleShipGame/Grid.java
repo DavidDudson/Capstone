@@ -3,7 +3,7 @@ package battleShipGame;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
-import org.apache.commons.lang.SerializationUtils;
+import org.apache.commons.lang3.SerializationUtils;
 
 /**
  *
@@ -157,7 +157,7 @@ public class Grid implements Serializable{
      * @param positionY y-coord grid index value
      * @param positionX x-coord grid index value
      */
-    public void playMove(int positionY, int positionX) {
+    public int playMove(int positionY, int positionX) {
         //play move based on postion choosen by the bot\
 
         switch (grid[positionY][positionX].getSectionStatus()) {
@@ -182,12 +182,16 @@ public class Grid implements Serializable{
             ShipLinkedList hitShip = Ships.get(grid[positionY][positionX].getShipID() - 1);
             for (int i = 0; i < hitShip.getShipType(); i++) {
                 if (hitShip.getShipSection(i).getSectionStatus() != HIT) {
-                    return;
+                    return 0;
                 }
 
             }
             hitShip.setShipStatus(false);
-
+            
+            return hitShip.getShipID();
         }
+    return 0;
     }
+    
+    
 }
