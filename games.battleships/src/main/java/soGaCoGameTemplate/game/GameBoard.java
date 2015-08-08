@@ -2,6 +2,7 @@ package soGaCoGameTemplate.game;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.IntStream;
 
 /**
@@ -14,11 +15,11 @@ public abstract class GameBoard {
     protected int[][] grid;
     protected int width;
     protected int height;
-    private int patrolBoatCount;
-    private int destroyerCount;
-    private int battleshipCount;
-    private int aircraftCarrierCount;
-    private int remainingShips;
+    protected int patrolBoatCount;
+    protected int destroyerCount;
+    protected int battleshipCount;
+    protected int aircraftCarrierCount;
+    protected int remainingShips;
 
     /**
      * Creates a map initally set to all 0's

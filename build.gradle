@@ -139,10 +139,14 @@ task cleanTargetDir(type: Delete) {
   delete fileTree(dir: "target")
 }
 
+task cleanBuildDir(type:Delete) {
+  delete fileTree(dir:"build", exclude: "sogacoSrc")
+}
+
 copySogaco.mustRunAfter('cleanTargetDir')
 
 //Build All Code and output to target Dir
-task buildAll( type: GradleBuild ,dependsOn: ['copySogaco','cleanTargetDir']){
+task buildAll( type: GradleBuild ,dependsOn: ['copySogaco','cleanTargetDir','cleanBuildDir']){
   tasks = ['build']
 }
 

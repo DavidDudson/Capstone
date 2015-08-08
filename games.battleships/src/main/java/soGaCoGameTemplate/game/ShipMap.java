@@ -12,6 +12,7 @@ public class ShipMap extends GameBoard {
 
     private long seed;
     private Random rand;
+
     private Map<Coordinate, Ship> coordinateList = new HashMap<>();
 
     /**
@@ -176,11 +177,33 @@ public class ShipMap extends GameBoard {
     }
 
     /**
+     * Generate a botmap based on this shipMap
+     * @return the new botmap
+     */
+    public BotMap generateBotMap(){
+        return new BotMap(this);
+    }
+
+    /**
      * The seed used to generate the ship positions
      *
      * @return The Random Seed
      */
     public long getSeed() {
         return seed;
+    }
+
+
+    /**
+     * Get the coords of a ship that is at a specific location
+     * @param coord The Coordinate
+     * @return the ship coordinates
+     */
+    public List<Coordinate> getShipCoordinates(Coordinate coord){
+        return this.coordinateList.get(coord).getCoordinates();
+    }
+
+    public boolean isShip(Coordinate coord) {
+        return grid[coord.getX()][coord.getY()] == 1;
     }
 }
