@@ -35,7 +35,6 @@ public class testBot {
             randY = rand.nextInt((10));
             
         }
-        System.out.println(grid[randY][randX].getSectionStatus());
         retCoord[0] = randY;
         retCoord[1] = randX;
         

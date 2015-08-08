@@ -5,11 +5,13 @@
  */
 package battleShipGame;
 
+import java.io.Serializable;
+
 /**
  *
  * @author adhoulih
  */
-public final class ShipLinkedList {
+public final class ShipLinkedList implements Serializable{
     
     private Section head;
     private int shipType;
