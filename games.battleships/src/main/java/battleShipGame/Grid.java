@@ -5,6 +5,7 @@ import org.apache.commons.lang.SerializationUtils;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
+import org.apache.commons.lang3.SerializationUtils;
 
 /**
  *
@@ -78,7 +79,7 @@ public class Grid implements Serializable{
             if (yCoord + j > curShip.getShipType()
                     || grid[yCoord + j][xCoord].getSectionStatus() != WATER) {
                 viableDirections[2] = -1;
-            }  
+            }
             if (yCoord - j < curShip.getShipType()
                     || grid[yCoord - j][xCoord].getSectionStatus() != WATER) {
                 viableDirections[3] = -1;
@@ -105,7 +106,7 @@ public class Grid implements Serializable{
             int randX = rand.nextInt(9);
             int randY = rand.nextInt(9);
 
-            //preform check on weather positions to the left/right up/down were 
+            //preform check on weather positions to the left/right up/down were
             //free to place a ship
             ShipLinkedList curShip = Ships.get(i);
 
@@ -115,7 +116,7 @@ public class Grid implements Serializable{
                 continue;
             }
 
-            //if free places ship sections on grid else decrements 
+            //if free places ship sections on grid else decrements
             //the loop and tries again in a different position
             for (int l = 0; l < curShip.getShipType(); l++) {
                 if (chosenDirection == 0) {
@@ -188,11 +189,11 @@ public class Grid implements Serializable{
 
             }
             hitShip.setShipStatus(false);
-            
+
             return hitShip.getShipID();
         }
     return 0;
     }
-    
-    
+
+
 }

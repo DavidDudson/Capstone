@@ -1,14 +1,7 @@
-<%-- 
-    /* global j */
-/* global j */
-Document   : gameState
-    Created on : 16/07/2015, 10:26:48 AM
-    Author     : adhoulih
---%>
-<%@page import="battleShipGame.Section"%>
+<%@ page trimDirectiveWhitespaces="true" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
-
+<%@page import="battleShipGame.Section"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="battleShipGame.ShipLinkedList"%>
 <%@page import="battleShipGame.testBot"%>
@@ -18,11 +11,11 @@ Document   : gameState
     int SIZE = 10;
     testBot bot1 = new testBot();
     Grid bot1Grid;
-    int[][] bot1Moves = new int[100][3];
+    int[][] bot1Moves = new int[100][4];
 
     testBot bot2 = new testBot();
     Grid bot2Grid;
-    int[][] bot2Moves = new int[100][3];
+    int[][] bot2Moves = new int[100][4];
 
     public int[][] gameRun(Grid grid, testBot bot) {
         int[][] botMoves = new int[100][4];
@@ -35,35 +28,16 @@ Document   : gameState
             botMoves[movesIndex][1] = retVals[1];
             botMoves[movesIndex][2] = grid.getGrid()[retVals[0]][retVals[1]].getSectionStatus();
             botMoves[movesIndex][3] = grid.playMove(retVals[0], retVals[1]);
-
             if (botMoves[movesIndex][3] != 0) {
                 deadShips++;
-
             }
             movesIndex++;
         }
         if (movesIndex < 99) {
-            botMoves[movesIndex + 1][0] = -1;
-            botMoves[movesIndex + 1][1] = -1;
+            botMoves[movesIndex][0] = -1;
+            botMoves[movesIndex][1] = -1;
         }
-
         return botMoves;
-    }
-
-    public static StringBuilder printGrid(Grid grid) {
-        StringBuilder outGrid = new StringBuilder();
-        for (Section[] rowSection : grid.getGrid()) {
-            outGrid.append("---------------------\n");
-            StringBuilder row = new StringBuilder();
-            for (Section colSection : rowSection) {
-                row.append("|").append(colSection.getSectionStatus());
-            }
-            row.append("|\n");
-
-            outGrid.append(row);
-
-        }
-        return outGrid;
     }
 %>
 
@@ -76,386 +50,420 @@ Document   : gameState
 
 
 %>
-<style>
-
-    .grids {
-        float: left;
-        width: 500px;
-        height: 245px;
-
-    }
-    .currentShips {
-        float: right
-    }
-    .gameState1 {
-        float: left;
-        margin-right: 20px;
-    }
-    .gameState2 {
-        float: right;
-        margin-left: 20px;
-    }
-
-    .nodeSection {
-        width:20px;
-        height:20px;
-        border-color: blue;
-        border-style: solid;
-        border-left-width:   5px;
-        float: left;;
-    }
-</style>
-<script type="text/javascript">
-    var player1Move = true;
-    var bot1MoveCount = 0;
-    var bot2MoveCount = 0;
-
-
-
-    function getSectColor(gameArrIndex) {
-        var sectionColor;
-        switch (gameArrIndex) {
-            case 0:
-                sectionColor = "#A6B8ED";
-                break;
-            case 1:
-                sectionColor = "#FFA3A3";
-                break;
-            case 2:
-                sectionColor = "#FFFF4D";
-                break;
-            case 3:
-                sectionColor = "#FF9900";
-                break;
-            case 4:
-                sectionColor = "#944DFF";
-                break;
-            case 5:
-                sectionColor = "#94FF70";
-                break;
-            case 6:
-                sectionColor = "#000000";
-                break;
-            case 7:
-                sectionColor = "#FFFFFF";
-                break;
-        }
-        return sectionColor;
-
-    }
-
-    function retHitOrMiss(gameArrIndex) {
-        var newSectCol;
-        switch (gameArrIndex) {
-            case 0:
-                newSectCol = "#FFFFFF";
-                break;
-            case 1:
-                newSectCol = "#FF0000";
-                break;
-            case 2:
-                newSectCol = "#FF0000";
-                break;
-            case 3:
-                newSectCol = "#FF0000";
-                break;
-            case 4:
-                newSectCol = "#FF0000";
-                break;
-            case 5:
-                newSectCol = "#FF0000";
-                break;
-        }
-        return newSectCol;
-
-    }
-
-    function alterBoatLiveGUI(sunkBoat, player) {
-        var playerBoat;
-        switch (sunkBoat) {
-            case 2:
-                playerBoat = document.getElementById(player + "Patrol");
-                break;
-            case 3:
-                playerBoat = document.getElementById(player + "Destroyer");
-                break;
-            case 4:
-                playerBoat = document.getElementById(player + "Battle");
-                break;
-            case 5:
-                playerBoat = document.getElementById(player + "AirCarry");
-                break;
-
-        }
-        var num = playerBoat.innerHTML;
-        num--;
-        playerBoat.innerHTML = num;
-
-    }
-
-    function nextMove() {
-        if (player1Move) {
-            var yCoordA = bot1Moves[bot1MoveCount][0];
-            var xCoordA = bot1Moves[bot1MoveCount][1];
-            var posA = "a" + (yCoordA * 10 + xCoordA);
-            document.getElementById(posA).style.backgroundColor = retHitOrMiss(gameArrayA[yCoordA][xCoordA]);
-
-            if (bot1Moves[bot1MoveCount][3] !== 0) {
-                alterBoatLiveGUI(bot1Moves[bot1MoveCount][3], "p1");
-            }
-            bot1MoveCount++;
-
-        } else {
-            var yCoordB = bot2Moves[bot2MoveCount][0];
-            var xCoordB = bot2Moves[bot2MoveCount][1];
-            var posB = "b" + (yCoordB * 10 + xCoordB);
-            document.getElementById(posB).style.backgroundColor = retHitOrMiss(gameArrayB[yCoordB][xCoordB]);
-
-            if (bot2Moves[bot2MoveCount][3] !== 0) {
-                alterBoatLiveGUI(bot2Moves[bot2MoveCount][3], "p2");
-            }
-            bot2MoveCount++;
-        }
-        if (bot1Moves[bot1MoveCount][0] === -1) {
-            document.getElementById("nextButton").disabled = true;
-            alert("bot1 wins");
-        }
-        if (bot2Moves[bot2MoveCount][0] === -1) {
-            document.getElementById("nextButton").disabled = true;
-            alert("bot2 wins");
-        }
-        if (bot1MoveCount !== 0) {
-            document.getElementById("prevMove").disabled = false;
-        }
-
-        player1Move = !player1Move;
-
-
-
-    }
-    function prevMove() {
-        player1Move = !player1Move;
-
-        if (bot1Moves[bot1MoveCount][0] !== -1) {
-            document.getElementById("nextButton").disabled = false;
-        }
-        if (bot1MoveCount === 0){
-            document.getElementById("prevButton").disabled = true;
-        }
-        else if (player1Move) {
-            bot1MoveCount--;
-            var yCoordA = bot1Moves[bot1MoveCount][0];
-            var xCoordA = bot1Moves[bot1MoveCount][1];
-            var posA = "a" + (yCoordA * 10 + xCoordA);
-
-            document.getElementById(posA).style.backgroundColor = getSectColor(bot1Moves[bot1MoveCount][2]);
-
-            if (bot1Moves[bot1MoveCount][2] !== 0) {
-                alterBoatLiveGUI(bot1Moves[bot1MoveCount][2], "p1");
-            }
-
-
-        } else if (bot2MoveCount !== 0) {
-            bot2MoveCount--;
-
-            var yCoordB = bot2Moves[bot2MoveCount][0];
-            var xCoordB = bot2Moves[bot2MoveCount][1];
-            var posB = "b" + (yCoordB * 10 + xCoordB);
-            document.getElementById(posB).style.backgroundColor = getSectColor(bot2Moves[bot2MoveCount][2]);
-
-            if (bot2Moves[bot2MoveCount][2] !== 0) {
-                alterBoatLiveGUI(bot2Moves[bot2MoveCount][2], "p2");
-            }
-
-        }
-
-
-
-    }
-    function endGame() {
-
-        while (!document.getElementById("nextButton").disabled) {
-            nextMove();
-        }
-
-    }
-    function startOfGame() {
-        while (!document.getElementById("prevMove").disabled) {
-            prevMove();
-        }
-    }
-
-
-
-</script>
-<html>
+<html lang="en">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta http-equiv="Cache-Control" content="no-store" />
-        <title>JSP Page</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge" >
+        <title>  </title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1.0, initial-scale=1.0" />
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="static/js/jquery-1.7.2.min.js"></script>
+        <script src="static/js/jquery-ui-1.8.21.custom.min.js"></script>
+        <script src="static/js/gameState.js"></script>
+        <link rel="stylesheet" type="text/css" href="static/css/style.css">
+        <link rel="stylesheet" type="text/css" href="static/css/grid.css">
+
+
+        <script lang="JavaScript">
+            var bot1MoveCount = 0;
+            var bot2MoveCount = 0;
+            var player1Move = true;
+            var gameEnded = false;
+            var gameStart = true;
+            var gameSpeed = 500;
+            var playGame = true;
+            var myGame;
+            function nextMove() {
+
+                if (bot1MoveCount === 0) {
+                    gameStart = !gameStart;
+                }
+                if (player1Move) {
+                    var yCoordA = bot1Moves[bot1MoveCount][0];
+                    var xCoordA = bot1Moves[bot1MoveCount][1];
+                    var posA = "a" + (yCoordA * 10 + xCoordA);
+
+                    document.getElementById(posA).style.backgroundColor = retHitOrMiss(gameArrayA[yCoordA][xCoordA]);
+                    if (bot1Moves[bot1MoveCount][3] !== 0) {
+                        alterBoatLiveGUI(bot1Moves[bot1MoveCount][3], "p1");
+                    }
+                    bot1MoveCount++;
+                }
+                else {
+                    var yCoordB = bot2Moves[bot2MoveCount][0];
+                    var xCoordB = bot2Moves[bot2MoveCount][1];
+                    var posB = "b" + (yCoordB * 10 + xCoordB);
+                    document.getElementById(posB).style.backgroundColor = retHitOrMiss(gameArrayB[yCoordB][xCoordB]);
+                    if (bot2Moves[bot2MoveCount][3] !== 0) {
+                        alterBoatLiveGUI(bot2Moves[bot2MoveCount][3], "p2");
+                    }
+                    bot2MoveCount++;
+                }
+
+                if (bot2Moves[bot2MoveCount][0] === -1) {
+                    alert("bot2 wins");
+                    alterBoatLiveGUI(bot2Moves[bot2MoveCount][3], "p2", "dec");
+                    gameEnded = true;
+                }
+                if (bot1Moves[bot1MoveCount][0] === -1 || bot1MoveCount === 99) {
+                    alert("bot1 wins");
+                    alterBoatLiveGUI(bot1Moves[bot1MoveCount][3], "p1", "dec");
+                    gameEnded = true;
+                }
+
+                player1Move = !player1Move;
+
+            }
+            function prevMove() {
+                player1Move = !player1Move;
+
+
+                if (player1Move) {
+                    bot1MoveCount--;
+                    var yCoordA = bot1Moves[bot1MoveCount][0];
+                    var xCoordA = bot1Moves[bot1MoveCount][1];
+                    var posA = "a" + (yCoordA * 10 + xCoordA);
+                    document.getElementById(posA).style.backgroundColor = "#A6B8ED";
+                    if (bot1Moves[bot1MoveCount][3] !== 0) {
+                        alterBoatLiveGUI(bot1Moves[bot1MoveCount][2], "p1", "inc");
+                    }
+                } else if (bot2MoveCount !== 0) {
+                    bot2MoveCount--;
+                    var yCoordB = bot2Moves[bot2MoveCount][0];
+                    var xCoordB = bot2Moves[bot2MoveCount][1];
+                    var posB = "b" + (yCoordB * 10 + xCoordB);
+                    document.getElementById(posB).style.backgroundColor = "#A6B8ED";
+                    if (bot2Moves[bot2MoveCount][3] !== 0) {
+                        alterBoatLiveGUI(bot2Moves[bot2MoveCount][2], "p2", "inc");
+                    }
+
+
+
+                }
+                if (bot1MoveCount === 0 && player1Move) {
+                    bot2MoveCount = 0;
+                    var yCoordB = bot2Moves[bot2MoveCount][0];
+                    var xCoordB = bot2Moves[bot2MoveCount][1];
+                    var posB = "b" + (yCoordB * 10 + xCoordB);
+                    document.getElementById(posB).style.backgroundColor = "#A6B8ED";
+
+                    gameStart = true;
+
+                }
+            }
+            function endGame() {
+                while (!gameEnded) {
+
+                    nextMove();
+                }
+            }
+            function startOfGame() {
+                while (!gameStart) {
+                    prevMove();
+                }
+            }
+            function playPause() {
+                  if(playGame){
+                    myGame = setInterval(function(){nextMove();}, 500);
+                }else{
+                    clearInterval(myGame);
+                }
+                playGame = !playGame;
+                    
+
+            }
+        </script>
     </head>
     <body>
-        <div class="grids">
-            <div class="gameState1">
-                <table class="node" border="1">
-                    <%                    int countA = 0;
-                        for (int i = 0; i < SIZE; i++) {
-                    %>
-                    <tr>
-                        <%
-                            for (int j = 0; j < SIZE; j++) {
-                        %>
-                        <td id="a<%=countA%>">
-                            <%= countA%>
-                            <%countA++; %>
-                        </td>
-                        <%}%>
-                    </tr>
-                    <%}%>
-                </table>
+        <div class="container_12"> 
+            <div id="header">
+                <div id="nav_container">
+                    <div id="nav_menu" class="left">
+                        <div id="logo" class="left">
+                            <a href="index.html"> Battleship </a>
+                        </div>
+                        <nav class="menu">
+                            <a class="toggle-nav" href="#">&#9776;</a>
+                            <ul class="list_inline active">
+                                <li> <a href=""> Editor </a> </li>
+                                <li> <a href=""> Test </a> </li>
+                                <li> <a href=""> Help </a> </li>
+                                <li> <a href=""> Community </a> </li>
+                                <li> <a href=""> Survey </a> </li>	
+                                <li> <a href=""> About </a> </li>
 
-            </div> 
-            <div class="gameState2">
-                <table class="node" border="1">
-                    <%                    int countB = 0;
-                        for (int i = 0; i < SIZE; i++) {
-                    %>
-                    <tr>
-                        <%
-                            for (int j = 0; j < SIZE; j++) {
-                        %>
-                        <td id="b<%=countB%>">
-                            <%= countB%>
-                            <%countB++; %>
-                        </td>
-                        <%}%>
-                    </tr>
-                    <%}%>
-                </table>
+                                <li> <div class="menu-on"> <a href=""> My Bots </a> </div> </li>
+                                <li> <div class="menu-on">  <a href=""> Built-in Bots </a> </div> </li>
+                                <li> <div class="menu-on">  <a href=""> Shared Bots </a> </div> </li>
+                            </ul>
+
+                        </nav>
+                    </div>	
+
+
+                    <div id="user" class="right">
+                        <ul class="list_inline">
+                            <li> <a class="username" href=""> Ashraf, Alharbi </a> </li>
+                            <li> <a class="logout" href=""> Logout </a> </li>
+                        </ul>
+                    </div>
+
+                    <div class="clear"> </div>
+                </div>
+            </div>
+
+            <div id="content">
+                <div id="sidebar_left" class="sidebar left">
+                    <div id="my_bots" class="sidebar_box">
+                        <div class="sidebar_head">
+                            My Bots
+                        </div>
+
+                        <div class="sidebar_content">
+                            <ul class="list_block">
+                                <li class="bot"> <a href=""> Lorem Ipsum Dolor </a> </li>
+                                <li class="bot"> <a href=""> Lorem Ipsum Dolor </a> </li>
+                                <li class="bot"> <a href=""> Lorem Ipsum Dolor </a> </li>
+                                <li class="bot"> <a href=""> Lorem Ipsum Dolor </a> </li>
+                                <li class="bot more"> <a href=""> more... </a> </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div id="built-in_bots" class="sidebar_box">
+                        <div class="sidebar_head">
+                            Built-in Bots
+                        </div>
+
+                        <div class="sidebar_content">
+                            <ul class="list_block">
+                                <li class="bot"> <a href=""> Cautious Built-in Bot </a> </li>
+                                <li class="bot"> <a href=""> Greedy Built-in Bot </a> </li>
+                                <li class="bot"> <a href=""> Smarter Bot </a> </li>
+                                <li class="bot"> <a href=""> Black Mamba </a> </li>
+                                <li class="bot more"> <a href=""> more... </a> </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div id="shared_bots" class="sidebar_box">
+                        <div class="sidebar_head">
+                            Shared Bots
+                        </div>
+
+                        <div class="sidebar_content">
+                            <div id="search">
+                                <form method="">
+                                    <input class="search_box" type="text" value="Search..." />
+                                    <input class="search_btn" type="submit" value="" />
+                                </form>
+                            </div>
+
+                            <br />
+
+
+                            <!-- Search Results in list here
+                            <ul class="list_block">
+                                    <li class="bot"> <a href=""> Lorem Ipsum Dolor </a> </li>
+                                    <li class="bot"> <a href=""> Lorem Ipsum Dolor </a> </li>
+                                    <li class="bot"> <a href=""> Lorem Ipsum Dolor </a> </li>
+                                    <li class="bot"> <a href=""> Lorem Ipsum Dolor </a> </li>
+                                    <li class="bot more"> <a href=""> more... </a> </li>
+                            </ul>
+                            -->
+                            <br />
+                        </div>
+                    </div>
+                </div>
+
+                <div id="main_content">
+                    <div id="player_one" class="left">
+                        <ul> 
+                            <li> <b> Player 1 </b> </li>
+                        </ul>
+
+                        <ul class="grid_box">
+                            <%for (int i = 0; i < SIZE; i++) {%>
+                            <%for (int j = 0; j < SIZE; j++) {%>
+                            <li id="a<%=i * 10 + j%>"></li>
+                                <%}%>
+                            </br>
+                            <%}%>
+
+                        </ul>
+
+
+                    </div>
+
+                    <div id="player_two" class="left">
+                        <ul> 
+                            <li> <b> Player 2 </b> </li>
+                        </ul>
+
+                        <ul class="grid_box">
+                            <%for (int i = 0; i < SIZE; i++) {%>
+                            <%for (int j = 0; j < SIZE; j++) {%>
+                            <li id="b<%=i * 10 + j%>"></li>
+                                <%}%>
+                            </br>
+                            <%}%>
+
+                        </ul>
+
+                        <script>
+
+                            var gameArrayA = new Array(10);
+                            var gameArrayB = new Array(10);
+                            for (var z = 0; z < 10; z++) {
+                                gameArrayA[z] = new Array(10);
+                                gameArrayB[z] = new Array(10);
+                            }
+                            <%
+                                for (int i = 0; i < SIZE; i++) {
+                                    for (int j = 0; j < SIZE; j++) {
+                            %>
+                            gameArrayA[<%= i%>][<%= j%>] = <%= bot1Grid.getGrid()[i][j].getSectionStatus()%>;
+                            gameArrayB[<%= i%>][<%= j%>] = <%= bot2Grid.getGrid()[i][j].getSectionStatus()%>;
+                            <%
+                                    }
+                                }
+                            %>
+                            for (var i = 0; i < 10; i++) {
+                                for (var j = 0; j < 10; j++) {
+                                    document.getElementById("a" + (i * 10 + j).toString()).style.backgroundColor = getSectColor(0);
+                                    document.getElementById("b" + (i * 10 + j).toString()).style.backgroundColor = getSectColor(0);
+                                }
+                            }
+                            var bot1Moves = new Array(100);
+                            var bot2Moves = new Array(100);
+                            for (var k = 0; k < 100; k++) {
+                                bot1Moves[k] = new Array(4);
+                                bot2Moves[k] = new Array(4);
+                            }
+                            <%
+                                bot1Moves = gameRun(bot1Grid, bot1);
+                                bot2Moves = gameRun(bot2Grid, bot1);
+
+                                for (int yCoord = 0; yCoord < bot1Moves.length; yCoord++) {
+                            %>
+                            bot1Moves[<%=yCoord%>][0] = <%= bot1Moves[yCoord][0]%>
+                            bot1Moves[<%=yCoord%>][1] = <%= bot1Moves[yCoord][1]%>
+                            bot1Moves[<%=yCoord%>][2] = <%= bot1Moves[yCoord][2]%>
+                            bot1Moves[<%=yCoord%>][3] = <%= bot1Moves[yCoord][3]%>
+
+                            bot2Moves[<%=yCoord%>][0] = <%= bot2Moves[yCoord][0]%>
+                            bot2Moves[<%=yCoord%>][1] = <%= bot2Moves[yCoord][1]%>
+                            bot2Moves[<%=yCoord%>][2] = <%= bot2Moves[yCoord][2]%>
+                            bot2Moves[<%=yCoord%>][3] = <%= bot2Moves[yCoord][3]%>
+
+
+
+                            <%}%>
+
+                        </script>
+                    </div>
+
+
+                </div>
+
+                <div id="sidebar_right" class="sidebar right">
+                    <div id="game_controls" class="sidebar_box">
+                        <div class="sidebar_head">
+                            Game Controls
+                        </div>
+
+                        <div class="sidebar_content">
+                            <div id="controls">
+                                <div id="set_one">
+                                    <ul class="list_inline">
+                                        <li> <a class="fast_prev" onClick="startOfGame()"> </a> </li> 
+                                        <li> <a class="prev" onClick="prevMove()"> </a> </li> 
+                                        <li> <a class="pause" onClick="playPause()"> </a> </li> 
+                                        <li> <a class="forward" onClick="nextMove()"> </a>  </li> 
+                                        <li> <a class="fast_forward" onClick="endGame()"> </a> </li> 
+                                    </ul>
+                                </div>
+
+                                <div id="set_two" class="slow_fast">
+                                    <div class="left"> Slow </div>
+                                    <section> <div id="slider"> </div>  </section>
+                                    <div class="right"> Fast </div>
+                                    <div class="clear"> </div>
+
+                                    <script>
+
+                                        $(function () {
+                                            $("#slider").slider({
+                                                range: "min",
+                                                value: 500,
+                                                min: 1,
+                                                max: 1000,
+                                                slide: function (event, ui) {
+                                                    gameSpeed = ui.value;
+                                                }
+                                            });
+                                        });
+                                    </script>
+                                </div>
+                            </div>
+                                                    
+                            <div id="results">
+                                <div id="results_head">
+                                    <ul class="list_inline">
+                                        <li style="width: 100px;"> Boats Left </li>
+                                        <li style="width: 40px;"> P1 <div class="color_red right"> </div> </li> 
+                                        <li style="width: 40px;"> P2 <div class="color_purple right"> </div> </li> 
+                                        <div class="clear"> </div>
+                                    </ul>
+
+                                    <div class="clear"> </div>
+                                </div>
+
+                                <div id="results_list">
+
+                                    <ul class="list_inline">
+                                        <li style = "width: 100px;"> Aircraft Carrier  </li>
+                                        <li id = "p1AirCarry" style="width: 40px;"> 1 </li>
+                                        <li id = "p2AirCarry" style="width: 40px;"> 1 </li>
+                                    </ul>
+
+                                    <ul class="list_inline">
+                                        <li style = "width: 100px;"> Battleship </li>
+                                        <li id = "p1BattleShip"  style="width: 40px;"> 2 </li>
+                                        <li id = "p2BattleShip" style="width: 40px;"> 2 </li>
+                                    </ul>
+
+                                    <ul class="list_inline">
+                                        <li style = "width: 100px;"> Destroyer </li>
+                                        <li id = "p1Destroyer" style="width: 40px;"> 1 </li>
+                                        <li id = "p2Destroyer" style="width: 40px;"> 1 </li>
+                                    </ul>
+
+                                    <ul class = "list_inline">
+                                        <li style = "width: 100px;"> Patrol Boat </li>
+                                        <li id = "p1Patrol" style="width: 40px;"> 2 </li>
+                                        <li id = "p2Patrol" style="width: 40px;"> 2 </li>
+                                    </ul>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clear"> </div>
+            </div>
+
+            <div id="footer">
 
 
             </div>
         </div>
-        <div class="currentShips">
-            <table>
-                </tr>
-                <Button id="startOfGame" onclick="startOfGame()">start Of Game</button> 
-                <Button id="prevMove" onclick="prevMove()">previous move</button> 
-                <Button id="pausePlay" onclick="pausePlay()">pause/play</button> 
-                <Button id="nextButton" onclick="nextMove()">next move</button>    
-                <Button id="endGame" onclick="endGame()">end game</button> 
-                </tr>
-                <tr>
-                    <td>boats type
-                    </td>
-                    <td>player 1</td>
-                    <td>player 2</td> 
-                </tr>
-                <tr>
-                    <td>
-                        <p>Aircraft carrier</p>
-                        <div class="nodeSection"></div>
-                        <div class="nodeSection"></div>
-                        <div class="nodeSection"></div>
-                        <div class="nodeSection"></div>
-                        <div class="nodeSection"></div>
-                    </td>
-                    <td><p id="p1AirCarry">1</p></td> 
-                    <td><p id="p2AirCarry">1</p></td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>Battleship</p>
-                        <div class="nodeSection"></div>
-                        <div class="nodeSection"></div>
-                        <div class="nodeSection"></div>
-                        <div class="nodeSection"></div>
-                    </td>
-                    <td><p id="p1Battle">2</p></td> 
-                    <td><p id="p2Battle">2</p></td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>Destroyer</p>
-                        <div class="nodeSection"></div>
-                        <div class="nodeSection"></div>
-                        <div class="nodeSection"></div>
-                    </td>
-                    <td><p id="p1Destroyer">2</p></td> 
-                    <td><p id="p2Destroyer">2</p></td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>Patrol boat</p>
-                        <div class="nodeSection"></div>
-                        <div class="nodeSection"></div>
-                    </td>
-                    <td><p id="p1Patrol">2</p></td> 
-                    <td><p id="p2Patrol" >2</p></td>
-                </tr>
 
-            </table>
-
-
-
-
-        </div>
-
-        <script>
-            document.getElementById("prevMove").disabled = true;
-
-            var gameArrayA = new Array(10);
-            var gameArrayB = new Array(10);
-            for (var z = 0; z < 10; z++) {
-                gameArrayA[z] = new Array(10);
-                gameArrayB[z] = new Array(10);
-            }
-            <%
-                for (int i = 0; i < SIZE; i++) {
-                    for (int j = 0; j < SIZE; j++) {
-            %>
-            gameArrayA[<%= i%>][<%= j%>] = <%= bot1Grid.getGrid()[i][j].getSectionStatus()%>;
-            gameArrayB[<%= i%>][<%= j%>] = <%= bot2Grid.getGrid()[i][j].getSectionStatus()%>;
-
-            <%
-                    }
-                }
-            %>
-            for (var i = 0; i < 10; i++) {
-                for (var j = 0; j < 10; j++) {
-                    document.getElementById("a" + (i * 10 + j).toString()).style.backgroundColor = getSectColor(gameArrayA[i][j]);
-                    document.getElementById("b" + (i * 10 + j).toString()).style.backgroundColor = getSectColor(gameArrayB[i][j]);
-                }
-            }
-
-
-            var bot1Moves = new Array(100);
-            var bot2Moves = new Array(100);
-
-            for (var k = 0; k < 100; k++) {
-                bot1Moves[k] = new Array(4);
-                bot2Moves[k] = new Array(4);
-            }
-            <%
-                bot1Moves = gameRun(bot1Grid, bot1);
-                bot2Moves = gameRun(bot2Grid, bot1);
-                for (int yCoord = 0; yCoord < bot1Moves.length; yCoord++) {
-            %>
-            bot1Moves[<%=yCoord%>][0] = <%= bot1Moves[yCoord][0]%>
-            bot1Moves[<%=yCoord%>][1] = <%= bot1Moves[yCoord][1]%>
-            bot1Moves[<%=yCoord%>][2] = <%= bot1Moves[yCoord][2]%>
-            bot1Moves[<%=yCoord%>][3] = <%= bot1Moves[yCoord][3]%>
-
-            bot2Moves[<%=yCoord%>][0] = <%= bot2Moves[yCoord][0]%>
-            bot2Moves[<%=yCoord%>][1] = <%= bot2Moves[yCoord][1]%>
-            bot2Moves[<%=yCoord%>][2] = <%= bot2Moves[yCoord][2]%>
-            bot2Moves[<%=yCoord%>][3] = <%= bot2Moves[yCoord][3]%>
-
-            <%}%>
-
-
-
-
-        </script>
     </body>
 </html>
