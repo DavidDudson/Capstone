@@ -1,9 +1,13 @@
 package soGaCoGameTemplate;
 
 import nz.ac.massey.cs.ig.core.game.Bot;
+import nz.ac.massey.cs.ig.core.game.GameState;
 import nz.ac.massey.cs.ig.core.game.IllegalMoveException;
 import nz.ac.massey.cs.ig.core.game.SimpleGame;
-import soGaCoGameTemplate.game.*;
+import soGaCoGameTemplate.game.BotMap;
+import soGaCoGameTemplate.game.Coordinate;
+import soGaCoGameTemplate.game.GameBoard;
+import soGaCoGameTemplate.game.ShipMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +27,6 @@ public class BattleshipGame extends SimpleGame<GameBoard, Coordinate> {
     private ShipMap shipMap;
     private BotMap bot1map;
     private BotMap bot2map;
-    private int winner = 0; //0 = Not known, 1 = Bot1, 2 = Bot2.
     private List<BattleshipGameMove> history = new ArrayList<>(100);
 
     /**
@@ -37,26 +40,48 @@ public class BattleshipGame extends SimpleGame<GameBoard, Coordinate> {
     public BattleshipGame(String uid, Bot<?, ?> player1, Bot<?, ?> player2) {
         super(uid, (Bot<GameBoard, Coordinate>) player1, (Bot<GameBoard, Coordinate>) player2);
         this.shipMap = new ShipMap();
-        this.bot1map = new BotMap();
-        this.bot2map = new BotMap();
+        this.bot1map = shipMap.generateBotMap();
+        this.bot2map = shipMap.generateBotMap();
     }
 
     /**
      * Do a single move
      *
      * @param coord The coordinate to "Attack"
-     * @param bot        the bot whose move it is
+     * @param bot   the bot whose move it is
      */
     @Override
     protected void doMove(Coordinate coord, Bot<GameBoard, Coordinate> bot) {
         GameBoard botMap = (bot == player1) ? bot1map : bot2map;
         //Add 1 due to compensating for the fact that bot map has 3 states (Including unknown) and shipMap has 2
         int cellState = shipMap.getCell(coord) + 1;
+
+        if (cellState == 3) shipMap.getShipCoordinates(coord).forEach(x -> botMap.setCellTo(x, 3));
+
         botMap.setCellTo(coord, cellState);
         boolean wasShip = cellState == 2;
         history.add(new BattleshipGameMove(bot.getId(), coord, wasShip));
-
+        updateGameState(coord, bot);
     }
+
+    /**
+     * Updates the game state to tell the game whose turn is next
+     *
+     * @param coord The Coordinate
+     * @param bot   The bot whose move was last
+     */
+    private void updateGameState(Coordinate coord, Bot<GameBoard, Coordinate> bot) {
+        if (bot == player1 && shipMap.isShip(coord)) {
+            this.state = GameState.WAITING_FOR_PLAYER_1;
+        } else if (bot == player2 && shipMap.isShip(coord)) {
+            this.state = GameState.WAITING_FOR_PLAYER_2;
+        } else if (bot == player1) {
+            this.state = GameState.WAITING_FOR_PLAYER_2;
+        } else {
+            this.state = GameState.WAITING_FOR_PLAYER_1;
+        }
+    }
+
 
     /**
      * Make sure that the move is registered to prevent timeout
@@ -81,6 +106,10 @@ public class BattleshipGame extends SimpleGame<GameBoard, Coordinate> {
      */
     @Override
     protected void checkValidityOfMove(Coordinate coordinate, Bot<GameBoard, Coordinate> bot) throws IllegalMoveException {
+        BotMap botmap = (bot == player1) ? bot1map : bot2map;
+        if (botmap.getCell(coordinate) != 0) {
+            throw new IllegalMoveException("Coordinate not Water: " + coordinate.toString());
+        }
     }
 
     /**
@@ -88,7 +117,7 @@ public class BattleshipGame extends SimpleGame<GameBoard, Coordinate> {
      */
     @Override
     protected void checkGameTermination() {
-        winner = bot1map.getRemainingShips() == 0 ? 1 : 2;
+        this.state = bot1map.getRemainingShips() == 0 ? GameState.PLAYER_1_WON : GameState.PLAYER_2_WON;
     }
 
     /**
