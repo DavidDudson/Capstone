@@ -16,4 +16,6 @@ target
 derby.log
 .gradletasknamecache
 closure-library-read-only
-closure-library
+closure-librarybuild.xml
+src/main/webapp/META-INF
+src/main/webapp/WEB-INF
