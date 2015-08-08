@@ -24,3 +24,10 @@ dependencies {
     compile 'com.google.guava:guava:19.0-rc1'
 
     compile 'org.apache.directory.studio:org.apache.commons.lang:2.6'
+}
+
+jar {
+  destinationDir = file('../build/jars')
+}
+
+buildDir = '../build/'
