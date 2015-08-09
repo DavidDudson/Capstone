@@ -74,7 +74,7 @@
             var gameEnded = false;
             var gameStart = true;
             var gameSpeed = 500;
-            var playGame = true;
+            var playGame = false;
             var myGame;
             function nextMove() {
 
@@ -166,13 +166,16 @@
                 }
             }
             function playPause() {
-                  if(playGame){
-                    myGame = setInterval(function(){nextMove();}, 500);
-                }else{
+                playGame = !playGame;
+                if (playGame) {
+                    myGame = setInterval(function () {
+                        nextMove();
+                    }, gameSpeed);
+                } else {
                     clearInterval(myGame);
                 }
-                playGame = !playGame;
-                    
+                
+
 
             }
         </script>
@@ -188,8 +191,7 @@
                         <nav class="menu">
                             <a class="toggle-nav" href="#">&#9776;</a>
                             <ul class="list_inline active">
-                                <li> <a href=""> Editor </a> </li>
-                                <li> <a href=""> Test </a> </li>
+                                <li> <a href="easyJ.html"> Editor </a> </li>
                                 <li> <a href=""> Help </a> </li>
                                 <li> <a href=""> Community </a> </li>
                                 <li> <a href=""> Survey </a> </li>	
@@ -398,18 +400,29 @@
                                         $(function () {
                                             $("#slider").slider({
                                                 range: "min",
-                                                value: 500,
+                                                value: 200,
                                                 min: 1,
                                                 max: 1000,
                                                 slide: function (event, ui) {
-                                                    gameSpeed = ui.value;
+                                                    gameSpeed = 1000 - ui.value;
+                                                    if (playGame) {
+                                                        clearInterval(myGame);
+                                                        myGame = setInterval(function () {
+                                                            nextMove();
+                                                        }, gameSpeed);
+                                                    }
                                                 }
                                             });
+                                            if (playGame) {
+                                                setTimeout(nextMove, gameSpeed);
+                                                playPause();
+                                            }
+
                                         });
                                     </script>
                                 </div>
                             </div>
-                                                    
+
                             <div id="results">
                                 <div id="results_head">
                                     <ul class="list_inline">
