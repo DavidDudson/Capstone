@@ -5,7 +5,7 @@ apply plugin: 'java'
 repositories{
   // Treat SoGaCo build output as a repository
   flatDir {
-     dirs '../build/sogacoSrc/bruyere/build/target/projects/'
+     dirs '../sogacoSrc/bruyere/build/target/projects/'
   }
 }
 
@@ -14,7 +14,6 @@ dependencies {
 
     //SoGaCo Dependencies
     compile name: 'gamecore-0.0.3-SNAPSHOT'
-    compile name: 'services-0.0.3-SNAPSHOT'
     compile name: 'languages.java-0.0.3-SNAPSHOT'
 
     //Testing
@@ -28,6 +27,7 @@ dependencies {
 
 jar {
   destinationDir = file('../build/jars')
+  from('resources') { include 'META-INF/services/*.*'}
 }
 
 buildDir = '../build/'
