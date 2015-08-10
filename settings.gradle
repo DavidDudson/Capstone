@@ -2,4 +2,4 @@
 rootProject.name = 'Capstone'
 
 //Include all projects
-include 'games.battleships', 'languages.visual'
+include 'games.battleships'

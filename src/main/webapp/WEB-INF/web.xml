@@ -3,12 +3,12 @@
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
-  <!--
+  <!-- 
 	  <context-param>
 	    <param-name>service_registry_class</param-name>
 	    <param-value>nz.ac.massey.cs.ig.primegame.PrimeGameServices</param-value>
-	  </context-param>
-   -->
+	  </context-param> -->
+
   <error-page>
     <error-code>404</error-code>
     <location>/404.jsp</location>

@@ -42,7 +42,7 @@ public class Ship {
      * @param col The Column
      * @param direction The direction
      */
-    private void populateCoordinates(int row, int col, int direction) {
+    private Ship populateCoordinates(int row, int col, int direction) {
         switch (direction) {
             case 0:
                 IntStream.range(0, shipSize).forEach(x -> coordinates.add(new Coordinate(row + x, col)));
@@ -56,6 +56,7 @@ public class Ship {
             case 3:
                 IntStream.range(0, shipSize).forEach(y -> coordinates.add(new Coordinate(row, col + y)));
         }
+        return this;
     }
 
     /**
