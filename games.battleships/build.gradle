@@ -5,7 +5,7 @@ apply plugin: 'java'
 repositories {
     // Treat SoGaCo build output as a repository
     flatDir {
-        dirs '../sogacoSrc/bruyere/build/target/projects/'
+        dirs '../libs'
     }
 }
 

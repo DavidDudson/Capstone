@@ -7,6 +7,7 @@
     <title>This is an error</title>
 </head>
 <body>
-
+    <h1>404</h1>
+    <p>The page you are trying to access was not found</p>
 </body>
 </html>
