@@ -1,4 +1,4 @@
-package soGaCoGameTemplate.game;
+package nz.daved.starbattles.game;
 
 /**
  * Created by David J. Dudson on 4/08/15.
@@ -100,5 +100,23 @@ public class Coordinate {
     @Override
     public String toString() {
         return "(" + x + "," + y + ")";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Coordinate that = (Coordinate) o;
+
+        return x == that.x && y == that.y;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = x;
+        result = 31 * result + y;
+        return result;
     }
 }

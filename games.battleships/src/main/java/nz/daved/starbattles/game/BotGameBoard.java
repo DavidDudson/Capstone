@@ -1,24 +1,21 @@
-package soGaCoGameTemplate.game;
+package nz.daved.starbattles.game;
 
 import com.google.common.primitives.Ints;
-
-import java.util.Arrays;
-import java.util.stream.IntStream;
 
 /**
  * Created by David J. Dudson on 4/08/15.
  * <p>
  * A grid that the bot fills out to kill all ships before winning.
  */
-public class BotMap extends GameBoard {
+public class BotGameBoard extends GameBoard {
 
     /**
      * Generate a botMap
-     * @param shipMap The shipMap to use as a schema
+     * @param shipGameBoard The shipMap to use as a schema
      */
-    public BotMap(ShipMap shipMap){
-        super(shipMap.patrolBoatCount,shipMap.destroyerCount,shipMap.battleshipCount,
-                shipMap.aircraftCarrierCount,shipMap.width,shipMap.height);
+    public BotGameBoard(ShipGameBoard shipGameBoard){
+        super(shipGameBoard.patrolBoatCount, shipGameBoard.destroyerCount, shipGameBoard.battleshipCount,
+                shipGameBoard.aircraftCarrierCount, shipGameBoard.width, shipGameBoard.height);
     }
 
     /**

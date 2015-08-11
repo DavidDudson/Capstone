@@ -1,13 +1,13 @@
-package soGaCoGameTemplate;
+package nz.daved.starbattles;
 
-import soGaCoGameTemplate.game.Coordinate;
+import nz.daved.starbattles.game.Coordinate;
 
 /**
  * Created by David J. Dudson on 6/08/15.
  * <p>
  * Contains a specific move for
  */
-public class BattleshipGameMove {
+public class StarBattleGameMove {
 
     private String botId;
 
@@ -21,13 +21,13 @@ public class BattleshipGameMove {
      * @param _coord The Coordinate attacked
      * @param _wasShip Whether or not the location contained a ship, aka was hit.
      */
-    public BattleshipGameMove(String _botId, Coordinate _coord, boolean _wasShip) {
+    public StarBattleGameMove(String _botId, Coordinate _coord, boolean _wasShip) {
         this.botId = _botId;
         this.coord = _coord;
         this.wasShip = _wasShip;
     }
 
-    public BattleshipGameMove(BattleshipGameMove move) {
+    public StarBattleGameMove(StarBattleGameMove move) {
         this(move.getBot(), move.coord, move.isShip());
     }
 

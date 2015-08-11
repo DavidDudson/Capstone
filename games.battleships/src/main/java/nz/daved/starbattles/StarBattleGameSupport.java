@@ -1,4 +1,4 @@
-package soGaCoGameTemplate;
+package nz.daved.starbattles;
 
 import nz.ac.massey.cs.ig.core.game.GameFactory;
 import nz.ac.massey.cs.ig.core.game.model.BotData;
@@ -9,10 +9,10 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
-public class BattleshipsGameSupport extends DefaultGameSupport {
+public class StarBattleGameSupport extends DefaultGameSupport {
 
 
-    public BattleshipsGameSupport(String name) {
+    public StarBattleGameSupport(String name) {
         super(name);
     }
 
@@ -38,7 +38,7 @@ public class BattleshipsGameSupport extends DefaultGameSupport {
      */
     @Override
     public GameFactory getGameFactory() {
-        return BattleshipGame::new;
+        return StarBattleGame::new;
     }
 
     /**
@@ -48,7 +48,7 @@ public class BattleshipsGameSupport extends DefaultGameSupport {
      */
     @Override
     public Serializer getSerializer() {
-        return new BattleshipsSerializer();
+        return new StarBattleSerializer();
     }
 
     /**

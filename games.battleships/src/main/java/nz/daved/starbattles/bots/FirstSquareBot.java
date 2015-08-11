@@ -1,10 +1,9 @@
-package soGaCoGameTemplate.bots;
+package nz.daved.starbattles.bots;
 
-import soGaCoGameTemplate.BattleshipBot;
-import soGaCoGameTemplate.game.BotMap;
-import soGaCoGameTemplate.game.Coordinate;
+import nz.daved.starbattles.StarBattlesBot;
+import nz.daved.starbattles.game.BotGameBoard;
+import nz.daved.starbattles.game.Coordinate;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 /**
@@ -12,15 +11,15 @@ import java.util.Arrays;
  * <p>
  * Bot that picks the First Square
  */
-public class FirstSquareBot extends BattleshipBot {
+public class FirstSquareBot extends StarBattlesBot {
 
     public FirstSquareBot() {
         super(FirstSquareBot.class.getName());
     }
 
     @Override
-    public Coordinate nextMove(BotMap botMap) {
-        Arrays.stream(botMap.getGrid())
+    public Coordinate nextMove(BotGameBoard botGameBoard) {
+        Arrays.stream(botGameBoard.getGrid())
                 .flatMapToInt(Arrays::stream)
                         .filter(y -> y == 0).findFirst();
         return null;
