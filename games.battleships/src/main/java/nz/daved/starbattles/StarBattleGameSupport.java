@@ -4,7 +4,10 @@ import nz.ac.massey.cs.ig.core.game.GameFactory;
 import nz.ac.massey.cs.ig.core.game.model.BotData;
 import nz.ac.massey.cs.ig.core.services.Serializer;
 import nz.ac.massey.cs.ig.core.services.defaults.DefaultGameSupport;
+import nz.ac.massey.cs.ig.core.utils.ResourceUtils;
+import nz.daved.starbattles.game.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -12,18 +15,46 @@ import java.util.Objects;
 public class StarBattleGameSupport extends DefaultGameSupport {
 
 
-    public StarBattleGameSupport(String name) {
-        super(name);
+    public StarBattleGameSupport() {
+        super("StarBattle");
     }
 
     @Override
     protected List<BotData> loadBuiltInBots() {
-        return null;
+        String[] files = new String[] { "FirstSquareBot.src" };
+        List<BotData> builtInBots = new ArrayList<>();
+        for (String file : files) {
+            String id = file.substring(0, file.indexOf("."));
+
+            BotData botData = new BotData(id);
+            botData.setName(id);
+            botData.setLanguage("JAVA");
+            botData.setCompilable(true);
+            botData.setTested(true);
+            botData.setqName("builtinbots." + id);
+
+            String src = ResourceUtils
+                    .loadFromClassPath(this, "resources/builtinbots/" + file);
+
+            botData.setSrc(src);
+
+            builtInBots.add(botData);
+        }
+        return builtInBots;
     }
 
     @Override
     public Collection<Class<?>> getWhitelistedClasses() {
-        return null;
+        ArrayList<Class<?>> clazzes = new ArrayList<Class<?>>();
+        clazzes.add(StarBattleGame.class);
+        clazzes.add(StarBattleBot.class);
+        clazzes.add(BotGameBoard.class);
+        clazzes.add(Coordinate.class);
+        clazzes.add(GameBoard.class);
+        clazzes.add(ShipGameBoard.class);
+        clazzes.add(Ship.class);
+
+        return clazzes;
     }
 
     @Override

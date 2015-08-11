@@ -9,7 +9,7 @@ import nz.daved.starbattles.game.Coordinate;
  * <p>
  * Abstact class to get rid of the getID implementation
  */
-public abstract class StarBattlesBot implements Bot<BotGameBoard, Coordinate> {
+public abstract class StarBattleBot implements Bot<BotGameBoard, Coordinate> {
 
     private String uid = null;
 
@@ -18,7 +18,7 @@ public abstract class StarBattlesBot implements Bot<BotGameBoard, Coordinate> {
      *
      * @param botId The uid of the bot
      */
-    public StarBattlesBot(String botId) {
+    public StarBattleBot(String botId) {
         super();
         this.uid = botId;
     }

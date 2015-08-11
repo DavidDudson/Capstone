@@ -31,5 +31,17 @@ public class BotGameBoard extends GameBoard {
 
     }
 
+    public Coordinate getNextValidCoordinate(){
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                if (grid[i][j] == 0) {
+                    return new Coordinate(i,j);
+                }
+            }
+        }
+        //Effectively crash the bot, this should never be called
+        return new Coordinate(-1,-1);
+    }
+
 
 }
