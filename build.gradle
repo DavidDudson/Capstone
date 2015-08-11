@@ -1,15 +1,4 @@
 //-------Helper Functions---------//
-
-//get version string from git details
-def getVersionName = { ->
-    def stdout = new ByteArrayOutputStream()
-    exec {
-        commandLine 'git', 'describe', '--always', '--tags'
-        standardOutput = stdout
-    }
-    return stdout.toString().trim()
-}
-
 apply plugin: 'java'
 apply plugin: 'war'
 
@@ -19,7 +8,7 @@ apply plugin: 'war'
 allprojects {
 
     //Define name of project etc.
-    version = getVersionName()
+    version = 0.1
 
     //Apply code coverage
     apply plugin: "jacoco"
@@ -92,7 +81,7 @@ gretty {
 war {
 
     baseName = 'starbattle'
-    version = getVersionName()
+    version = 0.1
     destinationDir = file('./target')
 }
 
