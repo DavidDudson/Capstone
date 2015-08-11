@@ -1,4 +1,4 @@
-package soGaCoGameTemplate.game;
+package nz.daved.starbattles.game;
 
 import java.util.*;
 import java.util.stream.IntStream;
@@ -8,7 +8,7 @@ import java.util.stream.IntStream;
  * <p>
  * A Map of all known ship locations
  */
-public class ShipMap extends GameBoard {
+public class ShipGameBoard extends GameBoard {
 
     private long seed;
     private Random rand;
@@ -26,7 +26,7 @@ public class ShipMap extends GameBoard {
      * @param _width                The width of the grid
      * @param _height               The height of the grid
      */
-    public ShipMap(int _patrolBoatCount, int _destroyerCount, int _battleshipCount, int _aircraftCarrierCount, int _width, int _height) {
+    public ShipGameBoard(int _patrolBoatCount, int _destroyerCount, int _battleshipCount, int _aircraftCarrierCount, int _width, int _height) {
 
         super(_patrolBoatCount, _destroyerCount, _battleshipCount, _aircraftCarrierCount, _width, _height);
         seed = new Random().nextLong();
@@ -45,7 +45,7 @@ public class ShipMap extends GameBoard {
      * @param _width                The width of the grid
      * @param _height               The height of the grid
      */
-    public ShipMap(int _patrolBoatCount, int _destroyerCount, int _battleshipCount, int _aircraftCarrierCount, int _width, int _height, int _seed) {
+    public ShipGameBoard(int _patrolBoatCount, int _destroyerCount, int _battleshipCount, int _aircraftCarrierCount, int _width, int _height, int _seed) {
 
         this(_patrolBoatCount, _destroyerCount, _battleshipCount, _aircraftCarrierCount, _width, _height);
         this.seed = _seed;
@@ -58,7 +58,7 @@ public class ShipMap extends GameBoard {
      * Plug in default values from the popular hasbro board game
      * 10x10 grid with 2 battleships/submarines (3 long) and 1 of everything else
      */
-    public ShipMap() {
+    public ShipGameBoard() {
         this(1, 2, 1, 1, 10, 10);
     }
 
@@ -120,12 +120,13 @@ public class ShipMap extends GameBoard {
     private Ship createNewShip(int shipSize) {
         int direction = -1;
         int timesTried = 0;
-        int row = 0;
-        int col = 0;
+        int row;
+        int col;
+        Coordinate coord = new Coordinate(0,0);
         while (direction == -1) {
             row = rand.nextInt(9);
             col = rand.nextInt(9);
-            Coordinate coord = new Coordinate(row,col);
+            coord = new Coordinate(row,col);
 
             direction = chooseADirection(coord, shipSize);
             if (timesTried < 100) {
@@ -134,7 +135,7 @@ public class ShipMap extends GameBoard {
                 throw new IllegalArgumentException("Couldn't place ship of size: " + shipSize);
             }
         }
-        return new Ship(row, col, shipSize, direction);
+        return new Ship(coord, shipSize, direction);
     }
 
     /**
@@ -180,8 +181,8 @@ public class ShipMap extends GameBoard {
      * Generate a botmap based on this shipMap
      * @return the new botmap
      */
-    public BotMap generateBotMap(){
-        return new BotMap(this);
+    public BotGameBoard generateBotMap(){
+        return new BotGameBoard(this);
     }
 
     /**

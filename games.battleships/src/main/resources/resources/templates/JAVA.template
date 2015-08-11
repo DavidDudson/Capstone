@@ -1,0 +1,23 @@
+import nz.daved.starbattles.StarBattleBot;
+import nz.daved.starbattles.game.BotGameBoard;
+import nz.daved.starbattles.game.Coordinate;
+
+/**
+ * This is the starting point to implement your own bot.
+ * @author <your name here>
+ */
+
+public class %s extends StarBattleBot {
+
+	public %s(String botId) {
+		super(botId);
+	}
+
+	/**
+	 * Implemen this method to make the best battleships bot possible
+	 */
+	@Override
+	 public Coordinate nextMove(BotGameBoard botGameBoard) {
+		return botGameBoard.getNextValidCoordinate();
+	 }
+};

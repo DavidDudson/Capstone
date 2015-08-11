@@ -1,8 +1,6 @@
-package soGaCoGameTemplate.game;
+package nz.daved.starbattles.game;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -20,41 +18,41 @@ public class Ship {
     private List<Coordinate> coordinates = new ArrayList<>();
 
     private int shipSize;
+
     private int health;
 
     /**
      * Creates a ship
      *
-     * @param row       The Starting Row
-     * @param col       The Starting Column
-     * @param _shipSize  The Length of the ship
-     * @param direction The
+     * @param coord The Starting point
+     * @param _shipSize The Length of the ship
+     * @param direction The direction
      */
-    public Ship(int row, int col, int _shipSize, int direction) {
+    public Ship(Coordinate coord, int _shipSize, int direction) {
         shipSize = _shipSize;
         health = shipSize;
-        populateCoordinates(row, col, direction);
+        populateCoordinates(coord, direction);
     }
 
     /**
      * Generate the ship's coordinates based on direction and starting point
-     * @param row The row
-     * @param col The Column
+     *
+     * @param coord The Coordinate
      * @param direction The direction
      */
-    private Ship populateCoordinates(int row, int col, int direction) {
+    private Ship populateCoordinates(Coordinate coord, int direction) {
         switch (direction) {
             case 0:
-                IntStream.range(0, shipSize).forEach(x -> coordinates.add(new Coordinate(row + x, col)));
+                IntStream.range(0, shipSize).forEach(x -> coordinates.add(coord.addToX(x)));
                 break;
             case 1:
-                IntStream.range(0, shipSize).forEach(x -> coordinates.add(new Coordinate(row - x, col)));
+                IntStream.range(0, shipSize).forEach(x -> coordinates.add(coord.takeFromX(x)));
                 break;
             case 2:
-                IntStream.range(0, shipSize).forEach(y -> coordinates.add(new Coordinate(row, col + y)));
+                IntStream.range(0, shipSize).forEach(y -> coordinates.add(coord.addToY(y)));
                 break;
             case 3:
-                IntStream.range(0, shipSize).forEach(y -> coordinates.add(new Coordinate(row, col + y)));
+                IntStream.range(0, shipSize).forEach(y -> coordinates.add(coord.takeFromY(y)));
         }
         return this;
     }
@@ -62,16 +60,25 @@ public class Ship {
     /**
      * Tell the Ship that part of it has been hit
      */
-    public Ship reduceHealth(){
+    public Ship reduceHealth() {
         health--;
         return this;
     }
 
     /**
+     * Get the health of the ship
+     * @return The Health
+     */
+    public int getHealth() {
+        return health;
+    }
+
+    /**
      * Check if the ship has been sunk
+     *
      * @return True if the ships health is 0
      */
-    public boolean isAlive(){
+    public boolean isAlive() {
         return health > 0;
     }
 

@@ -1,0 +1,27 @@
+package builtinbots;
+
+import nz.daved.starbattles.StarBattleBot;
+import nz.daved.starbattles.game.BotGameBoard;
+import nz.daved.starbattles.game.Coordinate;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * Created by David J. Dudson on 4/08/15.
+ * <p>
+ * Bot that picks the First Square
+ */
+public class FirstSquareBot extends StarBattleBot {
+
+    public FirstSquareBot() {
+        super(FirstSquareBot.class.getName());
+    }
+
+    @Override
+    public Coordinate nextMove(BotGameBoard botGameBoard) {
+        return botGameBoard.getNextValidCoordinate();
+    }
+}

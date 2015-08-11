@@ -1,15 +1,15 @@
-package soGaCoGameTemplate;
+package nz.daved.starbattles;
 
 import nz.ac.massey.cs.ig.core.game.Bot;
-import soGaCoGameTemplate.game.BotMap;
-import soGaCoGameTemplate.game.Coordinate;
+import nz.daved.starbattles.game.BotGameBoard;
+import nz.daved.starbattles.game.Coordinate;
 
 /**
  * Created by David J. Dudson on 4/08/15.
  * <p>
  * Abstact class to get rid of the getID implementation
  */
-public abstract class BattleshipBot implements Bot<BotMap, Coordinate> {
+public abstract class StarBattleBot implements Bot<BotGameBoard, Coordinate> {
 
     private String uid = null;
 
@@ -18,7 +18,7 @@ public abstract class BattleshipBot implements Bot<BotMap, Coordinate> {
      *
      * @param botId The uid of the bot
      */
-    public BattleshipBot(String botId) {
+    public StarBattleBot(String botId) {
         super();
         this.uid = botId;
     }

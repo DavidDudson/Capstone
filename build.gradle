@@ -4,7 +4,7 @@
 def getVersionName = { ->
     def stdout = new ByteArrayOutputStream()
     exec {
-        commandLine 'git', 'describe', '--always','--tags'
+        commandLine 'git', 'describe', '--always', '--tags'
         standardOutput = stdout
     }
     return stdout.toString().trim()
@@ -16,44 +16,44 @@ apply plugin: 'war'
 //-------Dependencies---------//
 
 //Define repository
-allprojects{
+allprojects {
 
-  //Define name of project etc.
-  version = getVersionName()
+    //Define name of project etc.
+    version = getVersionName()
 
-  //Apply code coverage
-  apply plugin: "jacoco"
+    //Apply code coverage
+    apply plugin: "jacoco"
 
-  jacoco {
-      toolVersion = "0.7.1.201405082137"
-      reportsDir = file("$buildDir/ReportDir")
-  }
+    jacoco {
+        toolVersion = "0.7.1.201405082137"
+        reportsDir = file("$buildDir/ReportDir")
+    }
 
-  repositories {
-      // Main repository for gathering plugins
-      jcenter()
-  }
+    repositories {
+        // Main repository for gathering plugins
+        jcenter()
+    }
 }
 
 buildscript {
-  repositories {
-    jcenter()
-  }
+    repositories {
+        jcenter()
+    }
 
-  dependencies {
-    classpath 'org.akhikhl.gretty:gretty:+'
-  }
+    dependencies {
+        classpath 'org.akhikhl.gretty:gretty:+'
+    }
 }
 
 //Apply server plugin
 apply plugin: 'org.akhikhl.gretty'
 apply plugin: 'project-reports'
 
-repositories{
-  // Treat SoGaCo build output as a repository
-  flatDir{
-    dirs 'sogacoSrc/bruyere/build/target/projects/'
-  }
+repositories {
+    // Treat SoGaCo build output as a repository
+    flatDir {
+        dirs 'sogacoSrc/bruyere/build/target/projects/'
+    }
 }
 
 
@@ -72,6 +72,8 @@ dependencies {
     compile 'com.googlecode.json-simple:json-simple:1.1.1'
     compile 'org.apache.httpcomponents:httpclient:4.5'
 
+    compile 'joda-time:joda-time:2.8.1'
+
     compile name: 'services-0.0.3-SNAPSHOT'
 
     //Make this project depends on the game
@@ -84,84 +86,68 @@ dependencies {
 //-------Configuration---------//
 
 //Configure Server plugin
-gretty{
-  servletContainer = 'tomcat8'
-  //AutoReload of everything
-  managedClassReload = true
-  fastReload = true
+gretty {
+    servletContainer = 'tomcat8'
+    //AutoReload of everything
+    managedClassReload = true
+    fastReload = true
 
-  afterEvaluate {
-    logger.info("Classpath:")
-    logger.info(appRun.classPath)
-  }
 }
 
 war {
-  destinationDir = file('./target')
-  //Copy Generated Javadocs
-  from('./build/docs/javadoc') {
-      include '**/*'
-      into 'javadoc'
-  }
-  //Copy Generated Reports
-  from('./build/reports/tests/') {
-      include '**/*'
-      into 'reports'
-  }
 
-  baseName = 'SoGaCo-Web-Battleships'
-  version = getVersionName()
+    baseName = 'starbattle'
+    version = getVersionName()
+    destinationDir = file('./target')
 }
 
 buildDir = './build/'
-
 
 //--------Tasks---------//
 
 // Clones the SoGaCo Repository, uses your bitbucket Username and Password
 // Debug information to get a feel for whats happening.
-task cloneSogaco( type: Exec ) {
-  mkdir './sogacoSrc'
-  commandLine 'hg clone https://CapstoneGroup1:Capstone@bitbucket.org/DavidDudson/bruyere'.split()
-  workingDir = './sogacoSrc'
+task cloneSogaco(type: Exec) {
+    mkdir './sogacoSrc'
+    commandLine 'hg clone https://CapstoneGroup1:Capstone@bitbucket.org/DavidDudson/bruyere'.split()
+    workingDir = './sogacoSrc'
 }
 
 // Clone only when SoGaCo isnt in the build folder
 cloneSogaco.onlyIf { !file('./sogacoSrc/bruyere/').exists() }
 //Build SoGaCo from source
-task buildSogaco( type: Exec  , dependsOn: 'cloneSogaco' ) {
+task buildSogaco(type: Exec, dependsOn: 'cloneSogaco') {
     commandLine 'mvn clean install'.split()
     workingDir = './sogacoSrc/bruyere/build/'
 }
 
 // Build only when SoGaCo hasn't been built before
-buildSogaco.onlyIf { !file('./sogacoSrc/bruyere/build/target/projects/').exists()}
+buildSogaco.onlyIf { !file('./sogacoSrc/bruyere/build/target/projects/').exists() }
 
 //Copy cloned SoGaCo to out target Directory
-task copySogaco( type: Copy , dependsOn: 'buildSogaco' ) {
-  from './sogacoSrc/bruyere/build/target/projects'
-  into './target'
-  include '**/*.jar'
+task copySogaco(type: Copy, dependsOn: 'buildSogaco') {
+    from './sogacoSrc/bruyere/build/target/projects'
+    into './target'
+    include '**/*.jar'
 }
 
 //Cleans the target directory
 task cleanTargetDir(type: Delete) {
-  delete "target"
+    delete "target"
 }
 
-task cleanBuildDir(type:Delete) {
-  delete "build"
+task cleanBuildDir(type: Delete) {
+    delete "build"
 }
 
 copySogaco.mustRunAfter('cleanTargetDir')
 copySogaco.mustRunAfter('cleanBuildDir')
 
-
 //Build All Code and output to target Dir
-task buildAll( type: GradleBuild ,dependsOn: ['copySogaco','cleanTargetDir','cleanBuildDir']){
-  tasks = ['build']
+task buildAll(type: GradleBuild, dependsOn: ['copySogaco', 'cleanTargetDir', 'cleanBuildDir']) {
+    tasks = ['build']
 }
 
-task runDevServer(type: GradleBuild,dependsOn: ['buildAll']){
-  tasks = ['appRun']
+task runDevServer(type: GradleBuild, dependsOn: ['buildAll']) {
+    tasks = ['jettyRun']
 }

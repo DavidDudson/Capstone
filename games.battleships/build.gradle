@@ -2,11 +2,11 @@ apply plugin: 'java'
 
 //-------Dependencies---------//
 
-repositories{
-  // Treat SoGaCo build output as a repository
-  flatDir {
-     dirs '../sogacoSrc/bruyere/build/target/projects/'
-  }
+repositories {
+    // Treat SoGaCo build output as a repository
+    flatDir {
+        dirs '../sogacoSrc/bruyere/build/target/projects/'
+    }
 }
 
 // Define Production dependencies
@@ -26,8 +26,7 @@ dependencies {
 }
 
 jar {
-  destinationDir = file('../build/jars')
-  from('resources') { include 'META-INF/services/*.*'}
+    destinationDir = file('../build/jars')
 }
 
 buildDir = '../build/'

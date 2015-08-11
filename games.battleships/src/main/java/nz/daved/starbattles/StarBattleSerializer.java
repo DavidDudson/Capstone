@@ -1,4 +1,4 @@
-package soGaCoGameTemplate;
+package nz.daved.starbattles;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -14,13 +14,13 @@ import java.util.List;
  * <p>
  * Serialization Class of Battleships Game
  */
-public class BattleshipsSerializer implements Serializer {
+public class StarBattleSerializer implements Serializer {
     @Override
     public void encodeGame(Game<?, ?> _game, PrintWriter out) throws IOException {
-        assert _game instanceof BattleshipGame;
+        assert _game instanceof StarBattleGame;
 
-        BattleshipGame game = (BattleshipGame) _game;
-        List<BattleshipGameMove> history = game.getHistory();
+        StarBattleGame game = (StarBattleGame) _game;
+        List<StarBattleGameMove> history = game.getHistory();
         Gson gson = new GsonBuilder().create();
         history.stream().forEach(move -> gson.toJson(move, out));
         if (game.getError() != null) {
