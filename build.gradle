@@ -128,7 +128,7 @@ copySogaco.mustRunAfter('cleanTargetDir')
 copySogaco.mustRunAfter('cleanBuildDir')
 
 //Build All Code and output to target Dir
-task buildAll(type: GradleBuild, dependsOn: ['copySogaco', 'cleanTargetDir', 'cleanBuildDir']) {
+task buildAll(type: GradleBuild, dependsOn: ['cleanTargetDir', 'cleanBuildDir']) {
     tasks = ['build']
 }
 
