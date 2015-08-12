@@ -75,6 +75,7 @@ gretty {
     //AutoReload of everything
     managedClassReload = true
     fastReload = true
+    scanInterval = 0.5
 
 }
 
