@@ -100,6 +100,7 @@ task cloneSogaco(type: Exec) {
 
 // Clone only when SoGaCo isnt in the build folder
 cloneSogaco.onlyIf { !file('./sogacoSrc/bruyere/').exists() }
+
 //Build SoGaCo from source
 task buildSogaco(type: Exec, dependsOn: 'cloneSogaco') {
     commandLine 'mvn clean install'.split()
@@ -135,4 +136,8 @@ task buildAll(type: GradleBuild, dependsOn: ['cleanTargetDir', 'cleanBuildDir'])
 
 task runDevServer(type: GradleBuild, dependsOn: ['buildAll']) {
     tasks = ['jettyRun']
+}
+
+task stage {
+    dependsOn buildAll
 }
