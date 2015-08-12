@@ -1,1 +1,1 @@
-web:    java -jar jetty-runner.jar target/SoGaCo-Web-Battleships-v0.1-2-gc044db3.war
+web:    java -jar web-runner.jar target/SoGaCo-Web-Battleships-0.1.war
