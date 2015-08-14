@@ -81,3 +81,20 @@ Blockly.Blocks['get_neighbour_valid_cells'] = {
     this.setHelpUrl('http://www.example.com/');
   }
 };
+
+Blockly.Blocks['variable_define'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("define")
+        .appendField(new Blockly.FieldTextInput("name"), "NAME");
+    this.appendDummyInput()
+        .appendField("of type")
+        .appendField(new Blockly.FieldDropdown([["integer", "INT"], ["list", "LIST"], ["coord", "COORD"], ["boolean", "BOOL"]]), "TYPE");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(330);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};

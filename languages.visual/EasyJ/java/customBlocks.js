@@ -46,3 +46,11 @@ Blockly.Java['get_neighbour_valid_cells'] = function(block) {
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
+
+Blockly.JavaScript['variable_define'] = function(block) {
+  var text_name = block.getFieldValue('NAME');
+  var dropdown_type = block.getFieldValue('TYPE');
+  // TODO: Assemble JavaScript into code variable.
+  var code = '...';
+  return code;
+};
