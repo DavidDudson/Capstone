@@ -1,1 +1,1 @@
-web:    java $JAVA_OPTS -jar target/dependency/webapp-runner.jar --port $PORT target/*.war
+web:    java -jar jetty-runner.jar target/SoGaCo-Web-Battleships-v0.1-2-gc044db3.war

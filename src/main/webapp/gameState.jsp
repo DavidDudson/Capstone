@@ -1,3 +1,4 @@
+
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
@@ -12,11 +13,9 @@
     testBot bot1 = new testBot();
     Grid bot1Grid;
     int[][] bot1Moves = new int[100][4];
-
     testBot bot2 = new testBot();
     Grid bot2Grid;
     int[][] bot2Moves = new int[100][4];
-
     public int[][] gameRun(Grid grid, testBot bot) {
         int[][] botMoves = new int[100][4];
         int movesIndex = 0;
@@ -45,16 +44,15 @@
     bot1Grid = new Grid(SIZE);
     bot1Grid.generateShips();
     bot1Grid.loadGrid();
-
-    bot2Grid = bot1Grid.deepClone();
-
-
+    bot2Grid = new Grid(SIZE);
+    bot2Grid.generateShips();
+    bot2Grid.loadGrid();
 %>
 <html lang="en">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=Edge" >
-        <title>  </title>
+        <title>StarBattle Prototype</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1.0, initial-scale=1.0" />
         <meta name="description" content="">
@@ -74,10 +72,9 @@
             var gameEnded = false;
             var gameStart = true;
             var gameSpeed = 500;
-            var playGame = true;
+            var playGame = false;
             var myGame;
             function nextMove() {
-
                 if (bot1MoveCount === 0) {
                     gameStart = !gameStart;
                 }
@@ -85,7 +82,6 @@
                     var yCoordA = bot1Moves[bot1MoveCount][0];
                     var xCoordA = bot1Moves[bot1MoveCount][1];
                     var posA = "a" + (yCoordA * 10 + xCoordA);
-
                     document.getElementById(posA).style.backgroundColor = retHitOrMiss(gameArrayA[yCoordA][xCoordA]);
                     if (bot1Moves[bot1MoveCount][3] !== 0) {
                         alterBoatLiveGUI(bot1Moves[bot1MoveCount][3], "p1");
@@ -102,7 +98,6 @@
                     }
                     bot2MoveCount++;
                 }
-
                 if (bot2Moves[bot2MoveCount][0] === -1) {
                     alert("bot2 wins");
                     alterBoatLiveGUI(bot2Moves[bot2MoveCount][3], "p2", "dec");
@@ -113,14 +108,10 @@
                     alterBoatLiveGUI(bot1Moves[bot1MoveCount][3], "p1", "dec");
                     gameEnded = true;
                 }
-
                 player1Move = !player1Move;
-
             }
             function prevMove() {
                 player1Move = !player1Move;
-
-
                 if (player1Move) {
                     bot1MoveCount--;
                     var yCoordA = bot1Moves[bot1MoveCount][0];
@@ -139,9 +130,6 @@
                     if (bot2Moves[bot2MoveCount][3] !== 0) {
                         alterBoatLiveGUI(bot2Moves[bot2MoveCount][2], "p2", "inc");
                     }
-
-
-
                 }
                 if (bot1MoveCount === 0 && player1Move) {
                     bot2MoveCount = 0;
@@ -149,14 +137,11 @@
                     var xCoordB = bot2Moves[bot2MoveCount][1];
                     var posB = "b" + (yCoordB * 10 + xCoordB);
                     document.getElementById(posB).style.backgroundColor = "#A6B8ED";
-
                     gameStart = true;
-
                 }
             }
             function endGame() {
                 while (!gameEnded) {
-
                     nextMove();
                 }
             }
@@ -166,19 +151,20 @@
                 }
             }
             function playPause() {
-                  if(playGame){
-                    myGame = setInterval(function(){nextMove();}, 500);
-                }else{
+                playGame = !playGame;
+                if (playGame) {
+                    myGame = setInterval(function () {
+                        nextMove();
+                    }, gameSpeed);
+                } else {
                     clearInterval(myGame);
                 }
-                playGame = !playGame;
-                    
 
             }
         </script>
     </head>
     <body>
-        <div class="container_12"> 
+        <div class="container_12">
             <div id="header">
                 <div id="nav_container">
                     <div id="nav_menu" class="left">
@@ -188,11 +174,10 @@
                         <nav class="menu">
                             <a class="toggle-nav" href="#">&#9776;</a>
                             <ul class="list_inline active">
-                                <li> <a href=""> Editor </a> </li>
-                                <li> <a href=""> Test </a> </li>
+                                <li> <a href="easyJ.html"> Editor </a> </li>
                                 <li> <a href=""> Help </a> </li>
                                 <li> <a href=""> Community </a> </li>
-                                <li> <a href=""> Survey </a> </li>	
+                                <li> <a href=""> Survey </a> </li>
                                 <li> <a href=""> About </a> </li>
 
                                 <li> <div class="menu-on"> <a href=""> My Bots </a> </div> </li>
@@ -201,7 +186,7 @@
                             </ul>
 
                         </nav>
-                    </div>	
+                    </div>
 
 
                     <div id="user" class="right">
@@ -281,7 +266,7 @@
 
                 <div id="main_content">
                     <div id="player_one" class="left">
-                        <ul> 
+                        <ul>
                             <li> <b> Player 1 </b> </li>
                         </ul>
 
@@ -299,7 +284,7 @@
                     </div>
 
                     <div id="player_two" class="left">
-                        <ul> 
+                        <ul>
                             <li> <b> Player 2 </b> </li>
                         </ul>
 
@@ -314,7 +299,6 @@
                         </ul>
 
                         <script>
-
                             var gameArrayA = new Array(10);
                             var gameArrayB = new Array(10);
                             for (var z = 0; z < 10; z++) {
@@ -346,23 +330,17 @@
                             <%
                                 bot1Moves = gameRun(bot1Grid, bot1);
                                 bot2Moves = gameRun(bot2Grid, bot1);
-
                                 for (int yCoord = 0; yCoord < bot1Moves.length; yCoord++) {
                             %>
                             bot1Moves[<%=yCoord%>][0] = <%= bot1Moves[yCoord][0]%>
                             bot1Moves[<%=yCoord%>][1] = <%= bot1Moves[yCoord][1]%>
                             bot1Moves[<%=yCoord%>][2] = <%= bot1Moves[yCoord][2]%>
                             bot1Moves[<%=yCoord%>][3] = <%= bot1Moves[yCoord][3]%>
-
                             bot2Moves[<%=yCoord%>][0] = <%= bot2Moves[yCoord][0]%>
                             bot2Moves[<%=yCoord%>][1] = <%= bot2Moves[yCoord][1]%>
                             bot2Moves[<%=yCoord%>][2] = <%= bot2Moves[yCoord][2]%>
                             bot2Moves[<%=yCoord%>][3] = <%= bot2Moves[yCoord][3]%>
-
-
-
                             <%}%>
-
                         </script>
                     </div>
 
@@ -379,11 +357,11 @@
                             <div id="controls">
                                 <div id="set_one">
                                     <ul class="list_inline">
-                                        <li> <a class="fast_prev" onClick="startOfGame()"> </a> </li> 
-                                        <li> <a class="prev" onClick="prevMove()"> </a> </li> 
-                                        <li> <a class="pause" onClick="playPause()"> </a> </li> 
-                                        <li> <a class="forward" onClick="nextMove()"> </a>  </li> 
-                                        <li> <a class="fast_forward" onClick="endGame()"> </a> </li> 
+                                        <li> <a class="fast_prev" onClick="startOfGame()"> </a> </li>
+                                        <li> <a class="prev" onClick="prevMove()"> </a> </li>
+                                        <li> <a class="pause" onClick="playPause()"> </a> </li>
+                                        <li> <a class="forward" onClick="nextMove()"> </a>  </li>
+                                        <li> <a class="fast_forward" onClick="endGame()"> </a> </li>
                                     </ul>
                                 </div>
 
@@ -394,28 +372,37 @@
                                     <div class="clear"> </div>
 
                                     <script>
-
                                         $(function () {
                                             $("#slider").slider({
                                                 range: "min",
-                                                value: 500,
+                                                value: 200,
                                                 min: 1,
                                                 max: 1000,
                                                 slide: function (event, ui) {
-                                                    gameSpeed = ui.value;
+                                                    gameSpeed = 1000 - ui.value;
+                                                    if (playGame) {
+                                                        clearInterval(myGame);
+                                                        myGame = setInterval(function () {
+                                                            nextMove();
+                                                        }, gameSpeed);
+                                                    }
                                                 }
                                             });
+                                            if (playGame) {
+                                                setTimeout(nextMove, gameSpeed);
+                                                playPause();
+                                            }
                                         });
                                     </script>
                                 </div>
                             </div>
-                                                    
+
                             <div id="results">
                                 <div id="results_head">
                                     <ul class="list_inline">
                                         <li style="width: 100px;"> Boats Left </li>
-                                        <li style="width: 40px;"> P1 <div class="color_red right"> </div> </li> 
-                                        <li style="width: 40px;"> P2 <div class="color_purple right"> </div> </li> 
+                                        <li style="width: 40px;"> P1 <div class="color_red right"> </div> </li>
+                                        <li style="width: 40px;"> P2 <div class="color_purple right"> </div> </li>
                                         <div class="clear"> </div>
                                     </ul>
 

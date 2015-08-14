@@ -1,75 +1,67 @@
 //-------Helper Functions---------//
-
-//get version string from git details
-def getVersionName = { ->
-    def stdout = new ByteArrayOutputStream()
-    exec {
-        commandLine 'git', 'describe', '--tags'
-        standardOutput = stdout
-    }
-    return stdout.toString().trim()
-}
-
 apply plugin: 'java'
 apply plugin: 'war'
 
 //-------Dependencies---------//
 
 //Define repository
-allprojects{
+allprojects {
 
-  //Define name of project etc.
-  version = getVersionName()
+    //Define name of project etc.
+    version = 0.1
 
-  //Apply code coverage
-  apply plugin: "jacoco"
+    //Apply code coverage
+    apply plugin: "jacoco"
 
-  jacoco {
-      toolVersion = "0.7.1.201405082137"
-      reportsDir = file("$buildDir/ReportDir")
-  }
-
-  repositories {
-      // Main repository for gathering plugins
-      jcenter()
-  }
+    repositories {
+        // Main repository for gathering plugins
+        jcenter()
+    }
 }
 
 buildscript {
-  repositories {
-    jcenter()
-  }
+    repositories {
+        jcenter()
+    }
 
-  dependencies {
-    classpath 'org.akhikhl.gretty:gretty:+'
-  }
+    dependencies {
+        classpath 'org.akhikhl.gretty:gretty:+'
+    }
 }
 
 //Apply server plugin
 apply plugin: 'org.akhikhl.gretty'
+apply plugin: 'project-reports'
 
-repositories{
-  // Treat SoGaCo build output as a repository
-  flatDir {
-     dirs 'build/sogacoSrc/bruyere/build/target/projects/'
-  }
+repositories {
+    // Treat SoGaCo build output as a repository
+    flatDir {
+        dirs './libs'
+    }
 }
 
 
 dependencies {
 
-    //Make this project depends on other Projects
-    compile project(':games.battleships')
-
     //SoGaCo Dependencies
-    compile name: 'gamecore-0.0.3-SNAPSHOT'
-    compile name: 'services-0.0.3-SNAPSHOT'
-    compile name: 'languages.java-0.0.3-SNAPSHOT'
-
-    //Logging
-    compile 'org.slf4j:slf4j-api:1.7.7'
-
+    compile 'org.apache.logging.log4j:log4j-core:2.3'
+    compile 'javax.persistence:persistence-api:1.0.2'
+    compile 'org.apache.shiro:shiro-all:1.2.4'
+    compile 'commons-configuration:commons-configuration:1.10'
+    compile 'org.eclipse.persistence:eclipselink:2.6.1-RC1'
+    compile 'javax.ws.rs:javax.ws.rs-api:2.0.1'
     compile 'org.apache.derby:derby:10.11.1.1'
+    compile 'org.glassfish.jersey.core:jersey-client:2.20'
+    compile 'org.json:json:20141113'
+    compile 'com.googlecode.json-simple:json-simple:1.1.1'
+    compile 'org.apache.httpcomponents:httpclient:4.5'
+
+    compile 'joda-time:joda-time:2.8.1'
+
+    compile name: 'services-0.0.3-SNAPSHOT'
+
+    //Make this project depends on the game
+    compile project(':games.battleships')
 
     //Testing
     testCompile "junit:junit:4.11"
@@ -78,86 +70,69 @@ dependencies {
 //-------Configuration---------//
 
 //Configure Server plugin
-gretty{
-  servletContainer = 'jetty9'
-  //AutoReload of everything
-  managedClassReload = true
-  fastReload = true
+gretty {
+    servletContainer = 'tomcat8'
+    //AutoReload of everything
+    managedClassReload = true
+    fastReload = true
+    scanInterval = 0.5
+
 }
 
 war {
-  destinationDir = file('./target')
-  //Copy Generated Javadocs
-  from('./build/docs/javadoc') {
-      include '**/*'
-      into 'javadoc'
-  }
-  //Copy Generated Reports
-  from('./build/reports/tests/') {
-      include '**/*'
-      into 'reports'
-  }
 
-  baseName = 'SoGaCo-Web-Battleships'
-  version = getVersionName()
+    baseName = 'starbattle'
+    version = 0.1
+    destinationDir = file('./target')
 }
 
 buildDir = './build/'
-
 
 //--------Tasks---------//
 
 // Clones the SoGaCo Repository, uses your bitbucket Username and Password
 // Debug information to get a feel for whats happening.
-task cloneSogaco( type: Exec ) {
-  mkdir './build/sogacoSrc'
-  commandLine 'hg clone https://CapstoneGroup1:Capstone@bitbucket.org/DavidDudson/bruyere'.split()
-  workingDir = './build/sogacoSrc'
+task cloneSogaco(type: Exec) {
+    mkdir './sogacoSrc'
+    commandLine 'hg clone https://CapstoneGroup1:Capstone@bitbucket.org/DavidDudson/bruyere'.split()
+    workingDir = './sogacoSrc'
 }
 
 // Clone only when SoGaCo isnt in the build folder
-cloneSogaco.onlyIf { !file('./build/sogacoSrc/bruyere/').exists() }
-
+cloneSogaco.onlyIf { !file('./sogacoSrc/bruyere/').exists() }
 //Build SoGaCo from source
-task buildSogaco( type: Exec  , dependsOn: 'cloneSogaco' ) {
+task buildSogaco(type: Exec, dependsOn: 'cloneSogaco') {
     commandLine 'mvn clean install'.split()
-    workingDir = './build/sogacoSrc/bruyere/build/'
+    workingDir = './sogacoSrc/bruyere/build/'
 }
 
 // Build only when SoGaCo hasn't been built before
-buildSogaco.onlyIf { !file('./build/sogacoSrc/bruyere/build/target/projects/').exists()}
+buildSogaco.onlyIf { !file('./sogacoSrc/bruyere/build/target/projects/').exists() }
 
 //Copy cloned SoGaCo to out target Directory
-task copySogaco( type: Copy , dependsOn: 'buildSogaco' ) {
-  from './build/sogacoSrc/bruyere/build/target/projects'
-  into './target'
-  include '**/*.war'
+task copySogaco(type: Copy, dependsOn: 'buildSogaco') {
+    from './sogacoSrc/bruyere/build/target/projects'
+    into './target'
+    include '**/*.jar'
 }
 
 //Cleans the target directory
 task cleanTargetDir(type: Delete) {
-  delete fileTree(dir: "target")
+    delete "target"
+}
+
+task cleanBuildDir(type: Delete) {
+    delete "build"
 }
 
 copySogaco.mustRunAfter('cleanTargetDir')
+copySogaco.mustRunAfter('cleanBuildDir')
 
 //Build All Code and output to target Dir
-task buildAll( type: GradleBuild ,dependsOn: ['copySogaco','cleanTargetDir']){
-  tasks = ['build']
-}
-
-//Copy temperary war's into the Gretty Server dir
-task herokuDependencies(type: Copy){
-  from './heroku-libs/'
-  into './target'
-  include '**/*.war'
-}
-
-task runDevServer(type: GradleBuild,dependsOn: ['buildAll']){
-  tasks = ['appStart']
-}
-
-//What heroku uses to deploy
-task stage(type: GradleBuild ,dependsOn: ['herokuDependencies']){
+task buildAll(type: GradleBuild, dependsOn: ['cleanTargetDir', 'cleanBuildDir']) {
     tasks = ['build']
+}
+
+task runDevServer(type: GradleBuild, dependsOn: ['buildAll']) {
+    tasks = ['jettyRun']
 }
