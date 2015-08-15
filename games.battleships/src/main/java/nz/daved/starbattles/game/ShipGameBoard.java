@@ -1,5 +1,7 @@
 package nz.daved.starbattles.game;
 
+import nz.daved.starbattles.StarBattleGameSchematic;
+
 import java.util.*;
 import java.util.stream.IntStream;
 
@@ -19,47 +21,21 @@ public class ShipGameBoard extends GameBoard {
      * Creates a map of all ship locations based off
      * specific ship counts and grid sizes.
      *
-     * @param _patrolBoatCount      The number of PatrolBoats (Size 2)
-     * @param _destroyerCount       The number of Destroyers or Submarines (Size 3)
-     * @param _battleshipCount      The number of Battleships (Size 4)
-     * @param _aircraftCarrierCount The number of Aircraft Carriers (Size 5)
-     * @param _width                The width of the grid
-     * @param _height               The height of the grid
+     * @param sbgc the schematic to base the game off
      */
-    public ShipGameBoard(int _patrolBoatCount, int _destroyerCount, int _battleshipCount, int _aircraftCarrierCount, int _width, int _height) {
-
-        super(_patrolBoatCount, _destroyerCount, _battleshipCount, _aircraftCarrierCount, _width, _height);
+    public ShipGameBoard(StarBattleGameSchematic sbgc) {
+        super(sbgc);
         seed = new Random().nextLong();
         rand = new Random(seed);
         placeShipsOnGrid();
     }
 
     /**
-     * Creates a map of all ship locations based off
-     * specific ship counts and grid sizes.
-     *
-     * @param _patrolBoatCount      The number of PatrolBoats (Size 2)
-     * @param _destroyerCount       The number of Destroyers or Submarines (Size 3)
-     * @param _battleshipCount      The number of Battleships (Size 4)
-     * @param _aircraftCarrierCount The number of Aircraft Carriers (Size 5)
-     * @param _width                The width of the grid
-     * @param _height               The height of the grid
-     */
-    public ShipGameBoard(int _patrolBoatCount, int _destroyerCount, int _battleshipCount, int _aircraftCarrierCount, int _width, int _height, int _seed) {
-
-        this(_patrolBoatCount, _destroyerCount, _battleshipCount, _aircraftCarrierCount, _width, _height);
-        this.seed = _seed;
-        this.rand = new Random(seed);
-        placeShipsOnGrid();
-    }
-
-
-    /**
      * Plug in default values from the popular hasbro board game
      * 10x10 grid with 2 battleships/submarines (3 long) and 1 of everything else
      */
     public ShipGameBoard() {
-        this(1, 2, 1, 1, 10, 10);
+        this(new StarBattleGameSchematic());
     }
 
     /**
@@ -80,10 +56,13 @@ public class ShipGameBoard extends GameBoard {
      * @return The result
      */
     @Override
-    public int getCell(Coordinate coord) {
-        int value = super.getCell(coord);
+    public int getCellState(Coordinate coord) {
+        int value = super.getCellState(coord);
         if (value == 1) {
             Ship attackedShip = coordinateList.get(coord).reduceHealth();
+            System.out.println(coord);
+            System.out.println(coordinateList.get(coord));
+            System.out.println(attackedShip.getHealth());
             return !attackedShip.isAlive() ? 2 : 1;
         } else {
             return value;
@@ -94,7 +73,7 @@ public class ShipGameBoard extends GameBoard {
      * Uses the ship count to place ships on the grid randomly
      */
     protected void placeShipsOnGrid() {
-        List<Integer> orderedShipList = getShipList();
+        List<Integer> orderedShipList = getShips();
         orderedShipList.sort(Comparator.comparing(Integer::intValue)); //This line is probably irrelevant but i will leave it
         Collections.reverse(orderedShipList); //Reverse so largest ship gets place first
         orderedShipList.forEach(this::placeShip);
@@ -105,7 +84,7 @@ public class ShipGameBoard extends GameBoard {
      *
      * @param shipSize The length of the ship
      */
-    private void placeShip(Integer shipSize) {
+    private void placeShip(int shipSize) {
         Ship ship = createNewShip(shipSize);
         ship.getCoordinates().forEach(coord -> setCellTo(coord, 1));
         ship.getCoordinates().forEach(coord -> coordinateList.put(coord, ship));
@@ -122,11 +101,11 @@ public class ShipGameBoard extends GameBoard {
         int timesTried = 0;
         int row;
         int col;
-        Coordinate coord = new Coordinate(0,0);
+        Coordinate coord = new Coordinate(0, 0);
         while (direction == -1) {
             row = rand.nextInt(9);
             col = rand.nextInt(9);
-            coord = new Coordinate(row,col);
+            coord = new Coordinate(row, col);
 
             direction = chooseADirection(coord, shipSize);
             if (timesTried < 100) {
@@ -135,6 +114,7 @@ public class ShipGameBoard extends GameBoard {
                 throw new IllegalArgumentException("Couldn't place ship of size: " + shipSize);
             }
         }
+        System.out.println(coord + ":" + shipSize + ":" + direction);
         return new Ship(coord, shipSize, direction);
     }
 
@@ -148,7 +128,11 @@ public class ShipGameBoard extends GameBoard {
     private int chooseADirection(Coordinate coord, Integer shipSize) {
         Random directionRand = new Random(seed); //Make it easier to repeat the generation of ships
         int[] possibleDirections = IntStream.range(0, 3).filter(x -> isValidDirection(coord, shipSize, x)).toArray();
-        return possibleDirections[directionRand.nextInt(possibleDirections.length)];
+        if (possibleDirections.length == 0) {
+            return -1;
+        } else {
+            return possibleDirections[directionRand.nextInt(possibleDirections.length)];
+        }
     }
 
     /**
@@ -163,25 +147,26 @@ public class ShipGameBoard extends GameBoard {
         boolean valid = false;
         switch (direction) {
             case 0:
-                valid = IntStream.range(0, shipSize).allMatch(x -> getCell(coord.addToX(x)) == 0);
+                valid = IntStream.range(0, shipSize).allMatch(x -> getCellState(coord.addToX(x)) == 0);
                 break;
             case 1:
-                valid = IntStream.range(0, shipSize).allMatch(x -> getCell(coord.takeFromX(x)) == 0);
+                valid = IntStream.range(0, shipSize).allMatch(x -> getCellState(coord.takeFromX(x)) == 0);
                 break;
             case 2:
-                valid = IntStream.range(0, shipSize).allMatch(x -> getCell(coord.addToY(x)) == 0);
+                valid = IntStream.range(0, shipSize).allMatch(x -> getCellState(coord.addToY(x)) == 0);
                 break;
             case 3:
-                valid = IntStream.range(0, shipSize).allMatch(x -> getCell(coord.takeFromY(x)) == 0);
+                valid = IntStream.range(0, shipSize).allMatch(x -> getCellState(coord.takeFromY(x)) == 0);
         }
         return valid;
     }
 
     /**
      * Generate a botmap based on this shipMap
+     *
      * @return the new botmap
      */
-    public BotGameBoard generateBotMap(){
+    public BotGameBoard generateBotMap() {
         return new BotGameBoard(this);
     }
 
@@ -197,10 +182,11 @@ public class ShipGameBoard extends GameBoard {
 
     /**
      * Get the coords of a ship that is at a specific location
+     *
      * @param coord The Coordinate
      * @return the ship coordinates
      */
-    public List<Coordinate> getShipCoordinates(Coordinate coord){
+    public List<Coordinate> getShipCoordinates(Coordinate coord) {
         return this.coordinateList.get(coord).getCoordinates();
     }
 

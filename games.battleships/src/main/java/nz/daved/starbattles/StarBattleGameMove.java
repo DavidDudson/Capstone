@@ -56,4 +56,18 @@ public class StarBattleGameMove {
     public String getBot() {
         return botId;
     }
+
+    /**
+     * Override to string
+     * @return a string representation of the Move
+     */
+    @Override
+    public String toString() {
+        return "StarBattleGameMove{" +
+                "botId='" + botId + '\'' +
+                ", coord=" + coord +
+                ", wasShip=" + wasShip +
+                '}';
+    }
+
 }

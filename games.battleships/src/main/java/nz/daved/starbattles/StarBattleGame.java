@@ -54,14 +54,37 @@ public class StarBattleGame extends SimpleGame<GameBoard, Coordinate> {
     protected void doMove(Coordinate coord, Bot<GameBoard, Coordinate> bot) {
         GameBoard botMap = (bot == player1) ? bot1map : bot2map;
         //Add 1 due to compensating for the fact that bot map has 3 states (Including unknown) and shipMap has 2
-        int cellState = shipGameBoard.getCell(coord) + 1;
-
-        if (cellState == 3) shipGameBoard.getShipCoordinates(coord).forEach(x -> botMap.setCellTo(x, 3));
-
+        int cellState = shipGameBoard.getCellState(coord) + 1;
+        if (cellState == 2) {
+            shipGameBoard.getShipCoordinates(coord).forEach(x -> botMap.setCellTo(x, 3));
+            botMap.decrementRemainingShips();
+        }
         botMap.setCellTo(coord, cellState);
-        boolean wasShip = cellState == 2;
+        boolean wasShip = cellState == 1;
         history.add(new StarBattleGameMove(bot.getId(), coord, wasShip));
         updateGameState(coord, bot);
+    }
+
+    public void runTestGame(){
+        boolean completed = false;
+        Coordinate move = new Coordinate(0,0);
+        Bot player = player1;
+        while(!completed){
+            if(state == GameState.NEW){
+                state = GameState.WAITING_FOR_PLAYER_1;
+            } else if(state == GameState.WAITING_FOR_PLAYER_1){
+                move = player1.nextMove(bot1map);
+                player = player1;
+            } else if(state == GameState.WAITING_FOR_PLAYER_2){
+                move = player2.nextMove(bot2map);
+                player = player2;
+            } else {
+                System.out.println(state);
+                completed = true;
+            }
+            doMove(move,player);
+            checkGameTermination();
+        }
     }
 
     /**
@@ -107,7 +130,7 @@ public class StarBattleGame extends SimpleGame<GameBoard, Coordinate> {
     @Override
     protected void checkValidityOfMove(Coordinate coordinate, Bot<GameBoard, Coordinate> bot) throws IllegalMoveException {
         BotGameBoard botmap = (bot == player1) ? bot1map : bot2map;
-        if (botmap.getCell(coordinate) != 0) {
+        if (botmap.getCellState(coordinate) != 0) {
             throw new IllegalMoveException("Coordinate not Water: " + coordinate.toString());
         }
     }
@@ -117,7 +140,11 @@ public class StarBattleGame extends SimpleGame<GameBoard, Coordinate> {
      */
     @Override
     protected void checkGameTermination() {
-        this.state = bot1map.getRemainingShips() == 0 ? GameState.PLAYER_1_WON : GameState.PLAYER_2_WON;
+        if(bot1map.getRemainingShips() == 0){
+            this.state = GameState.PLAYER_1_WON;
+        } else if (bot2map.getRemainingShips() == 0){
+            this.state = GameState.PLAYER_2_WON;
+        }
     }
 
     /**

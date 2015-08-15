@@ -14,12 +14,11 @@ public class BotGameBoard extends GameBoard {
      * @param shipGameBoard The shipMap to use as a schema
      */
     public BotGameBoard(ShipGameBoard shipGameBoard){
-        super(shipGameBoard.patrolBoatCount, shipGameBoard.destroyerCount, shipGameBoard.battleshipCount,
-                shipGameBoard.aircraftCarrierCount, shipGameBoard.width, shipGameBoard.height);
+        super(shipGameBoard.ships,shipGameBoard.width, shipGameBoard.height);
     }
 
     /**
-     * Returns true if the value is 1 or 2
+     * Returns true if the value is 1, 2 or 3
      *
      * @param val The value to check
      * @return Whether or not the grid value is valid
@@ -31,6 +30,11 @@ public class BotGameBoard extends GameBoard {
 
     }
 
+    /**
+     * Returns the next valid coordinate
+     * This basically scans for the first 0 in the array
+     * @return The next valid coordinate
+     */
     public Coordinate getNextValidCoordinate(){
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {

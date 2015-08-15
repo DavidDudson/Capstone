@@ -83,6 +83,8 @@ public class Ship {
     }
 
     public List<Coordinate> getCoordinates() {
-        return coordinates.stream().map(Coordinate::new).collect(Collectors.toList());
+        return coordinates.stream()
+                .map(Coordinate::new)
+                .collect(Collectors.toList());
     }
 }
