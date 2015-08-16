@@ -1,5 +1,7 @@
 package nz.daved.starbattles.game;
 
+import java.util.function.Predicate;
+
 /**
  * Created by David J. Dudson on 4/08/15.
  * <p>

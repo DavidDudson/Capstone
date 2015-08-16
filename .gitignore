@@ -18,3 +18,4 @@ derby.log
 closure-library-read-only
 closure-librarybuild.xml
 sogacoSrc
+node_modules

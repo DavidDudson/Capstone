@@ -15,8 +15,6 @@ public class ShipGameBoard extends GameBoard {
     private long seed;
     private Random rand;
 
-    private Map<Coordinate, Ship> coordinateList = new HashMap<>();
-
     /**
      * Creates a map of all ship locations based off
      * specific ship counts and grid sizes.
@@ -27,6 +25,7 @@ public class ShipGameBoard extends GameBoard {
         super(sbgc);
         seed = new Random().nextLong();
         rand = new Random(seed);
+        ships = new ArrayList<>();
         placeShipsOnGrid();
     }
 
@@ -50,30 +49,10 @@ public class ShipGameBoard extends GameBoard {
     }
 
     /**
-     * Override default method so that we can check whether or not
-     *
-     * @param coord The Coordinate to get
-     * @return The result
-     */
-    @Override
-    public int getCellState(Coordinate coord) {
-        int value = super.getCellState(coord);
-        if (value == 1) {
-            Ship attackedShip = coordinateList.get(coord).reduceHealth();
-            System.out.println(coord);
-            System.out.println(coordinateList.get(coord));
-            System.out.println(attackedShip.getHealth());
-            return !attackedShip.isAlive() ? 2 : 1;
-        } else {
-            return value;
-        }
-    }
-
-    /**
      * Uses the ship count to place ships on the grid randomly
      */
     protected void placeShipsOnGrid() {
-        List<Integer> orderedShipList = getShips();
+        List<Integer> orderedShipList = getShipSizes();
         orderedShipList.sort(Comparator.comparing(Integer::intValue)); //This line is probably irrelevant but i will leave it
         Collections.reverse(orderedShipList); //Reverse so largest ship gets place first
         orderedShipList.forEach(this::placeShip);
@@ -86,8 +65,9 @@ public class ShipGameBoard extends GameBoard {
      */
     private void placeShip(int shipSize) {
         Ship ship = createNewShip(shipSize);
+        ships.add(ship);
         ship.getCoordinates().forEach(coord -> setCellTo(coord, 1));
-        ship.getCoordinates().forEach(coord -> coordinateList.put(coord, ship));
+        ship.getCoordinates().forEach(coord -> shipMap.put(coord, ship));
     }
 
     /**
@@ -179,7 +159,6 @@ public class ShipGameBoard extends GameBoard {
         return seed;
     }
 
-
     /**
      * Get the coords of a ship that is at a specific location
      *
@@ -187,7 +166,7 @@ public class ShipGameBoard extends GameBoard {
      * @return the ship coordinates
      */
     public List<Coordinate> getShipCoordinates(Coordinate coord) {
-        return this.coordinateList.get(coord).getCoordinates();
+        return this.shipMap.get(coord).getCoordinates();
     }
 
     public boolean isShip(Coordinate coord) {

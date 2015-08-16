@@ -15,9 +15,9 @@ import java.util.stream.IntStream;
  */
 public class Ship {
 
-    private List<Coordinate> coordinates = new ArrayList<>();
+    private List<Coordinate> coordinates;
 
-    private int shipSize;
+    private int size;
 
     private int health;
 
@@ -29,9 +29,16 @@ public class Ship {
      * @param direction The direction
      */
     public Ship(Coordinate coord, int _shipSize, int direction) {
-        shipSize = _shipSize;
-        health = shipSize;
+        size = _shipSize;
+        health = size;
+        coordinates = new ArrayList<>();
         populateCoordinates(coord, direction);
+    }
+
+    public Ship(Ship ship) {
+        size = ship.getSize();
+        health = ship.getHealth();
+        coordinates = ship.getCoordinates();
     }
 
     /**
@@ -43,16 +50,16 @@ public class Ship {
     private Ship populateCoordinates(Coordinate coord, int direction) {
         switch (direction) {
             case 0:
-                IntStream.range(0, shipSize).forEach(x -> coordinates.add(coord.addToX(x)));
+                IntStream.range(0, size).forEach(x -> coordinates.add(coord.addToX(x)));
                 break;
             case 1:
-                IntStream.range(0, shipSize).forEach(x -> coordinates.add(coord.takeFromX(x)));
+                IntStream.range(0, size).forEach(x -> coordinates.add(coord.takeFromX(x)));
                 break;
             case 2:
-                IntStream.range(0, shipSize).forEach(y -> coordinates.add(coord.addToY(y)));
+                IntStream.range(0, size).forEach(y -> coordinates.add(coord.addToY(y)));
                 break;
             case 3:
-                IntStream.range(0, shipSize).forEach(y -> coordinates.add(coord.takeFromY(y)));
+                IntStream.range(0, size).forEach(y -> coordinates.add(coord.takeFromY(y)));
         }
         return this;
     }
@@ -73,11 +80,6 @@ public class Ship {
         return health;
     }
 
-    /**
-     * Check if the ship has been sunk
-     *
-     * @return True if the ships health is 0
-     */
     public boolean isAlive() {
         return health > 0;
     }
@@ -86,5 +88,9 @@ public class Ship {
         return coordinates.stream()
                 .map(Coordinate::new)
                 .collect(Collectors.toList());
+    }
+
+    public int getSize() {
+        return size;
     }
 }

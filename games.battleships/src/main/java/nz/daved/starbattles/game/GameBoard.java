@@ -2,12 +2,8 @@ package nz.daved.starbattles.game;
 
 import nz.daved.starbattles.StarBattleGameSchematic;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 /**
  * Created by David J. Dudson on 4/08/15.
@@ -16,24 +12,30 @@ import java.util.stream.Stream;
  */
 public abstract class GameBoard {
 
+    private final List<Integer> shipSizes;
     protected int[][] grid;
     protected int width;
     protected int height;
     protected int remainingShips;
 
-    protected List<Integer> ships;
+    protected List<Ship> ships;
+
+    /**
+     * Map of all ship locations. That way when attacking a cell we can get the ship located at that point
+     */
+    protected Map<Coordinate, Ship> shipMap = new HashMap<>();
 
     /**
      * Creates a map initally set to all 0's
      *
-     * @param _width                The width of the grid
-     * @param _height               The height of the grid
-     * @param _ships                The List of ships
+     * @param _width  The width of the grid
+     * @param _height The height of the grid
+     * @param _ships  The List of ships
      */
     public GameBoard(List<Integer> _ships, int _width, int _height) {
+        this.shipSizes = _ships;
         this.width = _width;
         this.height = _height;
-        this.ships = _ships;
         this.grid = new int[_width][_height];
         this.remainingShips = _ships.size();
 
@@ -48,7 +50,7 @@ public abstract class GameBoard {
     }
 
     public GameBoard(StarBattleGameSchematic sbgc) {
-        this(sbgc.getShips(),sbgc.getWidth(),sbgc.getHeight());
+        this(sbgc.getShips(), sbgc.getWidth(), sbgc.getHeight());
     }
 
     /**
@@ -80,9 +82,9 @@ public abstract class GameBoard {
      */
     public int getCellState(Coordinate coord) {
         int state = -1;
-        try{
+        try {
             state = grid[coord.getX()][coord.getY()];
-        } catch (Exception e){
+        } catch (Exception e) {
             //Do nothing as if index goes out of bound we just dont care
         }
         return state;
@@ -92,9 +94,9 @@ public abstract class GameBoard {
      * Sets a grid square to a specific value
      *
      * @param coord The Coordinate to set
-     * @param val The Value
+     * @param val   The Value
      */
-    public void setCellTo(Coordinate coord, int val) {
+    protected void setCellTo(Coordinate coord, int val) {
         if (isValidGridValue(val)) {
             grid[coord.getX()][coord.getY()] = val;
         } else {
@@ -105,19 +107,32 @@ public abstract class GameBoard {
     /**
      * Fills the grid with 0's
      */
-    public void fillGrid() {
+    protected void fillGrid() {
         Arrays.stream(grid).forEach(x -> Arrays.fill(x, 0));
     }
 
-    public List<Integer> getShips() {
-        return ships.stream().map(Integer::new).collect(Collectors.toList());
+    protected List<Ship> getShips() {
+        return ships.stream()
+                .map(Ship::new)
+                .collect(Collectors.toList());
     }
 
     public int getRemainingShips() {
         return remainingShips;
     }
 
-    public void decrementRemainingShips() {
+    protected void decrementRemainingShips() {
         remainingShips--;
+    }
+
+    public List<Integer> getShipSizes() {
+        return shipSizes;
+    }
+
+    public Map<Coordinate, Ship> getShipMap() {
+        return shipMap.entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, e -> new Ship(e.getValue())));
+
+
     }
 }
