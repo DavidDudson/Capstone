@@ -3,7 +3,7 @@
  * Visual Blocks Editor
  *
  * Copyright 2012 Google Inc.
- * https://blockly.googlecode.com/
+ * https://developers.google.com/blockly/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ goog.provide('Blockly.Procedures');
 
 // TODO(scr): Fix circular dependencies
 // goog.require('Blockly.Block');
-goog.require('Blockly.FieldVariable');
+goog.require('Blockly.Field');
 goog.require('Blockly.Names');
 goog.require('Blockly.Workspace');
 
@@ -39,14 +39,15 @@ goog.require('Blockly.Workspace');
 Blockly.Procedures.NAME_TYPE = 'PROCEDURE';
 
 /**
- * Find all user-created procedure definitions.
+ * Find all user-created procedure definitions in a workspace.
+ * @param {!Blockly.Workspace} root Root workspace.
  * @return {!Array.<!Array.<!Array>>} Pair of arrays, the
  *     first contains procedures without return variables, the second with.
  *     Each procedure is defined by a three-element list of name, parameter
  *     list, and return value boolean.
  */
-Blockly.Procedures.allProcedures = function() {
-  var blocks = Blockly.mainWorkspace.getAllBlocks();
+Blockly.Procedures.allProcedures = function(root) {
+  var blocks = root.getAllBlocks();
   var proceduresReturn = [];
   var proceduresNoReturn = [];
   for (var x = 0; x < blocks.length; x++) {
@@ -116,7 +117,7 @@ Blockly.Procedures.findLegalName = function(name, block) {
  * procedures already defined.
  * @param {string} name The questionable name.
  * @param {!Blockly.Workspace} workspace The workspace to scan for collisions.
- * @param {Blockly.Block} opt_exclude Optional block to exclude from
+ * @param {Blockly.Block=} opt_exclude Optional block to exclude from
  *     comparisons (one doesn't want to collide with oneself).
  * @return {boolean} True if the name is legal.
  */
@@ -142,23 +143,22 @@ Blockly.Procedures.isLegalName = function(name, workspace, opt_exclude) {
  * Rename a procedure.  Called by the editable field.
  * @param {string} text The proposed new name.
  * @return {string} The accepted name.
- * @this {!Blockly.FieldVariable}
+ * @this {!Blockly.Field}
  */
 Blockly.Procedures.rename = function(text) {
   // Strip leading and trailing whitespace.  Beyond this, all names are legal.
   text = text.replace(/^[\s\xa0]+|[\s\xa0]+$/g, '');
-  console.log("this",this, text);
 
   // Ensure two identically-named procedures don't exist.
   text = Blockly.Procedures.findLegalName(text, this.sourceBlock_);
-  // // Rename any callers.
-  // var blocks = this.sourceBlock_.workspace.getAllBlocks();
-  // for (var x = 0; x < blocks.length; x++) {
-  //   var func = blocks[x].renameProcedure;
-  //   if (func) {
-  //     func.call(blocks[x], this.text_, text);
-  //   }
-  // }
+  // Rename any callers.
+  var blocks = this.sourceBlock_.workspace.getAllBlocks();
+  for (var x = 0; x < blocks.length; x++) {
+    var func = blocks[x].renameProcedure;
+    if (func) {
+      func.call(blocks[x], this.text_, text);
+    }
+  }
   return text;
 };
 
@@ -208,7 +208,7 @@ Blockly.Procedures.flyoutCategory = function(blocks, gaps, margin, workspace) {
     }
   }
 
-  var tuple = Blockly.Procedures.allProcedures();
+  var tuple = Blockly.Procedures.allProcedures(workspace.targetWorkspace);
   populateProcedures(tuple[0], 'procedures_callnoreturn');
   populateProcedures(tuple[1], 'procedures_callreturn');
 };
@@ -254,14 +254,12 @@ Blockly.Procedures.disposeCallers = function(name, workspace) {
  * callers.
  * @param {string} name Name of edited procedure definition.
  * @param {!Blockly.Workspace} workspace The workspace to delete callers from.
- * @param {!Array.<string>} paramNames Array of new parameter names.
- * @param {!Array.<string>} paramIds Array of unique parameter IDs.
+ * @param {!Array.<Object>} parameters Array of parameter names and their IDs
  */
-Blockly.Procedures.mutateCallers = function(name, workspace,
-                                            paramNames, paramIds) {
+Blockly.Procedures.mutateCallers = function(name, workspace, parameters) {
   var callers = Blockly.Procedures.getCallers(name, workspace);
   for (var x = 0; x < callers.length; x++) {
-    callers[x].setProcedureParameters(paramNames, paramIds);
+    callers[x].setProcedureParameters(parameters);
   }
 };
 
