@@ -10,18 +10,26 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<link rel="stylesheet" type="text/css" href="grid.css">
 
 </head>
 <body>
 
-<div class="container_12"> 
-	<div id="header">
+
+
+<!--Header-->
+<div id="header">
 		<div id="nav_container">
+        
+        
+        <div class="container_12" style="padding:0;"> 
+        
+        
 			<div id="nav_menu" class="left">
 				<div id="logo" class="left">
-					<a href="index.html"> Battleship </a>
+					<a href="index.html"> Battle Spaceship </a>
 				</div>
 				<nav class="menu">
 				<a class="toggle-nav" href="#">&#9776;</a>
@@ -44,18 +52,31 @@
 				
 			<div id="user" class="right">
 				<ul class="list_inline">
-					<li> <a class="username" href=""> Ashraf, Alharbi </a> </li>
+					<li> <a class="username" href=""> Houlihan, Aidan </a> </li>
 					<li> <a class="logout" href=""> Logout </a> </li>
 				</ul>
 			</div>
+            
+            
+            </div>
 			
 			<div class="clear"> </div>
 		</div>
 	</div>
 
+
+<!--End Header-->
+
+
+
+<div class="container_12"> 
+	
+
 	<div id="content">
 		<div id="sidebar_left" class="sidebar left">
 			<div id="my_bots" class="sidebar_box">
+            <div class="sidebar_box_inner">
+            
 				<div class="sidebar_head">
 					My Bots
 				</div>
@@ -69,9 +90,13 @@
 						<li class="bot more"> <a href=""> more... </a> </li>
 					</ul>
 				</div>
+                
+                
+              </div>  
 			</div>
 			
 			<div id="built-in_bots" class="sidebar_box">
+            <div class="sidebar_box_inner">
 				<div class="sidebar_head">
 					Built-in Bots
 				</div>
@@ -85,9 +110,12 @@
 						<li class="bot more"> <a href=""> more... </a> </li>
 					</ul>
 				</div>
+                
+                </div>
 			</div>
 			
 			<div id="shared_bots" class="sidebar_box">
+            <div class="sidebar_box_inner">
 				<div class="sidebar_head">
 					Shared Bots
 				</div>
@@ -95,12 +123,13 @@
 				<div class="sidebar_content">
 					<div id="search">
 						<form method="">
-							<input class="search_box" type="text" value="Search..." />
+							<input class="search_box" type="text" value="Search..." onBlur="if(this.value == '') { this.value='Search...'}" onFocus="if (this.value == 'Search...') {this.value=''}" />
+                            
 							<input class="search_btn" type="submit" value="" />
 						</form>
 					</div>
 					
-					<br />
+					
 				
 					
 					<!-- Search Results in list here
@@ -112,44 +141,45 @@
 						<li class="bot more"> <a href=""> more... </a> </li>
 					</ul>
 					-->
-					<br />
+					
 				</div>
 			</div>
+            </div>
 		</div>
 		
 		<div id="main_content">
 			<div id="player_one" class="left">
-				<ul> 
+				<ul class="main-title"> 
 					<li> <b> Player 1 </b> </li>
 				</ul>
-				
+				<br>
 				<ul class="grid_box">
 					<li> </li> <li> </li> <li> </li> <li> </li> <li> </li>   
 					<li> </li> <li> </li> <li> </li> <li> </li> <br />
 
-					<li> </li> <li> </li> <li> </li> <li> </li> <li> </li>   
+					<li> </li> <li> </li> <li> </li> <li> </li> <li class="ship"> </li>   
+					<li class="ship"> </li> <li class="hit"> </li> <li class="hit"> </li> <li> </li><br />
+
+					<li> </li> <li class="miss"> </li> <li> </li> <li> </li> <li> </li>    
 					<li> </li> <li> </li> <li> </li> <li> </li><br />
 
-					<li> </li> <li> </li> <li> </li> <li> </li> <li> </li>    
-					<li> </li> <li> </li> <li> </li> <li> </li><br />
-
-					<li> </li> <li> </li> <li> </li> <li> </li> <li> </li>    
-					<li> </li> <li> </li> <li> </li> <li> </li><br />
-
-					<li> </li> <li> </li> <li> </li> <li> </li> <li> </li>   
+					<li> </li> <li> </li> <li class="ship"> </li> <li class="hit"> </li> <li> </li>    
 					<li> </li> <li> </li> <li> </li> <li> </li><br />
 
 					<li> </li> <li> </li> <li> </li> <li> </li> <li> </li>   
-					<li> </li> <li> </li> <li> </li> <li> </li><br />
+					<li> </li> <li> </li> <li class="ship"> </li> <li> </li><br />
 
-					<li> </li> <li> </li> <li> </li> <li> </li> <li> </li>    
-					<li> </li> <li> </li> <li> </li> <li> </li><br />
+					<li> </li> <li> </li> <li> </li> <li> </li> <li> </li>   
+					<li> </li> <li class="miss"> </li> <li class="ship"> </li> <li class="miss"> </li><br />
 
-					<li> </li> <li> </li> <li> </li> <li> </li> <li> </li>    
-					<li> </li> <li> </li> <li> </li> <li> </li><br />
+					<li class="ship"> </li> <li> </li> <li> </li> <li class="miss"> </li> <li> </li>    
+					<li> </li> <li> </li> <li class="ship"> </li> <li> </li><br />
 
-					<li> </li> <li> </li> <li> </li> <li> </li> <li> </li>    
-					<li> </li> <li> </li> <li> </li> <li> </li><br />
+					<li class="ship"> </li> <li> </li> <li> </li> <li class="miss"> </li> <li class="miss"> </li>    
+					<li> </li> <li> </li> <li class="ship"> </li> <li> </li><br />
+
+					<li class="ship"> </li> <li> </li> <li> </li> <li class="miss"> </li> <li> </li>    
+					<li> </li> <li> </li> <li class="ship"> </li> <li> </li><br />
 
 					<li> </li> <li> </li> <li> </li> <li> </li> <li> </li>    
 					<li> </li> <li> </li> <li> </li> <li> </li><br />
@@ -160,7 +190,7 @@
 						$('#player_one ul.grid_box').on('click', 'li', function(){
 							
 							$(this).css({
-								'background-color': '#990000', 'border': '1px solid #dddddd'
+								'background': 'url(images/layer1-ship.png) center center no-repeat'
 							});
 						});
 					});
@@ -169,34 +199,34 @@
 			</div>
 			
 			<div id="player_two" class="left">
-				<ul> 
+				<ul class="main-title"> 
 					<li> <b> Player 2 </b> </li>
 				</ul>
-				
+				<br clear="all">
 				<ul class="grid_box">
 					<li> </li> <li> </li> <li> </li> <li> </li> <li> </li>   
 					<li> </li> <li> </li> <li> </li> <li> </li> <br />
 
 					<li> </li> <li> </li> <li> </li> <li> </li> <li> </li>   
-					<li> </li> <li> </li> <li> </li> <li> </li><br />
+					<li class="hit"> </li> <li class="hit"> </li> <li> </li> <li> </li><br />
 
 					<li> </li> <li> </li> <li> </li> <li> </li> <li> </li>    
 					<li> </li> <li> </li> <li> </li> <li> </li><br />
 
 					<li> </li> <li> </li> <li> </li> <li> </li> <li> </li>    
-					<li> </li> <li> </li> <li> </li> <li> </li><br />
+					<li class="miss"> </li> <li class="miss"> </li> <li> </li> <li> </li><br />
+
+					<li> </li> <li> </li> <li class="miss"> </li> <li> </li> <li> </li>   
+					<li> </li> <li> </li> <li class="miss"> </li> <li> </li><br />
 
 					<li> </li> <li> </li> <li> </li> <li> </li> <li> </li>   
-					<li> </li> <li> </li> <li> </li> <li> </li><br />
-
-					<li> </li> <li> </li> <li> </li> <li> </li> <li> </li>   
-					<li> </li> <li> </li> <li> </li> <li> </li><br />
+					<li> </li> <li> </li> <li class="hit"> </li> <li> </li><br />
 
 					<li> </li> <li> </li> <li> </li> <li> </li> <li> </li>    
-					<li> </li> <li> </li> <li> </li> <li> </li><br />
+					<li class="miss"> </li> <li> </li> <li class="hit"> </li> <li> </li><br />
 
-					<li> </li> <li> </li> <li> </li> <li> </li> <li> </li>    
-					<li> </li> <li> </li> <li> </li> <li> </li><br />
+					<li> </li> <li> </li> <li> </li> <li class="miss"> </li> <li> </li>    
+					<li> </li> <li> </li> <li class="hit"> </li> <li> </li><br />
 
 					<li> </li> <li> </li> <li> </li> <li> </li> <li> </li>    
 					<li> </li> <li> </li> <li> </li> <li> </li><br />
@@ -210,7 +240,7 @@
 						$('#player_two ul.grid_box').on('click', 'li', function(){
 							
 							$(this).css({
-								'background-color': '#9900fe', 'border': '1px solid #dddddd'
+								'background': 'url(images/layer2-ship.png) center center no-repeat'
 							});
 						});
 					});
@@ -218,24 +248,28 @@
 			</div>
 			
 			<div id="key" class="left">
-				<ul> 
+            <div class="key-inner">
+				<ul class="key-title"> 
 					<li> KEY </li>
 				</ul>
 				
 				<ul class="grid_box">
-					<li style="width: 100px;"> Player 1 Ship </li> <li class="color_red"> </li> <br />
-					<li style="width: 100px;"> Player 2 Ship </li> <li class="color_purple"> </li> <br />
-					<li style="width: 100px;"> Hit </li> <li class="color_brown"> </li> <br />
-					<li style="width: 100px;"> Miss </li> <li class="color_black"> </li> <br />
+					<li class="ship"> Player 1 <br>Ship </li>
+					<li class="ship2"> Player 2 <br>Ship </li>
+					<li class="hit"> Hit </li> 
+					<li class="miss"> Miss </li> 
 				</ul>
 				
 			</div>
 			
-		
+		</div>
 		</div>
 		
 		<div id="sidebar_right" class="sidebar right">
+        
 			<div id="game_controls" class="sidebar_box">
+            <div class="right-inner">
+            
 				<div class="sidebar_head">
 					Game Controls
 				</div>
@@ -304,49 +338,45 @@
 					</div>
 					
 					<div id="results">
-						<div id="results_head">
-							<ul class="list_inline">
-								<li style="width: 100px;"> Boats Left </li>
-								<li style="width: 40px;"> P1 <div class="color_red right"> </div> </li> 
-								<li style="width: 40px;"> P2 <div class="color_purple right"> </div> </li> 
-								<div class="clear"> </div>
-							</ul>
-							
-							<div class="clear"> </div>
-						</div>
 						
-						<div id="results_list">
-			
-							<ul class="list_inline">
-								<li style="width: 100px;"> Aircraft Carrier  </li>
-								<li style="width: 40px;"> 1 </li>
-								<li style="width: 40px;"> 0 </li>
-							</ul>
-								
-							<ul class="list_inline">
-								<li style="width: 100px;"> Battleship </li>
-								<li style="width: 40px;"> 2 </li>
-								<li style="width: 40px;"> 2 </li>
-							</ul>
-
-							<ul class="list_inline">
-								<li style="width: 100px;"> Destroyer </li>
-								<li style="width: 40px;"> 2 </li>
-								<li style="width: 40px;"> 2 </li>
-							</ul>
-
-							<ul class="list_inline">
-								<li style="width: 100px;"> Patrol Boat </li>
-								<li style="width: 40px;"> 1 </li>
-								<li style="width: 40px;"> 2 </li>
-							</ul>
-								
-							
-						</div>
+                        
+                        
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0" class="results-list">
+  <tr>
+    <td width="48%">SPACESHIPS LEFT</td>
+    <td width="26%" class="t-center">PLAYER 1 <br>
+      <img src="images/layer1-ship1.png"></td>
+    <td width="26%" class="t-center">PLAYER 2 <br>
+      <img src="images/layer2-ship2.png"></td>
+  </tr>
+  <tr>
+    <td>Alien Mother Ship<br><img src="images/layer1-ship.png"><img src="images/layer1-ship.png"><img src="images/layer1-ship.png"><img src="images/layer1-ship.png"><img src="images/layer1-ship.png"></td>
+    <td class="b-left">1</td>
+    <td class="b-left">2</td>
+  </tr>
+  <tr>
+    <td>Alien Carrier Ship<br> <img src="images/layer1-ship.png"><img src="images/layer1-ship.png"><img src="images/layer1-ship.png"><img src="images/layer1-ship.png"></td>
+    <td class="b-left">1</td>
+    <td class="b-left">0</td>
+  </tr>
+  <tr>
+    <td>Alien Destroyer<br><img src="images/layer1-ship.png"><img src="images/layer1-ship.png"><img src="images/layer1-ship.png"></td>
+    <td class="b-left">0</td>
+    <td class="b-left">1</td>
+  </tr>
+  <tr>
+    <td>Alien Fighter Ship<br><img src="images/layer1-ship.png"><img src="images/layer1-ship.png"></td>
+    <td class="b-left">0</td>
+    <td class="b-left">1</td>
+  </tr>
+</table>
+                        
+                        
 						
 					</div>
 				</div>
 			</div>
+            </div>
 		</div>
 		
 		<div class="clear"> </div>
