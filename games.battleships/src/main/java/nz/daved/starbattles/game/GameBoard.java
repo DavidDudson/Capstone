@@ -2,7 +2,8 @@ package nz.daved.starbattles.game;
 
 import nz.daved.starbattles.StarBattleGameSchematic;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -19,11 +20,6 @@ public abstract class GameBoard {
     protected int remainingShips;
 
     protected List<Ship> ships;
-
-    /**
-     * Map of all ship locations. That way when attacking a cell we can get the ship located at that point
-     */
-    protected Map<Coordinate, Ship> shipMap = new HashMap<>();
 
     /**
      * Creates a map initally set to all 0's
@@ -104,11 +100,21 @@ public abstract class GameBoard {
         }
     }
 
+    protected Ship getShipAtCoordinate(Coordinate coord) {
+        return ships.stream()
+                .filter(x -> x.getCoordinates().contains(coord))
+                .findFirst().orElseThrow(() -> new IllegalArgumentException("Coordinate had no ship attached: " + coord.toString()));
+    }
+
     /**
      * Fills the grid with 0's
      */
     protected void fillGrid() {
         Arrays.stream(grid).forEach(x -> Arrays.fill(x, 0));
+    }
+
+    protected void decrementRemainingShips() {
+        remainingShips--;
     }
 
     protected List<Ship> getShips() {
@@ -121,18 +127,7 @@ public abstract class GameBoard {
         return remainingShips;
     }
 
-    protected void decrementRemainingShips() {
-        remainingShips--;
-    }
-
     public List<Integer> getShipSizes() {
         return shipSizes;
-    }
-
-    public Map<Coordinate, Ship> getShipMap() {
-        return shipMap.entrySet().stream()
-                .collect(Collectors.toMap(Map.Entry::getKey, e -> new Ship(e.getValue())));
-
-
     }
 }

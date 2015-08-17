@@ -13,8 +13,5 @@ public class BotTester {
         StarBattleGame game = new StarBattleGame("test", new FirstSquareBot(), new FirstSquareBot());
         game.runTestGame();
         game.getHistory().forEach(x -> System.out.println(x.toString()));
-
-        System.out.println(game.getError());
-        System.out.println(game.getState());
     }
 }

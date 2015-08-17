@@ -67,7 +67,6 @@ public class ShipGameBoard extends GameBoard {
         Ship ship = createNewShip(shipSize);
         ships.add(ship);
         ship.getCoordinates().forEach(coord -> setCellTo(coord, 1));
-        ship.getCoordinates().forEach(coord -> shipMap.put(coord, ship));
     }
 
     /**
@@ -157,16 +156,6 @@ public class ShipGameBoard extends GameBoard {
      */
     public long getSeed() {
         return seed;
-    }
-
-    /**
-     * Get the coords of a ship that is at a specific location
-     *
-     * @param coord The Coordinate
-     * @return the ship coordinates
-     */
-    public List<Coordinate> getShipCoordinates(Coordinate coord) {
-        return this.shipMap.get(coord).getCoordinates();
     }
 
     public boolean isShip(Coordinate coord) {

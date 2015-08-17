@@ -2,6 +2,9 @@ package nz.daved.starbattles.game;
 
 import com.google.common.primitives.Ints;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by David J. Dudson on 4/08/15.
  * <p>
@@ -17,7 +20,6 @@ public class BotGameBoard extends GameBoard {
     public BotGameBoard(ShipGameBoard shipGameBoard) {
         super(shipGameBoard.getShipSizes(), shipGameBoard.width, shipGameBoard.height);
         this.ships = shipGameBoard.getShips();
-        this.shipMap = shipGameBoard.getShipMap();
     }
 
     /**
@@ -46,14 +48,20 @@ public class BotGameBoard extends GameBoard {
      * Reduces a ships health and can kill it
      *
      * @param coord The coordinate to attack
+     * @return whether or not a ship was sunK
      */
-    public void attackCoordinate(Coordinate coord, boolean wasShip) {
+    public List<Coordinate> attackCoordinate(Coordinate coord, boolean wasShip) {
         setCellTo(coord, wasShip ? 2 : 1);
         if (wasShip) {
-            Ship ship = shipMap.get(coord);
+            Ship ship = getShipAtCoordinate(coord);
             ship.reduceHealth();
-            if (!ship.isAlive()) killShip(ship);
+            System.out.println(ship);
+            if (!ship.isAlive()) {
+                killShip(ship);
+                return ship.getCoordinates();
+            }
         }
+        return new ArrayList<>();
     }
 
     /**

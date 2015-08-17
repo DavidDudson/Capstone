@@ -2,6 +2,9 @@ package nz.daved.starbattles;
 
 import nz.daved.starbattles.game.Coordinate;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * Created by David J. Dudson on 6/08/15.
  * <p>
@@ -9,7 +12,9 @@ import nz.daved.starbattles.game.Coordinate;
  */
 public class StarBattleGameMove {
 
+    private final List<Coordinate> sunk;
     private String botId;
+    private boolean wasPlayer1;
 
 
     private Coordinate coord;
@@ -21,14 +26,16 @@ public class StarBattleGameMove {
      * @param _coord The Coordinate attacked
      * @param _wasShip Whether or not the location contained a ship, aka was hit.
      */
-    public StarBattleGameMove(String _botId, Coordinate _coord, boolean _wasShip) {
+    public StarBattleGameMove(boolean _wasPlayer1,String _botId, Coordinate _coord, boolean _wasShip, List<Coordinate> _sunk) {
         this.botId = _botId;
         this.coord = _coord;
         this.wasShip = _wasShip;
+        this.sunk = _sunk;
+        this.wasPlayer1 = _wasPlayer1;
     }
 
     public StarBattleGameMove(StarBattleGameMove move) {
-        this(move.getBot(), move.coord, move.isShip());
+        this(move.isPlayer1(),move.getBot(), move.coord, move.isShip(), move.getSunk());
     }
 
     /**
@@ -57,17 +64,24 @@ public class StarBattleGameMove {
         return botId;
     }
 
-    /**
-     * Override to string
-     * @return a string representation of the Move
-     */
     @Override
     public String toString() {
         return "StarBattleGameMove{" +
-                "botId='" + botId + '\'' +
+                "sunk=" + sunk +
+                ", botId='" + botId + '\'' +
+                ", wasPlayer1=" + wasPlayer1 +
                 ", coord=" + coord +
                 ", wasShip=" + wasShip +
                 '}';
     }
 
+    public List<Coordinate> getSunk() {
+        return sunk.stream()
+                .map(Coordinate::new)
+                .collect(Collectors.toList());
+    }
+
+    public boolean isPlayer1() {
+        return wasPlayer1;
+    }
 }

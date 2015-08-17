@@ -52,11 +52,12 @@ public class StarBattleGame extends SimpleGame<GameBoard, Coordinate> {
      */
     @Override
     protected void doMove(Coordinate coord, Bot<GameBoard, Coordinate> bot) {
-        BotGameBoard botMap = (bot == player1) ? bot1map : bot2map;
+        boolean isPlayer1 = (bot == player1);
+        BotGameBoard botMap = isPlayer1 ? bot1map : bot2map;
         //Add 1 due to compensating for the fact that bot map has 3 states (Including unknown) and shipMap has 2
         boolean wasShip = shipGameBoard.getCellState(coord) == 1;
-        botMap.attackCoordinate(coord,wasShip);
-        history.add(new StarBattleGameMove(bot.getId(), coord, wasShip));
+        List<Coordinate> coordList  = botMap.attackCoordinate(coord,wasShip);
+        history.add(new StarBattleGameMove(isPlayer1,bot.getId(), coord, wasShip,coordList));
         updateGameState(coord, bot);
     }
 

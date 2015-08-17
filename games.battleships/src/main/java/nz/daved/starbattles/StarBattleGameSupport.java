@@ -46,12 +46,15 @@ public class StarBattleGameSupport extends DefaultGameSupport {
     @Override
     public Collection<Class<?>> getWhitelistedClasses() {
         ArrayList<Class<?>> clazzes = new ArrayList<Class<?>>();
+        clazzes.add(StarBattleGameSchematic.class);
+        clazzes.add(StarBattleGameMove.class);
         clazzes.add(StarBattleGame.class);
         clazzes.add(StarBattleBot.class);
+        clazzes.add(StarBattleSerializer.class);
+        clazzes.add(ShipGameBoard.class);
         clazzes.add(BotGameBoard.class);
         clazzes.add(Coordinate.class);
         clazzes.add(GameBoard.class);
-        clazzes.add(ShipGameBoard.class);
         clazzes.add(Ship.class);
 
         return clazzes;
