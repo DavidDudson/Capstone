@@ -1,0 +1,44 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>SoGaCo-Web-Primegame</artifactId>
+
+	<packaging>war</packaging>
+
+	<parent>
+		<groupId>nz.ac.massey.cs.ig</groupId>
+		<artifactId>SoGaCo-Web-Reactor</artifactId>
+		<version>0.0.3-SNAPSHOT</version>
+		<relativePath>../SoGaCo-Web-Reactor/pom.xml</relativePath>
+	</parent>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<warSourceDirectory>WebContent</warSourceDirectory>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<overlay>
+						<groupId>nz.ac.massey.cs.ig</groupId>
+						<artifactId>SoGaCo-Web-Resources</artifactId>
+					</overlay>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+	<dependencies>
+		<dependency>
+			<groupId>nz.ac.massey.cs.ig.games</groupId>
+			<artifactId>games.primegame</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>nz.ac.massey.cs.ig</groupId>
+			<artifactId>SoGaCo-Web-Resources</artifactId>
+			<type>war</type>
+			<scope>runtime</scope>
+		</dependency>
+	</dependencies>
+</project>

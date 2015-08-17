@@ -1,0 +1,27 @@
+import java.util.List;
+
+import nz.ac.massey.cs.ig.games.primegame.PGBot;
+
+
+/**
+ * This is the starting point to implement your own bot.
+ * @author <your name here>
+ */
+public class %s extends PGBot {
+
+	public %s (String botId) {
+    	super(botId);
+	}
+
+	/**
+	 * Implement this method to select a number from the list.
+	 * You can assume that the list is not empty,
+	 * and that the list is in natural order.
+	 */
+	@Override
+	public Integer nextMove(List<Integer> game) {
+		// for instance, lets pick the first smallest number
+		return game.get(0);
+	}
+
+}

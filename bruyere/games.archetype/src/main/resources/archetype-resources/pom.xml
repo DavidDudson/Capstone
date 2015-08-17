@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>${groupId}</groupId>
+	<artifactId>${artifactId}</artifactId>
+	<version>${version}</version>
+
+	<parent>
+		<groupId>nz.ac.masses.cs.ig</groupId>
+		<artifactId>reactor-build</artifactId>
+		<version>0.0.3-SNAPSHOT</version>
+		<!-- <relativePath>../build/pom.xml</relativePath> -->
+	</parent>
+
+	<name>${artifactId}</name>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<!-- current deployment type -->
+	<packaging>jar</packaging>
+
+	<!-- Compiler settings -->
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+		<testSourceDirectory>src-tests</testSourceDirectory>
+		<resources>
+			<resource>
+				<directory>src/META-INF/services</directory>
+				<targetPath>META-INF/services</targetPath>
+				<includes>
+					<include>*</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>resources</directory>
+				<targetPath>resources</targetPath>
+			</resource>
+		</resources>
+	</build>
+
+	<dependencies>
+
+		<!-- BUILD DEPENDENCIES -->
+		<dependency>
+			<groupId>nz.ac.massey.cs.ig</groupId>
+			<artifactId>gamecore</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20140107</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>1.10.19</version>
+			<scope>test</scope>
+		</dependency>
+
+
+	</dependencies>
+</project>

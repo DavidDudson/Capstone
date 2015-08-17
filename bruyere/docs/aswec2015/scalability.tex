@@ -1,0 +1,78 @@
+\section{Scalability}
+
+\subsection{Cache Design}
+
+The sophisticated build process with several additional verification steps has a significant impact on performance. In particular, when a compiled language like Java is used, new classes are created and loaded at the end of each successful build. This process has to be carefully managed in order to avoid memory leaks\footnote{Manifested in \texttt{java.lang.OutOfMemory: PermGen} errors)}. But even when memory leaks are avoided, garbage collecting classloaders is potentially slow, depending on the JVM being used.
+
+While caching provides a possible solution, in particular with respective to frequently used built-in ``benchmarking bots'', caching bots directly is not possible or practical for a number of reasons. The same bot might participate in multiple games running in multiple threads at the same time. This becomes a problem if bots have state. For educational reasons, we do not want to restrict the use of fields in bots. But even for stateless bots there is a problem, as we add state through the instrumentation and the use of controllers. While the use of \texttt{ThreadLocal} could provide a solution to the problem, we opted to use unique \texttt{BotFactories} for each bot that is being built. These factories consist of class / class loader combination that can be safely cached, and unique short-lived bot instances can be created for each game that is being played. Therefore, all bots are automatically thread-local. The only drawback is that ``static state'' (static fields in Java) cannot be permitted. 
+
+While this works well for compiled languages, a different strategy must be chosen for interpreted languages like Python. In this case, we use the pre-compilation mechanism that is part of JSR223 \cite{grogan2006jsr} to create cachable artefacts. 
+
+\subsection{Cache Implementation}
+
+The cache is implemented as a concurrent map with a maximum size and automatic eviction of entries after a configurable maximum lifetime. For this purpose, the cache utility class from the Google guava library\footnote{\url{https://code.google.com/p/guava-libraries/}} is used. 
+
+\subsection{Experimental Validation}
+
+To assess the impact of instrumentation and caching on performance, we conducted a number of experiments.  For this purpose, we created five bots implementing the game strategies 
+discussed in \cite{meyer2010primegame}. First, we build all bots 1000 times to establish whether instrumentation has an impact on build time. We found that this is not the case, instrumentation adds less than 10\% build time overhead. Then we instrumented the bots and execute 500 games of the bots playing (other instances of) themselves to measure runtime overhead.
+Table \ref{tab:performance:java} shows the impact of the instrumentation of Java bots on runtime performance.
+
+Note that the different strategies correspond to increasing code complexity in the sense of cyclomatic complexity \cite{mccabe1976complexity}. As described above, the monitoring utility is used to check for interrupted state and heap memory allocation. The latter is relatively expensive, and it is reasonable to perform these checks only after a certain number of invocations. The dependency of the runtime on these check intervals is also reported in Table \ref{tab:performance:java}, columns 3--5\footnote{E.g., the 10 in column 4, row 2 means that the interrupted state and the heap space allocated are checked after every 10 method invocations}.
+
+
+\begin{table}[h]
+	\centering
+	\caption{Java Bot Performance depending on instrumentation}
+	\label{tab:performance:java}
+	\begin{tabular}{|l|l|l|l|l|}
+		\hline
+		\multirow{2}{*}{program}  & \multicolumn{4}{l|}{run time (ms)} \\ \cline{2-5} 
+					             & no   & 1    & 10    &  100    \\ \hline
+		anxious                  & 63   & 67   & 64    & 59           \\ \hline
+		greedy                   & 33   & 36   & 33    & 30           \\ \hline
+		prime number             & 50   & 573  & 132   & 86           \\ \hline
+		no factors left          & 64   & 598  & 149   & 77           \\ \hline
+		best advantage           & 254  & 2021 & 581   & 393          \\ \hline
+	\end{tabular}
+\end{table}
+
+For the simple bots, there is almost no measurable runtime performance penalty caused by instrumentation either. However, the situation is different for the more complex bots, where instrumentation increases runtime by a factor of up to 8 for the best advantage strategy. This can be managed by increasing the interval size when memory consumption and interrupt status are checked.
+
+Table \ref{tab:performance:python} reports the equivalent data for bots written in Python. This shows some unexpected results -- instrumentation actually speeds up execution! This is due to the different, faster dispatch method used internally by the Jython debugger. 
+
+\begin{table}[h]
+	\centering
+	\caption{Python Bot Performance depending on instrumentation}
+	\label{tab:performance:python}
+	\begin{tabular}{|l|l|l|l|l|}
+		\hline
+		\multirow{2}{*}{program}  & \multicolumn{4}{l|}{run time (ms)} \\ \cline{2-5} 
+								 & no   & 1    & 10    &  100    \\ \hline
+		anxious                  & 130  & 244  & 243   & 253          \\ \hline
+		greedy                   & 75   & 258  & 243   & 267          \\ \hline
+		prime number             & 82   & 267  & 295   & 306          \\ \hline
+		no factors left          & 77   & 287  & 321   & 309          \\ \hline
+		best advantage           & 13139& 812  & 746   & 703          \\ \hline
+	\end{tabular}
+\end{table}
+
+
+
+\begin{table}[h]
+	\centering
+	\caption{Java and Python Bot Performance depending on Caching}
+	\label{tab:performance:cache}
+	\begin{tabular}{|l|l|l|}
+		\hline
+		language    & without cache    & with cache   \\ \hline
+		java        & 7302             & 163          \\ \hline
+		python      & 5240             & 776          \\ \hline
+	\end{tabular}
+\end{table}
+
+We also assessed the impact caching has using the following experimental setup.  We used a round robin tournament for the Java and Python versions of the bots from \cite{meyer2010primegame}, and measured the runtime of 5 tournaments with and without cache. The results are reported in Table \ref{tab:performance:cache}. It is apparent that caching can significantly improve performance, and is crucial for achieving sufficient throughput.  
+
+
+
+

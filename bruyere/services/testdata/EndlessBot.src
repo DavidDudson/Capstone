@@ -1,0 +1,26 @@
+package mybot1;
+
+import java.util.List;
+import nz.ac.massey.cs.ig.games.primegame.*;
+
+/**
+ * Bot which never stops to calculate
+ * @author Johannes Tandler
+ */
+public class EndlessBot extends PGBot {
+
+    public EndlessBot(String botId) {
+        super(botId);
+    }
+
+	@Override
+	public Integer nextMove(List<Integer> game) {
+		Integer x = 0;
+		while(true) {
+			x = 4+1;
+			if(x<0) {
+				return -1;
+			}
+		}
+	}
+}

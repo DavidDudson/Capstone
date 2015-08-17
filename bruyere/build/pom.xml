@@ -1,0 +1,125 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>nz.ac.massey.cs.ig</groupId>
+	<artifactId>reactor-build</artifactId>
+	<packaging>pom</packaging>
+	<version>0.0.3-SNAPSHOT</version>
+	<name>Reactor build for the Bruyere project</name>
+
+	
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<modules>
+		<module>../gamecore</module>
+		<module>../services</module>
+		<module>../languages.java</module>
+		<module>../languages.python</module>
+		<module>../games.archetype</module>
+		<module>../games.primegame</module>
+		<module>../games.othello</module>
+		<module>../games.gomoku</module>
+		<module>../games.mancala</module>
+		<module>../SoGaCo-Web-Reactor</module>
+		<module>../SoGaCo-Web-Home</module>
+		<module>../SoGaCo-Logging</module>
+	</modules>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-artifact</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>${project.groupId}</groupId>
+									<artifactId>${project.artifactId}</artifactId>
+									<version>${project.version}</version>
+									<type>${project.packaging}</type>
+								</artifactItem>
+							</artifactItems>
+							<outputDirectory>../build/target/projects</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>nz.ac.massey.cs.ig</groupId>
+				<artifactId>gamecore</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>nz.ac.massey.cs.ig</groupId>
+				<artifactId>services</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>nz.ac.massey.cs.ig.languages</groupId>
+				<artifactId>languages.java</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>nz.ac.massey.cs.ig.languages</groupId>
+				<artifactId>languages.python</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>nz.ac.massey.cs.ig.games</groupId>
+				<artifactId>games.othello</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>nz.ac.massey.cs.ig.games</groupId>
+				<artifactId>games.mancala</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>nz.ac.massey.cs.ig.games</groupId>
+				<artifactId>games.primegame</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>nz.ac.massey.cs.ig.games</groupId>
+				<artifactId>games.gomoku</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+
+	<!-- junit is also required at runtime for the junit-based dynamic verifier 
+			! -->
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
+    </dependencies>
+</project>

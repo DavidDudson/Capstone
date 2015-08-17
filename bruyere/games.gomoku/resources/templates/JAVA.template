@@ -1,0 +1,22 @@
+package nz.ac.massey.cs.ig.games.gomoku.bots.students;
+
+import nz.ac.massey.cs.ig.games.gomoku.EasyGomokuBoard;
+import nz.ac.massey.cs.ig.games.gomoku.GomokuBot;
+import nz.ac.massey.cs.ig.games.gomoku.GomokuPosition;
+
+
+/**
+ * This is the starting point to implement your own bot.
+ * @author <your name here>
+ */
+public class %s  extends GomokuBot{
+	public %s (String id) {
+		super(id);
+	}
+
+	@Override
+	public GomokuPosition nextMove(EasyGomokuBoard game) {
+		return game.getAvailableMovesForMe().get(0);
+	}
+
+}

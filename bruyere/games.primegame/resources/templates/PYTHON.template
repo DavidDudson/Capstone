@@ -1,0 +1,6 @@
+# Complete the 'nextMove' function
+
+# 'game' is a list of currently available numbers
+# the function should return one of these numbers
+def nextMove(game):
+    return game[0]

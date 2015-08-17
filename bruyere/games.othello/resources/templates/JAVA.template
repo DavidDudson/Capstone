@@ -1,0 +1,24 @@
+package nz.ac.massey.cs.ig.games.othello.bots.students;
+
+import nz.ac.massey.cs.ig.games.othello.EasyOthelloBoard;
+import nz.ac.massey.cs.ig.games.othello.OthelloBot;
+import nz.ac.massey.cs.ig.games.othello.OthelloPosition;
+
+
+/**
+ * This is the starting point to implement your own bot.
+ * @author <your name here>
+ */
+public class %s extends OthelloBot {
+
+	public %s(String id) {
+		super(id);
+	}
+
+
+	@Override
+	public OthelloPosition nextMove(EasyOthelloBoard game) {
+		return game.getAvailableMovesForMe().get(0);
+	}
+
+}
