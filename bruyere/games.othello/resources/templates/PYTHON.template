@@ -1,7 +1,0 @@
-# Complete the 'nextMove' function
-
-# - 'game' is an instance of EasyOthelloBoard and 
-# 	you have to return an instance of OthelloPosition.
-# - See documentation for more details.
-def nextMove(game):
-    return game.getAvailableMovesForMe()[0]
