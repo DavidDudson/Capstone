@@ -1,0 +1,34 @@
+apply plugin: 'java'
+
+//-------Dependencies---------//
+
+repositories {
+    // Treat SoGaCo build output as a repository
+    flatDir {
+        dirs '../libs'
+    }
+}
+
+// Define Production dependencies
+dependencies {
+
+    //SoGaCo Dependencies
+    compile name: 'gamecore-0.0.3-SNAPSHOT'
+    compile name: 'languages.java-0.0.3-SNAPSHOT'
+
+    //Testing
+    testCompile "junit:junit:4.11"
+
+    compile 'com.google.code.gson:gson:2.3.1'
+    compile 'com.google.guava:guava:19.0-rc1'
+    compile 'org.apache.logging.log4j:log4j-core:2.3'
+    compile 'asm:asm-all:2.2'
+
+    compile 'org.apache.directory.studio:org.apache.commons.lang:2.6'
+}
+
+jar {
+    destinationDir = file('../build/jars')
+}
+
+buildDir = '../build/'

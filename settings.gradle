@@ -1,0 +1,5 @@
+//Complete Project
+rootProject.name = 'Capstone'
+
+//Include all projects
+include 'games.battleships'

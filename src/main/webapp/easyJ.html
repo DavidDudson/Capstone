@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Blockly Playground</title>
+    <script type="text/javascript" src="static/js/EasyJ/blockly_compressed.js"></script>
+    <script type="text/javascript" src="static/js/EasyJ/java.js"></script>
+    <script type="text/javascript" src="static/js/EasyJ/java/logic.js"></script>
+    <script type="text/javascript" src="static/js/EasyJ/java/loops.js"></script>
+    <script type="text/javascript" src="static/js/EasyJ/java/math.js"></script>
+    <script type="text/javascript" src="static/js/EasyJ/java/text.js"></script>
+    <script type="text/javascript" src="static/js/EasyJ/java/lists.js"></script>
+    <script type="text/javascript" src="static/js/EasyJ/java/variables.js"></script>
+    <script type="text/javascript" src="static/js/EasyJ/java/procedures.js"></script>
+    <script type="text/javascript" src="static/js/EasyJ/messages.js"></script>
+    <script type="text/javascript" src="static/js/EasyJ/blocks/logic.js"></script>
+    <script type="text/javascript" src="static/js/EasyJ/blocks/loops.js"></script>
+    <script type="text/javascript" src="static/js/EasyJ/blocks/math.js"></script>
+    <script type="text/javascript" src="static/js/EasyJ/blocks/text.js"></script>
+    <script type="text/javascript" src="static/js/EasyJ/blocks/lists.js"></script>
+    <script type="text/javascript" src="static/js/EasyJ/blocks/variables.js"></script>
+    <script type="text/javascript" src="static/js/EasyJ/blocks/customBlocks.js"></script>
+    <script type="text/javascript" src="static/js/EasyJ/custCode.js"></script>
+    <!-- Load the Google Drive SDK Realtime libraries. -->
+    <script type="text/javascript" src="https://apis.google.com/js/api.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="static/js/jquery-1.7.2.min.js"></script>
+    <script src="static/js/jquery-ui-1.8.21.custom.min.js"></script>
+    <script src="static/js/gameState.js"></script>
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="static/css/grid.css">
+    <script type="text/javascript">
+        'use strict';
+        // Depending on the URL argument, render as LTR or RTL.
+        var rtl = (document.location.search == '?rtl');
+
+        function enableRealtimeSpecificUi() {
+            var realtimeDiv = document.getElementById('realtime');
+            realtimeDiv.display = 'block';
+        }
+
+        function start() {
+            var toolbox = document.getElementById('toolbox');
+            Blockly.inject(document.getElementById('blocklyDiv'),
+                    {rtl: rtl, path: '../', toolbox: toolbox, realtime: false,
+                        realtimeOptions:
+                        {clientId: 'YOUR CLIENT ID GOES HERE',
+                            chatbox: {elementId: 'chatbox'},
+                            collabElementId: 'collaborators'}});
+            if (Blockly.Realtime.isEnabled()) {
+                enableRealtimeSpecificUi();
+            }
+        }
+
+        function toCode() {
+            var output = document.getElementById('importExport');
+            output.value = codeHeader()+ Blockly['Java'].workspaceToCode() + codeFooter();
+        }
+
+
+    </script>
+
+
+</head>
+<body onload="start()">
+<div class="container_12">
+    <div id="header">
+        <div id="nav_container">
+            <div id="nav_menu" class="left">
+                <div id="logo" class="left">
+                    <a href="index.html"> Battleship </a>
+                </div>
+                <nav class="menu">
+                    <a class="toggle-nav" href="#">&#9776;</a>
+                    <ul class="list_inline active">
+                        <li> <a href="easyJ.html"> Editor </a> </li>
+                        <li> <a href=""> Help </a> </li>
+                        <li> <a href=""> Community </a> </li>
+                        <li> <a href=""> Survey </a> </li>
+                        <li> <a href=""> About </a> </li>
+
+                        <li> <div class="menu-on"> <a href=""> My Bots </a> </div> </li>
+                        <li> <div class="menu-on">  <a href=""> Built-in Bots </a> </div> </li>
+                        <li> <div class="menu-on">  <a href=""> Shared Bots </a> </div> </li>
+                    </ul>
+
+                </nav>
+            </div>
+            <div id="collaborators"></div>
+
+
+
+
+
+
+
+        </div>
+    </div>
+    <div id="blocklyDiv" style="height: 480px; width: 66%; float:left"></div>
+    <div style="width: 30%; height: 480px; float:right">
+        <textarea id="importExport" style="width: 100%; height: inherit"></textarea>
+        </br>
+        <input type="button" onclick="toCode()" style="width:100%" value="Java">
+    </div>
+</div>
+<xml id="toolbox" style="display: none">
+    <category name="Logic">
+        <block type="text_length"></block>
+        <block type="controls_if"></block>
+        <block type="logic_compare"></block>
+        <block type="logic_operation"></block>
+        <block type="logic_negate"></block>
+        <block type="logic_boolean"></block>
+        <block type="logic_null"></block>
+        <block type="logic_ternary"></block>
+    </category>
+    <category name="Loops">
+        <block type="controls_repeat_ext">
+            <value name="TIMES">
+                <block type="math_number">
+                    <field name="NUM">10</field>
+                </block>
+            </value>
+        </block>
+        <block type="controls_whileUntil"></block>
+        <block type="controls_for">
+            <value name="FROM">
+                <block type="math_number">
+                    <field name="NUM">1</field>
+                </block>
+            </value>
+            <value name="TO">
+                <block type="math_number">
+                    <field name="NUM">10</field>
+                </block>
+            </value>
+            <value name="BY">
+                <block type="math_number">
+                    <field name="NUM">1</field>
+                </block>
+            </value>
+        </block>
+        <block type="controls_forEach"></block>
+        <block type="controls_flow_statements"></block>
+    </category>
+    <category name="Math">
+        <block type="math_number"></block>
+        <block type="math_arithmetic"></block>
+        <block type="math_single"></block>
+        <block type="math_trig"></block>
+        <block type="math_constant"></block>
+        <block type="math_number_property"></block>
+        <block type="math_change">
+            <value name="DELTA">
+                <block type="math_number">
+                    <field name="NUM">1</field>
+                </block>
+            </value>
+        </block>
+        <block type="math_round"></block>
+        <block type="math_on_list"></block>
+        <block type="math_modulo"></block>
+        <block type="math_constrain">
+            <value name="LOW">
+                <block type="math_number">
+                    <field name="NUM">1</field>
+                </block>
+            </value>
+            <value name="HIGH">
+                <block type="math_number">
+                    <field name="NUM">100</field>
+                </block>
+            </value>
+        </block>
+        <block type="math_random_int">
+            <value name="FROM">
+                <block type="math_number">
+                    <field name="NUM">1</field>
+                </block>
+            </value>
+            <value name="TO">
+                <block type="math_number">
+                    <field name="NUM">100</field>
+                </block>
+            </value>
+        </block>
+        <block type="math_random_float"></block>
+    </category>
+    <category name="Text">
+        <block type="text"></block>
+        <block type="text_join"></block>
+        <block type="text_append">
+            <value name="TEXT">
+                <block type="text"></block>
+            </value>
+        </block>
+        <block type="text_length"></block>
+        <block type="text_isEmpty"></block>
+        <block type="text_indexOf">
+            <value name="VALUE">
+                <block type="variables_get">
+                    <field name="VAR">text</field>
+                </block>
+            </value>
+        </block>
+        <block type="text_charAt">
+            <value name="VALUE">
+                <block type="variables_get">
+                    <field name="VAR">text</field>
+                </block>
+            </value>
+        </block>
+        <block type="text_getSubstring">
+            <value name="STRING">
+                <block type="variables_get">
+                    <field name="VAR">text</field>
+                </block>
+            </value>
+        </block>
+        <block type="text_changeCase"></block>
+        <block type="text_trim"></block>
+        <block type="text_print"></block>
+        <block type="text_prompt"></block>
+    </category>
+    <category name="Lists">
+        <block type="get_Length"></block>
+        <block type="lists_create_with"></block>
+        <block type="lists_repeat">
+            <value name="NUM">
+                <block type="math_number">
+                    <field name="NUM">5</field>
+                </block>
+            </value>
+        </block>
+        <block type="lists_length"></block>
+        <block type="lists_isEmpty"></block>
+        <block type="lists_indexOf">
+            <value name="VALUE">
+                <block type="variables_get">
+                    <field name="VAR">list</field>
+                </block>
+            </value>
+        </block>
+        <block type="lists_getIndex">
+            <value name="VALUE">
+                <block type="variables_get">
+                    <field name="VAR">list</field>
+                </block>
+            </value>
+        </block>
+        <block type="lists_setIndex">
+            <value name="LIST">
+                <block type="variables_get">
+                    <field name="VAR">list</field>
+                </block>
+            </value>
+        </block>
+        <block type="lists_getSublist">
+            <value name="LIST">
+                <block type="variables_get">
+                    <field name="VAR">list</field>
+                </block>
+            </value>
+        </block>
+    </category>
+    <category name="Colour">
+        <block type="colour_picker"></block>
+        <block type="colour_random"></block>
+        <block type="colour_rgb"></block>
+        <block type="colour_blend"></block>
+    </category>
+    <category name="Variables" custom="VARIABLE"></category>
+    <category name="Functions" custom="PROCEDURE"></category>
+</xml>
+</body>
+</html>
