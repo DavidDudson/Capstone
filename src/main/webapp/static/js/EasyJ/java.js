@@ -128,7 +128,7 @@ Blockly.Java.Baseclass_ = 'battleBot';
  * List of libraries used globally by the generated java code. These are
  * Processed by Blockly.Java.addImport
  */
-Blockly.Java.needImports_ = ["com.java.penis"];
+Blockly.Java.needImports_ = ["com.java.starBattle"];
 /**
  * List of libraries used by the caller's generated java code.  These will
  * be processed by Blockly.Java.addImport

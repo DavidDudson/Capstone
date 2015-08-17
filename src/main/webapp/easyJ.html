@@ -12,6 +12,7 @@
 <script type="text/javascript" src="static/js/EasyJ/java/lists.js"></script>
 <script type="text/javascript" src="static/js/EasyJ/java/variables.js"></script>
 <script type="text/javascript" src="static/js/EasyJ/java/procedures.js"></script>
+<script type="text/javascript" src="static/js/EasyJ/java/customBlocks.js"></script>
 <script type="text/javascript" src="static/js/EasyJ/messages.js"></script>
 <script type="text/javascript" src="static/js/EasyJ/blocks/logic.js"></script>
 <script type="text/javascript" src="static/js/EasyJ/blocks/loops.js"></script>
@@ -20,6 +21,7 @@
 <script type="text/javascript" src="static/js/EasyJ/blocks/lists.js"></script>
 <script type="text/javascript" src="static/js/EasyJ/blocks/variables.js"></script>
 <script type="text/javascript" src="static/js/EasyJ/blocks/procedures.js"></script>
+<script type="text/javascript" src="static/js/EasyJ/blocks/customBlocks.js"></script>
 <!-- Load the Google Drive SDK Realtime libraries. -->
 <script src="https://apis.google.com/js/api.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -62,7 +64,7 @@ function start() {
            scrollbars: true
           });
   Blockly.Xml.domToWorkspace(workspace,
-        document.getElementById('startBlocks'));
+        document.getElementById('mitch-startBlocks'));
   if (Blockly.Realtime.isEnabled()) {
     enableRealtimeSpecificUi();
   }
@@ -73,8 +75,6 @@ function toCode() {
   var output = document.getElementById('importExport');
   output.value = Blockly['Java'].workspaceToCode(workspace);
 }
-
-f
 
 </script>
 
@@ -293,6 +293,11 @@ f
     <sep></sep>
     <category name="Variables" custom="VARIABLE"></category>
     <category name="Functions" custom="PROCEDURE"></category>
+	<sep></sep>
+	<category name="Star Battles">
+		<block type="get_gamestate"></block>
+		<block type="variable_define"></block>
+	</category>
   </xml>
 
 <xml id ="startBlocks" style="display: none">
@@ -305,8 +310,11 @@ f
         </value>
       </block>
 </xml>
-
-
+<xml id="mitch-startBlocks" style="display:none">
+	<block type="procedures_defreturn" id="1" x="63" y="63" deletable="false">
+		<mutation></mutation>
+		<field name="NAME">getNextMove</field>
+	</block>
   </div>
 </body>
 </html>
