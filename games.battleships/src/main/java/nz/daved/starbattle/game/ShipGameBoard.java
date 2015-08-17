@@ -1,6 +1,6 @@
-package nz.daved.starbattles.game;
+package nz.daved.starbattle.game;
 
-import nz.daved.starbattles.StarBattleGameSchematic;
+import nz.daved.starbattle.StarBattleGameSchematic;
 
 import java.util.*;
 import java.util.stream.IntStream;

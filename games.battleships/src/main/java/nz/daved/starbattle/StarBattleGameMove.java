@@ -1,6 +1,6 @@
-package nz.daved.starbattles;
+package nz.daved.starbattle;
 
-import nz.daved.starbattles.game.Coordinate;
+import nz.daved.starbattle.game.Coordinate;
 
 import java.util.List;
 import java.util.stream.Collectors;

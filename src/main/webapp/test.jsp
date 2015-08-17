@@ -69,6 +69,7 @@
                 commons.notifyUser("Server Error",jqXHR.responseText);
                 console.log(jqXHR);
                 console.log(errorLoc);
+                console.log(error);
             });
         }
     </script>

@@ -1,6 +1,6 @@
-import nz.daved.starbattles.StarBattleBot;
-import nz.daved.starbattles.game.BotGameBoard;
-import nz.daved.starbattles.game.Coordinate;
+import nz.daved.starbattle.StarBattleBot;
+import nz.daved.starbattle.game.BotGameBoard;
+import nz.daved.starbattle.game.Coordinate;
 
 /**
  * This is the starting point to implement your own bot.

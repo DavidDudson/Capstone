@@ -1,13 +1,13 @@
-package nz.daved.starbattles;
+package nz.daved.starbattle;
 
 import nz.ac.massey.cs.ig.core.game.Bot;
 import nz.ac.massey.cs.ig.core.game.GameState;
 import nz.ac.massey.cs.ig.core.game.IllegalMoveException;
 import nz.ac.massey.cs.ig.core.game.SimpleGame;
-import nz.daved.starbattles.game.BotGameBoard;
-import nz.daved.starbattles.game.Coordinate;
-import nz.daved.starbattles.game.GameBoard;
-import nz.daved.starbattles.game.ShipGameBoard;
+import nz.daved.starbattle.game.BotGameBoard;
+import nz.daved.starbattle.game.Coordinate;
+import nz.daved.starbattle.game.GameBoard;
+import nz.daved.starbattle.game.ShipGameBoard;
 
 import java.util.ArrayList;
 import java.util.List;

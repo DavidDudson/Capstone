@@ -1,4 +1,4 @@
-package nz.daved.starbattles;
+package nz.daved.starbattle;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

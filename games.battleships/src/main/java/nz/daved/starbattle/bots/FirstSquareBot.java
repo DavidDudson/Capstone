@@ -1,8 +1,8 @@
-package nz.daved.starbattles.bots;
+package nz.daved.starbattle.bots;
 
-import nz.daved.starbattles.StarBattleBot;
-import nz.daved.starbattles.game.BotGameBoard;
-import nz.daved.starbattles.game.Coordinate;
+import nz.daved.starbattle.StarBattleBot;
+import nz.daved.starbattle.game.BotGameBoard;
+import nz.daved.starbattle.game.Coordinate;
 
 /**
  * Created by David J. Dudson on 4/08/15.

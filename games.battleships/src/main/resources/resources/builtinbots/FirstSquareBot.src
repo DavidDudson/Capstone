@@ -1,8 +1,8 @@
 package builtinbots;
 
-import nz.daved.starbattles.StarBattleBot;
-import nz.daved.starbattles.game.BotGameBoard;
-import nz.daved.starbattles.game.Coordinate;
+import nz.daved.starbattle.StarBattleBot;
+import nz.daved.starbattle.game.BotGameBoard;
+import nz.daved.starbattle.game.Coordinate;
 
 import java.util.Arrays;
 import java.util.Collections;

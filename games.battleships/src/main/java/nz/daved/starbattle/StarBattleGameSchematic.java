@@ -1,4 +1,4 @@
-package nz.daved.starbattles;
+package nz.daved.starbattle;
 
 import java.util.ArrayList;
 import java.util.Collections;

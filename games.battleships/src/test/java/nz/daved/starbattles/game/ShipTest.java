@@ -1,4 +1,4 @@
-package nz.daved.starbattles.game;
+package nz.daved.starbattle.game;
 
 import org.junit.Test;
 

@@ -1,6 +1,6 @@
-package nz.daved.starbattles;
+package nz.daved.starbattle;
 
-import nz.daved.starbattles.bots.FirstSquareBot;
+import nz.daved.starbattle.bots.FirstSquareBot;
 
 /**
  * Created by David J. Dudson on 13/08/15.

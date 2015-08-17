@@ -1,16 +1,15 @@
-package nz.daved.starbattles;
+package nz.daved.starbattle;
 
 import nz.ac.massey.cs.ig.core.game.GameFactory;
 import nz.ac.massey.cs.ig.core.game.model.BotData;
 import nz.ac.massey.cs.ig.core.services.Serializer;
 import nz.ac.massey.cs.ig.core.services.defaults.DefaultGameSupport;
 import nz.ac.massey.cs.ig.core.utils.ResourceUtils;
-import nz.daved.starbattles.game.*;
+import nz.daved.starbattle.game.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 
 public class StarBattleGameSupport extends DefaultGameSupport {
 
@@ -33,8 +32,7 @@ public class StarBattleGameSupport extends DefaultGameSupport {
             botData.setTested(true);
             botData.setqName("builtinbots." + id);
 
-            String src = ResourceUtils
-                    .loadFromClassPath(this, "resources/builtinbots/" + file);
+            String src = ResourceUtils.loadFromClassPath(this, "resources/builtinbots/" + file);
 
             botData.setSrc(src);
 
@@ -83,16 +81,5 @@ public class StarBattleGameSupport extends DefaultGameSupport {
     @Override
     public Serializer getSerializer() {
         return new StarBattleSerializer();
-    }
-
-    /**
-     * Support only Java and the visual language
-     *
-     * @param languageId the language name to query
-     * @return whether or not the language is supported
-     */
-    @Override
-    public boolean isLanguageSupported(String languageId) {
-        return Objects.equals(languageId, "java");
     }
 }

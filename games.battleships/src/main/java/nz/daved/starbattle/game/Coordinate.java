@@ -1,6 +1,4 @@
-package nz.daved.starbattles.game;
-
-import java.util.function.Predicate;
+package nz.daved.starbattle.game;
 
 /**
  * Created by David J. Dudson on 4/08/15.
