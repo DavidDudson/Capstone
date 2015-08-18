@@ -11,8 +11,8 @@ import nz.daved.starbattle.game.Coordinate;
  */
 public class FirstSquareBot extends StarBattleBot {
 
-    public FirstSquareBot() {
-        super(FirstSquareBot.class.getName());
+    public FirstSquareBot(String id) {
+        super(id);
     }
 
     @Override

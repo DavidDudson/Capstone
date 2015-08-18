@@ -1,13 +1,8 @@
-package builtinbots;
+package nz.daved.starbattle.bots;
 
 import nz.daved.starbattle.StarBattleBot;
 import nz.daved.starbattle.game.BotGameBoard;
 import nz.daved.starbattle.game.Coordinate;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by David J. Dudson on 4/08/15.
@@ -16,8 +11,8 @@ import java.util.stream.Collectors;
  */
 public class FirstSquareBot extends StarBattleBot {
 
-    public FirstSquareBot() {
-        super(FirstSquareBot.class.getName());
+    public FirstSquareBot(String id) {
+        super(id);
     }
 
     @Override

@@ -10,7 +10,7 @@ import nz.daved.starbattle.bots.FirstSquareBot;
 public class BotTester {
 
     public static void main(String[] args) {
-        StarBattleGame game = new StarBattleGame("test", new FirstSquareBot(), new FirstSquareBot());
+        StarBattleGame game = new StarBattleGame("test", new FirstSquareBot("1"), new FirstSquareBot("2"));
         game.runTestGame();
         game.getHistory().forEach(x -> System.out.println(x.toString()));
     }
