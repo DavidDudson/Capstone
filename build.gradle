@@ -150,7 +150,7 @@ task runDevServer(type: GradleBuild, dependsOn: ['buildAll']) {
 //Build SoGaCo from source
 task buildServices(type: Exec, dependsOn: 'cloneSogaco') {
     commandLine 'mvn clean install'.split()
-    workingDir = './sogacoSrc/bruyere/services'
+    workingDir = './sogacoSrc/bruyere/services/'
 }
 
 task runDebugServer(type: GradleBuild, dependsOn:'buildDebug'){
