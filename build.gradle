@@ -157,6 +157,15 @@ task runDebugServer(type: GradleBuild, dependsOn:'buildDebug'){
     tasks = ['jettyRun']
 }
 
+task buildAndDeploy(type: Exec,dependsOn:'buildDebug'){
+    commandLine ' heroku deploy:war --war target/starbattle-0.1.war --app battleships-capstone'.split()
+}
+
+task buildAndDeployDebug(type: Exec,dependsOn:'buildAll'){
+    commandLine ' heroku deploy:war --war target/starbattle-0.1.war --app battleships-capstone'.split()
+}
+
+
 task stage {
     dependsOn buildAll
 }
