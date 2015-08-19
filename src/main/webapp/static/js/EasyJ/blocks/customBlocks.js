@@ -3,12 +3,12 @@ Blockly.Blocks['get_state'] = {
     this.appendDummyInput()
         .appendField(new Blockly.FieldDropdown([["is Water", "isWater"], ["is Ship", "isShip"]]), "state");
     this.appendValueInput("CELL")
-        .setCheck(["cell", "String"])
+        .setCheck(["Cell", "String"])
         .appendField("at cell");
     this.setInputsInline(true);
     this.setOutput(true, "Boolean");
     this.setColour(230);
-    this.setTooltip('');
+    this.setTooltip('ask if the position is water or a known ship position');
     this.setHelpUrl('http://www.example.com/');
   }
 };
@@ -18,12 +18,12 @@ Blockly.Blocks['get_cell_at_pos'] = {
     this.appendDummyInput()
         .appendField(new Blockly.FieldDropdown([["get Left", "getLeft"], ["get Right", "getRight"], ["get Up", "getUp"], ["get Down", "getDown"]]), "POSITION");
     this.appendValueInput("INPUT")
-        .setCheck("cell")
+        .setCheck("Cell")
         .appendField("at position");
     this.setInputsInline(true);
-    this.setOutput(true, "cell");
+    this.setOutput(true, "Cell");
     this.setColour(230);
-    this.setTooltip('');
+    this.setTooltip('get the cell neighbouring the given position');
     this.setHelpUrl('http://www.example.com/');
   }
 };
@@ -31,7 +31,7 @@ Blockly.Blocks['get_cell_at_pos'] = {
 Blockly.Blocks['if_cell_hit_aim_direction'] = {
   init: function() {
     this.appendValueInput("CELL")
-        .setCheck(["String", "CELL"])
+        .setCheck(["String", "Cell"])
         .appendField("if cell");
     this.appendDummyInput()
         .appendField("is hit, try")
@@ -40,7 +40,7 @@ Blockly.Blocks['if_cell_hit_aim_direction'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
-    this.setTooltip('');
+    this.setTooltip('if the given cell is hit, go to the given direction');
     this.setHelpUrl('http://www.example.com/');
   }
 };
@@ -48,13 +48,13 @@ Blockly.Blocks['if_cell_hit_aim_direction'] = {
 Blockly.Blocks['can_attack_cell'] = {
   init: function() {
     this.appendValueInput("CELL")
-        .setCheck(["String", "cell"])
+        .setCheck(["String", "Cell"])
         .appendField("can");
     this.appendDummyInput()
         .appendField("be attacked");
     this.setOutput(true, "Boolean");
     this.setColour(230);
-    this.setTooltip('');
+    this.setTooltip('can the given cell be hit, or has already been hit');
     this.setHelpUrl('http://www.example.com/');
   }
 };
@@ -63,9 +63,9 @@ Blockly.Blocks['get_next_valid_cell'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("the next valid cell");
-    this.setOutput(true, "Boolean");
-    this.setColour(230);
-    this.setTooltip('');
+    this.setOutput(true, ["String", "Cell"]);
+	this.setColour(230);
+    this.setTooltip('returns the next valid cell');
     this.setHelpUrl('http://www.example.com/');
   }
 };
@@ -73,11 +73,11 @@ Blockly.Blocks['get_next_valid_cell'] = {
 Blockly.Blocks['get_neighbour_valid_cells'] = {
   init: function() {
     this.appendValueInput("CELL")
-        .setCheck(["String", "cell"])
+        .setCheck(["String", "Cell"])
         .appendField("get valid neighbors of");
     this.setOutput(true, "Array");
     this.setColour(230);
-    this.setTooltip('');
+    this.setTooltip('the neighbouring cells of the given position that can be hit');
     this.setHelpUrl('http://www.example.com/');
   }
 };
@@ -94,7 +94,7 @@ Blockly.Blocks['variable_define'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(330);
-    this.setTooltip('');
+    this.setTooltip('create a new variable of a certain type');
     this.setHelpUrl('http://www.example.com/');
   }
 };
@@ -105,7 +105,7 @@ Blockly.Blocks['get_gamestate'] = {
         .appendField("Gamestate");
     this.setOutput(true, "Array");
     this.setColour(330);
-    this.setTooltip('');
+    this.setTooltip('The StarBattles gamestate');
     this.setHelpUrl('http://www.example.com/');
   }
 }
