@@ -328,7 +328,7 @@ Blockly.Java.provideVarClass = function() {
     Blockly.Java.addImport('java.util.Map');
     Blockly.Java.addImport('java.util.Objects');
 
-    var VarCode = ['penis'];
+    var VarCode = [''];
     this.classes_['Var'] = VarCode.join('\n')+'\n';
   } else {
     Blockly.Java.addImport('extreme.sdn.client.Var');
