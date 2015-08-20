@@ -1,3 +1,16 @@
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%
+    pageContext.setAttribute("screenName",
+            session.getAttribute("userName"));
+    pageContext.setAttribute("profilePicture",
+            session.getAttribute("userPicture"));
+    nz.ac.massey.cs.ig.core.services.Services services = (nz.ac.massey.cs.ig.core.services.Services) application
+            .getAttribute(nz.ac.massey.cs.ig.core.services.Services.NAME);
+    String gameName = services.getGameSupport().getName();
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -79,7 +92,18 @@
                         <li> <a href=""> Community </a> </li>
                         <li> <a href=""> Survey </a> </li>
                         <li> <a href=""> About </a> </li>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="profilePictureContent" id="profilePicture1"><p
+                                    class="navbar-text">${screenName}</p></li>
+                            <li><a id="profilePicture2" href="logout">Logout</a></li>
 
+                            <c:if test="${profilePicture != null}">
+                                <li class="profilePictureContent" id="profilePicture3"><img
+                                        id="profilePictureURL" src="${profilePicture}"
+                                        class="img-responsive img-rounded center-block"
+                                        style="width: 40px; margin: 5px;" alt="Profile Picture"></li>
+                            </c:if>
+                        </ul>
                         <li> <div class="menu-on"> <a href=""> My Bots </a> </div> </li>
                         <li> <div class="menu-on">  <a href=""> Built-in Bots </a> </div> </li>
                         <li> <div class="menu-on">  <a href=""> Shared Bots </a> </div> </li>
