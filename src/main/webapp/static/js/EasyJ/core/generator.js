@@ -3,7 +3,7 @@
  * Visual Blocks Editor
  *
  * Copyright 2012 Google Inc.
- * https://blockly.googlecode.com/
+ * https://developers.google.com/blockly/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,7 @@
 goog.provide('Blockly.Generator');
 
 goog.require('Blockly.Block');
+goog.require('goog.asserts');
 
 
 /**
@@ -38,6 +39,8 @@ goog.require('Blockly.Block');
 Blockly.Generator = function(name) {
   this.name_ = name;
   this.RESERVED_WORDS_ = '';
+  this.FUNCTION_NAME_PLACEHOLDER_REGEXP_ =
+      new RegExp(this.FUNCTION_NAME_PLACEHOLDER_, 'g');
 };
 
 /**
@@ -46,15 +49,56 @@ Blockly.Generator = function(name) {
 Blockly.Generator.NAME_TYPE = 'generated_function';
 
 /**
+ * Arbitrary code to inject into locations that risk causing infinite loops.
+ * Any instances of '%1' will be replaced by the block ID that failed.
+ * E.g. '  checkTimeout(%1);\n'
+ * @type {?string}
+ */
+Blockly.Generator.prototype.INFINITE_LOOP_TRAP = null;
+
+/**
+ * Arbitrary code to inject before every statement.
+ * Any instances of '%1' will be replaced by the block ID of the statement.
+ * E.g. 'highlight(%1);\n'
+ * @type {?string}
+ */
+Blockly.Generator.prototype.STATEMENT_PREFIX = null;
+
+/**
+ * Stash of generate lines to output before generating a statement.  This allows
+ * for any code generator to output prep lines (such as assignment statements
+ * or even local definitions) while generating inline code to be used by an
+ * upper level block
+ */
+Blockly.Generator.prototype.STATEMENT_STASH = '';
+/** 
+ * Pending stash of lines to output.  It will be output if anything else is
+ * output in the meantime
+ */
+Blockly.Generator.prototype.STATEMENT_STASH_PEND = '';
+/**
  * Generate code for all blocks in the workspace to the specified language.
+ * @param {Blockly.Workspace} workspace Workspace to generate code from.
+ * @param {string} parms Any extra parameters to pass to the lower level block
  * @return {string} Generated code.
  */
-Blockly.Generator.prototype.workspaceToCode = function() {
-  var code = [];
-  this.init();
-  var blocks = Blockly.mainWorkspace.getTopBlocks(true);
+Blockly.Generator.prototype.workspaceToCode = function(workspace, parms) {
+  if (!workspace) {
+    // Backwards compatability from before there could be multiple workspaces.
+    console.warn('No workspace specified in workspaceToCode call.  Guessing.');
+    workspace = Blockly.getMainWorkspace();
+  }
+  var codearray = [];
+  this.init(workspace);
+  var blocks = workspace.getTopBlocks(true);
   for (var x = 0, block; block = blocks[x]; x++) {
-    var line = this.blockToCode(block);
+    var line = this.blockToCode(block, parms);
+    // If the intervening code generated any statement stash, now is a good
+    // time to flush it
+    var stash = this.getStatementStash();
+    if (stash !== '') {
+      codearray.push(stash);
+    }
     if (goog.isArray(line)) {
       // Value blocks return tuples of code and operator order.
       // Top-level blocks don't care about operator order.
@@ -66,10 +110,10 @@ Blockly.Generator.prototype.workspaceToCode = function() {
         // it wants to append a semicolon, or something.
         line = this.scrubNakedValue(line);
       }
-      code.push(line);
+      codearray.push(line);
     }
   }
-  code = code.join('\n');  // Blank line between each section.
+  var code = codearray.join('\n');  // Blank line between each section.
   code = this.finish(code);
   // Final scrubbing of whitespace.
   code = code.replace(/^\s+\n/, '');
@@ -115,34 +159,48 @@ Blockly.Generator.prototype.allNestedComments = function(block) {
 /**
  * Generate code for the specified block (and attached blocks).
  * @param {Blockly.Block} block The block to generate code for.
+ * @param {string} parms Any extra parameters to pass to the lower level block
+ * @param {boolean} nostash Don't process the stashed code
  * @return {string|!Array} For statement blocks, the generated code.
  *     For value blocks, an array containing the generated code and an
  *     operator order value.  Returns '' if block is null.
  */
-Blockly.Generator.prototype.blockToCode = function(block) {
+Blockly.Generator.prototype.blockToCode = function(block,parms,nostash) {
   if (!block) {
     return '';
   }
   if (block.disabled) {
     // Skip past this block if it is disabled.
-    return this.blockToCode(block.getNextBlock());
+    return this.blockToCode(block.getNextBlock(),parms,nostash);
   }
 
   var func = this[block.type];
-  if (!func) {
-    throw 'Language "' + this.name_ + '" does not know how to generate code ' +
-        'for block type "' + block.type + '".';
-  }
+  goog.asserts.assertFunction(func,
+      'Language "%s" does not know how to generate code for block type "%s".',
+      this.name_, block.type);
   // First argument to func.call is the value of 'this' in the generator.
   // Prior to 24 September 2013 'this' was the only way to access the block.
   // The current prefered method of accessing the block is through the second
   // argument to func.call, which becomes the first parameter to the generator.
-  var code = func.call(block, block);
+  var code = func.call(block, block, parms);
+  var stash = '';
+  if (!nostash) {
+    stash = this.getStatementStash();
+  }
   if (goog.isArray(code)) {
     // Value blocks return tuples of code and operator order.
-    return [this.scrub_(block, code[0]), code[1]];
+    return [this.scrub_(block, stash + code[0], parms), code[1]];
+  } else if (goog.isString(code)) {
+    if (this.STATEMENT_PREFIX) {
+      code = this.STATEMENT_PREFIX.replace(/%1/g, '\'' + block.id + '\'') +
+          code;
+    }
+    return this.scrub_(block, stash + code, parms);
+  } else if (code === null) {
+    // Block has handled code generation itself.
+    return stash;
   } else {
-    return this.scrub_(block, code);
+    goog.asserts.fail('Invalid code generated: %s', code);
   }
 };
 
@@ -152,34 +210,36 @@ Blockly.Generator.prototype.blockToCode = function(block) {
  * @param {string} name The name of the input.
  * @param {number} order The maximum binding strength (minimum order value)
  *     of any operators adjacent to "block".
+ * @param {string} parms Any extra parameters to pass to the lower level block
  * @return {string} Generated code or '' if no blocks are connected or the
  *     specified input does not exist.
  */
-Blockly.Generator.prototype.valueToCode = function(block, name, order) {
+Blockly.Generator.prototype.valueToCode = function(block, name, order, parms) {
   if (isNaN(order)) {
-    throw 'Expecting valid order from block "' + block.type + '".';
+    goog.asserts.fail('Expecting valid order from block "%s".', block.type);
   }
   var targetBlock = block.getInputTargetBlock(name);
   if (!targetBlock) {
     return '';
   }
-  var tuple = this.blockToCode(targetBlock);
+  var tuple = this.blockToCode(targetBlock, parms, true);
   if (tuple === '') {
     // Disabled block.
     return '';
   }
-  if (!goog.isArray(tuple)) {
-    // Value blocks must return code and order of operations info.
-    // Statement blocks must only return code.
-    throw 'Expecting tuple from value block "' + targetBlock.type + '".';
-  }
+  // Value blocks must return code and order of operations info.
+  // Statement blocks must only return code.
+  goog.asserts.assertArray(tuple,
+      'Expecting tuple from value block "%s".', targetBlock.type);
   var code = tuple[0];
   var innerOrder = tuple[1];
   if (isNaN(innerOrder)) {
-    throw 'Expecting valid order from value block "' + targetBlock.type + '".';
+    goog.asserts.fail('Expecting valid order from value block "%s".',
+        targetBlock.type);
   }
   if (code && order <= innerOrder) {
-    if (order == innerOrder || (order == 0 || order == 99)) {
+    if (order == innerOrder && (order == 0 || order == 99)) {
+      // Don't generate parens around NONE-NONE and ATOMIC-ATOMIC pairs.
       // 0 is the atomic order, 99 is the none order.  No parentheses needed.
       // In all known languages multiple such code blocks are not order
       // sensitive.  In fact in Python ('a' 'b') 'c' would fail.
@@ -199,20 +259,39 @@ Blockly.Generator.prototype.valueToCode = function(block, name, order) {
  * Generate code representing the statement.  Indent the code.
  * @param {!Blockly.Block} block The block containing the input.
  * @param {string} name The name of the input.
+ * @param {string} parms Any extra parameters to pass to the lower level block
  * @return {string} Generated code or '' if no blocks are connected.
  */
-Blockly.Generator.prototype.statementToCode = function(block, name) {
+Blockly.Generator.prototype.statementToCode = function(block, name, parms) {
   var targetBlock = block.getInputTargetBlock(name);
-  var code = this.blockToCode(targetBlock);
-  if (!goog.isString(code)) {
-    // Value blocks must return code and order of operations info.
-    // Statement blocks must only return code.
-    throw 'Expecting code from statement block "' + targetBlock.type + '".';
-  }
+  var code = this.blockToCode(targetBlock, parms);
+  // Value blocks must return code and order of operations info.
+  // Statement blocks must only return code.
+  goog.asserts.assertString(code,
+      'Expecting code from statement block "%s".',
+      targetBlock && targetBlock.type);
   if (code) {
     code = this.prefixLines(/** @type {string} */ (code), this.INDENT);
   }
   return code;
+};
+
+/**
+ * Add an infinite loop trap to the contents of a loop.
+ * If loop is empty, add a statment prefix for the loop block.
+ * @param {string} branch Code for loop contents.
+ * @param {string} id ID of enclosing block.
+ * @return {string} Loop contents, with infinite loop trap added.
+ */
+Blockly.Generator.prototype.addLoopTrap = function(branch, id) {
+  if (this.INFINITE_LOOP_TRAP) {
+    branch = this.INFINITE_LOOP_TRAP.replace(/%1/g, '\'' + id + '\'') + branch;
+  }
+  if (this.STATEMENT_PREFIX) {
+    branch += this.prefixLines(this.STATEMENT_PREFIX.replace(/%1/g,
+        '\'' + id + '\''), this.INDENT);
+  }
+  return branch;
 };
 
 /**
@@ -235,10 +314,9 @@ Blockly.Generator.prototype.addReservedWords = function(words) {
  * Blockly.Generator.provideFunction_.  It must not be legal code that could
  * legitimately appear in a function definition (or comment), and it must
  * not confuse the regular expression parser.
+ * @private
  */
 Blockly.Generator.prototype.FUNCTION_NAME_PLACEHOLDER_ = '{leCUI8hutHZI4480Dc}';
-Blockly.Generator.prototype.FUNCTION_NAME_PLACEHOLDER_REGEXP_ =
-    new RegExp(Blockly.Generator.prototype.FUNCTION_NAME_PLACEHOLDER_, 'g');
 
 /**
  * Define a function to be included in the generated code.
@@ -252,7 +330,7 @@ Blockly.Generator.prototype.FUNCTION_NAME_PLACEHOLDER_REGEXP_ =
  * The code gets output when Blockly.Generator.finish() is called.
  *
  * @param {string} desiredName The desired name of the function (e.g., isPrime).
- * @param {!Array.<string>} code A list of Python statements.
+ * @param {!Array.<string>} code A list of statements.
  * @return {string} The actual name of the new function.  This may differ
  *     from desiredName if the former has already been taken by the user.
  * @private
@@ -267,3 +345,33 @@ Blockly.Generator.prototype.provideFunction_ = function(desiredName, code) {
   }
   return this.functionNames_[desiredName];
 };
+
+/**
+ * Returns the current stash of statements to be output before the current
+ * line is generated.  Note that the stash is cleared upon return
+ * @return {string} Any stashed code
+ */
+Blockly.Generator.prototype.getStatementStash = function() {
+  var result = this.STATEMENT_STASH;
+  this.STATEMENT_STASH = '';
+  return result;
+};
+
+/**
+ * Saves away lines of code to insert before the current statement
+ * @param {string} code any lines of code to stash away
+ * @param {string} pending any lines of code to pend for stashing.
+ */
+Blockly.Generator.prototype.stashStatement = function(code, pending) {
+  if (pending != null) {
+    this.STATEMENT_STASH_PEND = pending;
+  }
+  if (code) {
+    if (this.STATEMENT_STASH_PEND != '') {
+      this.STATEMENT_STASH += this.STATEMENT_STASH_PEND;
+      this.STATEMENT_STASH_PEND = '';
+    }
+    this.STATEMENT_STASH += code;
+  }
+};
+

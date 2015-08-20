@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>Blockly Playground</title>
-    <script type="text/javascript" src="static/js/EasyJ/blockly_compressed.js"></script>
+    <script type="text/javascript" src="static/js/EasyJ/blockly_uncompressed.js"></script>
     <script type="text/javascript" src="static/js/EasyJ/java.js"></script>
     <script type="text/javascript" src="static/js/EasyJ/java/logic.js"></script>
     <script type="text/javascript" src="static/js/EasyJ/java/loops.js"></script>
@@ -12,6 +12,7 @@
     <script type="text/javascript" src="static/js/EasyJ/java/lists.js"></script>
     <script type="text/javascript" src="static/js/EasyJ/java/variables.js"></script>
     <script type="text/javascript" src="static/js/EasyJ/java/procedures.js"></script>
+    <script type="text/javascript" src="static/js/EasyJ/java/customBlocks.js"></script>
     <script type="text/javascript" src="static/js/EasyJ/messages.js"></script>
     <script type="text/javascript" src="static/js/EasyJ/blocks/logic.js"></script>
     <script type="text/javascript" src="static/js/EasyJ/blocks/loops.js"></script>
@@ -19,21 +20,21 @@
     <script type="text/javascript" src="static/js/EasyJ/blocks/text.js"></script>
     <script type="text/javascript" src="static/js/EasyJ/blocks/lists.js"></script>
     <script type="text/javascript" src="static/js/EasyJ/blocks/variables.js"></script>
+    <script type="text/javascript" src="static/js/EasyJ/blocks/procedures.js"></script>
     <script type="text/javascript" src="static/js/EasyJ/blocks/customBlocks.js"></script>
-    <script type="text/javascript" src="static/js/EasyJ/custCode.js"></script>
     <!-- Load the Google Drive SDK Realtime libraries. -->
-    <script type="text/javascript" src="https://apis.google.com/js/api.js"></script>
-
+    <script src="https://apis.google.com/js/api.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="static/js/jquery-1.7.2.min.js"></script>
     <script src="static/js/jquery-ui-1.8.21.custom.min.js"></script>
     <script src="static/js/gameState.js"></script>
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
     <link rel="stylesheet" type="text/css" href="static/css/grid.css">
-    <script type="text/javascript">
+    <script>
         'use strict';
         // Depending on the URL argument, render as LTR or RTL.
         var rtl = (document.location.search == '?rtl');
+        var workspace = null;
 
         function enableRealtimeSpecificUi() {
             var realtimeDiv = document.getElementById('realtime');
@@ -42,12 +43,31 @@
 
         function start() {
             var toolbox = document.getElementById('toolbox');
-            Blockly.inject(document.getElementById('blocklyDiv'),
-                    {rtl: rtl, path: '../', toolbox: toolbox, realtime: false,
-                        realtimeOptions:
-                        {clientId: 'YOUR CLIENT ID GOES HERE',
+            workspace = Blockly.inject('blocklyDiv',
+                    {
+                        rtl: rtl,
+                        media: '/media/',
+                        toolbox: toolbox,
+                        comments: true,
+                        disable: true,
+                        collapse: true,
+                        grid: {
+                            spacing: 25,
+                            length: 3,
+                            colour: '#ccc',
+                            snap: true
+                        },
+                        readOnly: false,
+                        realtime: false,
+                        realtimeOptions: {
+                            clientId: 'YOUR CLIENT ID GOES HERE',
                             chatbox: {elementId: 'chatbox'},
-                            collabElementId: 'collaborators'}});
+                            collabElementId: 'collaborators'
+                        },
+                        scrollbars: true
+                    });
+            Blockly.Xml.domToWorkspace(workspace,
+                    document.getElementById('mitch-startBlocks'));
             if (Blockly.Realtime.isEnabled()) {
                 enableRealtimeSpecificUi();
             }
@@ -55,13 +75,9 @@
 
         function toCode() {
             var output = document.getElementById('importExport');
-            output.value = codeHeader()+ Blockly['Java'].workspaceToCode() + codeFooter();
+            output.value = Blockly['Java'].workspaceToCode(workspace);
         }
-
-
     </script>
-
-
 </head>
 <body onload="start()">
 <div class="container_12">
@@ -74,27 +90,25 @@
                 <nav class="menu">
                     <a class="toggle-nav" href="#">&#9776;</a>
                     <ul class="list_inline active">
-                        <li> <a href="easyJ.html"> Editor </a> </li>
-                        <li> <a href=""> Help </a> </li>
-                        <li> <a href=""> Community </a> </li>
-                        <li> <a href=""> Survey </a> </li>
-                        <li> <a href=""> About </a> </li>
-
-                        <li> <div class="menu-on"> <a href=""> My Bots </a> </div> </li>
-                        <li> <div class="menu-on">  <a href=""> Built-in Bots </a> </div> </li>
-                        <li> <div class="menu-on">  <a href=""> Shared Bots </a> </div> </li>
+                        <li><a href="easyJ.html"> Editor </a></li>
+                        <li><a href=""> Help </a></li>
+                        <li><a href=""> Community </a></li>
+                        <li><a href=""> Survey </a></li>
+                        <li><a href=""> About </a></li>
+                        <li>
+                            <div class="menu-on"><a href=""> My Bots </a></div>
+                        </li>
+                        <li>
+                            <div class="menu-on"><a href=""> Built-in Bots </a></div>
+                        </li>
+                        <li>
+                            <div class="menu-on"><a href=""> Shared Bots </a></div>
+                        </li>
                     </ul>
 
                 </nav>
             </div>
             <div id="collaborators"></div>
-
-
-
-
-
-
-
         </div>
     </div>
     <div id="blocklyDiv" style="height: 480px; width: 66%; float:left"></div>
@@ -104,9 +118,9 @@
         <input type="button" onclick="toCode()" style="width:100%" value="Java">
     </div>
 </div>
+
 <xml id="toolbox" style="display: none">
     <category name="Logic">
-        <block type="text_length"></block>
         <block type="controls_if"></block>
         <block type="logic_compare"></block>
         <block type="logic_operation"></block>
@@ -221,10 +235,14 @@
         <block type="text_changeCase"></block>
         <block type="text_trim"></block>
         <block type="text_print"></block>
-        <block type="text_prompt"></block>
+        <block type="text_prompt_ext">
+            <value name="TEXT">
+                <block type="text"></block>
+            </value>
+        </block>
     </category>
     <category name="Lists">
-        <block type="get_Length"></block>
+        <block type="lists_create_empty"></block>
         <block type="lists_create_with"></block>
         <block type="lists_repeat">
             <value name="NUM">
@@ -263,15 +281,46 @@
                 </block>
             </value>
         </block>
+        <block type="lists_split">
+            <value name="DELIM">
+                <block type="text">
+                    <field name="TEXT">,</field>
+                </block>
+            </value>
+        </block>
     </category>
-    <category name="Colour">
-        <block type="colour_picker"></block>
-        <block type="colour_random"></block>
-        <block type="colour_rgb"></block>
-        <block type="colour_blend"></block>
-    </category>
+    <sep></sep>
     <category name="Variables" custom="VARIABLE"></category>
     <category name="Functions" custom="PROCEDURE"></category>
+    <sep></sep>
+    <category name="StarBattles">
+    </category>
+    <sep></sep>
+    <category name="Testing">
+        <block type="get_gamestate"></block>
+        <block type="variable_define"></block>
+        <block type="get_next_valid_cell"></block>
+    </category>
+</xml>
+<xml id="startBlocks" style="display: none">
+    <block type="variables_set">
+        <field name="VAR">game array</field>
+        <value name="VALUE">
+            <block type="variables_get">
+                <field name="VAR">GameState</field>
+            </block>
+        </value>
+    </block>
+</xml>
+<xml id="mitch-startBlocks" style="display:none">
+    <block type="procedures_defreturn" id="1" x="63" y="63" deletable="false">
+        <mutation></mutation>
+        <field name="NAME">getNextMove</field>
+        <value name="RETURN">
+            <block type="get_next_valid_cell" id="2"></block>
+        </value>
+    </block>
+    </div>
 </xml>
 </body>
 </html>

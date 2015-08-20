@@ -3,7 +3,7 @@
  * Visual Blocks Editor
  *
  * Copyright 2012 Google Inc.
- * https://blockly.googlecode.com/
+ * https://developers.google.com/blockly/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,10 +28,11 @@
 
 goog.provide('Blockly.Field');
 
-// TODO(scr): Fix circular dependencies
-// goog.require('Blockly.Block');
-goog.require('Blockly.BlockSvg');
 goog.require('goog.asserts');
+goog.require('goog.dom');
+goog.require('goog.math.Size');
+goog.require('goog.style');
+goog.require('goog.userAgent');
 
 
 /**
@@ -40,32 +41,39 @@ goog.require('goog.asserts');
  * @constructor
  */
 Blockly.Field = function(text) {
-  this.sourceBlock_ = null;
-  // Build the DOM.
-  this.fieldGroup_ = Blockly.createSvgElement('g', {}, null);
-  this.borderRect_ = Blockly.createSvgElement('rect',
-      {'rx': 4,
-       'ry': 4,
-       'x': -Blockly.BlockSvg.SEP_SPACE_X / 2,
-       'y': -12,
-       'height': 16}, this.fieldGroup_);
-  this.textElement_ = Blockly.createSvgElement('text',
-      {'class': 'blocklyText'}, this.fieldGroup_);
-  this.size_ = {height: 25, width: 0};
+  this.size_ = new goog.math.Size(0, 25);
   this.setText(text);
-  this.visible_ = true;
 };
 
 /**
- * Clone this Field.  This must be implemented by all classes derived from
- * Field.  Since this class should not be instantiated, calling this method
- * throws an exception.
- * @throws {goog.assert.AssertionError}
+ * Maximum length of text to display before adding an ellipsis.
  */
-Blockly.Field.prototype.clone = function() {
-  goog.asserts.fail('There should never be an instance of Field, ' +
-      'only its derived classes.');
-};
+Blockly.Field.prototype.maxDisplayLength = 50;
+
+/**
+ * Block this field is attached to.  Starts as null, then in set in init.
+ * @private
+ */
+Blockly.Field.prototype.sourceBlock_ = null;
+
+/**
+ * Is the field visible, or hidden due to the block being collapsed?
+ * @private
+ */
+Blockly.Field.prototype.visible_ = true;
+
+/**
+ * Change handler called when user edits an editable field.
+ * @private
+ */
+Blockly.Field.prototype.changeHandler_ = null;
+
+/**
+ * Holder for private data used by the field for any reason.  The format of this
+ * data is opaque to the field
+ * @private
+ */
+Blockly.Field.prototype.privateData_ = null;
 
 /**
  * Non-breaking space.
@@ -76,6 +84,10 @@ Blockly.Field.NBSP = '\u00A0';
  * Editable fields are saved by the XML renderer, non-editable fields are not.
  */
 Blockly.Field.prototype.EDITABLE = true;
+/**
+ * Well we can save them with the XML renderer as long as they are serializable.
+ */
+Blockly.Field.prototype.SERIALIZABLE = true;
 
 /**
  * Install this field on a block.
@@ -83,15 +95,30 @@ Blockly.Field.prototype.EDITABLE = true;
  */
 Blockly.Field.prototype.init = function(block) {
   if (this.sourceBlock_) {
-    throw 'Field has already been initialized once.';
+    // Field has already been initialized once.
+    return;
   }
   this.sourceBlock_ = block;
+  // Build the DOM.
+  this.fieldGroup_ = Blockly.createSvgElement('g', {}, null);
+  if (!this.visible_) {
+    this.fieldGroup_.style.display = 'none';
+  }
+  this.borderRect_ = Blockly.createSvgElement('rect',
+      {'rx': 4,
+       'ry': 4,
+       'x': -Blockly.BlockSvg.SEP_SPACE_X / 2,
+       'y': -12,
+       'height': 16}, this.fieldGroup_);
+  this.textElement_ = Blockly.createSvgElement('text',
+      {'class': 'blocklyText'}, this.fieldGroup_);
+
   this.updateEditable();
   block.getSvgRoot().appendChild(this.fieldGroup_);
   this.mouseUpWrapper_ =
       Blockly.bindEvent_(this.fieldGroup_, 'mouseup', this, this.onMouseUp_);
-  // Bump to set the colours for dropdown arrows.
-  this.setText(null);
+  // Force a render.
+  this.updateTextNode_();
 };
 
 /**
@@ -107,13 +134,14 @@ Blockly.Field.prototype.dispose = function() {
   this.fieldGroup_ = null;
   this.textElement_ = null;
   this.borderRect_ = null;
+  this.changeHandler_ = null;
 };
 
 /**
  * Add or remove the UI indicating if this field is editable or not.
  */
 Blockly.Field.prototype.updateEditable = function() {
-  if (!this.EDITABLE) {
+  if (!this.EDITABLE || !this.sourceBlock_) {
     return;
   }
   if (this.sourceBlock_.isEditable()) {
@@ -144,8 +172,31 @@ Blockly.Field.prototype.isVisible = function() {
  * @param {boolean} visible True if visible.
  */
 Blockly.Field.prototype.setVisible = function(visible) {
+  if (this.visible_ == visible) {
+    return;
+  }
   this.visible_ = visible;
-  this.getRootElement().style.display = visible ? 'block' : 'none';
+  var root = this.getSvgRoot();
+  if (root) {
+    root.style.display = visible ? 'block' : 'none';
+    this.render_();
+  }
+};
+
+/**
+ * Sets a new change handler for editable fields.
+ * @param {Function} handler New change handler, or null.
+ */
+Blockly.Field.prototype.setChangeHandler = function(handler) {
+  this.changeHandler_ = handler;
+};
+
+/**
+ * Sets whether this editable field is serialized out by the XML renderer or not
+ * @param {boolean} serializable True if the block can be serialized
+ */
+Blockly.Field.prototype.setSerializable = function(serializable) {
+  this.SERIALIZABLE = serializable;
 };
 
 /**
@@ -153,7 +204,7 @@ Blockly.Field.prototype.setVisible = function(visible) {
  * Used for measuring the size and for positioning.
  * @return {!Element} The group element.
  */
-Blockly.Field.prototype.getRootElement = function() {
+Blockly.Field.prototype.getSvgRoot = function() {
   return /** @type {!Element} */ (this.fieldGroup_);
 };
 
@@ -163,17 +214,27 @@ Blockly.Field.prototype.getRootElement = function() {
  * @private
  */
 Blockly.Field.prototype.render_ = function() {
-  var width = this.textElement_.getComputedTextLength();
-  if (this.borderRect_) {
-    this.borderRect_.setAttribute('width',
-        width + Blockly.BlockSvg.SEP_SPACE_X);
+  if (this.visible_ && this.textElement_) {
+    try {
+      var width = this.textElement_.getComputedTextLength();
+    } catch (e) {
+      // MSIE 11 is known to throw "Unexpected call to method or property
+      // access." if Blockly is hidden.
+      var width = this.textElement_.textContent.length * 8;
+    }
+    if (this.borderRect_) {
+      this.borderRect_.setAttribute('width',
+          width + Blockly.BlockSvg.SEP_SPACE_X);
+    }
+  } else {
+    var width = 0;
   }
   this.size_.width = width;
 };
 
 /**
  * Returns the height and width of the field.
- * @return {!Object} Height and width.
+ * @return {!goog.math.Size} Height and width.
  */
 Blockly.Field.prototype.getSize = function() {
   if (!this.size_.width) {
@@ -192,11 +253,16 @@ Blockly.Field.prototype.getText = function() {
 
 /**
  * Set the text in this field.  Trigger a rerender of the source block.
- * @param {?string} text New text.
+ * @param {*} text New text.
  */
 Blockly.Field.prototype.setText = function(text) {
-  if (text === null || text === this.text_) {
+  if (text === null) {
     // No change if null.
+    return;
+  }
+  text = String(text);
+  if (text === this.text_) {
+    // No change.
     return;
   }
   this.text_ = text;
@@ -214,14 +280,20 @@ Blockly.Field.prototype.setText = function(text) {
  * @private
  */
 Blockly.Field.prototype.updateTextNode_ = function() {
+  if (!this.textElement_) {
+    // Not rendered yet.
+    return;
+  }
   var text = this.text_;
+  if (text.length > this.maxDisplayLength) {
+    // Truncate displayed string and add an ellipsis ('...').
+    text = text.substring(0, this.maxDisplayLength - 2) + '\u2026';
+  }
   // Empty the text element.
   goog.dom.removeChildren(/** @type {!Element} */ (this.textElement_));
-  // Make sure that the text is a string so that the replace function works
-  text = ""+text;
   // Replace whitespace with non-breaking spaces so the text doesn't collapse.
   text = text.replace(/\s/g, Blockly.Field.NBSP);
-  if (Blockly.RTL && text) {
+  if (this.sourceBlock_.RTL && text) {
     // The SVG is LTR, force text to be RTL.
     text += '\u200F';
   }
@@ -255,15 +327,37 @@ Blockly.Field.prototype.setValue = function(text) {
 };
 
 /**
+ * Gets private data associated with this field
+ * @return {Object} Current private data.
+ */
+Blockly.Field.prototype.getPrivate = function() {
+  return this.privateData_;
+};
+
+/**
+ * Stores private data associated with this field.
+ * @param {Object} privateData Data to be stored for later retrieval.
+ */
+Blockly.Field.prototype.setPrivate = function(privateData) {
+  this.privateData_ = privateData;
+};
+
+/**
  * Handle a mouse up event on an editable field.
  * @param {!Event} e Mouse up event.
  * @private
  */
 Blockly.Field.prototype.onMouseUp_ = function(e) {
-  if (Blockly.isRightButton(e)) {
+  if ((goog.userAgent.IPHONE || goog.userAgent.IPAD) &&
+      !goog.userAgent.isVersionOrHigher('537.51.2') &&
+      e.layerX !== 0 && e.layerY !== 0) {
+    // Old iOS spawns a bogus event on the next touch after a 'prompt()' edit.
+    // Unlike the real events, these have a layerX and layerY set.
+    return;
+  } else if (Blockly.isRightButton(e)) {
     // Right-click.
     return;
-  } else if (Blockly.Block.dragMode_ == 2) {
+  } else if (Blockly.dragMode_ == 2) {
     // Drag operation is concluding.  Don't open the editor.
     return;
   } else if (this.sourceBlock_.isEditable()) {
@@ -279,4 +373,14 @@ Blockly.Field.prototype.onMouseUp_ = function(e) {
  */
 Blockly.Field.prototype.setTooltip = function(newTip) {
   // Non-abstract sub-classes may wish to implement this.  See FieldLabel.
+};
+
+/**
+ * Return the absolute coordinates of the top-left corner of this field.
+ * The origin (0,0) is the top-left corner of the page body.
+ * @return {{!goog.math.Coordinate}} Object with .x and .y properties.
+ * @private
+ */
+Blockly.Field.prototype.getAbsoluteXY_ = function() {
+  return goog.style.getPageOffset(this.borderRect_);
 };
