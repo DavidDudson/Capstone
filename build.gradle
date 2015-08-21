@@ -59,7 +59,6 @@ dependencies {
     compile 'joda-time:joda-time:2.8.1'
 
     compile name: 'services-0.0.3-SNAPSHOT'
-
     //Make this project depends on the game
     compile project(':games.battleships')
 
@@ -134,9 +133,38 @@ task buildAll(type: GradleBuild, dependsOn: ['cleanTargetDir', 'cleanBuildDir'])
     tasks = ['build']
 }
 
+task copyServices(type:Copy,dependsOn: 'buildServices'){
+    from './sogacoSrc/bruyere/build/target/projects'
+    into './libs'
+    include 'services-0.0.3-SNAPSHOT.jar'
+}
+
+task buildDebug(type: GradleBuild, dependsOn: 'copyServices') {
+    tasks = ['build']
+}
+
 task runDevServer(type: GradleBuild, dependsOn: ['buildAll']) {
     tasks = ['jettyRun']
 }
+
+//Build SoGaCo from source
+task buildServices(type: Exec, dependsOn: 'cloneSogaco') {
+    commandLine 'mvn clean install'.split()
+    workingDir = './sogacoSrc/bruyere/services/'
+}
+
+task runDebugServer(type: GradleBuild, dependsOn:'buildDebug'){
+    tasks = ['jettyRun']
+}
+
+task buildAndDeploy(type: Exec,dependsOn:'buildDebug'){
+    commandLine 'heroku deploy:war --war target/starbattle-0.1.war --app battleships-capstone'.split()
+}
+
+task buildAndDeployDebug(type: Exec,dependsOn:'buildAll'){
+    commandLine 'heroku deploy:war --war target/starbattle-0.1.war --app battleships-capstone'.split()
+}
+
 
 task stage {
     dependsOn buildAll
