@@ -44,26 +44,6 @@ goog.require('goog.string');
  * @constructor
  */
 Blockly.FieldScopeVariable = function(varclass, opt_changeHandler) {
-  var changeHandler;
-  if (opt_changeHandler) {
-    // Wrap the user's change handler together with the variable rename handler.
-    var thisObj = this;
-    changeHandler = function(value) {
-      var retVal = Blockly.FieldScopeVariable.dropdownChange.call(thisObj, value);
-      var newVal;
-      if (retVal === undefined) {
-        newVal = value;  // Existing variable selected.
-      } else if (retVal === null) {
-        newVal = thisObj.getValue();  // Abort, no change.
-      } else {
-        newVal = retVal;  // Variable name entered.
-      }
-      opt_changeHandler.call(thisObj, newVal);
-      return retVal;
-    };
-  } else {
-    changeHandler = Blockly.FieldScopeVariable.dropdownChange;
-  }
   this.msgRename_ = Blockly.Msg.RENAME_SCOPE_VARIABLE;
   this.msgRenameTitle_ = Blockly.Msg.RENAME_SCOPE_VARIABLE_TITLE;
   this.msgNew_ = Blockly.Msg.NEW_SCOPE_VARIABLE;
@@ -74,12 +54,38 @@ Blockly.FieldScopeVariable = function(varclass, opt_changeHandler) {
   this.setValue(this.getVarClass()[0]);
 
   Blockly.FieldScopeVariable.superClass_.constructor.call(this,
-      Blockly.FieldScopeVariable.dropdownCreate, changeHandler);
+      Blockly.FieldScopeVariable.dropdownCreate, opt_changeHandler);
 
 };
 goog.inherits(Blockly.FieldScopeVariable, Blockly.FieldDropdown);
 
-Blockly.FieldScopeVariable.prototype.init
+/**
+ * Sets a new change handler for angle field.
+ * @param {Function} handler New change handler, or null.
+ */
+Blockly.FieldScopeVariable.prototype.setChangeHandler = function(handler) {
+  var wrappedHandler;
+  if (handler) {
+    // Wrap the user's change handler together with the variable rename handler.
+    wrappedHandler = function(value) {
+      var retVal = Blockly.FieldScopeVariable.dropdownChange.call(this, value);
+      var newVal;
+      if (retVal === undefined) {
+        newVal = value;  // Existing variable selected.
+      } else if (retVal === null) {
+        newVal = this.getValue();  // Abort, no change.
+      } else {
+        newVal = retVal;  // Variable name entered.
+      }
+      handler.call(this, newVal);
+      return retVal;
+    };
+  } else {
+    wrappedHandler = Blockly.FieldScopeVariable.dropdownChange;
+  }
+  Blockly.FieldScopeVariable.superClass_.setChangeHandler.call(this,wrappedHandler);
+};
+
 /**
  * Install this dropdown on a block.
  * @param {!Blockly.Block} block The block containing this text.
@@ -170,6 +176,7 @@ Blockly.FieldScopeVariable.prototype.setMsgEmpty = function(
  * @this {!Blockly.FieldScopeVariable}
  */
 Blockly.FieldScopeVariable.dropdownCreate = function() {
+  // Figure out all the names for this type used in the code.
   if (this.sourceBlock_ && this.sourceBlock_.workspace) {
     var variableList =
         Blockly.ScopeVariables.allVariables(this.sourceBlock_.workspace,
@@ -177,15 +184,34 @@ Blockly.FieldScopeVariable.dropdownCreate = function() {
   } else {
     var variableList = [];
   }
+  // Get any standing fixed names.  Note that the list might actually be
+  // a function to call to return the list
+  var fixedList = Blockly.scopeVariableList[this.getVarClass()];
+  if (typeof fixedList === 'function') {
+    fixedList = fixedList();
+  } else if (typeof fixedList === 'undefined') {
+    fixedList = [];
+  }
+
   // Ensure that the currently selected variable is an option.
   var name = this.getText();
   if (name && name !== '' && variableList.indexOf(name) == -1) {
     variableList.push(name);
   }
   variableList.sort(goog.string.caseInsensitiveCompare);
-  if (name && this.msgRename_) {
+
+  // Now add in the fixed elements if they aren't in the original list
+  for (var pos = 0; pos < fixedList.length; pos++) {
+    if (!goog.array.contains(variableList, fixedList[pos])) {
+      variableList.push(fixedList[pos]);
+    }
+  }
+  // Let them rename it as long as it isn't one of the fixed names
+  //
+  if (name && this.msgRename_ && !goog.array.contains(fixedList,name)) {
     variableList.push(this.msgRename_);
   }
+  // If they have a command to create a new one then add that in
   if (this.msgNew_) {
     variableList.push(this.msgNew_);
   }
