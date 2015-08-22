@@ -103,7 +103,6 @@
                 <nav class="menu">
                     <a class="toggle-nav" href="#">&#9776;</a>
                     <ul class="list_inline active">
-<<<<<<< HEAD:src/main/webapp/easyJ.html
                         <li><a href="easyJ.html"> Editor </a></li>
                         <li><a href=""> Help </a></li>
                         <li><a href=""> Community </a></li>
@@ -118,7 +117,6 @@
                         <li>
                             <div class="menu-on"><a href=""> Shared Bots </a></div>
                         </li>
-=======
                         <li> <a href="easyJ.html"> Editor </a> </li>
                         <li> <a href=""> Help </a> </li>
                         <li> <a href=""> Community </a> </li>
@@ -139,7 +137,6 @@
                         <li> <div class="menu-on"> <a href=""> My Bots </a> </div> </li>
                         <li> <div class="menu-on">  <a href=""> Built-in Bots </a> </div> </li>
                         <li> <div class="menu-on">  <a href=""> Shared Bots </a> </div> </li>
->>>>>>> SoGaCoDebugging:src/main/webapp/easyJ.jsp
                     </ul>
 
                 </nav>

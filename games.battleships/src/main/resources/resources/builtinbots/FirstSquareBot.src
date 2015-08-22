@@ -1,5 +1,3 @@
-package nz.daved.starbattle.bots;
-
 import nz.daved.starbattle.StarBattleBot;
 import nz.daved.starbattle.game.BotGameBoard;
 import nz.daved.starbattle.game.Coordinate;

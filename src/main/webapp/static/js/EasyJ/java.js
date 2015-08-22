@@ -119,16 +119,16 @@ Blockly.Java.AppName_ = 'blocklyBot';
 /**
  * Default Name of the application for use by all generated classes
  */
-Blockly.Java.Package_ = 'StarBattle';
+Blockly.Java.Package_ = "StarBattle";
 /**
  * Base class (if any) for the generated Java code
  */
-Blockly.Java.Baseclass_ = 'battleBot';
+Blockly.Java.Baseclass_ = 'StarBattleBot';
 /**
  * List of libraries used globally by the generated java code. These are
  * Processed by Blockly.Java.addImport
  */
-Blockly.Java.needImports_ = ["com.java.starBattle"];
+Blockly.Java.needImports_ = ["nz.daved.starbattle.StarBattleBot", "nz.daved.starbattle.game.BotGameBoard", "nz.daved.starbattle.game.Coordinate"];
 /**
  * List of libraries used by the caller's generated java code.  These will
  * be processed by Blockly.Java.addImport
