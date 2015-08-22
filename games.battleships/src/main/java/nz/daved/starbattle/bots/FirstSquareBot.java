@@ -17,6 +17,6 @@ public class FirstSquareBot extends StarBattleBot {
 
     @Override
     public Coordinate nextMove(BotGameBoard botGameBoard) {
-        return botGameBoard.getNextValidCoordinate();
+        return botGameBoard.getFirstValidCoordinate();
     }
 }
