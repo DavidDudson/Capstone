@@ -20,7 +20,7 @@ public class StarBattleGameSupport extends DefaultGameSupport {
 
     @Override
     protected List<BotData> loadBuiltInBots() {
-        String[] files = new String[] { "FirstSquareBot.src" };
+        String[] files = new String[]{"FirstSquareBot.src", "LastSquareBot.src"};
         List<BotData> builtInBots = new ArrayList<>();
         for (String file : files) {
             String id = file.substring(0, file.indexOf("."));

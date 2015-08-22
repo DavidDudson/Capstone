@@ -51,7 +51,7 @@
         function makeBotGame(){
             var url = "creategame_b2b";
             var bot1Id = "FirstSquareBot";
-            var bot2Id = "FirstSquareBot";
+            var bot2Id = "LastSquareBot";
             var data = "" + bot1Id + "\n" + bot2Id + "\n";
             var jqxhr = $.ajax({
                 url : url,
