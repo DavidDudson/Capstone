@@ -62,7 +62,7 @@ Blockly.Blocks['can_attack_cell'] = {
 Blockly.Blocks['get_next_valid_cell'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("the next valid cell");
+        .appendField("the next valid move");
     this.setOutput(true, ["String", "Cell"]);
 	this.setColour(230);
     this.setTooltip('returns the next valid cell');
@@ -108,4 +108,15 @@ Blockly.Blocks['get_gamestate'] = {
     this.setTooltip('The StarBattles gamestate');
     this.setHelpUrl('http://www.example.com/');
   }
-}
+};
+
+Blockly.Blocks['get_all_valid_moves'] = {
+    init: function() {
+        this.appendDummyInput()
+            .appendField("list of all valid moves");
+        this.setOutput(true, "Array");
+        this.setColour(230);
+        this.setTooltip('');
+        this.setHelpUrl('http://www.example.com/');
+    }
+};

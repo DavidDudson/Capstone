@@ -77,6 +77,11 @@
             var output = document.getElementById('importExport');
             output.value = Blockly.Java.workspaceToCode(workspace);
         }
+        function toXml() {
+            var output = document.getElementById('importExport');
+            var xml = Blockly.Xml.workspaceToDom(workspace);
+            output.value = Blockly.Xml.domToPrettyText(xml);
+        }
     </script>
 </head>
 <body onload="start()">
@@ -300,17 +305,8 @@
         <block type="get_gamestate"></block>
         <block type="variable_define"></block>
         <block type="get_next_valid_cell"></block>
+        <block type="get_all_valid_moves"></block>
     </category>
-</xml>
-<xml id="startBlocks" style="display: none">
-    <block type="variables_set">
-        <field name="VAR">game array</field>
-        <value name="VALUE">
-            <block type="variables_get">
-                <field name="VAR">GameState</field>
-            </block>
-        </value>
-    </block>
 </xml>
 <xml id="mitch-startBlocks" style="display:none">
     <block type="procedures_defreturn" id="1" x="63" y="63" deletable="false">

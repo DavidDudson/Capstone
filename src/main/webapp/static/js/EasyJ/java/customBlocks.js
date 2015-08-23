@@ -75,3 +75,9 @@ Blockly.Java['get_gamestate'] = function (block) {
     // TODO: Change ORDER_NONE to the correct strength.
     return [code, Blockly.Java.ORDER_NONE];
 };
+
+Blockly.Java['get_all_valid_moves'] = function(block) {
+    var code = 'botGameBoard.getAllValidMoves()';
+    // TODO: Change ORDER_NONE to the correct strength.
+    return [code, Blockly.Java.ORDER_NONE];
+};

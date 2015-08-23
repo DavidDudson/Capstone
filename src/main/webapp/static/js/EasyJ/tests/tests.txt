@@ -1,0 +1,54 @@
+Default bot
+///////////////////
+<xml id="mitch-startBlocks" style="display:none">
+    <block type="procedures_defreturn" id="1" x="63" y="63" deletable="false">
+        <mutation></mutation>
+        <field name="NAME">getNextMove</field>
+        <value name="RETURN">
+            <block type="get_next_valid_cell" id="2"></block>
+        </value>
+    </block>
+    </div>
+</xml>
+//////////////////////////
+package nz.daved.starbattle;
+
+public class CustomStarBattleBot extends StarBattleBot {
+
+/**
+ * Description goes here
+ *
+ * @return String
+ */
+public String getNextMove(){
+  return botGameBoard.getNextValidMove();
+}
+
+}
+/////////////////////////
+/////////////////////////
+Gamestate: return the length of the gamestate
+/////////////////////////
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="procedures_defreturn" id="1" deletable="false" x="63" y="63">
+    <field name="NAME">getNextMove</field>
+    <statement name="STACK">
+      <block type="variables_set" id="5">
+        <field name="VAR">item</field>
+        <value name="VALUE">
+          <block type="get_gamestate" id="9"></block>
+        </value>
+      </block>
+    </statement>
+    <value name="RETURN">
+      <block type="lists_length" id="26">
+        <value name="VALUE">
+          <block type="variables_get" id="29">
+            <field name="VAR">item</field>
+          </block>
+        </value>
+      </block>
+    </value>
+  </block>
+</xml>
+//////////////////////////
