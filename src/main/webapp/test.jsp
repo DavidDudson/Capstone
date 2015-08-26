@@ -47,9 +47,9 @@
             }
         };
 
-        $("#DemoGameRequest").click(makeBotGame());
+
         function makeBotGame(){
-            var url = "creategame_b2b";
+            var url = "bots";
             var bot1Id = "FirstSquareBot";
             var bot2Id = "LastSquareBot";
             var data = "" + bot1Id + "\n" + bot2Id + "\n";
@@ -75,7 +75,7 @@
     </script>
 </head>
 <body>
-<button id="DemoGameRequest">Demo a Game Request</button>
+<button onclick="makeBotGame()">Demo a Game Request</button>
 <h2>Response:</h2>
 <p id="errordialog"></p>
 <p id="errordialog-content"></p>
