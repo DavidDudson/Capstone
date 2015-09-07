@@ -10,7 +10,6 @@
             .getAttribute(nz.ac.massey.cs.ig.core.services.Services.NAME);
     String gameName = services.getGameSupport().getName();
 %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,11 +37,19 @@
     <!-- Load the Google Drive SDK Realtime libraries. -->
     <script src="https://apis.google.com/js/api.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <script data-main="static/js/main-editor" src="static/js/require.js" charset="utf-8"></script>
+    <script src="static/js/ace.js" charset="utf-8"></script>
     <script src="static/js/jquery-1.7.2.min.js"></script>
     <script src="static/js/jquery-ui-1.8.21.custom.min.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+    <script src="static/js/bootbox.min.js"></script>
+    <script src="static/js/underscore-min.js" charset="utf-8"></script>
     <script src="static/js/gameState.js"></script>
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
     <link rel="stylesheet" type="text/css" href="static/css/grid.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
     <script>
         'use strict';
         // Depending on the URL argument, render as LTR or RTL.
@@ -90,68 +97,59 @@
             var output = document.getElementById('importExport');
             output.value = Blockly['Java'].workspaceToCode(workspace);
         }
+
     </script>
+    <style>
+        .inactiveLink {
+            pointer-events: none;
+            cursor: default;
+        }
+    </style>
 </head>
 <body onload="start()">
 <div class="container_12">
-    <div id="header">
-        <div id="nav_container">
-            <div id="nav_menu" class="left">
-                <div id="logo" class="left">
-                    <a href="index.html"> Battleship </a>
-                </div>
-                <nav class="menu">
-                    <a class="toggle-nav" href="#">&#9776;</a>
-                    <ul class="list_inline active">
-                        <li><a href="easyJ.html"> Editor </a></li>
-                        <li><a href=""> Help </a></li>
-                        <li><a href=""> Community </a></li>
-                        <li><a href=""> Survey </a></li>
-                        <li><a href=""> About </a></li>
-                        <li>
-                            <div class="menu-on"><a href=""> My Bots </a></div>
-                        </li>
-                        <li>
-                            <div class="menu-on"><a href=""> Built-in Bots </a></div>
-                        </li>
-                        <li>
-                            <div class="menu-on"><a href=""> Shared Bots </a></div>
-                        </li>
-                        <li> <a href="easyJ.html"> Editor </a> </li>
-                        <li> <a href=""> Help </a> </li>
-                        <li> <a href=""> Community </a> </li>
-                        <li> <a href=""> Survey </a> </li>
-                        <li> <a href=""> About </a> </li>
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="profilePictureContent" id="profilePicture1"><p
-                                    class="navbar-text">${screenName}</p></li>
-                            <li><a id="profilePicture2" href="logout">Logout</a></li>
-
-                            <c:if test="${profilePicture != null}">
-                                <li class="profilePictureContent" id="profilePicture3"><img
-                                        id="profilePictureURL" src="${profilePicture}"
-                                        class="img-responsive img-rounded center-block"
-                                        style="width: 40px; margin: 5px;" alt="Profile Picture"></li>
-                            </c:if>
-                        </ul>
-                        <li> <div class="menu-on"> <a href=""> My Bots </a> </div> </li>
-                        <li> <div class="menu-on">  <a href=""> Built-in Bots </a> </div> </li>
-                        <li> <div class="menu-on">  <a href=""> Shared Bots </a> </div> </li>
-                    </ul>
-
-                </nav>
-            </div>
-            <div id="collaborators"></div>
-        </div>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">StarBattle</a>
     </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="test.jsp">Test </a></li>
+        <li><a href="#">about </a></li>
+        <li><a href="#">community </a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a class="inactiveLink">${screenName}</a></li>
+        <li><a d="profilePicture2" href="login.jsp">Logout </a></li>
+        <c:if test="${profilePicture != null}">
+        <li>
+            <img
+                id="profilePictureURL" src="${profilePicture}"
+                class="img-responsive img-rounded center-block"
+                style="width: 40px; margin: 5px;" alt="Profile Picture">
+        </li>
+        </c:if>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
     <div id="blocklyDiv" style="height: 480px; width: 66%; float:left"></div>
     <div style="width: 30%; height: 480px; float:right">
         <textarea id="importExport" style="width: 100%; height: inherit"></textarea>
-        </br>
-        <input type="button" onclick="toCode()" style="width:100%" value="Java">
+        <input type="button" onclick="toCode()" style="width:50%" value="Java">
+        <button id="btnSave" type="button">Save + Compile </button>
     </div>
 </div>
-
 <xml id="toolbox" style="display: none">
     <category name="Logic">
         <block type="controls_if"></block>
@@ -355,5 +353,9 @@
     </block>
     </div>
 </xml>
+<h2>Response:</h2>
+<p id="errordialog"></p>
+<p id="errordialog-content"></p>
+
 </body>
 </html>

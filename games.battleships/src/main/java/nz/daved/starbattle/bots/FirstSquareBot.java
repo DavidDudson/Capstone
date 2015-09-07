@@ -5,11 +5,10 @@ import nz.daved.starbattle.game.BotGameBoard;
 import nz.daved.starbattle.game.Coordinate;
 
 /**
- * Created by David J. Dudson on 4/08/15.
- * <p>
- * Bot that picks the First Square
+ * Created by aidan on 24/08/2015.
  */
-public class FirstSquareBot extends StarBattleBot {
+public class FirstSquareBot  extends StarBattleBot {
+
 
     public FirstSquareBot(String id) {
         super(id);
@@ -20,3 +19,4 @@ public class FirstSquareBot extends StarBattleBot {
         return botGameBoard.getFirstValidCoordinate();
     }
 }
+
