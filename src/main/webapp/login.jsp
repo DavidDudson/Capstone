@@ -1,4 +1,3 @@
-
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%
 	nz.ac.massey.cs.ig.core.services.Services services = (nz.ac.massey.cs.ig.core.services.Services)application.getAttribute(nz.ac.massey.cs.ig.core.services.Services.NAME);

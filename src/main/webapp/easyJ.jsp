@@ -98,6 +98,92 @@
             output.value = Blockly['Java'].workspaceToCode(workspace);
         }
 
+        function compileAndSave() {
+            alert(Blockly['Java'].workspaceToCode(workspace));
+
+            var data = 	{};
+            data.name = 'MyCoolAsBot';
+            data.language = 'java';
+            data.src = Blockly['Java'].workspaceToCode(workspace);
+            data = JSON.stringify(data);
+            var url = 'http://localhost:8080/Capstone/bots';
+
+            var dialog = $('#progressModal');
+            $('#progressModal .error').hide();
+            $('#progressModal .modal-title').html("Schedule build request ...");
+            $('#progressModal .progress-bar').css('width', '0%');
+
+            dialog.modal('show');
+
+            var jqxhr = $.ajax({
+                dataType: "json",
+                url : url,
+                type : "POST",
+                data : data
+            }).done(function(src) {
+                // get server metadata
+                self._visualizeBuildStatus(src);
+                self._updateBuildStatus(src.buildStatusURL);
+            }).fail(function(jqXHR, error) {
+                var errorLoc = jqXHR.getResponseHeader("Location-Error");
+                console.log("build error is available at " + errorLoc);
+//                self._displayBuildProblems(errorLoc);
+//                self._checkState();
+            });
+        }
+
+        function _updateBuildStatus(src){
+            var jqxhr = $.getJSON(uri).done(function(src) {
+                self._visualizeBuildStatus(src);
+                if(src.done) {
+                    $('#progressModal .progress-bar').css('width', '100%');
+                    var bot = self.bots[self.selection];
+                    if(src.error) {
+                        $('#progressModal .modal-title').html("Load build errors...");
+                        self._displayBuildProblems(src.error);
+                    } else {
+                        bot.setMetadata(src.metadata);
+                        bot.setSrc(src);
+                        bot.saved();
+                        self._checkState();
+                        $("#output").html("Bot successfully compiled and saved");
+                        $('#progressModal .modal-title').html("Bot successfully compiled and saved");
+                    }
+                    setTimeout(function() {
+                        $("#progressModal").modal("hide");
+                    }, 500);
+                } else {
+                    console.log(src.buildStatusURL)
+                    setTimeout(function() {
+                        self._updateBuildStatus(src.buildStatusURL)
+                        self.editor.focus();
+                    }, 2000);
+                }
+            }).fail(function(error) {
+                $('#progressModal .modal-title').html("Unexpected error occured. Try again.");
+            });
+        }
+
+        function _visualizeBuildStatus(data) {
+            if(data.currentPosition != -1) {
+                var pos = (data.currentPosition-1);
+                if(pos < 0 ) pos = 0;
+
+                if(pos > 0) {
+                    $('#progressModal .modal-title').html("Position in queue : " + pos);
+                } else {
+                    $('#progressModal .modal-title').html("Building ...")
+                }
+
+                var percentage = 1 - pos/data.queueSize;
+                percentage = percentage * 66;
+
+                $('#progressModal .progress-bar').css('width', percentage + '%');
+            } else {
+                $('#progressModal .modal-title').html("Still in queue ...");
+            }
+        }
+
     </script>
     <style>
         .inactiveLink {
@@ -147,7 +233,7 @@
     <div style="width: 30%; height: 480px; float:right">
         <textarea id="importExport" style="width: 100%; height: inherit"></textarea>
         <input type="button" onclick="toCode()" style="width:50%" value="Java">
-        <button id="btnSave" type="button">Save + Compile </button>
+        <button id="btnSave" type="button" onclick="compileAndSave()">Save + Compile </button>
     </div>
 </div>
 <xml id="toolbox" style="display: none">

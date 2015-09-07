@@ -15,7 +15,7 @@
 <ul>
     <li><a href="gameState.jsp" >Game Prototype</a></li>
     <li><a href="test.jsp" >Sogaco Demo</a></li>
-    <li><a href="easyJ.html" >Blockly Demo</a></li>
+    <li><a href="easyJ.jsp" >Blockly Demo</a></li>
     <li><a href="docs" >JavaDocs</a></li>
     <li>Testing Reports</li>
 </ul>
