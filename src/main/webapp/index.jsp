@@ -21,6 +21,14 @@
 <link href="css/loginPage.css" rel="stylesheet">
 
 <link rel="shortcut icon" type="image/x-icon" href="sogaco.png" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+    var getUrl = window.location;
+    var baseUrl = getUrl.protocol + "//" + getUrl.host + "/"
+            + getUrl.pathname.split('/')[1];
+    $(".callbackUrlElement").val(baseUrl);
+    $(".baseURLElement").val(baseUrl);
+</script>
 </head>
 
 <body>

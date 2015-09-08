@@ -132,7 +132,7 @@
             });
         }
 
-        function _updateBuildStatus(src){
+        function _updateBuildStatus(uri){
             var jqxhr = $.getJSON(uri).done(function(src) {
                 self._visualizeBuildStatus(src);
                 if(src.done) {
