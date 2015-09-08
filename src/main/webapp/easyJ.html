@@ -83,6 +83,11 @@
             output.value = Blockly.Xml.domToPrettyText(xml);
         }
     </script>
+    <style>
+        .blocklyMainBackground {
+            opacity: 1;
+        }
+    </style>
 </head>
 <body onload="start()">
 <div class="container_12">
@@ -299,13 +304,12 @@
     <category name="Functions" custom="PROCEDURE"></category>
     <sep></sep>
     <category name="StarBattles">
+        <block type="get_next_valid_cell"></block>
+        <block type="get_all_valid_moves"></block>
     </category>
     <sep></sep>
     <category name="Testing">
         <block type="get_gamestate"></block>
-        <block type="variable_define"></block>
-        <block type="get_next_valid_cell"></block>
-        <block type="get_all_valid_moves"></block>
     </category>
 </xml>
 <xml id="mitch-startBlocks" style="display:none">
