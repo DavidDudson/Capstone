@@ -2,7 +2,6 @@
 build
 nbproject
 .DS_Store
-null
 .nb-gradle
 .idea
 Capstone.iml
@@ -22,3 +21,5 @@ node_modules
 hs_err_pid7546.log
 hs_err_pid7566.log
 bruyere
+null/.SoGaCo/Capstone/database
+null/.SoGaCo/Capstone/logs

@@ -102,7 +102,7 @@ cloneSogaco.onlyIf { !file('./sogacoSrc/bruyere/').exists() }
 
 //Build SoGaCo from source
 task buildSogaco(type: Exec, dependsOn: 'cloneSogaco') {
-    commandLine 'mvn clean install'.split()
+    commandLine 'mvn clean install -fn'.split()
     workingDir = './sogacoSrc/bruyere/build/'
 }
 
