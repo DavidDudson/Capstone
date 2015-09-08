@@ -2,8 +2,8 @@ Blockly.Blocks['get_state'] = {
   init: function() {
     this.appendDummyInput()
         .appendField(new Blockly.FieldDropdown([["is Water", "isWater"], ["is Ship", "isShip"]]), "state");
-    this.appendValueInput("CELL")
-        .setCheck(["Cell", "String"])
+    this.appendValueInput("Coordinate")
+        .setCheck(["Coordinate", "String"])
         .appendField("at cell");
     this.setInputsInline(true);
     this.setOutput(true, "Boolean");
@@ -18,10 +18,10 @@ Blockly.Blocks['get_cell_at_pos'] = {
     this.appendDummyInput()
         .appendField(new Blockly.FieldDropdown([["get Left", "getLeft"], ["get Right", "getRight"], ["get Up", "getUp"], ["get Down", "getDown"]]), "POSITION");
     this.appendValueInput("INPUT")
-        .setCheck("Cell")
+        .setCheck("Coordinate")
         .appendField("at position");
     this.setInputsInline(true);
-    this.setOutput(true, "Cell");
+    this.setOutput(true, "Coordinate");
     this.setColour(230);
     this.setTooltip('get the cell neighbouring the given position');
     this.setHelpUrl('http://www.example.com/');
@@ -30,8 +30,8 @@ Blockly.Blocks['get_cell_at_pos'] = {
 
 Blockly.Blocks['if_cell_hit_aim_direction'] = {
   init: function() {
-    this.appendValueInput("CELL")
-        .setCheck(["String", "Cell"])
+    this.appendValueInput("Coordinate")
+        .setCheck(["String", "Coordinate"])
         .appendField("if cell");
     this.appendDummyInput()
         .appendField("is hit, try")
@@ -47,8 +47,8 @@ Blockly.Blocks['if_cell_hit_aim_direction'] = {
 
 Blockly.Blocks['can_attack_cell'] = {
   init: function() {
-    this.appendValueInput("CELL")
-        .setCheck(["String", "Cell"])
+    this.appendValueInput("Coordinate")
+        .setCheck(["String", "Coordinate"])
         .appendField("can");
     this.appendDummyInput()
         .appendField("be attacked");
@@ -63,7 +63,7 @@ Blockly.Blocks['get_next_valid_cell'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("the next valid move");
-    this.setOutput(true, ["String", "Cell"]);
+    this.setOutput(true, ["String", "Coordinate"]);
 	this.setColour(230);
     this.setTooltip('returns the next valid cell');
     this.setHelpUrl('http://www.example.com/');
@@ -72,8 +72,8 @@ Blockly.Blocks['get_next_valid_cell'] = {
 
 Blockly.Blocks['get_neighbour_valid_cells'] = {
   init: function() {
-    this.appendValueInput("CELL")
-        .setCheck(["String", "Cell"])
+    this.appendValueInput("Coordinate")
+        .setCheck(["String", "Coordinate"])
         .appendField("get valid neighbors of");
     this.setOutput(true, "Array");
     this.setColour(230);
