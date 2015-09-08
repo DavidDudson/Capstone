@@ -1,7 +1,7 @@
-Blockly.Blocks['get_state'] = {
+Blockly.Blocks['check_state_of_cell'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField(new Blockly.FieldDropdown([["is Water", "isWater"], ["is Ship", "isShip"]]), "state");
+        .appendField(new Blockly.FieldDropdown([["is Water", "water"], ["is Ship", "ship"]]), "state");
     this.appendValueInput("Coordinate")
         .setCheck(["Coordinate", "String"])
         .appendField("at cell");
@@ -16,10 +16,10 @@ Blockly.Blocks['get_state'] = {
 Blockly.Blocks['get_cell_at_pos'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField(new Blockly.FieldDropdown([["get Left", "getLeft"], ["get Right", "getRight"], ["get Up", "getUp"], ["get Down", "getDown"]]), "POSITION");
+        .appendField(new Blockly.FieldDropdown([["get Left", "left"], ["get Right", "right"], ["get Up", "up"], ["get Down", "down"]]), "POSITION");
     this.appendValueInput("INPUT")
         .setCheck("Coordinate")
-        .appendField("at position");
+        .appendField("from position");
     this.setInputsInline(true);
     this.setOutput(true, "Coordinate");
     this.setColour(230);
@@ -28,6 +28,7 @@ Blockly.Blocks['get_cell_at_pos'] = {
   }
 };
 
+// TODO: The type of block is incorrect
 Blockly.Blocks['if_cell_hit_aim_direction'] = {
   init: function() {
     this.appendValueInput("Coordinate")
@@ -35,7 +36,7 @@ Blockly.Blocks['if_cell_hit_aim_direction'] = {
         .appendField("if cell");
     this.appendDummyInput()
         .appendField("is hit, try")
-        .appendField(new Blockly.FieldDropdown([["up", "UP"], ["down", "DOWN"], ["left", "LEFT"], ["right", "RIGHT"]]), "direction");
+        .appendField(new Blockly.FieldDropdown([["up", "up"], ["down", "down"], ["left", "left"], ["right", "right"]]), "direction");
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -74,7 +75,7 @@ Blockly.Blocks['get_neighbour_valid_cells'] = {
   init: function() {
     this.appendValueInput("Coordinate")
         .setCheck(["String", "Coordinate"])
-        .appendField("get valid neighbors of");
+        .appendField("the valid neighbors of");
     this.setOutput(true, "Array");
     this.setColour(230);
     this.setTooltip('the neighbouring cells of the given position that can be hit');
