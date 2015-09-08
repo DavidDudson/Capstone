@@ -99,21 +99,13 @@
         }
 
         function compileAndSave() {
-            alert(Blockly['Java'].workspaceToCode(workspace));
 
             var data = 	{};
             data.name = 'MyCoolAsBot';
             data.language = 'JAVA';
-            data.src = Blockly['Java'].workspaceToCode(workspace);
+            data.src = document.getElementById('importExport').value;
             data = JSON.stringify(data);
             var url = 'http://localhost:8080/Capstone/bots';
-
-            var dialog = $('#progressModal');
-            $('#progressModal .error').hide();
-            $('#progressModal .modal-title').html("Schedule build request ...");
-            $('#progressModal .progress-bar').css('width', '0%');
-
-            dialog.modal('show');
 
             $.ajax({
                 dataType: "json",
@@ -138,16 +130,14 @@
             $.getJSON(uri).done(function(src) {
                 _visualizeBuildStatus(src);
                 if(src.done) {
-                    $('#progressModal .progress-bar').css('width', '100%');
                     var bot = {"name":"MyCoolAsBot"};
                     if(src.error) {
                         $('#progressModal .modal-title').html("Load build errors...");
-                        _displayBuildProblems(src.error);
+                        alert(src.error);
                     } else {
                         bot.setMetadata(src.metadata);
                         bot.setSrc(src);
                         bot.saved();
-                        _checkState();
                         $("#output").html("Bot successfully compiled and saved");
                         $('#progressModal .modal-title').html("Bot successfully compiled and saved");
                     }
