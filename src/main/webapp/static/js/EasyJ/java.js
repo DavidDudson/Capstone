@@ -133,7 +133,7 @@ Blockly.Java.needImports_ = [];
  * List of libraries used by the caller's generated java code.  These will
  * be processed by Blockly.Java.addImport
  */
-Blockly.Java.ExtraImports_ = null;
+Blockly.Java.ExtraImports_ = ["nz.daved.starbattle.StarBattleBot","nz.daved.starbattle.game.BotGameBoard","nz.daved.starbattle.game.Coordinate"];
 /**
  * Specifies that we want to have the Var Class inline instead of external
  */
@@ -156,7 +156,7 @@ Blockly.Java.setAppName = function(name) {
     name = 'StarBattle';
   }
   this.AppName_ = name;
-}
+};
 
 /**
  * Get the application name for generated classes
@@ -164,7 +164,15 @@ Blockly.Java.setAppName = function(name) {
  */
 Blockly.Java.getAppName = function() {
   return this.AppName_;
-}
+};
+
+/**
+ * Generate the constructor for the generated class
+ * @return (string) constructor Constructor for the generated class
+ */
+Blockly.Java.getConstructor = function() {
+    return "public " + Blockly.Java.getAppName() + "(String id) { super(id); }\n\n";
+};
 
 /**
  * Set the package for this generated Java code
@@ -175,7 +183,7 @@ Blockly.Java.setPackage = function(javaPackage) {
     javaPackage = 'nz.daved.starbattle';
   }
   this.Package_ = javaPackage;
-}
+};
 
 /**
  * Get the package for this generated Java code
@@ -183,7 +191,7 @@ Blockly.Java.setPackage = function(javaPackage) {
  */
 Blockly.Java.getPackage = function() {
   return this.Package_;
-}
+};
 
 /**
  * Set the base class (if any) for the generated Java code
@@ -191,7 +199,7 @@ Blockly.Java.getPackage = function() {
  */
 Blockly.Java.setBaseclass = function(baseclass) {
   this.Baseclass_ = baseclass;
-}
+};
 
 /**
  * Get the base class (if any) for the generated Java code
@@ -199,7 +207,7 @@ Blockly.Java.setBaseclass = function(baseclass) {
  */
 Blockly.Java.getBaseclass = function() {
   return this.Baseclass_;
-}
+};
 
 /**
  * Mark a variable as a global for the generated Java code
@@ -213,7 +221,7 @@ Blockly.Java.setGlobalVar = function(block,name,val) {
         this.globals_[name] === null)) {
     this.globals_[name] = val;
   }
-}
+};
 /**
  * Get the Java type of a variable by name
  * @param {string} variable Name of the variable to get the type for
@@ -271,14 +279,14 @@ Blockly.Java.getImports = function() {
  */
 Blockly.Java.setExtraImports = function(extraImports) {
   this.ExtraImports_ = extraImports;
-}
+};
 /**
  * Specify whether to inline the Var class or reference it externally
  * @param {string} inlineclass Generate the Var class inline
  */
 Blockly.Java.setVarClassInline = function(inlineclass) {
   this.INLINEVARCLASS = inlineclass;
-}
+};
 
 
 Blockly.Java.getClasses = function() {
@@ -290,11 +298,11 @@ Blockly.Java.getClasses = function() {
     code += '\n\n';
   }
   return code;
-}
+};
 
 Blockly.Java.setExtraClass = function(name, code) {
   this.classes_[name] = code.join('\n')+'\n';
-}
+};
 
 /*
  * Save away the base class implementation so we can call it but override it
@@ -310,19 +318,18 @@ Blockly.Java.workspaceToCode_ = Blockly.Java.workspaceToCode;
 Blockly.Java.workspaceToCode = function(workspace, parms) {
   // Generate the code first to get all of the required imports calculated.
   var code = this.workspaceToCode_(workspace,parms);
-  var finalcode = 'package ' + this.getPackage() + ';\n\n' +
-                  this.getImports() + '\n\n' +
+  var finalcode = this.getImports() + '\n\n' +
                   'public class ' + this.getAppName();
   if (this.getBaseclass()) {
     finalcode += ' extends ' + this.getBaseclass();
   }
-  finalcode += ' {\n\n' +
+  finalcode += ' {\n\n' + this.getConstructor()+
                code + '\n' +
                '}\n\n' +
                this.getClasses()
                ;
   return finalcode;
-}
+};
 
 Blockly.Java.getValueType = function(block, field) {
   var targetBlock = block.getInputTargetBlock(field);
@@ -331,7 +338,7 @@ Blockly.Java.getValueType = function(block, field) {
   }
 
   return targetBlock.outputConnection.check_;
-}
+};
 
 Blockly.Java.provideVarClass = function() {
   if (this.INLINEVARCLASS) {
@@ -992,7 +999,7 @@ Blockly.Java.provideVarClass = function() {
   } else {
     Blockly.Java.addImport('extreme.sdn.client.Var');
   }
-}
+};
 /**
  * Initialise the database of variable names.
  * @param {!Blockly.Workspace} workspace Workspace to generate code from.
@@ -1128,31 +1135,31 @@ Blockly.Java.finish = function(code) {
       // Figure out the header to put on the function
       var header = '';
       var res1 = def.split("(", 2);
-      if (res1.length >= 2) {
-        // Figure out the header to put on the function
-        var header = '/**\n' +
-                     ' * Description goes here\n';
-        var extra =  ' *\n';
-        var res = res1[0];  // Get everything before the (
-        var res2 = res.split(" ");
-        var rettype = res2[res2.length-2]; // The next to the last word
-        res = res1[1];  // Take the parameters after the (
-        res2 = res.split(")",1);
-        res = res2[0].trim();
-        if (res !== '') {
-          var args = res.split(",");
-          for (var arg = 0; arg < args.length; arg++) {
-            var argline = args[arg].split(" ");
-            header += extra + ' * @param ' + argline[argline.length-1] + '\n';
-            extra = '';
-          }
-        }
-        if (rettype !== 'void') {
-          header += extra + ' * @return ' + rettype + '\n';
-          extra = '';
-        }
-        header += ' */\n';
-      }
+      //if (res1.length >= 2) {
+        //// Figure out the header to put on the function
+        //var header = '/**\n' +
+        //             ' * Description goes here\n';
+        //var extra =  ' *\n';
+        //var res = res1[0];  // Get everything before the (
+        //var res2 = res.split(" ");
+        //var rettype = res2[res2.length-2]; // The next to the last word
+        //res = res1[1];  // Take the parameters after the (
+        //res2 = res.split(")",1);
+        //res = res2[0].trim();
+        //if (res !== '') {
+        //  var args = res.split(",");
+        //  for (var arg = 0; arg < args.length; arg++) {
+        //    var argline = args[arg].split(" ");
+        //    header += extra + ' * @param ' + argline[argline.length-1] + '\n';
+        //    extra = '';
+        //  }
+        //}
+        //if (rettype !== 'void') {
+        //  header += extra + ' * @return ' + rettype + '\n';
+        //  extra = '';
+        //}
+        //header += ' */\n';
+      //}
 
       allDefs += header + def + '\n\n';
     }

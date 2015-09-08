@@ -68,9 +68,16 @@ Blockly.Java['procedures_defreturn'] = function(block) {
               Blockly.Java.variableDB_.getName(block.arguments_[x]['name'],
                                                Blockly.Variables.NAME_TYPE);
   }
+    // Modifications for StarBattles
+    var override = '';
+    if (funcName == "nextMove"){
+        retType = "Coordinate";
+        args.push("BotGameBoard botGameBoard");
+        override = "@Override\n";
+    }
 
-  var code = 'public ' + retType + ' ' +
-              funcName + '(' + args.join(', ') + '){\n' +
+  var code = override + 'public ' + retType + ' ' +
+              funcName + '(' + args.join(', ') + ') {\n' +
              branch + returnValue + "}";
   code = Blockly.Java.scrub_(block, code);
   Blockly.Java.definitions_[funcName] = code;

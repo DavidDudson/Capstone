@@ -70,8 +70,7 @@ Blockly.Java['variable_define'] = function (block) {
 };
 
 Blockly.Java['get_gamestate'] = function (block) {
-    // TODO: Assemble Java into code variable.
-    var code = '...';
+    var code = 'botGameBoard';
     // TODO: Change ORDER_NONE to the correct strength.
     return [code, Blockly.Java.ORDER_NONE];
 };
