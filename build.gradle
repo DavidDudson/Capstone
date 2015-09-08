@@ -57,6 +57,8 @@ dependencies {
     compile 'com.googlecode.json-simple:json-simple:1.1.1'
     compile 'org.apache.httpcomponents:httpclient:4.4.1'
     compile 'joda-time:joda-time:2.7'
+    compile 'org.ow2.asm:asm-all:5.0.3'
+
 
     compile name: 'services-0.0.3-SNAPSHOT'
     //Make this project depends on the game
