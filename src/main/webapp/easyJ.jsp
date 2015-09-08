@@ -103,7 +103,7 @@
 
             var data = 	{};
             data.name = 'MyCoolAsBot';
-            data.language = 'java';
+            data.language = 'JAVA';
             data.src = Blockly['Java'].workspaceToCode(workspace);
             data = JSON.stringify(data);
             var url = 'http://localhost:8080/Capstone/bots';
@@ -115,7 +115,7 @@
 
             dialog.modal('show');
 
-            var jqxhr = $.ajax({
+            $.ajax({
                 dataType: "json",
                 url : url,
                 type : "POST",
@@ -133,7 +133,7 @@
         }
 
         function _updateBuildStatus(uri){
-            var jqxhr = $.getJSON(uri).done(function(src) {
+            $.getJSON(uri).done(function(src) {
                 self._visualizeBuildStatus(src);
                 if(src.done) {
                     $('#progressModal .progress-bar').css('width', '100%');
@@ -153,9 +153,9 @@
                         $("#progressModal").modal("hide");
                     }, 500);
                 } else {
-                    console.log(src.buildStatusURL)
+                    console.log(src.buildStatusURL);
                     setTimeout(function() {
-                        self._updateBuildStatus(src.buildStatusURL)
+                        self._updateBuildStatus(src.buildStatusURL);
                         self.editor.focus();
                     }, 2000);
                 }
