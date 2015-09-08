@@ -122,9 +122,11 @@
                 data : data
             }).done(function(src) {
                 // get server metadata
-                self._visualizeBuildStatus(src);
-                self._updateBuildStatus(src.buildStatusURL);
+                console.log(src.buildStatusUrl)
+                _visualizeBuildStatus(src);
+                _updateBuildStatus(src.buildStatusURL);
             }).fail(function(jqXHR, error) {
+                console.log(src.buildStatusUrl)
                 var errorLoc = jqXHR.getResponseHeader("Location-Error");
                 console.log("build error is available at " + errorLoc);
 //                self._displayBuildProblems(errorLoc);
@@ -134,18 +136,18 @@
 
         function _updateBuildStatus(uri){
             $.getJSON(uri).done(function(src) {
-                self._visualizeBuildStatus(src);
+                _visualizeBuildStatus(src);
                 if(src.done) {
                     $('#progressModal .progress-bar').css('width', '100%');
-                    var bot = self.bots[self.selection];
+                    var bot = {"name":"MyCoolAsBot"};
                     if(src.error) {
                         $('#progressModal .modal-title').html("Load build errors...");
-                        self._displayBuildProblems(src.error);
+                        _displayBuildProblems(src.error);
                     } else {
                         bot.setMetadata(src.metadata);
                         bot.setSrc(src);
                         bot.saved();
-                        self._checkState();
+                        _checkState();
                         $("#output").html("Bot successfully compiled and saved");
                         $('#progressModal .modal-title').html("Bot successfully compiled and saved");
                     }
@@ -155,8 +157,7 @@
                 } else {
                     console.log(src.buildStatusURL);
                     setTimeout(function() {
-                        self._updateBuildStatus(src.buildStatusURL);
-                        self.editor.focus();
+                        _updateBuildStatus(src.buildStatusURL);
                     }, 2000);
                 }
             }).fail(function(error) {

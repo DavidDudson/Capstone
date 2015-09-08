@@ -45,7 +45,7 @@
 						Welcome to the SoGaCo - <%=gameName%></h1>
 				</div>
 					Click <strong><a href="editor.jsp">here</a></strong> to edit java bots,
-					Click <strong><a href="easyJ.jsp">here</a></strong> to edit blockly bots.
+					Click <strong><a href="editor.jsp">here</a></strong> to edit blockly bots.
 					and <strong><a href="test.jsp">here</a></strong> to test bots.
 				</div>
 			</div>
@@ -81,7 +81,7 @@
 							class="center-block">
 							<input type="hidden" name="loginType" value="google" /> <input
 								type="hidden" class="callbackUrlElement" name="callbackurl"
-								value="" /> <input type="hidden" class="baseURLElement"
+								value="http://localhost:8080/Capstone" /> <input type="hidden" class="baseURLElement"
 								name="baseURL" value="" />
 							<p>
 								<button type="submit"
@@ -97,7 +97,7 @@
 							class="center-block">
 							<input type="hidden" name="loginType" value="facebook" /> <input
 								type="hidden" class="callbackUrlElement" name="callbackurl"
-								value="" /> <input type="hidden" class="baseURLElement"
+								value="http://localhost:8080/Capstone" /> <input type="hidden" class="baseURLElement"
 								name="baseURL" value="" />
 							<p>
 								<button type="submit"
