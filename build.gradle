@@ -57,7 +57,9 @@ dependencies {
     compile 'com.googlecode.json-simple:json-simple:1.1.1'
     compile 'org.apache.httpcomponents:httpclient:4.4.1'
     compile 'joda-time:joda-time:2.7'
-    compile 'org.ow2.asm:asm-all:5.0.3'
+    compile 'javax.servlet.jsp.jstl:javax.servlet.jsp.jstl-api:1.2.1'
+
+
 
 
     compile name: 'services-0.0.3-SNAPSHOT'
@@ -73,10 +75,6 @@ dependencies {
 //Configure Server plugin
 gretty {
     servletContainer = 'tomcat8'
-    //AutoReload of everything
-    managedClassReload = true
-    fastReload = true
-    scanInterval = 0.5
 
 }
 
