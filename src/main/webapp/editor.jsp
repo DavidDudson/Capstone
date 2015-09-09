@@ -97,6 +97,7 @@
             var output = document.getElementById('importExport');
             output.value = Blockly.Java.workspaceToCode(workspace);
         }
+<<<<<<< HEAD:src/main/webapp/editor.jsp
 
         function compileAndSave() {
 
@@ -174,12 +175,21 @@
                 $('#progressModal .modal-title').html("Still in queue ...");
             }
         }
+        
+        function toXml() {
+            var output = document.getElementById('importExport');
+            var xml = Blockly.Xml.workspaceToDom(workspace);
+            output.value = Blockly.Xml.domToPrettyText(xml);
+        }
 
     </script>
     <style>
         .inactiveLink {
             pointer-events: none;
             cursor: default;
+
+        .blocklyMainBackground {
+            opacity: 0.6;
         }
     </style>
 </head>
@@ -402,28 +412,23 @@
     <category name="Functions" custom="PROCEDURE"></category>
     <sep></sep>
     <category name="StarBattles">
+        <block type="get_next_valid_cell"></block>
+        <block type="get_all_valid_moves"></block>
     </category>
     <sep></sep>
     <category name="Testing">
+        <block type="get_neighbour_valid_cells"></block>
         <block type="get_gamestate"></block>
-        <block type="variable_define"></block>
-        <block type="get_next_valid_cell"></block>
+        <block type="can_attack_cell"></block>
+        <block type="if_cell_hit_aim_direction"></block>
+        <block type="get_cell_at_pos"></block>
+        <block type="check_state_of_cell"></block>
     </category>
 </xml>
-<xml id="startBlocks" style="display: none">
-    <block type="variables_set">
-        <field name="VAR">game array</field>
-        <value name="VALUE">
-            <block type="variables_get">
-                <field name="VAR">GameState</field>
-            </block>
-        </value>
-    </block>
-</xml>
 <xml id="mitch-startBlocks" style="display:none">
-    <block type="procedures_defreturn" id="1" x="63" y="63" deletable="false">
+    <block type="procedures_defreturn" id="1" x="63" y="63" deletable="false" editable="false">
         <mutation></mutation>
-        <field name="NAME">getNextMove</field>
+        <field name="NAME">nextMove</field>
         <value name="RETURN">
             <block type="get_next_valid_cell" id="2"></block>
         </value>

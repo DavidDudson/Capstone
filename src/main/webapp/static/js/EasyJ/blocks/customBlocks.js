@@ -1,9 +1,9 @@
-Blockly.Blocks['get_state'] = {
+Blockly.Blocks['check_state_of_cell'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField(new Blockly.FieldDropdown([["is Water", "isWater"], ["is Ship", "isShip"]]), "state");
-    this.appendValueInput("CELL")
-        .setCheck(["Cell", "String"])
+        .appendField(new Blockly.FieldDropdown([["is Water", "water"], ["is Ship", "ship"]]), "state");
+    this.appendValueInput("Coordinate")
+        .setCheck(["Coordinate", "String"])
         .appendField("at cell");
     this.setInputsInline(true);
     this.setOutput(true, "Boolean");
@@ -16,26 +16,27 @@ Blockly.Blocks['get_state'] = {
 Blockly.Blocks['get_cell_at_pos'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField(new Blockly.FieldDropdown([["get Left", "getLeft"], ["get Right", "getRight"], ["get Up", "getUp"], ["get Down", "getDown"]]), "POSITION");
+        .appendField(new Blockly.FieldDropdown([["get Left", "left"], ["get Right", "right"], ["get Up", "up"], ["get Down", "down"]]), "POSITION");
     this.appendValueInput("INPUT")
-        .setCheck("Cell")
-        .appendField("at position");
+        .setCheck("Coordinate")
+        .appendField("from position");
     this.setInputsInline(true);
-    this.setOutput(true, "Cell");
+    this.setOutput(true, "Coordinate");
     this.setColour(230);
     this.setTooltip('get the cell neighbouring the given position');
     this.setHelpUrl('http://www.example.com/');
   }
 };
 
+// TODO: The type of block is incorrect
 Blockly.Blocks['if_cell_hit_aim_direction'] = {
   init: function() {
-    this.appendValueInput("CELL")
-        .setCheck(["String", "Cell"])
+    this.appendValueInput("Coordinate")
+        .setCheck(["String", "Coordinate"])
         .appendField("if cell");
     this.appendDummyInput()
         .appendField("is hit, try")
-        .appendField(new Blockly.FieldDropdown([["up", "UP"], ["down", "DOWN"], ["left", "LEFT"], ["right", "RIGHT"]]), "direction");
+        .appendField(new Blockly.FieldDropdown([["up", "up"], ["down", "down"], ["left", "left"], ["right", "right"]]), "direction");
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -47,8 +48,8 @@ Blockly.Blocks['if_cell_hit_aim_direction'] = {
 
 Blockly.Blocks['can_attack_cell'] = {
   init: function() {
-    this.appendValueInput("CELL")
-        .setCheck(["String", "Cell"])
+    this.appendValueInput("Coordinate")
+        .setCheck(["String", "Coordinate"])
         .appendField("can");
     this.appendDummyInput()
         .appendField("be attacked");
@@ -62,8 +63,8 @@ Blockly.Blocks['can_attack_cell'] = {
 Blockly.Blocks['get_next_valid_cell'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("the next valid cell");
-    this.setOutput(true, ["String", "Cell"]);
+        .appendField("the next valid move");
+    this.setOutput(true, ["String", "Coordinate"]);
 	this.setColour(230);
     this.setTooltip('returns the next valid cell');
     this.setHelpUrl('http://www.example.com/');
@@ -72,9 +73,9 @@ Blockly.Blocks['get_next_valid_cell'] = {
 
 Blockly.Blocks['get_neighbour_valid_cells'] = {
   init: function() {
-    this.appendValueInput("CELL")
-        .setCheck(["String", "Cell"])
-        .appendField("get valid neighbors of");
+    this.appendValueInput("Coordinate")
+        .setCheck(["String", "Coordinate"])
+        .appendField("the valid neighbors of");
     this.setOutput(true, "Array");
     this.setColour(230);
     this.setTooltip('the neighbouring cells of the given position that can be hit');
@@ -108,4 +109,15 @@ Blockly.Blocks['get_gamestate'] = {
     this.setTooltip('The StarBattles gamestate');
     this.setHelpUrl('http://www.example.com/');
   }
-}
+};
+
+Blockly.Blocks['get_all_valid_moves'] = {
+    init: function() {
+        this.appendDummyInput()
+            .appendField("list of all valid moves");
+        this.setOutput(true, "Array");
+        this.setColour(230);
+        this.setTooltip('');
+        this.setHelpUrl('http://www.example.com/');
+    }
+};
