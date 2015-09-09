@@ -95,7 +95,7 @@
 
         function toCode() {
             var output = document.getElementById('importExport');
-            output.value = Blockly['Java'].workspaceToCode(workspace);
+            output.value = Blockly.Java.workspaceToCode(workspace);
         }
 
         function compileAndSave() {
