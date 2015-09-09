@@ -138,8 +138,10 @@ public class StarBattleGame extends SimpleGame<GameBoard, Coordinate> {
     protected void checkGameTermination() {
         if(bot1map.getRemainingShips() == 0){
             this.state = GameState.PLAYER_1_WON;
+            System.out.println("Player 1 Won");
         } else if (bot2map.getRemainingShips() == 0){
             this.state = GameState.PLAYER_2_WON;
+            System.out.println("Player 2 Won");
         }
     }
 
