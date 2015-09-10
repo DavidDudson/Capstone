@@ -88,6 +88,7 @@
                     });
             Blockly.Xml.domToWorkspace(workspace,
                     document.getElementById('mitch-startBlocks'));
+            workspace.getBlockById(1).inputList[2].connection.check_ = ["Coordinate"];
             if (Blockly.Realtime.isEnabled()) {
                 enableRealtimeSpecificUi();
             }
@@ -319,46 +320,6 @@
         </block>
         <block type="math_random_float"></block>
     </category>
-    <category name="Text">
-        <block type="text"></block>
-        <block type="text_join"></block>
-        <block type="text_append">
-            <value name="TEXT">
-                <block type="text"></block>
-            </value>
-        </block>
-        <block type="text_length"></block>
-        <block type="text_isEmpty"></block>
-        <block type="text_indexOf">
-            <value name="VALUE">
-                <block type="variables_get">
-                    <field name="VAR">text</field>
-                </block>
-            </value>
-        </block>
-        <block type="text_charAt">
-            <value name="VALUE">
-                <block type="variables_get">
-                    <field name="VAR">text</field>
-                </block>
-            </value>
-        </block>
-        <block type="text_getSubstring">
-            <value name="STRING">
-                <block type="variables_get">
-                    <field name="VAR">text</field>
-                </block>
-            </value>
-        </block>
-        <block type="text_changeCase"></block>
-        <block type="text_trim"></block>
-        <block type="text_print"></block>
-        <block type="text_prompt_ext">
-            <value name="TEXT">
-                <block type="text"></block>
-            </value>
-        </block>
-    </category>
     <category name="Lists">
         <block type="lists_create_empty"></block>
         <block type="lists_create_with"></block>
@@ -399,30 +360,24 @@
                 </block>
             </value>
         </block>
-        <block type="lists_split">
-            <value name="DELIM">
-                <block type="text">
-                    <field name="TEXT">,</field>
-                </block>
-            </value>
-        </block>
     </category>
     <sep></sep>
     <category name="Variables" custom="VARIABLE"></category>
     <category name="Functions" custom="PROCEDURE"></category>
     <sep></sep>
     <category name="StarBattles">
-        <block type="get_next_valid_cell"></block>
+        <block type="get_first_valid_coordinate"></block>
+        <block type="get_last_valid_coordinate"></block>
         <block type="get_all_valid_moves"></block>
     </category>
     <sep></sep>
     <category name="Testing">
-        <block type="get_neighbour_valid_cells"></block>
+        <block type="get_neighbour_valid_coordinates"></block>
         <block type="get_gamestate"></block>
-        <block type="can_attack_cell"></block>
-        <block type="if_cell_hit_aim_direction"></block>
-        <block type="get_cell_at_pos"></block>
-        <block type="check_state_of_cell"></block>
+        <block type="can_attack_coordinate"></block>
+        <block type="if_coordinate_hit_aim_direction"></block>
+        <block type="get_coordinate_at_pos"></block>
+        <block type="check_state_of_coordinate"></block>
     </category>
 </xml>
 <xml id="mitch-startBlocks" style="display:none">
@@ -430,10 +385,9 @@
         <mutation></mutation>
         <field name="NAME">nextMove</field>
         <value name="RETURN">
-            <block type="get_next_valid_cell" id="2"></block>
+            <block type="get_first_valid_coordinate" id="2"></block>
         </value>
     </block>
-    </div>
 </xml>
 <h2>Response:</h2>
 <p id="errordialog"></p>
