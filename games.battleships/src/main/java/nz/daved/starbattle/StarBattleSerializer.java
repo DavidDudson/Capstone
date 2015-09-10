@@ -2,6 +2,8 @@ package nz.daved.starbattle;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import nz.ac.massey.cs.ig.core.game.Game;
 import nz.ac.massey.cs.ig.core.services.Serializer;
 
@@ -21,9 +23,22 @@ public class StarBattleSerializer implements Serializer {
 
         StarBattleGame game = (StarBattleGame) _game;
         List<StarBattleGameMove> history = game.getHistory();
+        
+        //generate json objects
+
         Gson gson = new GsonBuilder().create();
-        history.forEach(move -> System.out.println("Move" + move.toString()));
-        history.stream().forEach(move -> gson.toJson(move, out));
+        JsonArray retJArray = new JsonArray();
+        JsonObject jsonObject = new JsonObject();
+
+        //convert moves to json object
+
+        history.stream().forEach(move -> retJArray.add(new Gson().toJsonTree(move)));
+
+        //submit to printwriter
+
+        jsonObject.add("moves", retJArray);
+        gson.toJson(jsonObject, out);
+
         if (game.getError() != null) {
             Throwable error = game.getError();
             gson.toJson(error.getClass().getName(), out);
