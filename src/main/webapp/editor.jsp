@@ -98,7 +98,6 @@
             var output = document.getElementById('importExport');
             output.value = Blockly.Java.workspaceToCode(workspace);
         }
-<<<<<<< HEAD:src/main/webapp/editor.jsp
 
         function compileAndSave() {
 

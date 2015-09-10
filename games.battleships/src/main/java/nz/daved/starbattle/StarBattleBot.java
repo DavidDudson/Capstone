@@ -11,24 +11,12 @@ import nz.daved.starbattle.game.Coordinate;
  */
 public abstract class StarBattleBot implements Bot<BotGameBoard, Coordinate> {
 
-    private String uid = null;
+    private String uid;
 
-    /**
-     * Creates a bot
-     *
-     * @param botId The uid of the bot
-     */
     public StarBattleBot(String botId) {
-        super();
         this.uid = botId;
-
     }
 
-    /**
-     * Get the uid
-     *
-     * @return The uid
-     */
     @Override
     public String getId() {
         return this.uid;

@@ -6,7 +6,6 @@ import nz.ac.massey.cs.ig.core.game.IllegalMoveException;
 import nz.ac.massey.cs.ig.core.game.SimpleGame;
 import nz.daved.starbattle.game.BotGameBoard;
 import nz.daved.starbattle.game.Coordinate;
-import nz.daved.starbattle.game.GameBoard;
 import nz.daved.starbattle.game.ShipGameBoard;
 
 import java.util.ArrayList;
@@ -19,10 +18,6 @@ import java.util.stream.Collectors;
  * The actual battleship Game Instance
  */
 public class StarBattleGame extends SimpleGame<BotGameBoard, Coordinate> {
-
-    public static final String MOVE_SEPARATOR = "-";
-
-    private StringBuilder historyInURLToken = new StringBuilder();
 
     private ShipGameBoard shipGameBoard;
     private BotGameBoard bot1map;
@@ -52,6 +47,7 @@ public class StarBattleGame extends SimpleGame<BotGameBoard, Coordinate> {
      */
     @Override
     protected void doMove(Coordinate coord, Bot<BotGameBoard,Coordinate> bot) {
+        System.out.println("Doing a move");
         boolean isPlayer1 = (bot == player1);
         BotGameBoard botMap = isPlayer1 ? bot1map : bot2map;
         //Add 1 due to compensating for the fact that bot map has 3 states (Including unknown) and shipMap has 2
@@ -90,6 +86,7 @@ public class StarBattleGame extends SimpleGame<BotGameBoard, Coordinate> {
      * @param bot   The bot whose move was last
      */
     private void updateGameState(Coordinate coord, StarBattleBot bot) {
+        System.out.println("Updating Game State");
         if (bot == player1 && shipGameBoard.isShip(coord)) {
             this.state = GameState.WAITING_FOR_PLAYER_1;
         } else if (bot == player2 && shipGameBoard.isShip(coord)) {
@@ -110,10 +107,7 @@ public class StarBattleGame extends SimpleGame<BotGameBoard, Coordinate> {
      */
     @Override
     protected void registerMove(Coordinate coordinate, Bot<BotGameBoard, Coordinate> bot) {
-        this.timeWhenLastSuccessfulMoveWasMade = System.currentTimeMillis();
-        if (historyInURLToken.length() > 0)
-            historyInURLToken.append(MOVE_SEPARATOR);
-        historyInURLToken.append(coordinate.toString());
+        System.out.println("Registering a move");
     }
 
     /**
@@ -125,6 +119,7 @@ public class StarBattleGame extends SimpleGame<BotGameBoard, Coordinate> {
      */
     @Override
     protected void checkValidityOfMove(Coordinate coordinate, Bot<BotGameBoard, Coordinate> bot) throws IllegalMoveException {
+        System.out.println("Checking Validaty a move");
         BotGameBoard botmap = (bot == player1) ? bot1map : bot2map;
         if (botmap.getCellState(coordinate) != 0) {
             throw new IllegalMoveException("Coordinate not Water: " + coordinate.toString());
@@ -136,6 +131,7 @@ public class StarBattleGame extends SimpleGame<BotGameBoard, Coordinate> {
      */
     @Override
     protected void checkGameTermination() {
+        System.out.println("Checking game termination");
         if(bot1map.getRemainingShips() == 0){
             this.state = GameState.PLAYER_1_WON;
             System.out.println("Player 1 Won");
@@ -151,6 +147,7 @@ public class StarBattleGame extends SimpleGame<BotGameBoard, Coordinate> {
      * @return A copy of the history
      */
     public List<StarBattleGameMove> getHistory() {
+        System.out.println("Getting history");
         return history.stream().map(StarBattleGameMove::new).collect(Collectors.toList());
     }
 
@@ -161,6 +158,7 @@ public class StarBattleGame extends SimpleGame<BotGameBoard, Coordinate> {
      */
     @Override
     public BotGameBoard getPublicState() {
-        return null;
+        System.out.println("Getting public state: " + state.toString());
+        return state == GameState.WAITING_FOR_PLAYER_1 ? bot1map : bot2map;
     }
 }
