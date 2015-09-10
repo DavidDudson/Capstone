@@ -55,18 +55,19 @@ function retHitOrMiss(gameArrIndex) {
 }
 function alterBoatLiveGUI(sunkBoat, player, opp) {
     var playerBoat;
+    alert(sunkBoat);
     switch (sunkBoat) {
-        case 2:
-            playerBoat = document.getElementById(player + "Patrol");
-            break;
-        case 3:
-            playerBoat = document.getElementById(player + "Destroyer");
+        case 5:
+            playerBoat = document.getElementById(player + "motherShip");
             break;
         case 4:
-            playerBoat = document.getElementById(player + "BattleShip");
+            playerBoat = document.getElementById(player + "carrier");
             break;
-        case 5:
-            playerBoat = document.getElementById(player + "AirCarry");
+        case 3:
+            playerBoat = document.getElementById(player + "destroyer");
+            break;
+        case 2:
+            playerBoat = document.getElementById(player + "fighter");
             break;
     }
     var num = playerBoat.innerHTML;
@@ -75,6 +76,6 @@ function alterBoatLiveGUI(sunkBoat, player, opp) {
     }else{
         num--;
     }
-    
+
     playerBoat.innerHTML = num;
 }

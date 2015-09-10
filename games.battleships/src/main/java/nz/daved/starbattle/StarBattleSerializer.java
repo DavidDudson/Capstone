@@ -23,7 +23,7 @@ public class StarBattleSerializer implements Serializer {
 
         StarBattleGame game = (StarBattleGame) _game;
         List<StarBattleGameMove> history = game.getHistory();
-        
+
         //generate json objects
 
         Gson gson = new GsonBuilder().create();

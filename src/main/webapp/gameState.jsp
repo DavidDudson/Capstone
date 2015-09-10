@@ -1,72 +1,32 @@
+<!DOCTYPE html>
 
-<%@ page trimDirectiveWhitespaces="true" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-         pageEncoding="ISO-8859-1"%>
-<%@page import="battleShipGame.Section"%>
-<%@page import="java.util.Arrays"%>
-<%@page import="battleShipGame.ShipLinkedList"%>
-<%@page import="battleShipGame.testBot"%>
-<%@page import="battleShipGame.Grid"%>
-
-<%!
-    int SIZE = 10;
-    testBot bot1 = new testBot();
-    Grid bot1Grid;
-    int[][] bot1Moves = new int[100][4];
-    testBot bot2 = new testBot();
-    Grid bot2Grid;
-    int[][] bot2Moves = new int[100][4];
-    public int[][] gameRun(Grid grid, testBot bot) {
-        int[][] botMoves = new int[100][4];
-        int movesIndex = 0;
-        int[] retVals = new int[4];
-        int deadShips = 0;
-        while (deadShips != grid.getShips().size()) {
-            retVals = bot.runMove(grid.getGrid());
-            botMoves[movesIndex][0] = retVals[0];
-            botMoves[movesIndex][1] = retVals[1];
-            botMoves[movesIndex][2] = grid.getGrid()[retVals[0]][retVals[1]].getSectionStatus();
-            botMoves[movesIndex][3] = grid.playMove(retVals[0], retVals[1]);
-            if (botMoves[movesIndex][3] != 0) {
-                deadShips++;
-            }
-            movesIndex++;
-        }
-        if (movesIndex < 99) {
-            botMoves[movesIndex][0] = -1;
-            botMoves[movesIndex][1] = -1;
-        }
-        return botMoves;
-    }
-%>
-
-<%
-    bot1Grid = new Grid(SIZE);
-    bot1Grid.generateShips();
-    bot1Grid.loadGrid();
-    bot2Grid = new Grid(SIZE);
-    bot2Grid.generateShips();
-    bot2Grid.loadGrid();
-%>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=Edge" >
-        <title>StarBattle Prototype</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1.0, initial-scale=1.0" />
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" >
+	<title>  </title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1.0, initial-scale=1.0" />
+	<meta name="description" content="">
+	<meta name="author" content="">
         <script src="static/js/jquery-1.7.2.min.js"></script>
         <script src="static/js/jquery-ui-1.8.21.custom.min.js"></script>
         <script src="static/js/gameState.js"></script>
-        <link rel="stylesheet" type="text/css" href="static/css/style.css">
-        <link rel="stylesheet" type="text/css" href="static/css/grid.css">
+	<link rel="stylesheet" type="text/css" href="static/css/style.css">
+	<link rel="stylesheet" type="text/css" href="static/css/grid.css">
+        <script src="https://apis.google.com/js/api.js"></script>
+        <script src="static/js/ace.js" charset="utf-8"></script>
 
 
-        <script lang="JavaScript">
-            var bot1MoveCount = 0;
+</head>
+
+<script lang="JavaScript">
+    
+            var json = '{"moves":[{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":0,"y":0},"wasShip":true},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":0,"y":1},"wasShip":true},{"sunk":[{"x":0,"y":0},{"x":0,"y":1},{"x":0,"y":2}],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":0,"y":2},"wasShip":true},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":0,"y":3},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":9,"y":9},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":0,"y":4},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":9,"y":8},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":0,"y":5},"wasShip":true},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":0,"y":6},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":9,"y":7},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":0,"y":7},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":9,"y":6},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":0,"y":8},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":9,"y":5},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":0,"y":9},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":9,"y":4},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":1,"y":0},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":9,"y":3},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":1,"y":1},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":9,"y":2},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":1,"y":2},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":9,"y":1},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":1,"y":3},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":9,"y":0},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":1,"y":4},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":8,"y":9},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":1,"y":5},"wasShip":true},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":1,"y":6},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":8,"y":8},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":1,"y":7},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":8,"y":7},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":1,"y":8},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":8,"y":6},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":1,"y":9},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":8,"y":5},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":2,"y":0},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":8,"y":4},"wasShip":false},{"sunk":[{"x":2,"y":1}],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":2,"y":1},"wasShip":true},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":2,"y":2},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":8,"y":3},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":2,"y":3},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":8,"y":2},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":2,"y":4},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":8,"y":1},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":2,"y":5},"wasShip":true},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":2,"y":6},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":8,"y":0},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":2,"y":7},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":7,"y":9},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":2,"y":8},"wasShip":true},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":2,"y":9},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":7,"y":8},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":3,"y":0},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":7,"y":7},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":3,"y":1},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":7,"y":6},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":3,"y":2},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":7,"y":5},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":3,"y":3},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":7,"y":4},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":3,"y":4},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":7,"y":3},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":3,"y":5},"wasShip":true},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":3,"y":6},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":7,"y":2},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":3,"y":7},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":7,"y":1},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":3,"y":8},"wasShip":true},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":3,"y":9},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":7,"y":0},"wasShip":true},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":6,"y":9},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":4,"y":0},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":6,"y":8},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":4,"y":1},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":6,"y":7},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":4,"y":2},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":6,"y":6},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":4,"y":3},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":6,"y":5},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":4,"y":4},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":6,"y":4},"wasShip":false},{"sunk":[{"x":4,"y":5},{"x":3,"y":5},{"x":2,"y":5},{"x":1,"y":5},{"x":0,"y":5}],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":4,"y":5},"wasShip":true},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":4,"y":6},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":6,"y":3},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":4,"y":7},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":6,"y":2},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":4,"y":8},"wasShip":true},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":4,"y":9},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":6,"y":1},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":5,"y":0},"wasShip":false},{"sunk":[{"x":7,"y":0},{"x":6,"y":0}],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":6,"y":0},"wasShip":true},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":5,"y":9},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":5,"y":1},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":5,"y":8},"wasShip":true},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":5,"y":7},"wasShip":true},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":5,"y":6},"wasShip":true},{"sunk":[{"x":5,"y":5},{"x":5,"y":6},{"x":5,"y":7}],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":5,"y":5},"wasShip":true},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":5,"y":4},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":5,"y":2},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":5,"y":3},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":5,"y":3},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":5,"y":2},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":5,"y":4},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":5,"y":1},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":5,"y":5},"wasShip":true},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":5,"y":6},"wasShip":true},{"sunk":[{"x":5,"y":5},{"x":5,"y":6},{"x":5,"y":7}],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":5,"y":7},"wasShip":true},{"sunk":[{"x":5,"y":8},{"x":4,"y":8},{"x":3,"y":8},{"x":2,"y":8}],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":5,"y":8},"wasShip":true},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":5,"y":9},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":5,"y":0},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":6,"y":0},"wasShip":true},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":6,"y":1},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":4,"y":9},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":6,"y":2},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":4,"y":8},"wasShip":true},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":4,"y":7},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":6,"y":3},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":4,"y":6},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":6,"y":4},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":4,"y":5},"wasShip":true},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":4,"y":4},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":6,"y":5},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":4,"y":3},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":6,"y":6},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":4,"y":2},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":6,"y":7},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":4,"y":1},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":6,"y":8},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":4,"y":0},"wasShip":false},{"sunk":[],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":6,"y":9},"wasShip":false},{"sunk":[],"botId":"LastSquareBot","wasPlayer1":false,"coord":{"x":3,"y":9},"wasShip":false},{"sunk":[{"x":7,"y":0},{"x":6,"y":0}],"botId":"FirstSquareBot","wasPlayer1":true,"coord":{"x":7,"y":0},"wasShip":true}]}';
+            var jsonMoves = JSON.parse(json);
+            
+            
+            var currentMoveIndex = 0;
             var bot2MoveCount = 0;
             var player1Move = true;
             var gameEnded = false;
@@ -75,40 +35,50 @@
             var playGame = false;
             var myGame;
             function nextMove() {
-                if (bot1MoveCount === 0) {
-                    gameStart = !gameStart;
-                }
-                if (player1Move) {
-                    var yCoordA = bot1Moves[bot1MoveCount][0];
-                    var xCoordA = bot1Moves[bot1MoveCount][1];
-                    var posA = "a" + (yCoordA * 10 + xCoordA);
-                    document.getElementById(posA).style.backgroundColor = retHitOrMiss(gameArrayA[yCoordA][xCoordA]);
-                    if (bot1Moves[bot1MoveCount][3] !== 0) {
-                        alterBoatLiveGUI(bot1Moves[bot1MoveCount][3], "p1");
+                var currentMove = jsonMoves.moves[currentMoveIndex];
+                console.log(currentMove);
+                if(currentMove.wasPlayer1){
+                    var posA = "a" + (currentMove.coord.x * 10 + currentMove.coord.y);
+                    document.getElementById(posA);
+                    if(currentMove.wasShip){
+                        document.getElementById(posA).innerHTML += "<img src='static/images/hit.png'/>";
+                        
+                        var sunkElements = currentMove.sunk.length;
+                        if (sunkElements > 1){
+                            alterBoatLiveGUI(sunkElements, "p1");
+                            
+                        }
+                        
+                    }else{
+                        document.getElementById(posA).innerHTML += "<img src='static/images/miss.png'/>";
+                        
                     }
-                    bot1MoveCount++;
-                }
-                else {
-                    var yCoordB = bot2Moves[bot2MoveCount][0];
-                    var xCoordB = bot2Moves[bot2MoveCount][1];
-                    var posB = "b" + (yCoordB * 10 + xCoordB);
-                    document.getElementById(posB).style.backgroundColor = retHitOrMiss(gameArrayB[yCoordB][xCoordB]);
-                    if (bot2Moves[bot2MoveCount][3] !== 0) {
-                        alterBoatLiveGUI(bot2Moves[bot2MoveCount][3], "p2");
+                    
+                }else{
+                    var posB = "b" + (currentMove.coord.x * 10 + currentMove.coord.y);
+                    document.getElementById(posB);
+                    if(currentMove.wasShip){
+                        document.getElementById(posB).innerHTML += "<img src='static/images/hit.png'/>";
+                        
+                        var sunkElements = currentMove.sunk.length;
+                        
+                        if (sunkElements > 1){
+                            alterBoatLiveGUI(sunkElements, "p2", "dec");
+                            
+                        }
+                        
+                    }else{
+                        document.getElementById(posB).innerHTML += "<img src='static/images/miss.png'/>";
+                        
                     }
-                    bot2MoveCount++;
+                    
+                    
+                    
+                    
+                    
                 }
-                if (bot2Moves[bot2MoveCount][0] === -1) {
-                    alert("bot2 wins");
-                    alterBoatLiveGUI(bot2Moves[bot2MoveCount][3], "p2", "dec");
-                    gameEnded = true;
-                }
-                if (bot1Moves[bot1MoveCount][0] === -1 || bot1MoveCount === 99) {
-                    alert("bot1 wins");
-                    alterBoatLiveGUI(bot1Moves[bot1MoveCount][3], "p1", "dec");
-                    gameEnded = true;
-                }
-                player1Move = !player1Move;
+                currentMoveIndex++;
+
             }
             function prevMove() {
                 player1Move = !player1Move;
@@ -151,128 +121,152 @@
                 }
             }
             function playPause() {
-                playGame = !playGame;
-                if (playGame) {
-                    myGame = setInterval(function () {
-                        nextMove();
-                    }, gameSpeed);
-                } else {
-                    clearInterval(myGame);
+//                playGame = !playGame;
+//                if (playGame) {
+//                    myGame = setInterval(function () {
+//                        nextMove();
+//                    }, gameSpeed);
+//                } else {
+//                    clearInterval(myGame);
+//                }
+                while(currentMoveIndex !== jsonMoves.moves.length){
+                    nextMove();
+                    
                 }
-
             }
+            
+
         </script>
-    </head>
-    <body>
-        <div class="container_12">
-            <div id="header">
-                <div id="nav_container">
-                    <div id="nav_menu" class="left">
-                        <div id="logo" class="left">
-                            <a href="index.html"> Battleship </a>
-                        </div>
-                        <nav class="menu">
-                            <a class="toggle-nav" href="#">&#9776;</a>
-                            <ul class="list_inline active">
-                                <li> <a href="easyJ.html"> Editor </a> </li>
-                                <li> <a href=""> Help </a> </li>
-                                <li> <a href=""> Community </a> </li>
-                                <li> <a href=""> Survey </a> </li>
-                                <li> <a href=""> About </a> </li>
 
-                                <li> <div class="menu-on"> <a href=""> My Bots </a> </div> </li>
-                                <li> <div class="menu-on">  <a href=""> Built-in Bots </a> </div> </li>
-                                <li> <div class="menu-on">  <a href=""> Shared Bots </a> </div> </li>
-                            </ul>
-
-                        </nav>
-                    </div>
+<body>
 
 
-                    <div id="user" class="right">
-                        <ul class="list_inline">
-                            <li> <a class="username" href=""> Ashraf, Alharbi </a> </li>
-                            <li> <a class="logout" href=""> Logout </a> </li>
-                        </ul>
-                    </div>
 
-                    <div class="clear"> </div>
-                </div>
+<!--Header-->
+<div id="header">
+		<div id="nav_container">
+        
+        
+        <div class="container_12" style="padding:0;"> 
+        
+        
+			<div id="nav_menu" class="left">
+				<div id="logo" class="left">
+					<a href="index.html"> Battle Spaceship </a>
+				</div>
+				<nav class="menu">
+				<a class="toggle-nav" href="#">&#9776;</a>
+					<ul class="list_inline active">
+						<li> <a href=""> Editor </a> </li>
+						<li> <a href=""> Test </a> </li>
+						<li> <a href=""> Help </a> </li>
+						<li> <a href=""> Community </a> </li>
+						<li> <a href=""> Survey </a> </li>	
+						<li> <a href=""> About </a> </li>
+						
+						<li> <div class="menu-on"> <a href=""> My Bots </a> </div> </li>
+						<li> <div class="menu-on">  <a href=""> Built-in Bots </a> </div> </li>
+						<li> <div class="menu-on">  <a href=""> Shared Bots </a> </div> </li>
+					</ul>
+					
+				</nav>
+			</div>	
+			
+				
+			<div id="user" class="right">
+				<ul class="list_inline">
+					<li> <a class="username" href=""> Houlihan, Aidan </a> </li>
+					<li> <a class="logout" href=""> Logout </a> </li>
+				</ul>
+			</div>
+            
+            
             </div>
-
-            <div id="content">
-                <div id="sidebar_left" class="sidebar left">
-                    <div id="my_bots" class="sidebar_box">
-                        <div class="sidebar_head">
-                            My Bots
-                        </div>
-
-                        <div class="sidebar_content">
-                            <ul class="list_block">
-                                <li class="bot"> <a href=""> Lorem Ipsum Dolor </a> </li>
-                                <li class="bot"> <a href=""> Lorem Ipsum Dolor </a> </li>
-                                <li class="bot"> <a href=""> Lorem Ipsum Dolor </a> </li>
-                                <li class="bot"> <a href=""> Lorem Ipsum Dolor </a> </li>
-                                <li class="bot more"> <a href=""> more... </a> </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div id="built-in_bots" class="sidebar_box">
-                        <div class="sidebar_head">
-                            Built-in Bots
-                        </div>
-
-                        <div class="sidebar_content">
-                            <ul class="list_block">
-                                <li class="bot"> <a href=""> Cautious Built-in Bot </a> </li>
-                                <li class="bot"> <a href=""> Greedy Built-in Bot </a> </li>
-                                <li class="bot"> <a href=""> Smarter Bot </a> </li>
-                                <li class="bot"> <a href=""> Black Mamba </a> </li>
-                                <li class="bot more"> <a href=""> more... </a> </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div id="shared_bots" class="sidebar_box">
-                        <div class="sidebar_head">
-                            Shared Bots
-                        </div>
-
-                        <div class="sidebar_content">
-                            <div id="search">
-                                <form method="">
-                                    <input class="search_box" type="text" value="Search..." />
-                                    <input class="search_btn" type="submit" value="" />
-                                </form>
-                            </div>
-
-                            <br />
+			
+			<div class="clear"> </div>
+		</div>
+	</div>
 
 
-                            <!-- Search Results in list here
-                            <ul class="list_block">
-                                    <li class="bot"> <a href=""> Lorem Ipsum Dolor </a> </li>
-                                    <li class="bot"> <a href=""> Lorem Ipsum Dolor </a> </li>
-                                    <li class="bot"> <a href=""> Lorem Ipsum Dolor </a> </li>
-                                    <li class="bot"> <a href=""> Lorem Ipsum Dolor </a> </li>
-                                    <li class="bot more"> <a href=""> more... </a> </li>
-                            </ul>
-                            -->
-                            <br />
-                        </div>
-                    </div>
+<!--End Header-->
+
+
+
+<div class="container_12"> 
+	
+
+	<div id="content">
+		<div id="sidebar_left" class="sidebar left">
+			<div id="my_bots" class="sidebar_box">
+            <div class="sidebar_box_inner">
+            
+				<div class="sidebar_head">
+					My Bots
+				</div>
+				
+				<div class="sidebar_content">
+					<ul class="list_block">
+						<li class="bot"> <a href=""> Lorem Ipsum Dolor </a> </li>
+						<li class="bot"> <a href=""> Lorem Ipsum Dolor </a> </li>
+						<li class="bot"> <a href=""> Lorem Ipsum Dolor </a> </li>
+						<li class="bot"> <a href=""> Lorem Ipsum Dolor </a> </li>
+						<li class="bot more"> <a href=""> more... </a> </li>
+					</ul>
+				</div>
+                
+                
+              </div>  
+			</div>
+			
+			<div id="built-in_bots" class="sidebar_box">
+            <div class="sidebar_box_inner">
+				<div class="sidebar_head">
+					Built-in Bots
+				</div>
+				
+				<div class="sidebar_content">
+					<ul class="list_block">
+						<li class="bot"> <a href=""> Cautious Built-in Bot </a> </li>
+						<li class="bot"> <a href=""> Greedy Built-in Bot </a> </li>
+						<li class="bot"> <a href=""> Smarter Bot </a> </li>
+						<li class="bot"> <a href=""> Black Mamba </a> </li>
+						<li class="bot more"> <a href=""> more... </a> </li>
+					</ul>
+				</div>
+                
                 </div>
-
-                <div id="main_content">
+			</div>
+			
+			<div id="shared_bots" class="sidebar_box">
+            <div class="sidebar_box_inner">
+				<div class="sidebar_head">
+					Shared Bots
+				</div>
+				
+				<div class="sidebar_content">
+					<div id="search">
+						<form method="">
+							<input class="search_box" type="text" value="Search..." onBlur="if(this.value == '') { this.value='Search...'}" onFocus="if (this.value == 'Search...') {this.value=''}" />
+                            
+							<input class="search_btn" type="submit" value="" />
+						</form>
+					</div>
+				
+					
+				</div>
+			</div>
+            </div>
+		</div>
+		
+<div id="main_content">
                     <div id="player_one" class="left">
                         <ul>
                             <li> <b> Player 1 </b> </li>
                         </ul>
 
                         <ul class="grid_box">
-                            <%for (int i = 0; i < SIZE; i++) {%>
-                            <%for (int j = 0; j < SIZE; j++) {%>
+                            <%for (int i = 0; i < 10; i++) {%>
+                            <%for (int j = 0; j < 10; j++) {%>
                             <li id="a<%=i * 10 + j%>"></li>
                                 <%}%>
                             </br>
@@ -289,168 +283,151 @@
                         </ul>
 
                         <ul class="grid_box">
-                            <%for (int i = 0; i < SIZE; i++) {%>
-                            <%for (int j = 0; j < SIZE; j++) {%>
+                            <%for (int i = 0; i < 10; i++) {%>
+                            <%for (int j = 0; j < 10; j++) {%>
                             <li id="b<%=i * 10 + j%>"></li>
                                 <%}%>
                             </br>
                             <%}%>
 
                         </ul>
-
-                        <script>
-                            var gameArrayA = new Array(10);
-                            var gameArrayB = new Array(10);
-                            for (var z = 0; z < 10; z++) {
-                                gameArrayA[z] = new Array(10);
-                                gameArrayB[z] = new Array(10);
-                            }
-                            <%
-                                for (int i = 0; i < SIZE; i++) {
-                                    for (int j = 0; j < SIZE; j++) {
-                            %>
-                            gameArrayA[<%= i%>][<%= j%>] = <%= bot1Grid.getGrid()[i][j].getSectionStatus()%>;
-                            gameArrayB[<%= i%>][<%= j%>] = <%= bot2Grid.getGrid()[i][j].getSectionStatus()%>;
-                            <%
-                                    }
-                                }
-                            %>
-                            for (var i = 0; i < 10; i++) {
-                                for (var j = 0; j < 10; j++) {
-                                    document.getElementById("a" + (i * 10 + j).toString()).style.backgroundColor = getSectColor(0);
-                                    document.getElementById("b" + (i * 10 + j).toString()).style.backgroundColor = getSectColor(0);
-                                }
-                            }
-                            var bot1Moves = new Array(100);
-                            var bot2Moves = new Array(100);
-                            for (var k = 0; k < 100; k++) {
-                                bot1Moves[k] = new Array(4);
-                                bot2Moves[k] = new Array(4);
-                            }
-                            <%
-                                bot1Moves = gameRun(bot1Grid, bot1);
-                                bot2Moves = gameRun(bot2Grid, bot1);
-                                for (int yCoord = 0; yCoord < bot1Moves.length; yCoord++) {
-                            %>
-                            bot1Moves[<%=yCoord%>][0] = <%= bot1Moves[yCoord][0]%>
-                            bot1Moves[<%=yCoord%>][1] = <%= bot1Moves[yCoord][1]%>
-                            bot1Moves[<%=yCoord%>][2] = <%= bot1Moves[yCoord][2]%>
-                            bot1Moves[<%=yCoord%>][3] = <%= bot1Moves[yCoord][3]%>
-                            bot2Moves[<%=yCoord%>][0] = <%= bot2Moves[yCoord][0]%>
-                            bot2Moves[<%=yCoord%>][1] = <%= bot2Moves[yCoord][1]%>
-                            bot2Moves[<%=yCoord%>][2] = <%= bot2Moves[yCoord][2]%>
-                            bot2Moves[<%=yCoord%>][3] = <%= bot2Moves[yCoord][3]%>
-                            <%}%>
-                        </script>
                     </div>
 
 
                 </div>
 
-                <div id="sidebar_right" class="sidebar right">
-                    <div id="game_controls" class="sidebar_box">
-                        <div class="sidebar_head">
-                            Game Controls
-                        </div>
+		
+		<div id="sidebar_right" class="sidebar right">
+        
+			<div id="game_controls" class="sidebar_box">
+            <div class="right-inner">
+            
+				<div class="sidebar_head">
+					Game Controls
+				</div>
+				
+				<div class="sidebar_content">
+					<div id="controls">
+						<div id="set_one">
+							<ul class="list_inline">
+								<li> <a class="fast_prev" href=""> </a> </li> 
+								<li> <a class="prev" href=""> </a> </li> 
+								<li> <a class="pause" onClick="playPause()"> </a> </li> 
+								<li> <a class="forward" href=""> </a>  </li> 
+								<li> <a class="fast_forward" href=""> </a> </li> 
+							</ul>
+						</div>
+						
+						<div id="set_two" class="slow_fast">
+							<div class="left"> Slow </div>
+							<section> <div id="slider" style="width: 175px"> </div></section>
+							<div class="right"> Fast </div>
+							<div class="clear"> </div>
 
-                        <div class="sidebar_content">
-                            <div id="controls">
-                                <div id="set_one">
-                                    <ul class="list_inline">
-                                        <li> <a class="fast_prev" onClick="startOfGame()"> </a> </li>
-                                        <li> <a class="prev" onClick="prevMove()"> </a> </li>
-                                        <li> <a class="pause" onClick="playPause()"> </a> </li>
-                                        <li> <a class="forward" onClick="nextMove()"> </a>  </li>
-                                        <li> <a class="fast_forward" onClick="endGame()"> </a> </li>
-                                    </ul>
-                                </div>
+							<script>
+								$(function() {
 
-                                <div id="set_two" class="slow_fast">
-                                    <div class="left"> Slow </div>
-                                    <section> <div id="slider"> </div>  </section>
-                                    <div class="right"> Fast </div>
-                                    <div class="clear"> </div>
+									
+									var slider  = $('#slider'),
+										tooltip = $('.tooltip');
 
-                                    <script>
-                                        $(function () {
-                                            $("#slider").slider({
-                                                range: "min",
-                                                value: 200,
-                                                min: 1,
-                                                max: 1000,
-                                                slide: function (event, ui) {
-                                                    gameSpeed = 1000 - ui.value;
-                                                    if (playGame) {
-                                                        clearInterval(myGame);
-                                                        myGame = setInterval(function () {
-                                                            nextMove();
-                                                        }, gameSpeed);
-                                                    }
-                                                }
-                                            });
-                                            if (playGame) {
-                                                setTimeout(nextMove, gameSpeed);
-                                                playPause();
-                                            }
-                                        });
-                                    </script>
-                                </div>
-                            </div>
+									
+									tooltip.hide();
 
-                            <div id="results">
-                                <div id="results_head">
-                                    <ul class="list_inline">
-                                        <li style="width: 100px;"> Boats Left </li>
-                                        <li style="width: 40px;"> P1 <div class="color_red right"> </div> </li>
-                                        <li style="width: 40px;"> P2 <div class="color_purple right"> </div> </li>
-                                        <div class="clear"> </div>
-                                    </ul>
+									
+									slider.slider({
+										
+										range: "min",
+										min: 1,
+										value: 35,
 
-                                    <div class="clear"> </div>
-                                </div>
+										start: function(event,ui) {
+											tooltip.fadeIn('fast');
+										},
 
-                                <div id="results_list">
+										
+										slide: function(event, ui) { 
 
-                                    <ul class="list_inline">
-                                        <li style = "width: 100px;"> Aircraft Carrier  </li>
-                                        <li id = "p1AirCarry" style="width: 40px;"> 1 </li>
-                                        <li id = "p2AirCarry" style="width: 40px;"> 1 </li>
-                                    </ul>
+											var value  = slider.slider('value'),
+												volume = $('.volume');
 
-                                    <ul class="list_inline">
-                                        <li style = "width: 100px;"> Battleship </li>
-                                        <li id = "p1BattleShip"  style="width: 40px;"> 2 </li>
-                                        <li id = "p2BattleShip" style="width: 40px;"> 2 </li>
-                                    </ul>
+											tooltip.css('left', value).text(ui.value);  
 
-                                    <ul class="list_inline">
-                                        <li style = "width: 100px;"> Destroyer </li>
-                                        <li id = "p1Destroyer" style="width: 40px;"> 1 </li>
-                                        <li id = "p2Destroyer" style="width: 40px;"> 1 </li>
-                                    </ul>
+											
 
-                                    <ul class = "list_inline">
-                                        <li style = "width: 100px;"> Patrol Boat </li>
-                                        <li id = "p1Patrol" style="width: 40px;"> 2 </li>
-                                        <li id = "p2Patrol" style="width: 40px;"> 2 </li>
-                                    </ul>
+										},
 
+										stop: function(event,ui) {
+											tooltip.fadeOut('fast');
+										}
+									});
 
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="clear"> </div>
+								});
+							</script>
+						</div>
+					</div>
+					
+					<div id="results">
+						
+                        
+                        
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0" class="results-list">
+  <tr>
+    <td width="48%">SPACESHIPS LEFT</td>
+    <td width="26%" class="t-center">PLAYER 1 <br>
+      <img src="static/images/layer1-ship1.png"></td>
+    <td width="26%" class="t-center">PLAYER 2 <br>
+      <img src="static/images/layer2-ship2.png"></td>
+  </tr>
+  <tr>
+    <td>Alien Mother Ship<br><img src="static/images/layer1-ship.png"><img src="static/images/layer1-ship.png"><img src="static/images/layer1-ship.png"><img src="static/images/layer1-ship.png"><img src="static/images/layer1-ship.png"></td>
+    <td id="p1motherShip" class="b-left">1</td>
+    <td id="p2motherShip" class="b-left">1</td>
+  </tr>
+  <tr>
+    <td>Alien Carrier Ship<br> <img src="static/images/layer1-ship.png"><img src="static/images/layer1-ship.png"><img src="static/images/layer1-ship.png"><img src="static/images/layer1-ship.png"></td>
+    <td id="p1carrier" class="b-left">2</td>
+    <td id="p2carrier" class="b-left">2</td>
+  </tr>
+  <tr>
+    <td>Alien Destroyer<br><img src="static/images/layer1-ship.png"><img src="static/images/layer1-ship.png"><img src="static/images/layer1-ship.png"></td>
+    <td id="p1destroyer" class="b-left">2</td>
+    <td id="p2destroyer" class="b-left">2</td>
+  </tr>
+  <tr>
+    <td>Alien Fighter Ship<br><img src="static/images/layer1-ship.png"><img src="static/images/layer1-ship.png"></td>
+    <td id="p1fighter" class="b-left">2</td>
+    <td id="p2fighter" class="b-left">2</td>
+  </tr>
+</table>
+                        
+                        
+						
+					</div>
+				</div>
+			</div>
             </div>
+		</div>
+		
+		<div class="clear"> </div>
+	</div>
 
-            <div id="footer">
+	<div id="footer">
+		
 
+	</div>
+</div>
 
-            </div>
-        </div>
+<script>
+jQuery(document).ready(function() {
+    jQuery('.toggle-nav').click(function(e) {
+        jQuery(this).toggleClass('active');
+        jQuery('.menu ul').toggleClass('active');
+ 
+        e.preventDefault();
+    });
+});
+</script>
 
-    </body>
+</body>
 </html>
