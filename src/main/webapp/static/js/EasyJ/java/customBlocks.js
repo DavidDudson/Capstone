@@ -1,44 +1,50 @@
-Blockly.Java['check_state_of_cell'] = function (block) {
+Blockly.Java['check_state_of_coordinate'] = function (block) {
     var dropdown_state = block.getFieldValue('state');
-    var value_cell = Blockly.Java.valueToCode(block, 'Coordinate', Blockly.Java.ORDER_ATOMIC);
+    var value_coordinate = Blockly.Java.valueToCode(block, 'Coordinate', Blockly.Java.ORDER_ATOMIC);
     // TODO: Assemble Java into code variable.
-    var code = 'botGameBoard.getStateOfCell(' + value_cell + ', "' + dropdown_state + '")';
+    var code = 'botGameBoard.getStateOfCoordinate(' + value_coordinate + ', "' + dropdown_state + '")';
     // TODO: Change ORDER_NONE to the correct strength.
     return [code, Blockly.Java.ORDER_NONE];
 };
 
-Blockly.Java['get_cell_at_pos'] = function (block) {
+Blockly.Java['get_coordinate_at_pos'] = function (block) {
     var dropdown_position = block.getFieldValue('POSITION');
     var value_input = Blockly.Java.valueToCode(block, 'INPUT', Blockly.Java.ORDER_ATOMIC);
-    var code = 'botGameBoard.getCellAtPosition(' + value_input + ', "' + dropdown_position + '")';
+    var code = 'botGameBoard.getCoordinateAtPosition(' + value_input + ', "' + dropdown_position + '")';
     // TODO: Change ORDER_NONE to the correct strength.
     return [code, Blockly.Java.ORDER_NONE];
 };
 
-Blockly.Java['if_cell_hit_aim_direction'] = function (block) {
-    var value_cell = Blockly.Java.valueToCode(block, 'Coordinate', Blockly.Java.ORDER_ATOMIC);
+Blockly.Java['if_coordinate_hit_aim_direction'] = function (block) {
+    var value_coordinate = Blockly.Java.valueToCode(block, 'Coordinate', Blockly.Java.ORDER_ATOMIC);
     var dropdown_direction = block.getFieldValue('direction');
     // TODO: Assemble Java into code variable.
-    var code = 'botGameBoard.ifCellHitAimDirection(' + value_cell + ', "' + dropdown_direction + '")';
+    var code = 'botGameBoard.ifCoordinateHitAimDirection(' + value_coordinate + ', "' + dropdown_direction + '")';
     return code;
 };
 
-Blockly.Java['can_attack_cell'] = function (block) {
-    var value_cell = Blockly.Java.valueToCode(block, 'Coordinate', Blockly.Java.ORDER_ATOMIC);
-    var code = 'botGameBoard.canAttackCell(' + value_cell + ')';
+Blockly.Java['can_attack_coordinate'] = function (block) {
+    var value_coordinate = Blockly.Java.valueToCode(block, 'Coordinate', Blockly.Java.ORDER_ATOMIC);
+    var code = 'botGameBoard.canAttackCoordinate(' + value_coordinate + ')';
     // TODO: Change ORDER_NONE to the correct strength.
     return [code, Blockly.Java.ORDER_NONE];
 };
 
-Blockly.Java['get_next_valid_cell'] = function (block) {
-    var code = 'botGameBoard.getNextValidMove()';
+Blockly.Java['get_first_valid_coordinate'] = function (block) {
+    var code = 'botGameBoard.getFirstValidMove()';
     // TODO: Change ORDER_NONE to the correct strength.
     return [code, Blockly.Java.ORDER_NONE];
 };
 
-Blockly.Java['get_neighbour_valid_cells'] = function (block) {
-    var value_cell = Blockly.Java.valueToCode(block, 'Coordinate', Blockly.Java.ORDER_ATOMIC);
-    var code = 'botGameBoard.getNeighbourValidCells(' + value_cell + ")";
+Blockly.Java['get_last_valid_coordinate'] = function (block) {
+    var code = 'botGameBoard.getLastValidMove()';
+    // TODO: Change ORDER_NONE to the correct strength.
+    return [code, Blockly.Java.ORDER_NONE];
+};
+
+Blockly.Java['get_neighbour_valid_coordinates'] = function (block) {
+    var value_coordinate = Blockly.Java.valueToCode(block, 'Coordinate', Blockly.Java.ORDER_ATOMIC);
+    var code = 'botGameBoard.getNeighbourValidCoordinates(' + value_coordinate + ")";
     // TODO: Change ORDER_NONE to the correct strength.
     return [code, Blockly.Java.ORDER_NONE];
 };

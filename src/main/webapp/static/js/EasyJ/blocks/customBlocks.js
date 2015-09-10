@@ -1,10 +1,10 @@
-Blockly.Blocks['check_state_of_cell'] = {
+Blockly.Blocks['check_state_of_coordinate'] = {
   init: function() {
     this.appendDummyInput()
         .appendField(new Blockly.FieldDropdown([["is Water", "water"], ["is Ship", "ship"]]), "state");
     this.appendValueInput("Coordinate")
-        .setCheck(["Coordinate", "String"])
-        .appendField("at cell");
+        .setCheck("Coordinate")
+        .appendField("at coordinate");
     this.setInputsInline(true);
     this.setOutput(true, "Boolean");
     this.setColour(230);
@@ -13,7 +13,7 @@ Blockly.Blocks['check_state_of_cell'] = {
   }
 };
 
-Blockly.Blocks['get_cell_at_pos'] = {
+Blockly.Blocks['get_coordinate_at_pos'] = {
   init: function() {
     this.appendDummyInput()
         .appendField(new Blockly.FieldDropdown([["get Left", "left"], ["get Right", "right"], ["get Up", "up"], ["get Down", "down"]]), "POSITION");
@@ -23,17 +23,17 @@ Blockly.Blocks['get_cell_at_pos'] = {
     this.setInputsInline(true);
     this.setOutput(true, "Coordinate");
     this.setColour(230);
-    this.setTooltip('get the cell neighbouring the given position');
+    this.setTooltip('get the coordinate neighbouring the given position');
     this.setHelpUrl('http://www.example.com/');
   }
 };
 
 // TODO: The type of block is incorrect
-Blockly.Blocks['if_cell_hit_aim_direction'] = {
+Blockly.Blocks['if_coordinate_hit_aim_direction'] = {
   init: function() {
     this.appendValueInput("Coordinate")
-        .setCheck(["String", "Coordinate"])
-        .appendField("if cell");
+        .setCheck("Coordinate")
+        .appendField("if coordinate");
     this.appendDummyInput()
         .appendField("is hit, try")
         .appendField(new Blockly.FieldDropdown([["up", "up"], ["down", "down"], ["left", "left"], ["right", "right"]]), "direction");
@@ -41,44 +41,55 @@ Blockly.Blocks['if_cell_hit_aim_direction'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
-    this.setTooltip('if the given cell is hit, go to the given direction');
+    this.setTooltip('if the given coordinate is hit, go to the given direction');
     this.setHelpUrl('http://www.example.com/');
   }
 };
 
-Blockly.Blocks['can_attack_cell'] = {
+Blockly.Blocks['can_attack_coordinate'] = {
   init: function() {
     this.appendValueInput("Coordinate")
-        .setCheck(["String", "Coordinate"])
+        .setCheck("Coordinate")
         .appendField("can");
     this.appendDummyInput()
         .appendField("be attacked");
     this.setOutput(true, "Boolean");
     this.setColour(230);
-    this.setTooltip('can the given cell be hit, or has already been hit');
+    this.setTooltip('can the given coordinate be hit, or has already been hit');
     this.setHelpUrl('http://www.example.com/');
   }
 };
 
-Blockly.Blocks['get_next_valid_cell'] = {
+Blockly.Blocks['get_first_valid_coordinate'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("the next valid move");
-    this.setOutput(true, ["String", "Coordinate"]);
+        .appendField("the first valid move");
+    this.setOutput(true, "Coordinate");
 	this.setColour(230);
-    this.setTooltip('returns the next valid cell');
+    this.setTooltip('returns the first valid coordinate');
     this.setHelpUrl('http://www.example.com/');
   }
 };
 
-Blockly.Blocks['get_neighbour_valid_cells'] = {
+Blockly.Blocks['get_last_valid_coordinate'] = {
+    init: function() {
+        this.appendDummyInput()
+            .appendField("the last valid move");
+        this.setOutput(true, "Coordinate");
+        this.setColour(230);
+        this.setTooltip('returns the last valid coordinate');
+        this.setHelpUrl('http://www.example.com/');
+    }
+};
+
+Blockly.Blocks['get_neighbour_valid_coordinates'] = {
   init: function() {
     this.appendValueInput("Coordinate")
-        .setCheck(["String", "Coordinate"])
+        .setCheck("Coordinate")
         .appendField("the valid neighbors of");
     this.setOutput(true, "Array");
     this.setColour(230);
-    this.setTooltip('the neighbouring cells of the given position that can be hit');
+    this.setTooltip('the neighbouring coordinates of the given position that can be hit');
     this.setHelpUrl('http://www.example.com/');
   }
 };
