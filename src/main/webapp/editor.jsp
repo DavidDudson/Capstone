@@ -247,6 +247,8 @@
                     .fail(function (error) {
                         commons.debug("game execution error");
                     });
+            document.getElementById("response").value=JSON.stringify(game);
+            alert(game);
         }
     </script>
     <style>

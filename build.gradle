@@ -79,6 +79,7 @@ war {
     baseName = 'starbattle'
     version = 0.1
     destinationDir = file('./target')
+    rootSpec.exclude("asm-3.1.jar")
 }
 
 buildDir = './build/'
