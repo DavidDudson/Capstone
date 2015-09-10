@@ -5,18 +5,18 @@ import nz.daved.starbattle.game.BotGameBoard;
 import nz.daved.starbattle.game.Coordinate;
 
 /**
- * Created by aidan on 24/08/2015.
+ * Created by David J. Dudson on 4/08/15.
+ * <p>
+ * Bot that picks the Last Square
  */
-public class FirstSquareBot  extends StarBattleBot {
+public class LastSquareBot extends StarBattleBot {
 
-
-    public FirstSquareBot(String id) {
+    public LastSquareBot(String id) {
         super(id);
     }
 
     @Override
     public Coordinate nextMove(BotGameBoard botGameBoard) {
-        return botGameBoard.getFirstValidCoordinate();
+        return botGameBoard.getLastValidCoordinate();
     }
 }
-

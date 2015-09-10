@@ -21,6 +21,7 @@ public abstract class StarBattleBot implements Bot<BotGameBoard, Coordinate> {
     public StarBattleBot(String botId) {
         super();
         this.uid = botId;
+
     }
 
     /**

@@ -22,6 +22,7 @@ public class StarBattleSerializer implements Serializer {
         StarBattleGame game = (StarBattleGame) _game;
         List<StarBattleGameMove> history = game.getHistory();
         Gson gson = new GsonBuilder().create();
+        history.forEach(move -> System.out.println("Move" + move.toString()));
         history.stream().forEach(move -> gson.toJson(move, out));
         if (game.getError() != null) {
             Throwable error = game.getError();

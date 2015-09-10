@@ -16,6 +16,7 @@ allprojects {
     repositories {
         // Main repository for gathering plugins
         jcenter()
+        mavenCentral()
     }
 }
 
@@ -44,22 +45,24 @@ repositories {
 dependencies {
 
     //SoGaCo Dependencies
-    compile 'org.apache.logging.log4j:log4j-core:2.3'
-    compile 'javax.persistence:persistence-api:1.0.2'
-    compile 'org.apache.shiro:shiro-all:1.2.4'
+    compile 'org.apache.logging.log4j:log4j-core:2.2'
+    compile 'org.eclipse.persistence:javax.persistence:2.1.0'
+    compile 'org.apache.shiro:shiro-all:1.2.3'
     compile 'commons-configuration:commons-configuration:1.10'
-    compile 'org.eclipse.persistence:eclipselink:2.6.1-RC1'
+    compile 'org.eclipse.persistence:eclipselink:2.6.0'
     compile 'javax.ws.rs:javax.ws.rs-api:2.0.1'
     compile 'org.apache.derby:derby:10.11.1.1'
-    compile 'org.glassfish.jersey.core:jersey-client:2.20'
-    compile 'org.json:json:20141113'
+    compile 'org.glassfish.jersey.core:jersey-client:2.18'
+    compile 'org.json:json:20140107'
     compile 'com.googlecode.json-simple:json-simple:1.1.1'
-    compile 'org.apache.httpcomponents:httpclient:4.5'
+    compile 'org.apache.httpcomponents:httpclient:4.4.1'
+    compile 'joda-time:joda-time:2.7'
+    compile 'javax.servlet.jsp.jstl:javax.servlet.jsp.jstl-api:1.2.1'
 
-    compile 'joda-time:joda-time:2.8.1'
+
+
 
     compile name: 'services-0.0.3-SNAPSHOT'
-
     //Make this project depends on the game
     compile project(':games.battleships')
 
@@ -72,10 +75,6 @@ dependencies {
 //Configure Server plugin
 gretty {
     servletContainer = 'tomcat8'
-    //AutoReload of everything
-    managedClassReload = true
-    fastReload = true
-    scanInterval = 0.5
 
 }
 
@@ -103,7 +102,7 @@ cloneSogaco.onlyIf { !file('./sogacoSrc/bruyere/').exists() }
 
 //Build SoGaCo from source
 task buildSogaco(type: Exec, dependsOn: 'cloneSogaco') {
-    commandLine 'mvn clean install'.split()
+    commandLine 'mvn clean install -fn'.split()
     workingDir = './sogacoSrc/bruyere/build/'
 }
 
@@ -134,9 +133,38 @@ task buildAll(type: GradleBuild, dependsOn: ['cleanTargetDir', 'cleanBuildDir'])
     tasks = ['build']
 }
 
+task copyServices(type:Copy,dependsOn: 'buildServices'){
+    from './sogacoSrc/bruyere/build/target/projects'
+    into './libs'
+    include 'services-0.0.3-SNAPSHOT.jar'
+}
+
+task buildDebug(type: GradleBuild, dependsOn: 'copyServices') {
+    tasks = ['build']
+}
+
 task runDevServer(type: GradleBuild, dependsOn: ['buildAll']) {
     tasks = ['jettyRun']
 }
+
+//Build SoGaCo from source
+task buildServices(type: Exec, dependsOn: 'cloneSogaco') {
+    commandLine 'mvn clean install'.split()
+    workingDir = './sogacoSrc/bruyere/services/'
+}
+
+task runDebugServer(type: GradleBuild, dependsOn:'buildDebug'){
+    tasks = ['jettyRun']
+}
+
+task buildAndDeploy(type: Exec,dependsOn:'buildDebug'){
+    commandLine 'heroku deploy:war --war target/starbattle-0.1.war --app battleships-capstone'.split()
+}
+
+task buildAndDeployDebug(type: Exec,dependsOn:'buildAll'){
+    commandLine 'heroku deploy:war --war target/starbattle-0.1.war --app battleships-capstone'.split()
+}
+
 
 task stage {
     dependsOn buildAll

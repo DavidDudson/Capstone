@@ -3,7 +3,9 @@ package nz.daved.starbattle.game;
 import com.google.common.primitives.Ints;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by David J. Dudson on 4/08/15.
@@ -55,7 +57,6 @@ public class BotGameBoard extends GameBoard {
         if (wasShip) {
             Ship ship = getShipAtCoordinate(coord);
             ship.reduceHealth();
-            System.out.println(ship);
             if (!ship.isAlive()) {
                 killShip(ship);
                 return ship.getCoordinates();
@@ -64,23 +65,24 @@ public class BotGameBoard extends GameBoard {
         return new ArrayList<>();
     }
 
-    /**
-     * Returns the next valid coordinate
-     * This basically scans for the first 0 in the array
-     *
-     * @return The next valid coordinate
-     */
-    public Coordinate getNextValidCoordinate() {
+    public Coordinate getFirstValidCoordinate() {
+        return getAllValidCoordinates().get(0);
+    }
+
+    public Coordinate getLastValidCoordinate() {
+        List<Coordinate> arr = getAllValidCoordinates();
+        return arr.get(arr.size() - 1);
+    }
+
+    public List<Coordinate> getAllValidCoordinates() {
+        List<Coordinate> coords = new ArrayList<>();
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
                 if (grid[i][j] == 0) {
-                    return new Coordinate(i, j);
+                    coords.add(new Coordinate(i, j));
                 }
             }
         }
-        //Effectively crash the bot, this should never be called
-        throw new IndexOutOfBoundsException("Game didnt terminate properly, bot attempted to got out of bounds");
+        return coords;
     }
-
-
 }
