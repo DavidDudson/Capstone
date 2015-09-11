@@ -31,13 +31,13 @@ Blockly.Java['can_attack_coordinate'] = function (block) {
 };
 
 Blockly.Java['get_first_valid_coordinate'] = function (block) {
-    var code = 'botGameBoard.getFirstValidMove()';
+    var code = 'botGameBoard.getFirstValidCoordinate()';
     // TODO: Change ORDER_NONE to the correct strength.
     return [code, Blockly.Java.ORDER_NONE];
 };
 
 Blockly.Java['get_last_valid_coordinate'] = function (block) {
-    var code = 'botGameBoard.getLastValidMove()';
+    var code = 'botGameBoard.getLastValidCoordinate()';
     // TODO: Change ORDER_NONE to the correct strength.
     return [code, Blockly.Java.ORDER_NONE];
 };
@@ -54,7 +54,7 @@ Blockly.Java['variable_define'] = function (block) {
     var dropdown_type = block.getFieldValue('TYPE');
     var dropdown_options = {
         INT: ['int ', '0'],
-        LIST: ['List ', 'new ArrayList<Object>'],
+        LIST: ['List ', 'new LinkedList<Object>'],
         COORD: ['String ', '"A1"'],
         BOOL: ['boolean ', 'true']
     };
@@ -79,7 +79,7 @@ Blockly.Java['get_gamestate'] = function (block) {
 };
 
 Blockly.Java['get_all_valid_moves'] = function(block) {
-    var code = 'botGameBoard.getAllValidMoves()';
+    var code = 'botGameBoard.getAllValidCoordinates()';
     // TODO: Change ORDER_NONE to the correct strength.
     return [code, Blockly.Java.ORDER_NONE];
 };

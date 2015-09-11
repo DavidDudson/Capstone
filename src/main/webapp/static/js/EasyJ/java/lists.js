@@ -31,8 +31,7 @@ goog.require('Blockly.Java');
 
 Blockly.Java['lists_create_empty'] = function (block) {
     // Create an empty list.
-    Blockly.Java.addImport("java.util.List");
-    Blockly.Java.addImport("java.util.ArrayList");
+    Blockly.Java.addImport("java.util.LinkedList");
     return ['new ArrayList<Object>()', Blockly.Java.ORDER_ATOMIC];
 };
 

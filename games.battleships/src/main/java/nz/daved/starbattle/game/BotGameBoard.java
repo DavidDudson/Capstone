@@ -85,4 +85,8 @@ public class BotGameBoard extends GameBoard {
         }
         return coords;
     }
+
+    public List<Coordinate> getNeighbourValidCoordinates(Coordinate coordinate){
+        
+    }
 }
