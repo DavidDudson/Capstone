@@ -87,6 +87,25 @@ public class BotGameBoard extends GameBoard {
     }
 
     public List<Coordinate> getNeighbourValidCoordinates(Coordinate coordinate){
-        
+        List<Coordinate> coords = new ArrayList<>();
+        int x = coordinate.getX();
+        int y = coordinate.getY();
+        for (int i = -1; i < 2; i = i + 2) {
+            if (0 <= i && i < grid.length) {
+                if (grid[x][y+i] == 0) {
+                    coords.add(new Coordinate(x, y+i));
+                }
+                if (grid[x+i][y] == 0) {
+                    coords.add(new Coordinate(x + i, y));
+                }
+            }
+        }
+        return coords;
     }
+
+    public Boolean canAttackCoordinate(Coordinate coordinate) {
+        return getAllValidCoordinates().contains(coordinate);
+    }
+
+
 }
