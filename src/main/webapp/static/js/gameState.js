@@ -55,7 +55,6 @@ function retHitOrMiss(gameArrIndex) {
 }
 function alterBoatLiveGUI(sunkBoat, player, opp) {
     var playerBoat;
-    alert(sunkBoat);
     switch (sunkBoat) {
         case 5:
             playerBoat = document.getElementById(player + "motherShip");

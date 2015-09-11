@@ -36,7 +36,7 @@ public class StarBattleGameSchematic {
      * Default settings for Mison Bradley Battleships game
      */
     public StarBattleGameSchematic() {
-        Collections.addAll(ships, 1, 2, 3, 3, 4, 5);
+        Collections.addAll(ships, 2,2,3,3,4,4,5);
         this.width  = 10;
         this.height = 10;
         this.seed   = 1L;
