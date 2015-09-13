@@ -22,9 +22,8 @@
 
     <script lang="JavaScript">
 
-        var json = '{"moves":[{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":0,"y":0},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":9,"y":9},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":0,"y":1},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":9,"y":8},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":0,"y":2},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":9,"y":7},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":0,"y":3},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":9,"y":6},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":0,"y":4},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":9,"y":5},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":0,"y":5},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":9,"y":4},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":0,"y":6},"wasShip":true},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":0,"y":7},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":9,"y":3},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":0,"y":8},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":9,"y":2},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":0,"y":9},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":9,"y":1},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":1,"y":0},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":9,"y":0},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":1,"y":1},"wasShip":true},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":1,"y":2},"wasShip":true},{"sunk":[{"x":1,"y":1},{"x":1,"y":2},{"x":1,"y":3}],"botId":"1","wasPlayer1":true,"coord":{"x":1,"y":3},"wasShip":true},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":1,"y":4},"wasShip":true},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":1,"y":5},"wasShip":true},{"sunk":[{"x":1,"y":6},{"x":0,"y":6}],"botId":"1","wasPlayer1":true,"coord":{"x":1,"y":6},"wasShip":true},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":1,"y":7},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":8,"y":9},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":1,"y":8},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":8,"y":8},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":1,"y":9},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":8,"y":7},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":2,"y":0},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":8,"y":6},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":2,"y":1},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":8,"y":5},"wasShip":true},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":8,"y":4},"wasShip":true},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":8,"y":3},"wasShip":true},{"sunk":[{"x":8,"y":2},{"x":8,"y":3},{"x":8,"y":4},{"x":8,"y":5}],"botId":"2","wasPlayer1":false,"coord":{"x":8,"y":2},"wasShip":true},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":8,"y":1},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":2,"y":2},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":8,"y":0},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":2,"y":3},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":7,"y":9},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":2,"y":4},"wasShip":true},{"sunk":[{"x":2,"y":5},{"x":1,"y":5}],"botId":"1","wasPlayer1":true,"coord":{"x":2,"y":5},"wasShip":true},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":2,"y":6},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":7,"y":8},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":2,"y":7},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":7,"y":7},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":2,"y":8},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":7,"y":6},"wasShip":true},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":7,"y":5},"wasShip":true},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":7,"y":4},"wasShip":true},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":7,"y":3},"wasShip":true},{"sunk":[{"x":7,"y":2},{"x":7,"y":3},{"x":7,"y":4},{"x":7,"y":5},{"x":7,"y":6}],"botId":"2","wasPlayer1":false,"coord":{"x":7,"y":2},"wasShip":true},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":7,"y":1},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":2,"y":9},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":7,"y":0},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":3,"y":0},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":6,"y":9},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":3,"y":1},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":6,"y":8},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":3,"y":2},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":6,"y":7},"wasShip":true},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":6,"y":6},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":3,"y":3},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":6,"y":5},"wasShip":false},{"sunk":[{"x":3,"y":4},{"x":2,"y":4},{"x":1,"y":4}],"botId":"1","wasPlayer1":true,"coord":{"x":3,"y":4},"wasShip":true},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":3,"y":5},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":6,"y":4},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":3,"y":6},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":6,"y":3},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":3,"y":7},"wasShip":true},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":3,"y":8},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":6,"y":2},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":3,"y":9},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":6,"y":1},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":4,"y":0},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":6,"y":0},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":4,"y":1},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":5,"y":9},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":4,"y":2},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":5,"y":8},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":4,"y":3},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":5,"y":7},"wasShip":true},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":5,"y":6},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":4,"y":4},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":5,"y":5},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":4,"y":5},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":5,"y":4},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":4,"y":6},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":5,"y":3},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":4,"y":7},"wasShip":true},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":4,"y":8},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":5,"y":2},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":4,"y":9},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":5,"y":1},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":5,"y":0},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":5,"y":0},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":5,"y":1},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":4,"y":9},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":5,"y":2},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":4,"y":8},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":5,"y":3},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":4,"y":7},"wasShip":true},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":4,"y":6},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":5,"y":4},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":4,"y":5},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":5,"y":5},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":4,"y":4},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":5,"y":6},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":4,"y":3},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":5,"y":7},"wasShip":true},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":5,"y":8},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":4,"y":2},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":5,"y":9},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":4,"y":1},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":6,"y":0},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":4,"y":0},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":6,"y":1},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":3,"y":9},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":6,"y":2},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":3,"y":8},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":6,"y":3},"wasShip":false},{"sunk":[{"x":6,"y":7},{"x":5,"y":7},{"x":4,"y":7},{"x":3,"y":7}],"botId":"2","wasPlayer1":false,"coord":{"x":3,"y":7},"wasShip":true},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":3,"y":6},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":6,"y":4},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":3,"y":5},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":6,"y":5},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":3,"y":4},"wasShip":true},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":3,"y":3},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":6,"y":6},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":3,"y":2},"wasShip":false},{"sunk":[{"x":6,"y":7},{"x":5,"y":7},{"x":4,"y":7},{"x":3,"y":7}],"botId":"1","wasPlayer1":true,"coord":{"x":6,"y":7},"wasShip":true},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":6,"y":8},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":3,"y":1},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":6,"y":9},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":3,"y":0},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":7,"y":0},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":2,"y":9},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":7,"y":1},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":2,"y":8},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":7,"y":2},"wasShip":true},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":7,"y":3},"wasShip":true},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":7,"y":4},"wasShip":true},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":7,"y":5},"wasShip":true},{"sunk":[{"x":7,"y":2},{"x":7,"y":3},{"x":7,"y":4},{"x":7,"y":5},{"x":7,"y":6}],"botId":"1","wasPlayer1":true,"coord":{"x":7,"y":6},"wasShip":true},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":7,"y":7},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":2,"y":7},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":7,"y":8},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":2,"y":6},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":7,"y":9},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":2,"y":5},"wasShip":true},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":2,"y":4},"wasShip":true},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":2,"y":3},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":8,"y":0},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":2,"y":2},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":8,"y":1},"wasShip":false},{"sunk":[],"botId":"2","wasPlayer1":false,"coord":{"x":2,"y":1},"wasShip":false},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":8,"y":2},"wasShip":true},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":8,"y":3},"wasShip":true},{"sunk":[],"botId":"1","wasPlayer1":true,"coord":{"x":8,"y":4},"wasShip":true},{"sunk":[{"x":8,"y":2},{"x":8,"y":3},{"x":8,"y":4},{"x":8,"y":5}],"botId":"1","wasPlayer1":true,"coord":{"x":8,"y":5},"wasShip":true},{"sunk":[{"x":8,"y":2},{"x":8,"y":3},{"x":8,"y":4},{"x":8,"y":5}],"botId":"1","wasPlayer1":true,"coord":{"x":8,"y":5},"wasShip":true}]}';
-        var jsonMoves = JSON.parse(json);
-
+        var json;
+        jsonMoves = {};
 
         var currentMoveIndex = 0;
         var bot2MoveCount = 0;
@@ -34,6 +33,40 @@
         var gameSpeed = 500;
         var playGame = false;
         var myGame;
+
+
+        var commons = {
+                    DEBUG : true,
+                    handleError : function(textStatus, error) {
+                        var err = textStatus + ", " + error;
+                        console.log("ERROR: " + err);
+                    },
+                    warn : function(message) {
+                        console.log("WARN: " + message);
+                    },
+                    debug : function(message) {
+                        if (this.DEBUG) {
+                            console.log("DEBUG: " + message);
+                        }
+                    },
+                    notifyUser : function(title,message) {
+                        $("#errordialog-content").html(message);
+                        $("#errordialog").dialog({title: title,text: message,modal: true,width:350,height:300});
+                    },
+                    formatServerError : function(error,maxStackTraceSize) {
+                        var botEncounteringError = (error.winner==1)?2:1;
+                        var errorInfo = "<b>A server error occured during execution of bot " + botEncounteringError + "</b><br/>" +
+                                "error type: " + error.type +"<br/>";
+                        if (error.message) errorInfo = errorInfo + "message: " + error.message +"<br/>";
+                        errorInfo = errorInfo+"</hr>" + "stacktrace:<br/>";
+                        var stackTraceSize = Math.min(error.stacktrace.length, maxStackTraceSize);
+                        for (var i=0;i<stackTraceSize;i++) {
+                            errorInfo = errorInfo + error.stacktrace[i] + "<br/>";
+                        }
+                        return errorInfo;
+                    }
+                };
+
         function nextMove() {
 
             if (currentMoveIndex < jsonMoves.moves.length) {
@@ -47,9 +80,7 @@
                         var sunkElements = currentMove.sunk.length;
                         if (sunkElements > 1) {
                             alterBoatLiveGUI(sunkElements, "p1");
-
                         }
-
                     } else {
                         document.getElementById(posA).innerHTML += "<img src='static/images/miss.png'/>";
 
@@ -65,26 +96,17 @@
 
                         if (sunkElements > 1) {
                             alterBoatLiveGUI(sunkElements, "p2", "dec");
-
                         }
-
                     } else {
                         document.getElementById(posB).innerHTML += "<img src='static/images/miss.png'/>";
 
                     }
-
-
-
-
-
                 }
                 currentMoveIndex++;
             }else{
                 gameEnded = true;
                 
             }
-
-
         }
         function prevMove() {
             if (currentMoveIndex > 0) {
@@ -107,12 +129,6 @@
                         alterBoatLiveGUI(sunkElements, "p2", "inc");
 
                     }
-
-
-
-
-
-
                 }
 
             }else{
@@ -150,34 +166,18 @@
             var jqxhr = $.ajax({
                 url: url,
                 type: "POST",
-                data: data
-            }).done(function (src) {
-                // get results
-                var url2 = jqxhr.getResponseHeader("Location");
-                commons.debug("done creating game, results will be available at " + url2);
+                data: data,
+                dataType: "json",
+                success : function () {
+                    $.getJSON(jqxhr.getResponseHeader("Location"), function(data){
+                        jsonMoves = data;
 
-                _fetchGame(url2);
-            }).fail(function (jqXHR, textStatus, error) {
-                var errorLoc = jqXHR.getResponseHeader("Location-Error");
-                commons.handleError(textStatus, "cannot post game");
-                commons.notifyUser("Server Error", jqXHR.responseText);
-                console.log(jqXHR);
-                console.log(errorLoc);
-                console.log(error);
-            });
-        }
-        function _fetchGame(url) {
-            var game = $.getJSON(url)
-                    .done(function (data) {
-                        $("#gameloadingdialog").dialog("close");
-                        $("#errordialog-content").html(data);
+
+
                     })
-                    .fail(function (error) {
-                        commons.debug("game execution error");
-                    });
-            document.getElementById("response").value = JSON.stringify(game);
-            alert(game);
-        }
+                }
+            });
+        };
 
     </script>
 
@@ -358,7 +358,7 @@
                                     <div id="set_one">
                                         <ul class="list_inline">
                                             <li> <a class="fast_prev" onClick="startGame()"> </a> </li> 
-                                            <li> <a class="prev" onClick="prevMove()"> </a> </li> 
+                                            <li> <a class="prev" onClick="makeBotGame()"> </a> </li>
                                             <li> <a class="pause" onClick="playPause()"> </a> </li> 
                                             <li> <a class="forward" onClick="nextMove()"> </a> </li> 
                                             <li> <a class="fast_forward" onClick="endGame()"> </a> </li> 
@@ -458,6 +458,5 @@
                 });
             });
         </script>
-
     </body>
 </html>

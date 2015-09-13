@@ -197,7 +197,7 @@
             },
             notifyUser : function(title,message) {
                 $("#errordialog-content").html(message);
-//                $("#errordialog").dialog({title: title,text: message,modal: true,width:350,height:300});
+                $("#errordialog").dialog({title: title,text: message,modal: true,width:350,height:300});
             },
             formatServerError : function(error,maxStackTraceSize) {
                 var botEncounteringError = (error.winner==1)?2:1;
