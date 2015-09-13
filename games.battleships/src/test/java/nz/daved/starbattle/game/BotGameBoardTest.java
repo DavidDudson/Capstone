@@ -68,4 +68,12 @@ public class BotGameBoardTest {
         bgb.fillGrid(1);
         assertTrue(bgb.getAllValidCoordinates().size() == 0);
     }
+
+    @Test
+    public void testIsValidMove() throws Exception {
+        BotGameBoard bgb = new ShipGameBoard().generateBotMap();
+        assertTrue(bgb.isValidMove(new Coordinate(0,0)));
+        bgb.fillGrid(1);
+        assertFalse(bgb.isValidMove(new Coordinate(0,0)));
+    }
 }

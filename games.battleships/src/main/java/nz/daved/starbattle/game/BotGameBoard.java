@@ -36,6 +36,10 @@ public class BotGameBoard extends GameBoard {
         return Ints.contains(possibleValues, val);
     }
 
+    public boolean isValidMove(Coordinate coord){
+        return getState(coord) == 0;
+    }
+
     /**
      * Changes the ships state to sunk
      *

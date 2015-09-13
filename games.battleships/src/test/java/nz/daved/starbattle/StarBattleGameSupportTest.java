@@ -11,12 +11,6 @@ import static org.junit.Assert.*;
 public class StarBattleGameSupportTest {
 
     @Test
-    public void testLoadBuiltInBots() throws Exception {
-        StarBattleGameSupport sbgs = new StarBattleGameSupport();
-        assertTrue(sbgs.loadBuiltInBots().size() == 2);
-    }
-
-    @Test
     public void testGetWhitelistedClasses() throws Exception {
         StarBattleGameSupport sbgs = new StarBattleGameSupport();
         assertTrue(sbgs.getWhitelistedClasses().contains(Coordinate.class));
