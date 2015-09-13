@@ -48,7 +48,7 @@ public class ShipGameBoardTest {
         Collections.addAll(ships, 2,2,3,3,4,4,5);
         ShipGameBoard sgb = new ShipGameBoard();
         assertTrue(sgb.getShips().size() == 7);
-        assertTrue(sgb.getCellState(new Coordinate(1,2)) == 0);
+        assertTrue(sgb.getState(new Coordinate(1,2)) == 0);
         Integer squareTotal = ships.stream().reduce(0, (a, b) -> a + b);
         Long gridTotal = Stream.of(sgb.getGrid()).flatMapToInt(IntStream::of).filter(x -> x == 1).count();
         assertTrue(gridTotal == squareTotal.longValue());

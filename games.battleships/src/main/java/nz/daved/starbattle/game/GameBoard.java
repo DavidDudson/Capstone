@@ -38,13 +38,6 @@ public abstract class GameBoard {
         fillGrid(0);
     }
 
-    /**
-     * Default Constructor, just calls main constructor with a default grid of 10*10 and the hasbro ships values
-     */
-    public GameBoard() {
-        this(new StarBattleGameSchematic());
-    }
-
     public GameBoard(StarBattleGameSchematic sbgc) {
         this(sbgc.getShips(), sbgc.getWidth(), sbgc.getHeight());
     }
@@ -76,7 +69,7 @@ public abstract class GameBoard {
      * @param coord The Coordinate to get
      * @return The Value
      */
-    public int getCellState(Coordinate coord) {
+    public int getState(Coordinate coord) {
         int state = -1;
         try {
             state = grid[coord.getX()][coord.getY()];
