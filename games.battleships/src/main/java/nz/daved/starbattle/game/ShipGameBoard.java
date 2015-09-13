@@ -149,15 +149,6 @@ public class ShipGameBoard extends GameBoard {
         return new BotGameBoard(this);
     }
 
-    /**
-     * The seed used to generate the ship positions
-     *
-     * @return The Random Seed
-     */
-    public long getSeed() {
-        return seed;
-    }
-
     public boolean isShip(Coordinate coord) {
         return grid[coord.getX()][coord.getY()] == 1;
     }

@@ -35,7 +35,7 @@ public abstract class GameBoard {
         this.grid = new int[_width][_height];
         this.remainingShips = _ships.size();
 
-        fillGrid();
+        fillGrid(0);
     }
 
     /**
@@ -109,8 +109,8 @@ public abstract class GameBoard {
     /**
      * Fills the grid with 0's
      */
-    protected void fillGrid() {
-        Arrays.stream(grid).forEach(x -> Arrays.fill(x, 0));
+    protected void fillGrid(int number) {
+        Arrays.stream(grid).forEach(x -> Arrays.fill(x, number));
     }
 
     protected void decrementRemainingShips() {
@@ -128,6 +128,8 @@ public abstract class GameBoard {
     }
 
     public List<Integer> getShipSizes() {
-        return shipSizes;
+        return shipSizes.stream()
+                .map(Integer::new)
+                .collect(Collectors.toList());
     }
 }

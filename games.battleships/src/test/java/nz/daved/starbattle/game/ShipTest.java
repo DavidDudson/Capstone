@@ -29,6 +29,19 @@ public class ShipTest {
     }
 
     @Test
+    public void testCopyConstructor() throws Exception {
+        Ship ship = new Ship(new Coordinate(1,2),5,0);
+        Ship copy = new Ship(ship);
+
+        assertTrue(ship.getCoordinates().equals(copy.getCoordinates()));
+        assertFalse(ship.getCoordinates() == copy.getCoordinates());
+        assertTrue(ship.getHealth() == copy.getHealth());
+        assertTrue(ship.getSize() == copy.getSize());
+
+    }
+
+
+    @Test
     public void testIsAlive() throws Exception {
         assertTrue(exampleShip2.getHealth() == 5);
         assertTrue(exampleShip2.isAlive());
