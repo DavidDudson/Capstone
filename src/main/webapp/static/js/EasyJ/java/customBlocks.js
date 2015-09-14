@@ -15,8 +15,7 @@ Blockly.Java['get_coordinate_at_pos'] = function (block) {
     return [code, Blockly.Java.ORDER_NONE];
 };
 
-Blockly.Java['if_coordinate_hit_aim_direction'] = function (block) {
-    var value_coordinate = Blockly.Java.valueToCode(block, 'Coordinate', Blockly.Java.ORDER_ATOMIC);
+Blockly.Java['if_last_move_hit_aim_direction'] = function (block) {
     var dropdown_direction = block.getFieldValue('direction');
     // TODO: Assemble Java into code variable.
     var code = 'botGameBoard.ifCoordinateHitAimDirection(' + value_coordinate + ', "' + dropdown_direction + '")';

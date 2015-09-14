@@ -31,13 +31,9 @@ Blockly.Blocks['get_coordinate_at_pos'] = {
 // TODO: The type of block is incorrect
 Blockly.Blocks['if_coordinate_hit_aim_direction'] = {
   init: function() {
-    this.appendValueInput("Coordinate")
-        .setCheck("Coordinate")
-        .appendField("if coordinate");
     this.appendDummyInput()
-        .appendField("is hit, try")
+        .appendField("if previous coordinate is hit, try")
         .appendField(new Blockly.FieldDropdown([["up", "up"], ["down", "down"], ["left", "left"], ["right", "right"]]), "direction");
-    this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.19.0.css">
+    <script src="../blockly_uncompressed.js"></script>
+    <script src="../java.js"></script>
+    <script src="../java/customBlocks.js"></script>
+    <title>Blockly Tests</title>
+</head>
+<body>
+<div id="qunit"></div>
+<div id="qunit-fixture"></div>
+<script src="http://code.jquery.com/qunit/qunit-1.19.0.js"></script>
+<script src="tests.js"></script>
+<script>
+        QUnit.test("Block Tests", function (assert) {
+            for (var i = 0; i < block_tests.length; i++) {
+                var test = block_tests[i];
+                var output = Blockly.Java[test.block]();
+                assert.equal(output[0], test.expected[0]);
+                assert.equal(output[1], test.expected[1]);
+            }
+        });
+</script>
+</body>
+</html>
