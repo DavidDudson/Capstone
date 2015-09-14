@@ -8,8 +8,7 @@
             session.getAttribute("userPicture"));
     nz.ac.massey.cs.ig.core.services.Services services = (nz.ac.massey.cs.ig.core.services.Services) application
             .getAttribute(nz.ac.massey.cs.ig.core.services.Services.NAME);
-    pageContext.setAttribute("gameName",
-            services.getGameSupport().getName());
+    pageContext.setAttribute("gameName", services.getGameSupport().getName());
 %>
 <!DOCTYPE html>
 
@@ -28,11 +27,8 @@
         <link rel="stylesheet" type="text/css" href="static/css/style.css">
         <link rel="stylesheet" type="text/css" href="static/css/grid.css">
         <script src="https://apis.google.com/js/api.js"></script>
-        <script src="static/js/ace.js" charset="utf-8"></script>
-
 
     </head>
-
     <script lang="JavaScript">
 
         var bot1;
@@ -242,7 +238,7 @@
 
                     <div id="nav_menu" class="left">
                         <div id="logo" class="left">
-                            <a href="index.html"> Battle Spaceship </a>
+                            <a href="index.jsp"> ${gameName} </a>
                         </div>
                         <nav class="menu">
                             <a class="toggle-nav" href="#">&#9776;</a>
@@ -492,10 +488,10 @@
         </div>
 
         <script>
-            jQuery(document).ready(function () {
-                jQuery('.toggle-nav').click(function (e) {
-                    jQuery(this).toggleClass('active');
-                    jQuery('.menu ul').toggleClass('active');
+            $(document).ready(function () {
+                $('.toggle-nav').click(function (e) {
+                    $(this).toggleClass('active');
+                    $('.menu ul').toggleClass('active');
 
                     e.preventDefault();
                 });

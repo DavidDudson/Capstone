@@ -229,47 +229,47 @@
     </script>
 </head>
 <body onload="start()">
-    <div class="container_12">
-        <div id="header">
-            <div id="nav_container">
+    <div id="header">
+        <div id="nav_container">
 
-                <div class="container_12" style="padding:0;">
+            <div class="container_12" style="padding:0;">
 
-                    <div id="nav_menu" class="left">
-                        <div id="logo" class="left">
-                            <a href="index.html"> Battle Spaceship </a>
-                        </div>
-                        <nav class="menu">
-                            <a class="toggle-nav" href="#">&#9776;</a>
-                            <ul class="list_inline active">
-                                <li> <a href="editor.jsp"> Editor </a></li>
-                                <li> <a href=""> Survey </a> </li>
-                                <li> <div class="menu-on"> <a href=""> My Bots </a> </div> </li>
-                            </ul>
-
-                        </nav>
+                <div id="nav_menu" class="left">
+                    <div id="logo" class="left">
+                        <a href="index.jsp"> ${gameName} </a>
                     </div>
-
-
-                    <div id="user" class="right">
-                        <ul class="list_inline">
-                            <li> <a d="profilePicture2" class="username" href="">${screenName}</a> </li>
-                            <li> <a class="logout" href="index.jsp"> Logout </a> </li>
-                            <c:if test="${profilePicture != null}">
-                                <li class="profilePictureContent" id="profilePicture3"><img
-                                        id="profilePictureURL" src="${profilePicture}"
-                                        class="img-responsive img-rounded center-block"
-                                        style="width: 40px; margin: 5px;" alt="Profile Picture"></li>
-                            </c:if>
+                    <nav class="menu">
+                        <a class="toggle-nav" href="#">&#9776;</a>
+                        <ul class="list_inline active">
+                            <li> <a href="test.jsp"> Test </a></li>
+                            <li> <a href=""> Survey </a> </li>
+                            <li> <div class="menu-on"> <a href=""> My Bots </a> </div> </li>
                         </ul>
-                    </div>
 
+                    </nav>
                 </div>
 
-                <div class="clear"> </div>
+
+                <div id="user" class="right">
+                    <ul class="list_inline">
+                        <li> <a d="profilePicture2" class="username" href="">${screenName}</a> </li>
+                        <li> <a class="logout" href="index.jsp"> Logout </a> </li>
+                        <c:if test="${profilePicture != null}">
+                            <li class="profilePictureContent" id="profilePicture3"><img
+                                    id="profilePictureURL" src="${profilePicture}"
+                                    class="img-responsive img-rounded center-block"
+                                    style="width: 40px; margin: 5px;" alt="Profile Picture"></li>
+                        </c:if>
+                    </ul>
+                </div>
 
             </div>
+
+            <div class="clear"> </div>
+
         </div>
+    </div>
+    <div class="container_12">
         <br/>
         <br/>
         <div>
