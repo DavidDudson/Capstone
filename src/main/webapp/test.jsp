@@ -230,21 +230,17 @@
             
             
         };
-        
 
     </script>
 
     <body onload="getBots()">
-
-
 
         <!--Header-->
         <div id="header">
             <div id="nav_container">
 
 
-                <div class="container_12" style="padding:0;"> 
-
+                <div class="container_12" style="padding:0;">
 
                     <div id="nav_menu" class="left">
                         <div id="logo" class="left">
@@ -253,11 +249,8 @@
                         <nav class="menu">
                             <a class="toggle-nav" href="#">&#9776;</a>
                             <ul class="list_inline active">
-                                <li> <a href="editor.jsp"> Editor </a> </li>
-                                <li> <a href=""> Help </a> </li>
-                                <li> <a href=""> Community </a> </li>
-                                <li> <a href=""> Survey </a> </li>	
-                                <li> <a href=""> About </a> </li>
+                                <li> <a href="editor.jsp"> Editor </a></li>
+                                <li> <a href=""> Survey </a> </li>
 
                                 <li> <div class="menu-on"> <a href=""> My Bots </a> </div> </li>
                                 <li> <div class="menu-on">  <a href=""> Built-in Bots </a> </div> </li>
@@ -272,29 +265,25 @@
                         <ul class="list_inline">
                             <li> <a d="profilePicture2" class="username" href="">${screenName}</a> </li>
                             <li> <a class="logout" href="index.jsp"> Logout </a> </li>
-                            <li> <img
-                                    id="profilePictureURL" src="${profilePicture}"
-                                    class="img-responsive img-rounded center-block"
-                                    alt="Profile Picture">
-                            </li>
+                            <c:if test="${profilePicture != null}">
+                                <li class="profilePictureContent" id="profilePicture3"><img
+                                        id="profilePictureURL" src="${profilePicture}"
+                                        class="img-responsive img-rounded center-block"
+                                        style="width: 40px; margin: 5px;" alt="Profile Picture"></li>
+                            </c:if>
                         </ul>
                     </div>
-
 
                 </div>
 
                 <div class="clear"> </div>
+
             </div>
         </div>
-
-
         <!--End Header-->
 
 
-
-        <div class="container_12"> 
-
-
+        <div class="container_12">
             <div id="content">
                 <div id="sidebar_left" class="sidebar left">
                     <div id="my_bots" class="sidebar_box">
