@@ -1,3 +1,15 @@
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%
+    pageContext.setAttribute("screenName",
+            session.getAttribute("userName"));
+    pageContext.setAttribute("profilePicture",
+            session.getAttribute("userPicture"));
+    nz.ac.massey.cs.ig.core.services.Services services = (nz.ac.massey.cs.ig.core.services.Services) application
+            .getAttribute(nz.ac.massey.cs.ig.core.services.Services.NAME);
+    String gameName = services.getGameSupport().getName();
+%>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -218,8 +230,13 @@
 
                     <div id="user" class="right">
                         <ul class="list_inline">
-                            <li> <a class="username" href=""> Houlihan, Aidan </a> </li>
-                            <li> <a class="logout" href=""> Logout </a> </li>
+                            <li> <a d="profilePicture2" class="username" href="">${screenName}</a> </li>
+                            <li> <a class="logout" href="index.jsp"> Logout </a> </li>
+                            <li> <img
+                                    id="profilePictureURL" src="${profilePicture}"
+                                    class="img-responsive img-rounded center-block"
+                                    alt="Profile Picture">
+                            </li>
                         </ul>
                     </div>
 

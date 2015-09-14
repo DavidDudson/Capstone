@@ -2,19 +2,20 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%
+    nz.ac.massey.cs.ig.core.services.Services services = (nz.ac.massey.cs.ig.core.services.Services) application
+            .getAttribute(nz.ac.massey.cs.ig.core.services.Services.NAME);
     pageContext.setAttribute("screenName",
             session.getAttribute("userName"));
     pageContext.setAttribute("profilePicture",
             session.getAttribute("userPicture"));
-    nz.ac.massey.cs.ig.core.services.Services services = (nz.ac.massey.cs.ig.core.services.Services) application
-            .getAttribute(nz.ac.massey.cs.ig.core.services.Services.NAME);
-    String gameName = services.getGameSupport().getName();
+    pageContext.setAttribute("gameName",
+            services.getGameSupport().getName());
 %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Blockly Playground</title>
+    <title>${gameName} Editor}</title>
     <script type="text/javascript" src="static/js/EasyJ/blockly_uncompressed.js"></script>
     <script type="text/javascript" src="static/js/EasyJ/java.js"></script>
     <script type="text/javascript" src="static/js/EasyJ/java/logic.js"></script>
@@ -282,7 +283,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a class="inactiveLink">${screenName}</a></li>
-        <li><a d="profilePicture2" href="login.jsp">Logout </a></li>
+        <li><a d="profilePicture2" href="index.jsp">Logout </a></li>
         <c:if test="${profilePicture != null}">
         <li>
             <img
@@ -453,11 +454,6 @@
         </value>
     </block>
 </xml>
-<button onclick="makeBotGame()">Demo a Game Request</button>
-<h2>Response:</h2>
-<p id="response">
-<p id="errordialog"></p>
-<p id="errordialog-content"></p>
 
 </body>
 </html>
