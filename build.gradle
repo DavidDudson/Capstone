@@ -141,7 +141,7 @@ task buildDebug(type: GradleBuild, dependsOn: 'copyServices') {
 }
 
 task runDevServer(type: GradleBuild, dependsOn: ['buildAll']) {
-    tasks = ['jettyRun']
+    tasks = ['jettyRunWar']
 }
 
 //Build SoGaCo from source
@@ -151,7 +151,7 @@ task buildServices(type: Exec, dependsOn: 'cloneSogaco') {
 }
 
 task runDebugServer(type: GradleBuild, dependsOn:'buildDebug'){
-    tasks = ['jettyRun']
+    tasks = ['jettyRunWar']
 }
 
 task buildAndDeploy(type: Exec,dependsOn:'buildDebug'){
