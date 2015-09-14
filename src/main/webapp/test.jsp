@@ -37,6 +37,7 @@
 
         var bot1;
         var bot2;
+        var currentSelectedBot;
 
         jsonMoves = {};
         jsonUserBots = {};
@@ -87,16 +88,13 @@
         function setBots(botID){
             if(bot1 === null){
                 bot1 = document.getElementById(botID).value;
-                
             } else if (bot2 === null){
                 bot2 = document.getElementByID(botID).value;
-                
-            }else{
-                
-                
+            }else{   
+                bot2 = bot1;
+                bot1 = document.getElementById(botID).value;
             }
-            
-            
+            alert(bot1 + " " + bot2 );
         }
         function nextMove() {
 
@@ -315,10 +313,10 @@
 
                             <div class="sidebar_content">
                                 <ul class="list_block">
-                                    <li id="firstSquareBot"class="bot" onclick="setBots('firstSquareBot')">First square bot</li>
-                                    <li id="lastSqareBot" class="bot" onclick="setBots('lastSquareBot')">Last square bot</li>
-                                    <li id="betterBot" class="bot" onclick="setBots('betterBot')">better bot</li>
-                                    <li id="dreadnought" class="bot" onclick="setBots('dreadnought')">Dreadnought</li>
+                                    <li id="firstSquareBot" value="FirstSquareBot" class="bot" onclick="setBots('firstSquareBot')">First square bot</li>
+                                    <li id="lastSquareBot" value="LastSquareBot" class="bot" onclick="setBots('lastSquareBot')">Last square bot</li>
+                                    <li id="betterBot" value="BetterBot" class="bot" onclick="setBots('betterBot')">better bot</li>
+                                    <li id="dreadnought" value="Dreadnought" class="bot" onclick="setBots('dreadnought')">Dreadnought</li>
                                 </ul>
                             </div>
 
