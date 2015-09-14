@@ -34,11 +34,14 @@
 
     <script lang="JavaScript">
 
-        var json;
+        var bot1;
+        var bot2;
+
         jsonMoves = {};
+        jsonUserBots = {};
+        jsonBuiltInBots = {};
 
         var currentMoveIndex = 0;
-        var bot2MoveCount = 0;
         var player1Move = true;
         var gameEnded = false;
         var gameStart = true;
@@ -47,6 +50,7 @@
         var myGame;
 
 
+        
         var commons = {
                     DEBUG : true,
                     handleError : function(textStatus, error) {
@@ -79,6 +83,20 @@
                     }
                 };
 
+        function setBots(botID){
+            if(bot1 === null){
+                bot1 = document.getElementById(botID).value;
+                
+            } else if (bot2 === null){
+                bot2 = document.getElementByID(botID).value;
+                
+            }else{
+                
+                
+            }
+            
+            
+        }
         function nextMove() {
 
             if (currentMoveIndex < jsonMoves.moves.length) {
@@ -160,6 +178,10 @@
             }
         }
         function playPause() {
+                    if(playGame && !gameStart){
+                        makeBotGame();
+                    }
+            
                     playGame = !playGame;
                     if (playGame) {
                         myGame = setInterval(function () {
@@ -186,14 +208,32 @@
 
 
 
-                    })
+                    });
                 }
             });
         };
+        
+        function getBots() {
+
+            var userBotsURL = "userbots/__current_user";
+            var buildBotsURL = "builtinbots";
+            
+            $.ajax({
+                url: userBotsURL,
+                type: "GET",
+                dataType: "json",
+                success : function (data) {
+                    jsonUserBots = data;
+                }
+            });
+            
+            
+        };
+        
 
     </script>
 
-    <body>
+    <body onload="getBots()">
 
 
 
@@ -212,8 +252,7 @@
                         <nav class="menu">
                             <a class="toggle-nav" href="#">&#9776;</a>
                             <ul class="list_inline active">
-                                <li> <a href=""> Editor </a> </li>
-                                <li> <a href=""> Test </a> </li>
+                                <li> <a href="editor.jsp"> Editor </a> </li>
                                 <li> <a href=""> Help </a> </li>
                                 <li> <a href=""> Community </a> </li>
                                 <li> <a href=""> Survey </a> </li>	
@@ -286,11 +325,10 @@
 
                             <div class="sidebar_content">
                                 <ul class="list_block">
-                                    <li class="bot"> <a href=""> Cautious Built-in Bot </a> </li>
-                                    <li class="bot"> <a href=""> Greedy Built-in Bot </a> </li>
-                                    <li class="bot"> <a href=""> Smarter Bot </a> </li>
-                                    <li class="bot"> <a href=""> Black Mamba </a> </li>
-                                    <li class="bot more"> <a href=""> more... </a> </li>
+                                    <li id="firstSquareBot"class="bot" onclick="setBots('firstSquareBot')">First square bot</li>
+                                    <li id="lastSqareBot" class="bot" onclick="setBots('lastSquareBot')">Last square bot</li>
+                                    <li id="betterBot" class="bot" onclick="setBots('betterBot')">better bot</li>
+                                    <li id="dreadnought" class="bot" onclick="setBots('dreadnought')">Dreadnought</li>
                                 </ul>
                             </div>
 
@@ -375,7 +413,7 @@
                                     <div id="set_one">
                                         <ul class="list_inline">
                                             <li> <a class="fast_prev" onClick="startGame()"> </a> </li> 
-                                            <li> <a class="prev" onClick="makeBotGame()"> </a> </li>
+                                            <li> <a class="prev" onClick="prevMove()"> </a> </li>
                                             <li> <a class="pause" onClick="playPause()"> </a> </li> 
                                             <li> <a class="forward" onClick="nextMove()"> </a> </li> 
                                             <li> <a class="fast_forward" onClick="endGame()"> </a> </li> 
