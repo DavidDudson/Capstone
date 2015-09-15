@@ -83,12 +83,12 @@
 
         function setBots(botID){
             if(bot1 === null){
-                bot1 = document.getElementById(botID).value;
+                bot1 = botID;
             } else if (bot2 === null){
-                bot2 = document.getElementByID(botID).value;
+                bot2 = botID;
             }else{   
                 bot2 = bot1;
-                bot1 = document.getElementById(botID).value;
+                bot1 = botID;
             }
             alert(bot1 + " " + bot2 );
         }
@@ -212,16 +212,24 @@
 
             var userBotsURL = "userbots/__current_user";
             var buildBotsURL = "builtinbots";
-            
             $.ajax({
                 url: userBotsURL,
                 type: "GET",
                 dataType: "json",
                 success : function (data) {
-                    jsonUserBots = data;
+                            $.each(data.collection.items, function(i, items){
+                                var entry = document.createElement('li');
+                                var textNode = document.createTextNode(data.collection.items[i].name);
+                                entry.appendChild(textNode);
+                                entry.setAttribute("id", data.collection.items[i].name);
+                                entry.setAttribute("value", data.collection.items[i].name);
+                                entry.className = "bot";
+                                document.getElementById("userBots").appendChild(entry);
+                            });
                 }
             });
             
+
             
         };
 
@@ -288,12 +296,7 @@
                             </div>
 
                             <div class="sidebar_content">
-                                <ul class="list_block">
-                                    <li class="bot"> <a href=""> Lorem Ipsum Dolor </a> </li>
-                                    <li class="bot"> <a href=""> Lorem Ipsum Dolor </a> </li>
-                                    <li class="bot"> <a href=""> Lorem Ipsum Dolor </a> </li>
-                                    <li class="bot"> <a href=""> Lorem Ipsum Dolor </a> </li>
-                                    <li class="bot more"> <a href=""> more... </a> </li>
+                                <ul id="userBots" class="list_block">
                                 </ul>
                             </div>
 

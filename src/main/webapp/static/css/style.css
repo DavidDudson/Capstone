@@ -254,7 +254,11 @@ padding: 15px;
 }
 
 .sidebar_content ul li:hover.bot {
-	background: #cccccc;
+	background: red;
+}
+.sidebar_content ul li:cell-selection.bot {
+    background: blue;
+    
 }
 
 #game_controls .sidebar_content {
