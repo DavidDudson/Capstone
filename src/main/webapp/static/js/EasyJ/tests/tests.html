@@ -18,8 +18,13 @@
             for (var i = 0; i < block_tests.length; i++) {
                 var test = block_tests[i];
                 var output = Blockly.Java[test.block]();
-                assert.equal(output[0], test.expected[0]);
-                assert.equal(output[1], test.expected[1]);
+                if (output.constructor === Array) {
+                    assert.equal(output[0], test.expected[0]);
+                    assert.equal(output[1], test.expected[1]);
+                }
+                else {
+                    assert.equal(output, test.expected[0]);
+                }
             }
         });
 </script>

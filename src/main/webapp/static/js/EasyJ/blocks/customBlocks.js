@@ -124,7 +124,30 @@ Blockly.Blocks['get_all_valid_moves'] = {
             .appendField("list of all valid moves");
         this.setOutput(true, "Array");
         this.setColour(230);
-        this.setTooltip('');
+        this.setTooltip('get all the valid moves available on the game board');
+        this.setHelpUrl('http://www.example.com/');
+    }
+};
+
+Blockly.Blocks['last_move_sunk'] = {
+    init: function() {
+        this.appendDummyInput()
+            .appendField("was the last move")
+            .appendField(new Blockly.FieldDropdown([["hit", "1"], ["miss", "2"], ["sunk", "3"]]), "state");
+        this.setOutput(true, "Boolean");
+        this.setColour(230);
+        this.setTooltip('was the last move a hit, miss, or sunk');
+        this.setHelpUrl('http://www.example.com/');
+    }
+};
+
+Blockly.Blocks['the_last_move'] = {
+    init: function() {
+        this.appendDummyInput()
+            .appendField("the last move");
+        this.setOutput(true, "Coordinate");
+        this.setColour(330);
+        this.setTooltip('get the last targeted coordinate');
         this.setHelpUrl('http://www.example.com/');
     }
 };
