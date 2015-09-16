@@ -12,3 +12,5 @@ var block_tests = [
     {block:'the_last_move', expected:['botGameBoard.getLastMove()',]}];
 
 var connection_tests = [{block:'',expected:''}];
+
+var output_tests = [{block:'',expected:''}];

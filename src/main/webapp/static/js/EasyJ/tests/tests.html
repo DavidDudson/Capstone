@@ -4,29 +4,44 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.19.0.css">
     <script src="../blockly_uncompressed.js"></script>
+    <script src="../blocks/customBlocks.js"></script>
     <script src="../java.js"></script>
     <script src="../java/customBlocks.js"></script>
+    <script>
+        var workspace = Blockly.inject('blockly-div', {});
+    </script>
     <title>Blockly Tests</title>
 </head>
 <body>
+<div id="blockly-div" style="display: none"></div>
 <div id="qunit"></div>
 <div id="qunit-fixture"></div>
 <script src="http://code.jquery.com/qunit/qunit-1.19.0.js"></script>
 <script src="tests.js"></script>
 <script>
-        QUnit.test("Block Tests", function (assert) {
-            for (var i = 0; i < block_tests.length; i++) {
-                var test = block_tests[i];
-                var output = Blockly.Java[test.block]();
-                if (output.constructor === Array) {
-                    assert.equal(output[0], test.expected[0]);
-                    assert.equal(output[1], test.expected[1]);
-                }
-                else {
-                    assert.equal(output, test.expected[0]);
-                }
+    QUnit.test("Block Tests", function (assert) {
+        for (var i = 0; i < block_tests.length; i++) {
+            var test = block_tests[i];
+            var output = Blockly.Java[test.block]();
+            if (output.constructor === Array) {
+                assert.equal(output[0], test.expected[0]);
+                assert.equal(output[1], test.expected[1]);
             }
-        });
+            else {
+                assert.equal(output, test.expected[0]);
+            }
+        }
+    });
+
+    QUnit.test("Connection Tests", function (assert) {
+        for (var i = 0; i < connection_tests.length; i++) {
+            var test = connection_tests[i];
+            var output = Blockly.Blocks[test.block];
+            assert.equal(output, test.expected[0]);
+        }
+    });
+
+    console.log(Blockly.Blocks['can_attack_coordinate'].init());
 </script>
 </body>
 </html>
