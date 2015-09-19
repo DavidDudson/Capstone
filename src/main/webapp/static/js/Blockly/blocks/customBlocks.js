@@ -29,17 +29,16 @@ Blockly.Blocks['get_coordinate_at_pos'] = {
 };
 
 // TODO: The type of block is incorrect
-Blockly.Blocks['if_coordinate_hit_aim_direction'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("if previous coordinate is hit, try")
-        .appendField(new Blockly.FieldDropdown([["up", "up"], ["down", "down"], ["left", "left"], ["right", "right"]]), "direction");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(230);
-    this.setTooltip('if the given coordinate is hit, go to the given direction');
-    this.setHelpUrl('http://www.example.com/');
-  }
+Blockly.Blocks['if_last_move_hit_aim_direction'] = {
+    init: function() {
+        this.appendDummyInput()
+            .appendField("if last move hit, aim")
+            .appendField(new Blockly.FieldDropdown([["up", "up"], ["down", "down"], ["left", "left"], ["right", "right"]]), "direction");
+        this.setOutput(true, "Coordinate");
+        this.setColour(230);
+        this.setTooltip('');
+        this.setHelpUrl('http://www.example.com/');
+    }
 };
 
 Blockly.Blocks['can_attack_coordinate'] = {
