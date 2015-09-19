@@ -11,6 +11,9 @@ var block_tests = [
     {block:'last_move_sunk', expected:['botGameBoard.lastMove(1)',]},
     {block:'the_last_move', expected:['botGameBoard.getLastMove()',]}];
 
-var connection_tests = [{block:'',expected:''}];
+var default_blocks = '<xml id="mitch-startBlocks" style="display:none"><block type="procedures_defreturn" id="1" x="63" y="63" deletable="false" editable="false"><mutation></mutation><field name="NAME">nextMove</field><value name="RETURN"><block type="get_first_valid_coordinate"></block></value></block></xml>';
+var default_output = 'import nz.daved.starbattle.StarBattleBot;\nimport nz.daved.starbattle.game.BotGameBoard;\nimport nz.daved.starbattle.game.Coordinate;\n\npublic class CustomStarBattleBot extends StarBattleBot {\n\npublic CustomStarBattleBot(String id) { super(id); }\n\n@Override\npublic Coordinate nextMove(BotGameBoard botGameBoard) {\n  return botGameBoard.getFirstValidCoordinate();\n}\n\n}\n\n';
 
-var output_tests = [{block:'',expected:''}];
+var default_test = {blocks: default_blocks, expected: default_output};
+
+var connection_tests = [{block:'',expected:''}];
