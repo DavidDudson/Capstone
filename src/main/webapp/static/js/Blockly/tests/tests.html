@@ -57,14 +57,29 @@
             var test = output_connection_tests[i];
 
             var block = workspace.getBlockById(i+3);
+            var block_type = block.type;
             var output_connection = block.outputConnection.check_[0];
-            var output_block = block.type;
-            assert.deepEqual({block:output_block, expected:output_connection}, test);
+
+            assert.deepEqual({block:block_type, expected:output_connection}, test);
         }
     });
 
     QUnit.test('Input Connection Tests', function (assert) {
+        for (var i = 0; i < input_connection_tests.length; i++) {
+            var test = input_connection_tests[i];
 
+            var block = workspace.getBlockById(i+3);
+            var block_type = block.type;
+            var input_connections = [];
+            for (var j = 0; j < block.inputList.length; j++) {
+                var connection = block.inputList[j];
+                if (connection.connection != null) {
+                    input_connections.push(connection.connection.check_[0]);
+                }
+            }
+
+            assert.deepEqual({block:block_type, expected:input_connections}, test);
+        }
     });
 </script>
 </body>
