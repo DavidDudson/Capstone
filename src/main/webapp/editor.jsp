@@ -1,5 +1,5 @@
-<%--<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@page import="nz.ac.massey.cs.ig.core.services.Services" %>
 <%
@@ -9,7 +9,7 @@
     pageContext.setAttribute("screenName", session.getAttribute("userName"));
     pageContext.setAttribute("profilePicture", session.getAttribute("userPicture"));
     pageContext.setAttribute("gameName", services.getGameSupport().getName());
-%>--%>
+%>
 
 
 <!DOCTYPE html>
@@ -90,7 +90,6 @@
         }
 
 
-
         function compileAndSave() {
 
             var data = 	{};
@@ -106,10 +105,9 @@
                 type : "POST",
                 data : data
             }).done(function(src) {
-                // get server metadata
-                console.log(src.buildStatusUrl);
-                _visualizeBuildStatus(src);
-                _updateBuildStatus(src.buildStatusURL);
+                
+                
+                return src.botId;
             }).fail(function(jqXHR, error) {
                 console.log(src.buildStatusUrl);
                 var errorLoc = jqXHR.getResponseHeader("Location-Error");
@@ -118,53 +116,7 @@
             });
         }
 
-        function _updateBuildStatus(uri){
-            $.getJSON(uri).done(function(src) {
-                _visualizeBuildStatus(src);
-                if(src.done) {
-                    var bot = {"name":"MyCoolAsBot"};
-                    if(src.error) {
-                        $('#progressModal .modal-title').html("Load build errors...");
-                    } else {
-                        bot.setMetadata(src.metadata);
-                        bot.setSrc(src);
-                        bot.saved();
-                        $("#output").html("Bot successfully compiled and saved");
-                        $('#progressModal .modal-title').html("Bot successfully compiled and saved");
-                    }
-                    setTimeout(function() {
-                        $("#progressModal").modal("hide");
-                    }, 500);
-                } else {
-                    console.log(src.buildStatusURL);
-                    setTimeout(function() {
-                        _updateBuildStatus(src.buildStatusURL);
-                    }, 2000);
-                }
-            }).fail(function(error) {
-                $('#progressModal .modal-title').html("Unexpected error occured. Try again.");
-            });
-        }
-
-        function _visualizeBuildStatus(data) {
-            if(data.currentPosition != -1) {
-                var pos = (data.currentPosition-1);
-                if(pos < 0 ) pos = 0;
-
-                if(pos > 0) {
-                    $('#progressModal .modal-title').html("Position in queue : " + pos);
-                } else {
-                    $('#progressModal .modal-title').html("Building ...");
-                }
-
-                var percentage = 1 - pos/data.queueSize;
-                percentage = percentage * 66;
-
-                $('#progressModal .progress-bar').css('width', percentage + '%');
-            } else {
-                $('#progressModal .modal-title').html("Still in queue ...");
-            }
-        }
+      
 
         function toXml() {
             var output = document.getElementById('importExport');
@@ -256,21 +208,28 @@
         currentBotName = $('#botName').val();
         
         var botList = document.getElementById("userBots").getElementsByTagName("li");
-        for(var i = 0; i < botList.length; i++){
-            if(botList[i].innerHTML === currentBotName){
-                alert("bot name alredy defined");
-                return;
-            }
-            
-        }
-        if(currentBotName.length > 0){
-            $("#del").prop("disabled", false);
-            $("#save").prop("disabled", false);
-        }else{
+        
+        if(currentBotName.length === 0){
             alert("bot must have name");
+            return;
         }
         toCode();
-        compileAndSave();
+        
+        var newBot = compileAndSave(); 
+        console.log(newBot);
+        var entry = document.createElement('li');
+        var textNode = document.createTextNode(currentBotName);
+        
+        entry.appendChild(textNode);
+        entry.setAttribute("id", newBot);
+        entry.setAttribute("value", currentBotName);
+        entry.setAttribute("onClick", "selectBot('" + newBot + "');");
+        entry.className = "bot";
+        document.getElementById("userBots").appendChild(entry);
+        
+        $("#del").prop("disabled", false);
+        $("#save").prop("disabled", false);
+        
     }
     </script>
 </head>
@@ -301,15 +260,18 @@
 			</div>
 
 
-			<div id="user" class="right">
-                    <ul class="list_inline">
-                        <li> <a id="profilePicture2" class="username" href=""></a> </li>
-                            <li class="profilePictureContent" id="profilePicture3"><img
-                                    id="profilePictureURL" src="${profilePicture}"
-                                    class="img-responsive img-rounded center-block"
-                                    style="width: 40px; margin: 5px;" alt="Profile Picture"></li>
-                    </ul>
-                </div>
+                    <div id="user" class="right">
+                        <ul class="list_inline">
+                            <li> <a d="profilePicture2" class="username" href="">${screenName}</a> </li>
+                            <li> <a class="logout" href="index.jsp"> Logout </a> </li>
+                            <c:if test="${profilePicture != null}">
+                                <li class="profilePictureContent" id="profilePicture3"><img
+                                        id="profilePictureURL" src="${profilePicture}"
+                                        class="img-responsive img-rounded center-block"
+                                        style="width: 40px; margin: 5px;" alt="Profile Picture"></li>
+                            </c:if>
+                        </ul>
+                    </div>
 
 
             </div>

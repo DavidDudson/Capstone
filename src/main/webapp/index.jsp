@@ -1,5 +1,5 @@
-<%--<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@page import="nz.ac.massey.cs.ig.core.services.Services" %>
 <%
@@ -7,7 +7,7 @@
 
     pageContext.setAttribute("isDebug",services.getConfiguration().isDebug());
     pageContext.setAttribute("gameName", services.getGameSupport().getName());
-%>--%>
+%>
 
 <!DOCTYPE html>
 <html>
@@ -56,7 +56,6 @@
                         </form>
                     </div>
                 </c:if>
-                <c:if test="${!isDebug}">
                     <div id="socialLogin" class="loginBlock text-center">
                         <div class="paddingBlock"></div>
                         <!-- Login buttons for social authentication -->
@@ -92,7 +91,6 @@
                             </form>
                         </div>
                     </div>
-                </c:if>
 			</div>
 		</div>
 	</div>

@@ -1,5 +1,5 @@
-<%--<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%
     pageContext.setAttribute("screenName",
@@ -9,7 +9,7 @@
     nz.ac.massey.cs.ig.core.services.Services services = (nz.ac.massey.cs.ig.core.services.Services) application
             .getAttribute(nz.ac.massey.cs.ig.core.services.Services.NAME);
     pageContext.setAttribute("gameName", services.getGameSupport().getName());
-%>--%>
+%>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -94,6 +94,9 @@
                 bot2 = botID;
                 $("#" + bot2).css("background-color", "blue");
             }else{   
+                if(bot2 === botID){
+                    return;
+                }
                 $("#" + bot1).css("background-color", "#1a445b");
                 bot1 = bot2;
                 bot2 = botID;
@@ -184,7 +187,7 @@
             }
         }
         function playPause() {
-                    if(playGame && !gameStart){
+                    if(!playGame && gameStart){
                         makeBotGame();
                     }
             
@@ -210,6 +213,7 @@
                 dataType: "json",
                 success : function () {
                     $.getJSON(jqxhr.getResponseHeader("Location"), function(data){
+                        console.log(data);
                         jsonMoves = data;
 
 
@@ -232,9 +236,9 @@
                                 var entry = document.createElement('li');
                                 var textNode = document.createTextNode(data.collection.items[i].name);
                                 entry.appendChild(textNode);
-                                entry.setAttribute("id", data.collection.items[i].name);
+                                entry.setAttribute("id", data.collection.items[i].id);
                                 entry.setAttribute("value", data.collection.items[i].name);
-                                entry.setAttribute("onClick", "setBots('" + data.collection.items[i].name + "');");
+                                entry.setAttribute("onClick", "setBots('" + data.collection.items[i].id + "');");
                                 entry.className = "bot";
                                 document.getElementById("userBots").appendChild(entry);
                             });
