@@ -50,6 +50,8 @@
        
         var currentBotName = null;
         var currentJavaCode = null;
+        var selectedBot = null;
+        
         
         var workspace = null;
         function start() {
@@ -70,10 +72,22 @@
             Blockly.Xml.domToWorkspace(workspace, document.getElementById('initialBlocklyState'));
             workspace.getBlockById(1).inputList[2].connection.check_ = ["Coordinate"];
         }
+        
         function toCode() {
             currentJavaCode = Blockly.Java.workspaceToCode(workspace, ["notests"]);
         }
+       
+        function selectBot(botID){
+                if(selectedBot !== null){
+                    $("#" + selectedBot).css("background-color", "#1a445b");
+                    
+                }
+                selectedBot = botID;
+                $("#" + selectedBot).css("background-color", "red");
+                $("#del").prop("disabled", false);
+                $("#save").prop("disabled", false);
 
+        }
 
 
 
@@ -93,12 +107,10 @@
                 data : data
             }).done(function(src) {
                 // get server metadata
-                alert("build statsdsdus");
                 console.log(src.buildStatusUrl);
                 _visualizeBuildStatus(src);
                 _updateBuildStatus(src.buildStatusURL);
             }).fail(function(jqXHR, error) {
-                alert("build status");
                 console.log(src.buildStatusUrl);
                 var errorLoc = jqXHR.getResponseHeader("Location-Error");
                 console.log("build error is available at " + errorLoc);
@@ -205,8 +217,9 @@
                                 var entry = document.createElement('li');
                                 var textNode = document.createTextNode(data.collection.items[i].name);
                                 entry.appendChild(textNode);
-                                entry.setAttribute("id", data.collection.items[i].name);
+                                entry.setAttribute("id", data.collection.items[i].id);
                                 entry.setAttribute("value", data.collection.items[i].name);
+                                entry.setAttribute("onClick", "selectBot('" + data.collection.items[i].id + "');");
                                 entry.className = "bot";
                                 document.getElementById("userBots").appendChild(entry);
                             });
@@ -214,6 +227,31 @@
             });
         };
 
+    function deleteBot(){
+        var deleteBotURl = "delete/" + selectedBot ;
+        var buildBotsURL = "builtinbots";
+        $.ajax({
+            url: deleteBotURl,
+            type: "DELETE",
+            success : function (){
+                var deletedBot = document.getElementById(selectedBot);
+                deletedBot.parentNode.removeChild(deletedBot);
+                alert("bot deleted");
+                var botList = document.getElementById("userBots").getElementsByTagName("li");
+                
+                if(botList.length === 0){
+                    $("#del").prop("disabled", true);
+                    $("#save").prop("disabled", true);
+                    
+                }
+
+                }
+            });
+    }
+        
+        
+    
+    
     function createNewBot(){
         currentBotName = $('#botName').val();
         
@@ -221,6 +259,7 @@
         for(var i = 0; i < botList.length; i++){
             if(botList[i].innerHTML === currentBotName){
                 alert("bot name alredy defined");
+                return;
             }
             
         }
@@ -314,10 +353,10 @@
                             <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">new</button>
                         </li>
                         <li>                            
-                            <button id="del" class="btn btn-info btn-lg" disabled="disabled">delete</button>
+                            <button id="del" class="btn btn-info btn-lg" onclick="deleteBot()" disabled="disabled">delete</button>
                         </li>
                         <li>                            
-                            <button id="save" class="btn btn-info btn-lg" disabled="disabled">save and compile</button></li>
+                            <button id="save" class="btn btn-info btn-lg" onclick="compileAndSave()" disabled="disabled">save and compile</button></li>
                         </ul>
                     </div>
                     <div class="main-blockly">
