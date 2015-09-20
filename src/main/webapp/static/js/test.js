@@ -170,8 +170,8 @@ function playPause() {
 
 function makeBotGame() {
     var url = "creategame_b2b";
-    var bot1Id = "FirstSquareBot";
-    var bot2Id = "LastSquareBot";
+    var bot1Id = bot1;
+    var bot2Id = bot2;
     var data = "" + bot1Id + "\n" + bot2Id + "\n";
     var jqxhr = $.ajax({
         url: url,

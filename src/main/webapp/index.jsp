@@ -19,7 +19,7 @@
         <link rel="stylesheet" type="text/css" href="static/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="static/css/bootstrap-social.css">
         <link rel="stylesheet" type="text/css" href="static/css/font-awesome.css" rel="stylesheet" />
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>
             var getUrl = window.location;
             var baseUrl = getUrl.protocol + "//" + getUrl.host + "/"
