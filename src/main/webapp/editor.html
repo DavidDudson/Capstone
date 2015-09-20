@@ -1,16 +1,3 @@
-<%--<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
-<%@page import="nz.ac.massey.cs.ig.core.services.Services" %>
-<%
-    Services services = (Services) application.getAttribute(Services.NAME);
-
-    pageContext.setAttribute("isDebug",services.getConfiguration().isDebug());
-    pageContext.setAttribute("screenName", session.getAttribute("userName"));
-    pageContext.setAttribute("profilePicture", session.getAttribute("userPicture"));
-    pageContext.setAttribute("gameName", services.getGameSupport().getName());
-%>--%>
-
 
 <!DOCTYPE html>
 
@@ -47,11 +34,11 @@
     <script>
         'use strict';
         
-       
-        var currentBotName = null;
-        var currentJavaCode = null;
+        
         
         var workspace = null;
+        var currentBotName = null;
+        var currentJavaCode = null;
         function start() {
             var workspace = Blockly.inject('blocklyDiv',
                     {
@@ -67,15 +54,15 @@
                             snap:true
                         }
                     });
+
             Blockly.Xml.domToWorkspace(workspace, document.getElementById('initialBlocklyState'));
+
             workspace.getBlockById(1).inputList[2].connection.check_ = ["Coordinate"];
         }
+
         function toCode() {
-            currentJavaCode = Blockly.Java.workspaceToCode(workspace, ["notests"]);
+            currentJavaCode = Blockly.Java.workspaceToCode(workspace);
         }
-
-
-
 
         function compileAndSave() {
 
@@ -93,16 +80,14 @@
                 data : data
             }).done(function(src) {
                 // get server metadata
-                alert("build statsdsdus");
                 console.log(src.buildStatusUrl);
                 _visualizeBuildStatus(src);
                 _updateBuildStatus(src.buildStatusURL);
             }).fail(function(jqXHR, error) {
-                alert("build status");
                 console.log(src.buildStatusUrl);
                 var errorLoc = jqXHR.getResponseHeader("Location-Error");
                 console.log("build error is available at " + errorLoc);
-                _fetchGame('http://localhost:8080' + errorLoc);
+                _fetchGame('http://localhost:8080' + errorLoc)
             });
         }
 
@@ -113,6 +98,7 @@
                     var bot = {"name":"MyCoolAsBot"};
                     if(src.error) {
                         $('#progressModal .modal-title').html("Load build errors...");
+                        alert(src.error);
                     } else {
                         bot.setMetadata(src.metadata);
                         bot.setSrc(src);
@@ -216,26 +202,17 @@
 
     function createNewBot(){
         currentBotName = $('#botName').val();
-        
-        var botList = document.getElementById("userBots").getElementsByTagName("li");
-        for(var i = 0; i < botList.length; i++){
-            if(botList[i].innerHTML === currentBotName){
-                alert("bot name alredy defined");
-            }
-            
-        }
         if(currentBotName.length > 0){
             $("#del").prop("disabled", false);
             $("#save").prop("disabled", false);
         }else{
             alert("bot must have name");
         }
-        toCode();
-        compileAndSave();
+
     }
     </script>
 </head>
-<body onload="start(); getBots()">
+<body onload="start()">
 
 
 
@@ -350,7 +327,6 @@
 
 
 	</div>
-</div>
 
 </body>
 

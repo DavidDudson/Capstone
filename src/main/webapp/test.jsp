@@ -1,4 +1,4 @@
-<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
+<%--<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%
@@ -9,7 +9,7 @@
     nz.ac.massey.cs.ig.core.services.Services services = (nz.ac.massey.cs.ig.core.services.Services) application
             .getAttribute(nz.ac.massey.cs.ig.core.services.Services.NAME);
     pageContext.setAttribute("gameName", services.getGameSupport().getName());
-%>
+%>--%>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -31,10 +31,10 @@
     </head>
     <script lang="JavaScript">
 
-        var bot1;
-        var bot2;
+        var bot1 = null;
+        var bot2 = null;
         var currentSelectedBot;
-
+        
         jsonMoves = {};
         jsonUserBots = {};
         jsonBuiltInBots = {};
@@ -46,7 +46,7 @@
         var gameSpeed = 500;
         var playGame = false;
         var myGame;
-
+        var isRed = true;
 
         
         var commons = {
@@ -82,15 +82,26 @@
                 };
 
         function setBots(botID){
+            
+            
+            
             if(bot1 === null){
+                console.log(botID);
                 bot1 = botID;
+                $("#" + bot1).css("background-color", "red");
+                
             } else if (bot2 === null){
                 bot2 = botID;
+                $("#" + bot2).css("background-color", "blue");
             }else{   
-                bot2 = bot1;
-                bot1 = botID;
-            }
-            alert(bot1 + " " + bot2 );
+                $("#" + bot1).css("background-color", "#1a445b");
+                bot1 = bot2;
+                bot2 = botID;
+                $("#" + bot2).css("background-color", "red");
+                
+               $("#" + bot2).css("background-color", isRed ? "red" : "blue");
+               isRed = !isRed;
+            }   
         }
         function nextMove() {
 
@@ -223,6 +234,7 @@
                                 entry.appendChild(textNode);
                                 entry.setAttribute("id", data.collection.items[i].name);
                                 entry.setAttribute("value", data.collection.items[i].name);
+                                entry.setAttribute("onClick", "setBots('" + data.collection.items[i].name + "');");
                                 entry.className = "bot";
                                 document.getElementById("userBots").appendChild(entry);
                             });
@@ -254,9 +266,6 @@
                                 <li> <a href="editor.jsp"> Editor </a></li>
                                 <li> <a href=""> Survey </a> </li>
 
-                                <li> <div class="menu-on"> <a href=""> My Bots </a> </div> </li>
-                                <li> <div class="menu-on">  <a href=""> Built-in Bots </a> </div> </li>
-                                <li> <div class="menu-on">  <a href=""> Shared Bots </a> </div> </li>
                             </ul>
 
                         </nav>

@@ -119,7 +119,7 @@ Blockly.Java.AppName_ = 'CustomStarBattleBot';
 /**
  * Default Name of the application for use by all generated classes
  */
-Blockly.Java.Package_ = '';
+Blockly.Java.Package_ = 'package nz.daved.starbattle.bots';
 /**
  * Base class (if any) for the generated Java code
  */

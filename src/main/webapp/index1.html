@@ -1,4 +1,4 @@
-<%--<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@page import="nz.ac.massey.cs.ig.core.services.Services" %>
@@ -9,8 +9,7 @@
     pageContext.setAttribute("screenName", session.getAttribute("userName"));
     pageContext.setAttribute("profilePicture", session.getAttribute("userPicture"));
     pageContext.setAttribute("gameName", services.getGameSupport().getName());
-%>--%>
-
+%>
 
 <!DOCTYPE html>
 
@@ -46,12 +45,8 @@
 
     <script>
         'use strict';
-        
-       
-        var currentBotName = null;
-        var currentJavaCode = null;
-        
         var workspace = null;
+
         function start() {
             var workspace = Blockly.inject('blocklyDiv',
                     {
@@ -67,22 +62,23 @@
                             snap:true
                         }
                     });
+
             Blockly.Xml.domToWorkspace(workspace, document.getElementById('initialBlocklyState'));
+
             workspace.getBlockById(1).inputList[2].connection.check_ = ["Coordinate"];
         }
+
         function toCode() {
-            currentJavaCode = Blockly.Java.workspaceToCode(workspace, ["notests"]);
+            var output = document.getElementById('importExport');
+            output.value = Blockly.Java.workspaceToCode(workspace);
         }
-
-
-
 
         function compileAndSave() {
 
             var data = 	{};
-            data.name = currentBotName;
+            data.name = 'MyCoolAsBot';
             data.language = 'JAVA';
-            data.src = currentJavaCode;
+            data.src = document.getElementById('importExport').value;
             data = JSON.stringify(data);
             var url = 'http://localhost:8080/Capstone/bots';
 
@@ -93,16 +89,14 @@
                 data : data
             }).done(function(src) {
                 // get server metadata
-                alert("build statsdsdus");
                 console.log(src.buildStatusUrl);
                 _visualizeBuildStatus(src);
                 _updateBuildStatus(src.buildStatusURL);
             }).fail(function(jqXHR, error) {
-                alert("build status");
                 console.log(src.buildStatusUrl);
                 var errorLoc = jqXHR.getResponseHeader("Location-Error");
                 console.log("build error is available at " + errorLoc);
-                _fetchGame('http://localhost:8080' + errorLoc);
+                _fetchGame('http://localhost:8080' + errorLoc)
             });
         }
 
@@ -113,6 +107,7 @@
                     var bot = {"name":"MyCoolAsBot"};
                     if(src.error) {
                         $('#progressModal .modal-title').html("Load build errors...");
+                        alert(src.error);
                     } else {
                         bot.setMetadata(src.metadata);
                         bot.setSrc(src);
@@ -214,25 +209,6 @@
             });
         };
 
-    function createNewBot(){
-        currentBotName = $('#botName').val();
-        
-        var botList = document.getElementById("userBots").getElementsByTagName("li");
-        for(var i = 0; i < botList.length; i++){
-            if(botList[i].innerHTML === currentBotName){
-                alert("bot name alredy defined");
-            }
-            
-        }
-        if(currentBotName.length > 0){
-            $("#del").prop("disabled", false);
-            $("#save").prop("disabled", false);
-        }else{
-            alert("bot must have name");
-        }
-        toCode();
-        compileAndSave();
-    }
     </script>
 </head>
 <body onload="start(); getBots()">
@@ -264,11 +240,14 @@
 
 			<div id="user" class="right">
                     <ul class="list_inline">
-                        <li> <a id="profilePicture2" class="username" href=""></a> </li>
+                        <li> <a d="profilePicture2" class="username" href="">${screenName}</a> </li>
+                        <li> <a class="logout" href="index.jsp"> Logout </a> </li>
+                        <c:if test="${profilePicture != null}">
                             <li class="profilePictureContent" id="profilePicture3"><img
                                     id="profilePictureURL" src="${profilePicture}"
                                     class="img-responsive img-rounded center-block"
                                     style="width: 40px; margin: 5px;" alt="Profile Picture"></li>
+                        </c:if>
                     </ul>
                 </div>
 
@@ -308,49 +287,25 @@
 
 		<div id="main_content">
                     <div class="main-cont-menu">
-                        
                 	<ul>
-                    	<li>
-                            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">new</button>
-                        </li>
-                        <li>                            
-                            <button id="del" class="btn btn-info btn-lg" disabled="disabled">delete</button>
-                        </li>
-                        <li>                            
-                            <button id="save" class="btn btn-info btn-lg" disabled="disabled">save and compile</button></li>
+                    	<li class="new"><a href="#">new</a></li>
+                        <li class="del"><a href="#">delete</a></li>
+                        <li class="save"><a href="#">save + compile</a></li>
                         </ul>
                     </div>
                     <div class="main-blockly">
                         <div id="blocklyDiv" style="height:450px"></div>
-                    </div>
+                    </div>>
                 </div>
 
-              <div class="modal fade" id="myModal" role="dialog">
-                <div class="modal-dialog modal-sm">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      <h4 class="modal-title">Modal Header</h4>
-                    </div>
-                        <p>name for bot:</p>
-                        <input id="botName">
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="createNewBot()">Submit</button>
-                        </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-            
 	</div>
 
-     
-    
 	<div id="footer">
 
 
 	</div>
 </div>
+
 
 </body>
 

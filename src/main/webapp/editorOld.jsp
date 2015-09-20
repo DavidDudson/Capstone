@@ -1,4 +1,4 @@
-<%--<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@page import="nz.ac.massey.cs.ig.core.services.Services" %>
@@ -9,11 +9,8 @@
     pageContext.setAttribute("screenName", session.getAttribute("userName"));
     pageContext.setAttribute("profilePicture", session.getAttribute("userPicture"));
     pageContext.setAttribute("gameName", services.getGameSupport().getName());
-%>--%>
-
-
+%>
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta charset="utf-8">
@@ -38,20 +35,19 @@
     <script type="text/javascript" src="static/js/EasyJ/blocks/procedures.js"></script>
     <script type="text/javascript" src="static/js/EasyJ/blocks/customBlocks.js"></script>
 
+    <script data-main="static/js/main-editor" src="static/js/require.js" charset="utf-8"></script>
     <script src="static/js/jquery-1.7.2.min.js"></script>
     <script src="static/js/jquery-ui-1.8.21.custom.min.js"></script>
     <script src="static/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="static/css/editor.css">
+    <script src="static/js/gameState.js"></script>
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="static/css/grid.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
     <script>
         'use strict';
-        
-       
-        var currentBotName = null;
-        var currentJavaCode = null;
-        
         var workspace = null;
+
         function start() {
             var workspace = Blockly.inject('blocklyDiv',
                     {
@@ -67,22 +63,23 @@
                             snap:true
                         }
                     });
+
             Blockly.Xml.domToWorkspace(workspace, document.getElementById('initialBlocklyState'));
+
             workspace.getBlockById(1).inputList[2].connection.check_ = ["Coordinate"];
         }
+
         function toCode() {
-            currentJavaCode = Blockly.Java.workspaceToCode(workspace, ["notests"]);
+            var output = document.getElementById('importExport');
+            output.value = Blockly.Java.workspaceToCode(workspace);
         }
-
-
-
 
         function compileAndSave() {
 
             var data = 	{};
-            data.name = currentBotName;
+            data.name = 'MyCoolAsBot';
             data.language = 'JAVA';
-            data.src = currentJavaCode;
+            data.src = document.getElementById('importExport').value;
             data = JSON.stringify(data);
             var url = 'http://localhost:8080/Capstone/bots';
 
@@ -93,16 +90,14 @@
                 data : data
             }).done(function(src) {
                 // get server metadata
-                alert("build statsdsdus");
                 console.log(src.buildStatusUrl);
                 _visualizeBuildStatus(src);
                 _updateBuildStatus(src.buildStatusURL);
             }).fail(function(jqXHR, error) {
-                alert("build status");
                 console.log(src.buildStatusUrl);
                 var errorLoc = jqXHR.getResponseHeader("Location-Error");
                 console.log("build error is available at " + errorLoc);
-                _fetchGame('http://localhost:8080' + errorLoc);
+                _fetchGame('http://localhost:8080' + errorLoc)
             });
         }
 
@@ -113,6 +108,7 @@
                     var bot = {"name":"MyCoolAsBot"};
                     if(src.error) {
                         $('#progressModal .modal-title').html("Load build errors...");
+                        alert(src.error);
                     } else {
                         bot.setMetadata(src.metadata);
                         bot.setSrc(src);
@@ -191,170 +187,125 @@
                 return errorInfo;
             }
         };
-        
-        function getBots() {
 
-            var userBotsURL = "userbots/__current_user";
-            var buildBotsURL = "builtinbots";
-            $.ajax({
-                url: userBotsURL,
-                type: "GET",
-                dataType: "json",
-                success : function (data) {
-                            $.each(data.collection.items, function(i, items){
-                                var entry = document.createElement('li');
-                                var textNode = document.createTextNode(data.collection.items[i].name);
-                                entry.appendChild(textNode);
-                                entry.setAttribute("id", data.collection.items[i].name);
-                                entry.setAttribute("value", data.collection.items[i].name);
-                                entry.className = "bot";
-                                document.getElementById("userBots").appendChild(entry);
-                            });
-                }
+        function makeBotGame(){
+            var url = "creategame_b2b";
+            var bot1Id = "FirstSquareBot";
+            var bot2Id = "LastSquareBot";
+            var data = "" + bot1Id + "\n" + bot2Id + "\n";
+            var jqxhr = $.ajax({
+                url : url,
+                type : "POST",
+                data : data
+            }).done(function(src) {
+                // get results
+                var url2 = jqxhr.getResponseHeader("Location");
+                commons.debug("done creating game, results will be available at " + url2);
+
+                _fetchGame(url2);
+            }).fail(function(jqXHR, textStatus, error) {
+                var errorLoc = jqXHR.getResponseHeader("Location-Error");
+                commons.handleError(textStatus,"cannot post game");
+                commons.notifyUser("Server Error",jqXHR.responseText);
+                console.log(jqXHR);
+                console.log(errorLoc);
+                console.log(error);
             });
         };
 
-    function createNewBot(){
-        currentBotName = $('#botName').val();
-        
-        var botList = document.getElementById("userBots").getElementsByTagName("li");
-        for(var i = 0; i < botList.length; i++){
-            if(botList[i].innerHTML === currentBotName){
-                alert("bot name alredy defined");
-            }
-            
+        function _fetchGame(url) {
+            var game = $.getJSON(url)
+                    .done(function (data) {
+                        $("#gameloadingdialog").dialog("close");
+                        $("#errordialog-content").html(data);
+                    })
+                    .fail(function (error) {
+                        commons.debug("game execution error");
+                    });
+            document.getElementById("response").value=JSON.stringify(game);
+            alert(game);
         }
-        if(currentBotName.length > 0){
-            $("#del").prop("disabled", false);
-            $("#save").prop("disabled", false);
-        }else{
-            alert("bot must have name");
-        }
-        toCode();
-        compileAndSave();
-    }
+
     </script>
 </head>
-<body onload="start(); getBots()">
+<body onload="start()">
+    <div id="header">
+        <div id="nav_container">
+
+            <div class="container_12" style="padding:0;">
+
+                <div id="nav_menu" class="left">
+                    <div id="logo" class="left">
+                        <a href="index.jsp"> ${gameName} </a>
+                    </div>
+                    <nav class="menu">
+                        <a class="toggle-nav" href="#">&#9776;</a>
+                        <ul class="list_inline active">
+                            <li> <a href="test.jsp"> Test </a></li>
+                            <li> <a href=""> Survey </a> </li>
+                            <li> <div class="menu-on"> <a href=""> My Bots </a> </div> </li>
+                        </ul>
+
+                    </nav>
+                </div>
 
 
-
-<!--Header-->
-<div id="header">
-		<div id="nav_container">
-
-
-        <div class="container_12" style="padding:0;">
-
-
-			<div id="nav_menu" class="left">
-				<div id="logo" class="left">
-					<a href="index.html"> PrimeGame </a>
-				</div>
-				<nav class="menu">
-				<a class="toggle-nav" href="#">&#9776;</a>
-					<ul class="list_inline active">
-						<li> <a href="test.jsp"> Test </a> </li>
-						<li> <a href=""> Survey </a> </li>
-					</ul>
-
-				</nav>
-			</div>
-
-
-			<div id="user" class="right">
+                <div id="user" class="right">
                     <ul class="list_inline">
-                        <li> <a id="profilePicture2" class="username" href=""></a> </li>
+                        <li> <a d="profilePicture2" class="username" href="">${screenName}</a> </li>
+                        <li> <a class="logout" href="index.jsp"> Logout </a> </li>
+                        <c:if test="${profilePicture != null}">
                             <li class="profilePictureContent" id="profilePicture3"><img
                                     id="profilePictureURL" src="${profilePicture}"
                                     class="img-responsive img-rounded center-block"
                                     style="width: 40px; margin: 5px;" alt="Profile Picture"></li>
+                        </c:if>
                     </ul>
                 </div>
 
-
             </div>
 
-			<div class="clear"> </div>
-		</div>
-	</div>
+            <div class="clear"> </div>
 
+        </div>
+    </div>
+    <div class="container_12">
+        <br/>
+        <br/>
+        <div>
+            <div style="width:20%; float:left; height: 600px">
+                <div class="sidebar_box_inner">
 
-<!--End Header-->
-
-
-
-<div class="container_12">
-
-
-	<div id="content">
-		<div id="sidebar_left" class="sidebar left">
-                    <div id="my_bots" class="sidebar_box">
-                        <div class="sidebar_box_inner">
-
-                            <div class="sidebar_head">
-                                My Bots
-                            </div>
-
-                            <div class="sidebar_content">
-                                <ul id="userBots" class="list_block">
-                                </ul>
-                            </div>
-
-
-                        </div>  
+                    <div class="sidebar_head">
+                        My Bots
                     </div>
-		</div>
 
-		<div id="main_content">
-                    <div class="main-cont-menu">
-                        
-                	<ul>
-                    	<li>
-                            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">new</button>
-                        </li>
-                        <li>                            
-                            <button id="del" class="btn btn-info btn-lg" disabled="disabled">delete</button>
-                        </li>
-                        <li>                            
-                            <button id="save" class="btn btn-info btn-lg" disabled="disabled">save and compile</button></li>
+                    <div class="sidebar_content">
+                        <ul class="list_block">
+                            <li class="bot"> <a href=""> Lorem Ipsum Dolor </a> </li>
+                            <li class="bot"> <a href=""> Lorem Ipsum Dolor </a> </li>
+                            <li class="bot"> <a href=""> Lorem Ipsum Dolor </a> </li>
+                            <li class="bot"> <a href=""> Lorem Ipsum Dolor </a> </li>
+                            <li class="bot more"> <a href=""> more... </a> </li>
                         </ul>
                     </div>
-                    <div class="main-blockly">
-                        <div id="blocklyDiv" style="height:450px"></div>
-                    </div>
+
+
                 </div>
-
-              <div class="modal fade" id="myModal" role="dialog">
-                <div class="modal-dialog modal-sm">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      <h4 class="modal-title">Modal Header</h4>
-                    </div>
-                        <p>name for bot:</p>
-                        <input id="botName">
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="createNewBot()">Submit</button>
-                        </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-            
-	</div>
-
-     
-    
-	<div id="footer">
-
-
-	</div>
-</div>
-
-</body>
-
-<xml id="toolbox" style="display: none">
+            </div>
+        </div>
+        <div id="blocklyDiv" style="background-color:rgba(0,0,0,0.4); height: 600px; width: 80%; float:right"></div>
+        <div>
+            <br/>
+            <button id="btnSave" style="width: 50%; float:left;" onclick="compileAndSave()"> Save </button>
+            <c:if test="${isDebug}">
+                <input type="button" onclick="toCode()" style="width: 50%; float:right;" value="To Java">
+                <br/><br/>
+                <textarea id="importExport" style="width: 100%; height: 200px"></textarea>
+            </c:if>
+        </div>
+    </div>
+    <xml id="toolbox" style="display: none">
         <category name="Logic">
             <block type="controls_if"></block>
             <block type="logic_compare"></block>
@@ -496,7 +447,7 @@
             <block type="check_state_of_coordinate"></block>
         </category>
     </xml>
-<xml id="initialBlocklyState" style="display:none">
+    <xml id="initialBlocklyState" style="display:none">
         <block type="procedures_defreturn" id="1" x="63" y="63" deletable="false" editable="false">
             <mutation></mutation>
             <field name="NAME">nextMove</field>
@@ -505,4 +456,6 @@
             </value>
         </block>
     </xml>
+
+</body>
 </html>

@@ -253,14 +253,6 @@ padding: 15px;
 	border-top: 1px solid #000000;
 }
 
-.sidebar_content ul li:hover.bot {
-	background: red;
-}
-.sidebar_content ul li:cell-selection.bot {
-    background: blue;
-    
-}
-
 #game_controls .sidebar_content {
 	border: 1px solid #576379;
 	background: #ffffff;
@@ -532,10 +524,10 @@ body
 	padding:12px 15px 14px 15px;
 	}
 #nav_menu ul li:hover,
-.sidebar_content ul li.bot:hover
+/*.sidebar_content ul li.bot:hover
 	{
 	background:#042632;
-	}
+	}*/
 #nav_menu a
 	{
 	color:#ffffff;

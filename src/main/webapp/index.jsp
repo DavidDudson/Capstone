@@ -1,4 +1,4 @@
-<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
+<%--<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@page import="nz.ac.massey.cs.ig.core.services.Services" %>
@@ -7,7 +7,7 @@
 
     pageContext.setAttribute("isDebug",services.getConfiguration().isDebug());
     pageContext.setAttribute("gameName", services.getGameSupport().getName());
-%>
+%>--%>
 
 <!DOCTYPE html>
 <html>
