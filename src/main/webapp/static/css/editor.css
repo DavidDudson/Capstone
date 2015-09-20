@@ -36,22 +36,6 @@ img {
 	border: none;
 }
 
-a {
-	color: #333333;
-	text-decoration: none;
-	cursor: pointer;
-	-webkit-transition: 0.9s;
-    -moz-transition: 0.9s;
-    -o-transition: 0.9s;
-    -ms-transition: 0.9s;
-    transition: 0.9s;
-} 
-             
-a:hover {
-	color: #cccccc;
-	text-decoration: none;
-	cursor: hand;
-}
 
 .clear {
 	clear: both; 
@@ -230,21 +214,36 @@ padding: 15px;
 .sidebar_content ul li.bot {
 	padding: 5px 10px;
 	border-top: 1px solid #000000;
+        color: #ffffff;
+        font-family: Designer;
+        font-size: 14px;
+        
+        
 }
 
 .sidebar_content ul li:hover.bot {
 	background: #cccccc;
 }
 
-#game_controls .sidebar_content {
-	border: 1px solid #576379;
-	background: #ffffff;
-}
-
-#controls {
-	padding: 5px;
-}
-
+.sidebar_content
+	{
+	background:none;
+	position:relative;
+	float:left;
+	width:100%;
+	}
+.sidebar_content ul li.bot
+	{
+	border-bottom:2px solid #00ccff;
+	border-top:none;
+	}
+	#search
+		{
+		position:relative;
+		float:left;
+		width:100%;
+		padding:0px 0px 0px 0px;
+		}
 
 
 
@@ -345,21 +344,6 @@ section {
     left: 40px;
 	position: relative;
 }
-
-
-
-
-
-
-
-
-/*New Style*/
-
-
-
-
-
-
 	
 ul.list_inline li img
 	{
@@ -428,11 +412,7 @@ ul.user-top li
 	{
 	padding:12px 15px 14px 15px;
 	}
-#nav_menu ul li:hover,
-.sidebar_content ul li.bot:hover
-	{
-	background:#042632;
-	}
+        
 #nav_menu a
 	{
 	color:#ffffff;
@@ -603,7 +583,8 @@ ul.user-top li
          background-color: rgba(0,0,0,0.1) !important;
             
 }
-
-/*.blocklyMainBackground {
-    background-color: #3D455A !important;
-}*/
+.username {
+	color: #ffffff;
+	font-family: Designer;
+	font-size: 14px;
+}

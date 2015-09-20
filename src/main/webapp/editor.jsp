@@ -262,7 +262,7 @@
 
                     <div id="user" class="right">
                         <ul class="list_inline">
-                            <li> <a d="profilePicture2" class="username" href="">${screenName}</a> </li>
+                            <li  id="profilePicture2" class="username">${screenName}</li>
                             <li> <a class="logout" href="index.jsp"> Logout </a> </li>
                             <c:if test="${profilePicture != null}">
                                 <li class="profilePictureContent" id="profilePicture3"><img

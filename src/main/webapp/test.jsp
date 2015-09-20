@@ -278,13 +278,13 @@
 
                     <div id="user" class="right">
                         <ul class="list_inline">
-                            <li> <a d="profilePicture2" class="username" href="">${screenName}</a> </li>
+                            <li id="profilePicture2" class="username">${screenName}</li>
                             <li> <a class="logout" href="index.jsp"> Logout </a> </li>
                             <c:if test="${profilePicture != null}">
-                                <li class="profilePictureContent" id="profilePicture3"><img
-                                        id="profilePictureURL" src="${profilePicture}"
-                                        class="img-responsive img-rounded center-block"
-                                        style="width: 40px; margin: 5px;" alt="Profile Picture"></li>
+                            <li class="profilePictureContent" id="profilePicture3"><img
+                                    id="profilePictureURL" src="${profilePicture}"
+                                    class="img-responsive img-rounded center-block"
+                                    alt="Profile Picture"></li>
                             </c:if>
                         </ul>
                     </div>
