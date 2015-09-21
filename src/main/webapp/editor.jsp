@@ -39,14 +39,14 @@
     <script type="text/javascript" src="static/js/EasyJ/blocks/customBlocks.js"></script>
 
     <script src="static/js/jquery-1.10.2.min.js"></script>
-    <script src="static/js/jquery-ui-1.8.21.custom.min.js"></script>
     <script src="static/js/bootstrap.min.js"></script>
+
     <link rel="stylesheet" type="text/css" href="static/css/editor.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
     <script src="static/js/editor.js"></script>
 </head>
-<body onload="start(); getBots()">
+<body onload="setUpWorkspace(); getUserBots()">
 
 <!--Header-->
 
@@ -109,18 +109,13 @@
 
                 <ul>
                     <li>
-                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">
-                            new
-                        </button>
+                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"> New </button>
                     </li>
                     <li>
-                        <button id="del" class="btn btn-info btn-lg" onclick="deleteBot()" disabled="disabled">delete
-                        </button>
+                        <button id="del" class="btn btn-info btn-lg" onclick="deleteCurrentBot()" disabled="disabled"> Delete </button>
                     </li>
                     <li>
-                        <button id="save" class="btn btn-info btn-lg" onclick="compileAndSave()" disabled="disabled">
-                            save and compile
-                        </button>
+                        <button id="save" class="btn btn-info btn-lg" onclick="saveBot()" disabled="disabled"> Save </button>
                     </li>
                 </ul>
             </div>
@@ -140,9 +135,7 @@
                     <input id="botName">
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="createNewBot()">
-                            Submit
-                        </button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="createNewBot()"> Submit </button>
                     </div>
                 </div>
             </div>

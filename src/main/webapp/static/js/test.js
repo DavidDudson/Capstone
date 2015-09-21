@@ -1,13 +1,11 @@
 var bot1 = null;
 var bot2 = null;
-var currentSelectedBot;
 
 jsonMoves = {};
 jsonUserBots = {};
 jsonBuiltInBots = {};
 
 var currentMoveIndex = 0;
-var player1Move = true;
 var gameEnded = false;
 var gameStart = true;
 var gameSpeed = 500;
@@ -15,42 +13,7 @@ var playGame = false;
 var myGame;
 var isRed = true;
 
-
-var commons = {
-    DEBUG : true,
-    handleError : function(textStatus, error) {
-        var err = textStatus + ", " + error;
-        console.log("ERROR: " + err);
-    },
-    warn : function(message) {
-        console.log("WARN: " + message);
-    },
-    debug : function(message) {
-        if (this.DEBUG) {
-            console.log("DEBUG: " + message);
-        }
-    },
-    notifyUser : function(title,message) {
-        $("#errordialog-content").html(message);
-        $("#errordialog").dialog({title: title,text: message,modal: true,width:350,height:300});
-    },
-    formatServerError : function(error,maxStackTraceSize) {
-        var botEncounteringError = (error.winner==1)?2:1;
-        var errorInfo = "<b>A server error occured during execution of bot " + botEncounteringError + "</b><br/>" +
-            "error type: " + error.type +"<br/>";
-        if (error.message) errorInfo = errorInfo + "message: " + error.message +"<br/>";
-        errorInfo = errorInfo+"</hr>" + "stacktrace:<br/>";
-        var stackTraceSize = Math.min(error.stacktrace.length, maxStackTraceSize);
-        for (var i=0;i<stackTraceSize;i++) {
-            errorInfo = errorInfo + error.stacktrace[i] + "<br/>";
-        }
-        return errorInfo;
-    }
-};
-
 function setBots(botID){
-
-
 
     if(bot1 === null){
         console.log(botID);
@@ -81,14 +44,14 @@ function nextMove() {
             var posA = "a" + (currentMove.coord.x * 10 + currentMove.coord.y);
             document.getElementById(posA);
             if (currentMove.wasShip) {
-                document.getElementById(posA).innerHTML += "<img src='static/images/hit.png'/>";
+                document.getElementById(posA).innerHTML += "<img src='../images/hit.png'/>";
 
                 var sunkElements = currentMove.sunk.length;
                 if (sunkElements > 1) {
                     alterBoatLiveGUI(sunkElements, "p1");
                 }
             } else {
-                document.getElementById(posA).innerHTML += "<img src='static/images/miss.png'/>";
+                document.getElementById(posA).innerHTML += "<img src='../images/miss.png'/>";
 
             }
 
@@ -96,7 +59,7 @@ function nextMove() {
             var posB = "b" + (currentMove.coord.x * 10 + currentMove.coord.y);
             document.getElementById(posB);
             if (currentMove.wasShip) {
-                document.getElementById(posB).innerHTML += "<img src='static/images/hit.png'/>";
+                document.getElementById(posB).innerHTML += "<img src='../images/hit.png'/>";
 
                 var sunkElements = currentMove.sunk.length;
 
@@ -104,7 +67,7 @@ function nextMove() {
                     alterBoatLiveGUI(sunkElements, "p2", "dec");
                 }
             } else {
-                document.getElementById(posB).innerHTML += "<img src='static/images/miss.png'/>";
+                document.getElementById(posB).innerHTML += "<img src='../images/miss.png'/>";
 
             }
         }
@@ -124,17 +87,13 @@ function prevMove() {
         if (currentMove.wasPlayer1) {
             pos = "a" + (currentMove.coord.x * 10 + currentMove.coord.y);
             document.getElementById(pos).innerHTML = "";
-            if (sunkElements > 0) {
+            if (sunkElements > 0)
                 alterBoatLiveGUI(sunkElements, "p1", "inc");
-
-            }
         } else {
             pos = "b" + (currentMove.coord.x * 10 + currentMove.coord.y);
             document.getElementById(pos).innerHTML = "";
-            if (sunkElements > 0) {
+            if (sunkElements > 0)
                 alterBoatLiveGUI(sunkElements, "p2", "inc");
-
-            }
         }
 
     }else{
@@ -153,6 +112,7 @@ function startGame() {
         prevMove();
     }
 }
+
 function playPause() {
     if(!playGame && gameStart){
         makeBotGame();
@@ -168,50 +128,18 @@ function playPause() {
     }
 }
 
+function getGameMoves() {
+    $.getJSON(jqxhr.getResponseHeader("Location"), function (data) {
+        jsonMoves = data;
+    });
+}
+
 function makeBotGame() {
-    var url = "creategame_b2b";
-    var bot1Id = bot1;
-    var bot2Id = bot2;
-    var data = "" + bot1Id + "\n" + bot2Id + "\n";
     var jqxhr = $.ajax({
-        url: url,
+        url: "creategame_b2b",
         type: "POST",
-        data: data,
+        data: "" + bot1 + "\n" + bot2 + "\n",
         dataType: "json",
-        success : function () {
-            $.getJSON(jqxhr.getResponseHeader("Location"), function(data){
-                console.log(data);
-                jsonMoves = data;
-
-
-
-            });
-        }
+        success : getGameMoves()
     });
-};
-
-function getBots() {
-
-    var userBotsURL = "userbots/__current_user";
-    var buildBotsURL = "builtinbots";
-    $.ajax({
-        url: userBotsURL,
-        type: "GET",
-        dataType: "json",
-        success : function (data) {
-            $.each(data.collection.items, function(i, items){
-                var entry = document.createElement('li');
-                var textNode = document.createTextNode(data.collection.items[i].name);
-                entry.appendChild(textNode);
-                entry.setAttribute("id", data.collection.items[i].id);
-                entry.setAttribute("value", data.collection.items[i].name);
-                entry.setAttribute("onClick", "setBots('" + data.collection.items[i].id + "');");
-                entry.className = "bot";
-                document.getElementById("userBots").appendChild(entry);
-            });
-        }
-    });
-
-
-
-};
+}
