@@ -40,6 +40,7 @@
 
     <script src="static/js/jquery-1.10.2.min.js"></script>
     <script src="static/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="static/css/editor.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -49,7 +50,6 @@
 <body onload="setUpWorkspace(); getUserBots()">
 
 <!--Header-->
-
 <div id="header">
     <div id="nav_container">
         <div class="container_12" style="padding:0;">
@@ -60,8 +60,8 @@
                 <nav class="menu">
                     <a class="toggle-nav" href="#">&#9776;</a>
                     <ul class="list_inline active">
-                        <li> <a href="test.jsp"> Test </a></li>
-                        <li> <a href=""> Survey </a> </li>
+                        <li href="test.jsp"> Test </li>
+                        <li href=""> Survey </li>
                         <li> <div class="menu-on"> <a href=""> My Bots </a> </div> </li>
                     </ul>
 
@@ -70,7 +70,7 @@
             <div id="user" class="right">
                 <ul class="list_inline">
                     <li> <a d="profilePicture2" class="username" href="">${screenName}</a> </li>
-                    <li> <a class="logout" href="index.jsp"> Logout </a> </li>
+                    <li class="logout" href="index.jsp"> Logout </li>
                     <c:if test="${profilePicture != null}">
                         <li class="profilePictureContent" id="profilePicture3"><img
                                 id="profilePictureURL" src="${profilePicture}"
