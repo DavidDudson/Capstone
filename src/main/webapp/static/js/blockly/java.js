@@ -323,7 +323,7 @@ Blockly.Java.workspaceToCode = function(workspace, parms) {
     return code;
   }
   var finalcode = this.getImports() + '\n\n' +
-                  //'// ' + xml + '\n\n' +
+                  '// ' + xml + '\n\n' +
                   'public class ' + this.getAppName();
   if (this.getBaseclass()) {
     finalcode += ' extends ' + this.getBaseclass();
