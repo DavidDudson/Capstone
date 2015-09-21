@@ -31,14 +31,14 @@ var output_connection_tests = [
     {block:'the_last_move', expected:'Coordinate'}];
 
 var input_connection_tests = [
-    {block:'check_state_of_coordinate', expected:'Boolean'},
-    {block:'get_coordinate_at_pos', expected:'Coordinate'},
-    {block:'if_last_move_hit_aim_direction', expected:'Coordinate'},
-    {block:'can_attack_coordinate', expected:'Boolean'},
-    {block:'get_first_valid_coordinate', expected:'Coordinate'},
-    {block:'get_last_valid_coordinate', expected:'Coordinate'},
-    {block:'get_neighbour_valid_coordinates', expected:'Array'},
-    {block:'get_gamestate', expected:'Array'},
-    {block:'get_all_valid_moves', expected:'Array'},
-    {block:'last_move_sunk', expected:'Boolean'},
-    {block:'the_last_move', expected:'Coordinate'}];
+    {block:'check_state_of_coordinate', expected:['Coordinate']},
+    {block:'get_coordinate_at_pos', expected:['Coordinate']},
+    {block:'if_last_move_hit_aim_direction', expected:[]},
+    {block:'can_attack_coordinate', expected:['Coordinate']},
+    {block:'get_first_valid_coordinate', expected:[]},
+    {block:'get_last_valid_coordinate', expected:[]},
+    {block:'get_neighbour_valid_coordinates', expected:['Coordinate']},
+    {block:'get_gamestate', expected:[]},
+    {block:'get_all_valid_moves', expected:[]},
+    {block:'last_move_sunk', expected:[]},
+    {block:'the_last_move', expected:[]}];
