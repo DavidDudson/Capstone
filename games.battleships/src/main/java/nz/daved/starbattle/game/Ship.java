@@ -1,6 +1,6 @@
 package nz.daved.starbattle.game;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -31,7 +31,7 @@ public class Ship {
     public Ship(Coordinate coord, int _shipSize, int direction) {
         size = _shipSize;
         health = size;
-        coordinates = new ArrayList<>();
+        coordinates = new LinkedList<>();
         populateCoordinates(coord, direction);
     }
 

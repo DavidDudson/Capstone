@@ -44,7 +44,7 @@ public class ShipGameBoardTest {
 
     @Test
     public void testConstructor() throws Exception {
-        List<Integer> ships = new ArrayList<>();
+        List<Integer> ships = new LinkedList<>();
         Collections.addAll(ships, 2,2,3,3,4,4,5);
         ShipGameBoard sgb = new ShipGameBoard();
         sgb.fillGrid(0);

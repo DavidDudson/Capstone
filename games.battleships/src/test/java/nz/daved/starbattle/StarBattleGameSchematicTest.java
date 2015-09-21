@@ -2,7 +2,7 @@ package nz.daved.starbattle;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Collections;
 import java.util.List;
 
@@ -13,7 +13,7 @@ public class StarBattleGameSchematicTest {
 
     @Test
     public void testFullConstructor() throws Exception {
-        List<Integer> ships = new ArrayList<>();
+        List<Integer> ships = new LinkedList<>();
         Collections.addAll(ships, 2, 2, 3, 3, 4, 4, 5);
         StarBattleGameSchematic schematic = new StarBattleGameSchematic(ships,10,10,1L);
         assertTrue(schematic.getSeed() == 1L);
@@ -25,7 +25,7 @@ public class StarBattleGameSchematicTest {
 
     @Test
     public void testDefaultConstructor() throws Exception {
-        List<Integer> ships = new ArrayList<>();
+        List<Integer> ships = new LinkedList<>();
         Collections.addAll(ships, 2,2,3,3,4,4,5);
         StarBattleGameSchematic schematic = new StarBattleGameSchematic();
         assertTrue(schematic.getSeed() == 1L);

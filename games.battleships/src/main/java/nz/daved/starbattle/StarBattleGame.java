@@ -8,7 +8,7 @@ import nz.daved.starbattle.game.BotGameBoard;
 import nz.daved.starbattle.game.Coordinate;
 import nz.daved.starbattle.game.ShipGameBoard;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,7 +22,7 @@ public class StarBattleGame extends SimpleGame<BotGameBoard, Coordinate> {
     private ShipGameBoard shipGameBoard;
     private BotGameBoard bot1map;
     private BotGameBoard bot2map;
-    private List<StarBattleGameMove> history = new ArrayList<>(100);
+    private List<StarBattleGameMove> history = new LinkedList<>();
 
     /**
      * Construct a new game bu generating the map for each bot and the shipMap
