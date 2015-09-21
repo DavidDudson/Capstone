@@ -47,7 +47,7 @@
 
     <script src="static/js/editor.js"></script>
 </head>
-<body onload="setUpWorkspace(); getUserBots()">
+<body onload="setupWorkspace(); getUserBots()">
 
 <!--Header-->
 <div id="header">
@@ -62,7 +62,7 @@
                     <ul class="list_inline active">
                         <li href="test.jsp"> Test </li>
                         <li href=""> Survey </li>
-                        <li> <div class="menu-on"> <a href=""> My Bots </a> </div> </li>
+                        <li class="menu-on"> My Bots </li>
                     </ul>
 
                 </nav>

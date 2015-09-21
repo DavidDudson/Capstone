@@ -17,7 +17,6 @@ var blocklyConfig = {
     }
 };
 
-//start
 function setupWorkspace() {
     var workspace = Blockly.inject('blocklyDiv', blocklyConfig);
 
