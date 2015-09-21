@@ -18,25 +18,25 @@
 <head>
     <meta charset="utf-8">
     <title>${gameName} Editor</title>
-    <script type="text/javascript" src="static/js/EasyJ/blockly_uncompressed.js"></script>
-    <script type="text/javascript" src="static/js/EasyJ/java.js"></script>
-    <script type="text/javascript" src="static/js/EasyJ/java/logic.js"></script>
-    <script type="text/javascript" src="static/js/EasyJ/java/loops.js"></script>
-    <script type="text/javascript" src="static/js/EasyJ/java/math.js"></script>
-    <script type="text/javascript" src="static/js/EasyJ/java/text.js"></script>
-    <script type="text/javascript" src="static/js/EasyJ/java/lists.js"></script>
-    <script type="text/javascript" src="static/js/EasyJ/java/variables.js"></script>
-    <script type="text/javascript" src="static/js/EasyJ/java/procedures.js"></script>
-    <script type="text/javascript" src="static/js/EasyJ/java/customBlocks.js"></script>
-    <script type="text/javascript" src="static/js/EasyJ/messages.js"></script>
-    <script type="text/javascript" src="static/js/EasyJ/blocks/logic.js"></script>
-    <script type="text/javascript" src="static/js/EasyJ/blocks/loops.js"></script>
-    <script type="text/javascript" src="static/js/EasyJ/blocks/math.js"></script>
-    <script type="text/javascript" src="static/js/EasyJ/blocks/text.js"></script>
-    <script type="text/javascript" src="static/js/EasyJ/blocks/lists.js"></script>
-    <script type="text/javascript" src="static/js/EasyJ/blocks/variables.js"></script>
-    <script type="text/javascript" src="static/js/EasyJ/blocks/procedures.js"></script>
-    <script type="text/javascript" src="static/js/EasyJ/blocks/customBlocks.js"></script>
+    <script type="text/javascript" src="static/js/blockly/blockly_uncompressed.js"></script>
+    <script type="text/javascript" src="static/js/blockly/java.js"></script>
+    <script type="text/javascript" src="static/js/blockly/java/logic.js"></script>
+    <script type="text/javascript" src="static/js/blockly/java/loops.js"></script>
+    <script type="text/javascript" src="static/js/blockly/java/math.js"></script>
+    <script type="text/javascript" src="static/js/blockly/java/text.js"></script>
+    <script type="text/javascript" src="static/js/blockly/java/lists.js"></script>
+    <script type="text/javascript" src="static/js/blockly/java/variables.js"></script>
+    <script type="text/javascript" src="static/js/blockly/java/procedures.js"></script>
+    <script type="text/javascript" src="static/js/blockly/java/customBlocks.js"></script>
+    <script type="text/javascript" src="static/js/blockly/messages.js"></script>
+    <script type="text/javascript" src="static/js/blockly/blocks/logic.js"></script>
+    <script type="text/javascript" src="static/js/blockly/blocks/loops.js"></script>
+    <script type="text/javascript" src="static/js/blockly/blocks/math.js"></script>
+    <script type="text/javascript" src="static/js/blockly/blocks/text.js"></script>
+    <script type="text/javascript" src="static/js/blockly/blocks/lists.js"></script>
+    <script type="text/javascript" src="static/js/blockly/blocks/variables.js"></script>
+    <script type="text/javascript" src="static/js/blockly/blocks/procedures.js"></script>
+    <script type="text/javascript" src="static/js/blockly/blocks/customBlocks.js"></script>
 
     <script src="static/js/jquery-1.10.2.min.js"></script>
     <script src="static/js/bootstrap.min.js"></script>

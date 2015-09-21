@@ -19,10 +19,7 @@
         <title>${gameName} Testing</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1.0, initial-scale=1.0" />
-        <meta name="description" content="">
-        <meta name="author" content="">
         <script src="static/js/jquery-1.10.2.min.js"></script>
-        <script src="static/js/jquery-ui-1.8.21.custom.min.js"></script>
         <script src="static/js/gameState.js"></script>
         <link rel="stylesheet" type="text/css" href="static/css/style.css">
         <link rel="stylesheet" type="text/css" href="static/css/grid.css">
@@ -31,7 +28,7 @@
 
     </head>
 
-    <body onload="getBots()">
+    <body onload="getUserBots()">
 
         <!--Header-->
         <div id="header">
