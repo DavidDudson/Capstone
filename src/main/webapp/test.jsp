@@ -105,8 +105,8 @@
 
                             <div class="sidebar_content">
                                 <ul class="list_block">
-                                    <li id="firstSquareBot" value="FirstSquareBot" class="bot" onclick="setBots('firstSquareBot')">First square bot</li>
-                                    <li id="lastSquareBot" value="LastSquareBot" class="bot" onclick="setBots('lastSquareBot')">Last square bot</li>
+                                    <li id="firstSquareBot" value="FirstSquareBot" class="bot" onclick="setBots(‘FirstSquareBot')">First square bot</li>
+                                    <li id="lastSquareBot" value="LastSquareBot" class="bot" onclick="setBots(‘LastSquareBot')">Last square bot</li>
                                     <li id="betterBot" value="BetterBot" class="bot" onclick="setBots('betterBot')">better bot</li>
                                     <li id="dreadnought" value="Dreadnought" class="bot" onclick="setBots('dreadnought')">Dreadnought</li>
                                 </ul>
