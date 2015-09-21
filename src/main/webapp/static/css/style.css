@@ -1,15 +1,15 @@
 /* GLOBAL */
 @font-face {
     font-family: Designer;
-    src: url(font/designer.ttf);
+    src: url(../font/designer.ttf);
 }
 @font-face {
     font-family: Super;
-    src: url(font/super.ttf);
+    src: url(../font/super.ttf);
 }
 @font-face {
     font-family: sans;
-    src: url(font/sans.ttf);
+    src: url(../font/sans.ttf);
 }
 body {
 	
@@ -251,14 +251,6 @@ padding: 15px;
 .sidebar_content ul li.bot {
 	padding: 5px 10px;
 	border-top: 1px solid #000000;
-}
-
-.sidebar_content ul li:hover.bot {
-	background: red;
-}
-.sidebar_content ul li:cell-selection.bot {
-    background: blue;
-    
 }
 
 #game_controls .sidebar_content {
@@ -532,10 +524,10 @@ body
 	padding:12px 15px 14px 15px;
 	}
 #nav_menu ul li:hover,
-.sidebar_content ul li.bot:hover
+/*.sidebar_content ul li.bot:hover
 	{
 	background:#042632;
-	}
+	}*/
 #nav_menu a
 	{
 	color:#ffffff;
@@ -612,6 +604,11 @@ body
 	float:left;
 	width:100%;
 	}
+        
+.sidebar_content ul li:hover.bot {
+	background: #cccccc;
+}
+        
 .sidebar_content ul li.bot
 	{
 	border-bottom:2px solid #00ccff;
@@ -982,7 +979,11 @@ table.results-list tr td.b-left
 	border-left:2px solid #06b4e2;
 	}
 
-
+.username {
+	color: #ffffff;
+	font-family: Designer;
+	font-size: 14px;
+}
 
 
 
