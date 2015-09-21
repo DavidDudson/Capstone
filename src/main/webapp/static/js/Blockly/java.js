@@ -318,7 +318,7 @@ Blockly.Java.workspaceToCode_ = Blockly.Java.workspaceToCode;
 Blockly.Java.workspaceToCode = function(workspace, parms) {
   // Generate the code first to get all of the required imports calculated.
   var code = this.workspaceToCode_(workspace,parms);
-  if (parms[0] == "tests") {
+  if (parms && parms[0] == "tests") {
     return code;
   }
   var finalcode = this.getImports() + '\n\n' +

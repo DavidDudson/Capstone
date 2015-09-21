@@ -212,19 +212,6 @@
                 </block>
             </value>
         </block>
-        <block type="math_random_int">
-            <value name="FROM">
-                <block type="math_number">
-                    <field name="NUM">1</field>
-                </block>
-            </value>
-            <value name="TO">
-                <block type="math_number">
-                    <field name="NUM">100</field>
-                </block>
-            </value>
-        </block>
-        <block type="math_random_float"></block>
     </category>
     <category name="Lists">
         <block type="lists_create_empty"></block>
@@ -275,15 +262,14 @@
         <block type="get_first_valid_coordinate"></block>
         <block type="get_last_valid_coordinate"></block>
         <block type="get_all_valid_moves"></block>
-    </category>
-    <sep></sep>
-    <category name="Testing">
         <block type="get_neighbour_valid_coordinates"></block>
         <block type="get_gamestate"></block>
         <block type="can_attack_coordinate"></block>
-        <block type="if_coordinate_hit_aim_direction"></block>
+        <block type="if_last_move_hit_aim_direction"></block>
         <block type="get_coordinate_at_pos"></block>
         <block type="check_state_of_coordinate"></block>
+        <block type="last_move_sunk"></block>
+        <block type="the_last_move"></block>
     </category>
 </xml>
 <xml id="initialBlocklyState" style="display:none">
