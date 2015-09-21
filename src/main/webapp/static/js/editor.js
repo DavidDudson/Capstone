@@ -1,35 +1,33 @@
 'use strict';
 
+var currentBotName = null;
 
-var currentBotID = null;
-var workspace;
+//Blockly configuration, Set up the grid, specify always left to right,
+var blocklyConfig = {
+    toolbox: document.getElementById('toolbox'),
+    rtl: false,
+    comments: true,
+    collapse: true,
+    scrollbars: true,
+    grid: {
+        spacing: 25,
+        length: 3,
+        colour: '#ccc',
+        snap: true
+    }
+};
 
 function setupWorkspace() {
-    //Blockly configuration, Set up the grid, specify always left to right,
-    var blocklyConfig = {
-        toolbox: document.getElementById('toolbox'),
-        rtl: false,
-        comments: true,
-        collapse: true,
-        scrollbars: true,
-        grid: {
-            spacing: 25,
-            length: 3,
-            colour: '#ccc',
-            snap: true
-        }
-    };
-
-    workspace = Blockly.inject('blocklyDiv', blocklyConfig);
+    var workspace = Blockly.inject('blocklyDiv', blocklyConfig);
 
     Blockly.Xml.domToWorkspace(workspace, document.getElementById('initialBlocklyState'));
     workspace.getBlockById(1).inputList[2].connection.check_ = ["Coordinate"];
 }
 
-function saveBot(botName) {
+function saveBot() {
 
     var data = {};
-    data.name = botName;
+    data.name = currentBotName;
     data.language = 'JAVA';
     data.src = Blockly.Java.workspaceToCode(workspace, ["notests"]);
     data = JSON.stringify(data);
@@ -39,29 +37,9 @@ function saveBot(botName) {
         url: 'http://localhost:8080/Capstone/bots',
         type: "POST",
         data: data,
-        success: function(){console.log("Build success")}, //TODO Show green bar
-        failure: function(){console.log("Build failure")}  //TODO Show Red bar
+        success: console.log("Build success"), //TODO Show green bar
+        failure: console.log("Build failure")  //TODO Show Red bar
     });
-}
-
-function updateBot(){
-    var botName = $("#" + currentBotID).val();
-    var data = {};
-    data.name = botName;
-    data.language = 'JAVA';
-    data.src = Blockly.Java.workspaceToCode(workspace, ["notests"]);
-    data = JSON.stringify(data);
-
-    $.ajax({
-        dataType: "json",
-        url: 'http://localhost:8080/Capstone/bots/' + currentBotID,
-        type: "PUT",
-        data: data,
-        success: function(){console.log("Bot update success")}, //TODO Show green bar
-        failure: function(){console.log("Bot update failure")}  //TODO Show Red bar
-    });
-    
-    
 }
 
 function addUserBotsToUI(data) {
@@ -77,29 +55,8 @@ function addUserBotsToUI(data) {
     });
 }
 
-function selectBot(botID){
-    if(currentBotID !== null){
-        $("#" + currentBotID).css("background-color", "#1a445b");
-
-    }
-    currentBotID = botID;
-    $("#" + currentBotID).css("background-color", "red");
-    $("#del").prop("disabled", false);
-    $("#save").prop("disabled", false);
-
-}
-function getUserBots(callBackFunct) {
-    $.ajax({
-        url: "userbots/__current_user",
-        type: "GET",
-        dataType: "json",
-        success: callBackFunct,
-        failure: function(){console.log("getUserBots failed")}
-    });
-}
-
 function deleteBotFromUI() {
-    var deletedBot = document.getElementById(currentBotID);
+    var deletedBot = document.getElementById(currentBotName);
     deletedBot.parentNode.removeChild(deletedBot);
     var botList = document.getElementById("userBots").getElementsByTagName("li");
 
@@ -111,52 +68,32 @@ function deleteBotFromUI() {
 
 function deleteCurrentBot() {
     $.ajax({
-        url: "delete/" + currentBotID,
+        url: "delete/" + currentBotName,
         type: "DELETE",
         success: deleteBotFromUI(),
-        failure: function(){console.log("deleteCurrentBot failed")}
+        failure: console.log("deleteCurrentBot failed")
     });
 }
 
 function createNewBot() {
-    var botName = $('#botName').val();
-    console.log(botName);
-    if (botName.length === 0) {
+    currentBotName = $('#botName').val();
+
+    if (currentBotName.length === 0) {
         alert("Bot must have name");
         return;
     }
 
-    saveBot(botName);
-    
+    var newBot = saveBot();
     var entry = document.createElement('li');
-    var textNode = document.createTextNode(botName);
+    var textNode = document.createTextNode(currentBotName);
+
     entry.appendChild(textNode);
-    entry.setAttribute("id", currentBotID);
-    entry.setAttribute("value", currentBotID);
-    entry.setAttribute("onClick", "selectBot('" + botName + "');");
+    entry.setAttribute("id", currentBotName);
+    entry.setAttribute("value", currentBotName);
+    entry.setAttribute("onClick", "selectBot('" + newBot + "');");
     entry.className = "bot";
     document.getElementById("userBots").appendChild(entry);
 
     $("#del").prop("disabled", false);
     $("#save").prop("disabled", false);
 }
-
-function getBotSource(id){
-    var url = "/bot-data/" + id;
-    
-    $.ajax({
-        url : url,
-        type: "POST",
-        datatype : "JSON",
-        success : function (data){
-            console.log(data);
-            return data.src;
-            
-        }
-        
-        
-    });
-    
-    
-}
-
