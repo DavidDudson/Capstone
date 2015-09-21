@@ -255,8 +255,7 @@ Blockly.Blocks['lists_getIndex'] = {
         [[Blockly.Msg.LISTS_GET_INDEX_FROM_START, 'FROM_START'],
          [Blockly.Msg.LISTS_GET_INDEX_FROM_END, 'FROM_END'],
          [Blockly.Msg.LISTS_GET_INDEX_FIRST, 'FIRST'],
-         [Blockly.Msg.LISTS_GET_INDEX_LAST, 'LAST'],
-         [Blockly.Msg.LISTS_GET_INDEX_RANDOM, 'RANDOM']];
+         [Blockly.Msg.LISTS_GET_INDEX_LAST, 'LAST']];
     this.setHelpUrl(Blockly.Msg.LISTS_GET_INDEX_HELPURL);
     this.setColour(Blockly.Blocks.lists.HUE);
     var modeMenu = new Blockly.FieldDropdown(MODE, function(value) {
@@ -403,8 +402,7 @@ Blockly.Blocks['lists_setIndex'] = {
         [[Blockly.Msg.LISTS_GET_INDEX_FROM_START, 'FROM_START'],
          [Blockly.Msg.LISTS_GET_INDEX_FROM_END, 'FROM_END'],
          [Blockly.Msg.LISTS_GET_INDEX_FIRST, 'FIRST'],
-         [Blockly.Msg.LISTS_GET_INDEX_LAST, 'LAST'],
-         [Blockly.Msg.LISTS_GET_INDEX_RANDOM, 'RANDOM']];
+         [Blockly.Msg.LISTS_GET_INDEX_LAST, 'LAST']];
     this.setHelpUrl(Blockly.Msg.LISTS_SET_INDEX_HELPURL);
     this.setColour(Blockly.Blocks.lists.HUE);
     this.appendValueInput('LIST')
@@ -493,7 +491,7 @@ Blockly.Blocks['lists_setIndex'] = {
   typeblock: function() {
     var result = [];
     var modeOptions = ['SET', 'INSERT'];
-    var whereOptions = ['FROM_START', 'FROM_END', 'FIRST', 'LAST', 'RANDOM'];
+    var whereOptions = ['FROM_START', 'FROM_END', 'FIRST', 'LAST'];
     for (var modeSlot = 0; modeSlot < modeOptions.length; modeSlot++) {
       var mode = modeOptions[modeSlot];
       for (var whereSlot = 0; whereSlot < whereOptions.length; whereSlot++) {
