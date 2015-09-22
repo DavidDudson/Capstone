@@ -1,19 +1,14 @@
 <%@taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
-<%@page import="nz.ac.massey.cs.ig.core.services.Services" %>
 
 <%
-    Services services = (Services) application.getAttribute(Services.NAME);
-
-    pageContext.setAttribute("isDebug",services.getConfiguration().isDebug());
     pageContext.setAttribute("screenName", session.getAttribute("userName"));
     pageContext.setAttribute("profilePicture", session.getAttribute("userPicture"));
 %>
 
 <!DOCTYPE html>
 
-<html ng-app="app" ng-controller="appCtrl as app">
+<html ng-app="app" ng-controller="appCtrl">
 <head>
     <meta charset="utf-8">
     <title>{{app.name}} Editor</title>
@@ -46,9 +41,8 @@
 
     <script src="static/js/app.js"></script>
     <script src="static/js/editor.js"></script>
-    <script src="static/js/header.js"></script>
 </head>
-<body onload="setupWorkspace();">
+<body ng-init="user.initialize('${screenName}','${profilePicture}')">
 
 <page-header></page-header>
 
@@ -63,7 +57,10 @@
                     </div>
 
                     <div class="sidebar_content">
-                        <ul id="userBots" class="list_block">
+                        <ul id="userBots" class="list_block" ng-repeat="user.bots">
+                            <li ng-if="user.bots === []">
+                                No Bots.
+                            </li>
                         </ul>
                     </div>
 
@@ -71,7 +68,7 @@
             </div>
         </div>
 
-        <div id="main_content">
+        <div id="main_content" ng-controller="editorCtrl">
             <div class="main-cont-menu">
 
                 <ul>
@@ -79,14 +76,14 @@
                         <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"> New </button>
                     </li>
                     <li>
-                        <button id="del" class="btn btn-info btn-lg" onclick="deleteCurrentBot()" disabled="disabled"> Delete </button>
+                        <button id="del" class="btn btn-info btn-lg" ng-click="editor.delete()" disabled="disabled"> Delete </button>
                     </li>
                     <li>
-                        <button id="save" class="btn btn-info btn-lg" onclick="saveBot()" disabled="disabled"> Save </button>
+                        <button id="save" class="btn btn-info btn-lg" ng-click="editor.save()" disabled="disabled"> Save </button>
                     </li>
                 </ul>
             </div>
-            <div class="main-blockly">
+            <div class="main-blockly" ng-init="editor.initialize">
                 <div id="blocklyDiv" style="height:450px"></div>
             </div>
         </div>
@@ -109,157 +106,7 @@
         </div>
     </div>
 </div>
+<toolbox></toolbox>
+<blockly-initial></blockly-initial>
 </body>
-
-<xml id="toolbox" style="display: none">
-    <category name="Logic">
-        <block type="controls_if"></block>
-        <block type="logic_compare"></block>
-        <block type="logic_operation"></block>
-        <block type="logic_negate"></block>
-        <block type="logic_boolean"></block>
-        <block type="logic_null"></block>
-        <block type="logic_ternary"></block>
-    </category>
-    <category name="Loops">
-        <block type="controls_repeat_ext">
-            <value name="TIMES">
-                <block type="math_number">
-                    <field name="NUM">10</field>
-                </block>
-            </value>
-        </block>
-        <block type="controls_whileUntil"></block>
-        <block type="controls_for">
-            <value name="FROM">
-                <block type="math_number">
-                    <field name="NUM">1</field>
-                </block>
-            </value>
-            <value name="TO">
-                <block type="math_number">
-                    <field name="NUM">10</field>
-                </block>
-            </value>
-            <value name="BY">
-                <block type="math_number">
-                    <field name="NUM">1</field>
-                </block>
-            </value>
-        </block>
-        <block type="controls_forEach"></block>
-        <block type="controls_flow_statements"></block>
-    </category>
-    <category name="Math">
-        <block type="math_number"></block>
-        <block type="math_arithmetic"></block>
-        <block type="math_single"></block>
-        <block type="math_trig"></block>
-        <block type="math_constant"></block>
-        <block type="math_number_property"></block>
-        <block type="math_change">
-            <value name="DELTA">
-                <block type="math_number">
-                    <field name="NUM">1</field>
-                </block>
-            </value>
-        </block>
-        <block type="math_round"></block>
-        <block type="math_on_list"></block>
-        <block type="math_modulo"></block>
-        <block type="math_constrain">
-            <value name="LOW">
-                <block type="math_number">
-                    <field name="NUM">1</field>
-                </block>
-            </value>
-            <value name="HIGH">
-                <block type="math_number">
-                    <field name="NUM">100</field>
-                </block>
-            </value>
-        </block>
-        <block type="math_random_int">
-            <value name="FROM">
-                <block type="math_number">
-                    <field name="NUM">1</field>
-                </block>
-            </value>
-            <value name="TO">
-                <block type="math_number">
-                    <field name="NUM">100</field>
-                </block>
-            </value>
-        </block>
-        <block type="math_random_float"></block>
-    </category>
-    <category name="Lists">
-        <block type="lists_create_empty"></block>
-        <block type="lists_create_with"></block>
-        <block type="lists_repeat">
-            <value name="NUM">
-                <block type="math_number">
-                    <field name="NUM">5</field>
-                </block>
-            </value>
-        </block>
-        <block type="lists_length"></block>
-        <block type="lists_isEmpty"></block>
-        <block type="lists_indexOf">
-            <value name="VALUE">
-                <block type="variables_get">
-                    <field name="VAR">list</field>
-                </block>
-            </value>
-        </block>
-        <block type="lists_getIndex">
-            <value name="VALUE">
-                <block type="variables_get">
-                    <field name="VAR">list</field>
-                </block>
-            </value>
-        </block>
-        <block type="lists_setIndex">
-            <value name="LIST">
-                <block type="variables_get">
-                    <field name="VAR">list</field>
-                </block>
-            </value>
-        </block>
-        <block type="lists_getSublist">
-            <value name="LIST">
-                <block type="variables_get">
-                    <field name="VAR">list</field>
-                </block>
-            </value>
-        </block>
-    </category>
-    <sep></sep>
-    <category name="Variables" custom="VARIABLE"></category>
-    <category name="Functions" custom="PROCEDURE"></category>
-    <sep></sep>
-    <category name="StarBattles">
-        <block type="get_first_valid_coordinate"></block>
-        <block type="get_last_valid_coordinate"></block>
-        <block type="get_all_valid_moves"></block>
-    </category>
-    <sep></sep>
-    <category name="Testing">
-        <block type="get_neighbour_valid_coordinates"></block>
-        <block type="get_gamestate"></block>
-        <block type="can_attack_coordinate"></block>
-        <block type="if_coordinate_hit_aim_direction"></block>
-        <block type="get_coordinate_at_pos"></block>
-        <block type="check_state_of_coordinate"></block>
-    </category>
-</xml>
-<xml id="initialBlocklyState" style="display:none">
-    <block type="procedures_defreturn" id="1" x="63" y="63" deletable="false" editable="false">
-        <mutation></mutation>
-        <field name="NAME">nextMove</field>
-        <value name="RETURN">
-            <block type="get_first_valid_coordinate" id="2"></block>
-        </value>
-    </block>
-</xml>
 </html>
