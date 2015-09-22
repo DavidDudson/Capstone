@@ -63,10 +63,9 @@ angular
             },
             //Delete the current bot
             delete: function () {
-                $http.delete('delete' + $scope.editor.selectedBot)
+                $http.delete('delete/' + $scope.editor.selectedBot)
                     .success(function () {
                         botService.deleteBot($scope.editor.selectedBot);
-                        console.log("Delete success")
                     })
                     .error(function () {
                         console.error("Delete failure")
