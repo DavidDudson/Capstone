@@ -44,6 +44,9 @@
 </head>
 <body ng-init="user.initialize('${screenName}','${profilePicture}')">
 
+<toolbox></toolbox>
+<blockly-initial></blockly-initial>
+
 <page-header></page-header>
 
 <div class="container_12">
@@ -57,8 +60,9 @@
                     </div>
 
                     <div class="sidebar_content">
-                        <ul id="userBots" class="list_block" ng-repeat="user.bots">
-                            <li ng-if="user.bots === []">
+                        <ul id="userBots" class="list_block" >
+                            <li ng-repeat="bot in user.bots">{{bot}}</li>
+                            <li ng-if="user.bots.length === 0">
                                 No Bots.
                             </li>
                         </ul>
@@ -73,18 +77,19 @@
 
                 <ul>
                     <li>
-                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"> New </button>
+                        <button class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"> New </button>
                     </li>
                     <li>
-                        <button id="del" class="btn btn-info btn-lg" ng-click="editor.delete()" disabled="disabled"> Delete </button>
+                        <button id="del" class="btn btn-info btn-lg" ng-click="editor.delete()" ng-disabled="!editor.selectedBot"> Delete </button>
                     </li>
                     <li>
-                        <button id="save" class="btn btn-info btn-lg" ng-click="editor.save()" disabled="disabled"> Save </button>
+                        <button id="save" class="btn btn-info btn-lg" ng-click="editor.save()" ng-disabled="!editor.selectedBot"> Save </button>
                     </li>
                 </ul>
             </div>
-            <div class="main-blockly" ng-init="editor.initialize">
-                <div id="blocklyDiv" style="height:450px"></div>
+            <div class="main-blockly" ng-init="editor.initialize()">
+                <h4 ng-if="!editor.selectedBot">Please select a bot or press new</h4>
+                <div id="blocklyDiv" ng-if="editor.selectedBot != ''" style="height:450px"></div>
             </div>
         </div>
 
@@ -99,14 +104,12 @@
                     <input id="botName">
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="createNewBot()"> Submit </button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="editor.create('Bob')"> Submit </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<toolbox></toolbox>
-<blockly-initial></blockly-initial>
 </body>
 </html>

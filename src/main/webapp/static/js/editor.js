@@ -1,29 +1,29 @@
 angular
     .module("app")
     //Blockly toolbox
-    .directive("toolbox",function(){
+    .directive("toolbox", function () {
         return {
-            restrict : 'E',
-            templateUrl : './static/html/toolbox.xml',
-            replace : true
+            restrict: 'E',
+            templateUrl: './static/html/toolbox.xml',
+            replace: true
         }
     })
     //Initial blockly state
-    .directive("blocklyInitial",function(){
+    .directive("blocklyInitial", function () {
         return {
-            restrict : 'E',
-            templateUrl : './static/html/blocklyInitial.xml',
-            replace : true
+            restrict: 'E',
+            templateUrl: './static/html/blocklyInitial.xml',
+            replace: true
         }
     })
     //Basically the Editor "class", it has functions you can call on it etc.
-    .controller("editorCtrl", function ($scope, $http) {
+    .controller("editorCtrl", function ($scope, $http, botService) {
 
         //The reason i have done it this way is so in the
         //html you type editor.something, rather than just something.
         //This makes it clearer what the intention behind it is. eg. editor.save()
         $scope.editor = {
-            selectedBot : "",
+            selectedBot: "",
             blocklyConfig: {
                 toolbox: document.getElementById('toolbox'),
                 rtl: false,
@@ -35,39 +35,49 @@ angular
                     length: 3,
                     colour: '#ccc',
                     snap: true
-                },
-                //Initialize the blockly workspace
-                initialize: function () {
-                    var workspace = Blockly.inject('blocklyDiv', $scope.editor.blocklyConfig);
-
-                    Blockly.Xml.domToWorkspace(workspace, document.getElementById('initialBlocklyState'));
-                    workspace.getBlockById(1).inputList[2].connection.check_ = ["Coordinate"];
-                },
-                //Save the current bot
-                save: function () {
-                    var data = {
-                        name : $scope.editor.selectedBot,
-                        language : 'JAVA',
-                        src : Blockly.Java.workspaceToCode(workspace, ["notests"])
-                    };
-
-                    $http.post('bots', data)
-                        .success(function(){console.log("Build success")})
-                        .failure(function(){console.error("Build failure")});
-                },
-                //Delete the current bot
-                delete: function(){
-                    $http.delete(delete + $scope.editor.selectedBot)
-                        .success(function(){console.log("Delete success")})
-                        .failure(function(){console.error("Delete failure")});
-                },
-                //Create a new bot
-                create : function (name) {
-                    if(name != ""){
-                        console.log("Create bot: " + name)
-                    }
                 }
+            },
+            //Initialize the blockly workspace
+            initialize: function () {
+                var workspace = Blockly.inject('blocklyDiv', $scope.editor.blocklyConfig);
+                //TODO, only call this line once a bot has been selected and use the bot src rather than this.
+                //Also pull this data from the builtInBot source code, that way it isn't hardcoded here.
+                Blockly.Xml.domToWorkspace(workspace, document.getElementById('initialBlocklyState'));
+                workspace.getBlockById(1).inputList[2].connection.check_ = ["Coordinate"];
+            },
+            //Save the current bot
+            save: function () {
+                var data = {
+                    name: $scope.editor.selectedBot,
+                    language: 'JAVA',
+                    src: Blockly.Java.workspaceToCode(workspace, ["notests"])
+                };
 
+                $http.post('bots', data)
+                    .success(function () {
+                        console.log("Build success")
+                    })
+                    .error(function () {
+                        console.error("Build failure")
+                    });
+            },
+            //Delete the current bot
+            delete: function () {
+                $http.delete('delete' + $scope.editor.selectedBot)
+                    .success(function () {
+                        botService.deleteBot($scope.editor.selectedBot);
+                        console.log("Delete success")
+                    })
+                    .error(function () {
+                        console.error("Delete failure")
+                    });
+            },
+            //Create a new bot
+            create: function (name) {
+                if (name != "") {
+                    botService.addBot(name);
+                }
             }
+
         }
     });
