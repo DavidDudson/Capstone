@@ -17,7 +17,7 @@ angular
         }
     })
     //Basically the Editor "class", it has functions you can call on it etc.
-    .controller("editorCtrl", function ($scope, $http, botService) {
+    .controller("editorCtrl", function ($scope, $http, userBots) {
 
         //The reason i have done it this way is so in the
         //html you type editor.something, rather than just something.
@@ -61,20 +61,10 @@ angular
                         console.error("Build failure")
                     });
             },
-            //Delete the current bot
-            delete: function () {
-                $http.delete('delete/' + $scope.editor.selectedBot)
-                    .success(function () {
-                        botService.deleteBot($scope.editor.selectedBot);
-                    })
-                    .error(function () {
-                        console.error("Delete failure")
-                    });
-            },
             //Create a new bot
             create: function (name) {
                 if (name != "") {
-                    botService.addBot(name);
+                    userBots.bots.add(name);
                 }
             }
 

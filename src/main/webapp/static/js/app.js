@@ -9,38 +9,41 @@ angular
             replace: true
         }
     })
-    //Allows all controllers etc. to add/remove information from the bot list.
-    .service('botService', function ($http) {
-        var botList = [];
-        //Get the current set of bots (returns an empty list if theres no user)
-        function getBots(username){
-            if(username != ''){
-                return botList;
-            } else {
-                return [];
+    .service('userBots', function(){
+        this.bots = {
+            list : [],
+            //Get all bots
+            get : function(username) {
+                return username != '' ? botList : [];
+            },
+            //Add a bot
+            add : function(name) {
+                bots.list.push(name);
+            },
+            //Remove a bot
+            remove : function(name){
+                $http.delete('delete/' + $scope.editor.selectedBot)
+                    .success(function () {
+                        var index = bots.list.indexOf(name);
+                        if (index > -1) bots.list.splice(index, 1);
+                    })
+                    .error(function () {
+                        console.error("Delete failure")
+                    });
+            },
+            //Reset the bot list to all those that are on the server
+            update : function(){
+                $http.get("userbots/__current_user")
+                    .success(function (data) {
+                        bots.list = data.collection.items
+                    })
+                    .error(function () {
+                        console.error("Update Failure")
+                    });
             }
-
-        }
-        //Add a bot to the list
-        function addBot(name) {
-            botList.push("name")
-        }
-        //Get the bot source code (XML representation)
-        function getBotSource() {
-            console.log("Bot Source requested")
-        }
-        //Syncs the botlist with the server
-        function getAllBotsForCurrentUser() {
-            $http.get("userbots/__current_user")
-                .success(function (data) {
-                    botList = data.collection.items
-                })
-                .error(function () {
-                    console.error("Update Failure")
-                });
-        }
+        };
     })
-    .controller("appCtrl", function ($scope, $http, botService) {
+    .controller("appCtrl", function ($scope, $http, userBots) {
         //The reason i have done it this way is so in the
         //html you type app.something, rather than just something.
         //This makes it clearer what the intention behind it is. eg. app.name()
@@ -55,12 +58,13 @@ angular
         $scope.user = {
             name: "",
             profilePictureUrl: "",
-            bots: botService.getBots(),
+            bots: userBots.bots.get(name),
             //This method is a cheat so that we can use the JSP data
             //that gets added to page context after a user is logged in to populate our user
             initialize: function (username, profilePicture) {
                 $scope.user.name = username;
                 $scope.user.profilePictureUrl = profilePicture;
+                userBots.bots.update();
             },
             //Logout, this resets the username fields aswell as calling
             //the logout method inside the JSP
