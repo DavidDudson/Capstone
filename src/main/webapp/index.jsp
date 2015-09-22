@@ -30,11 +30,11 @@
         </div>
     </div>
     <div class="row">
-        <button ng-click="app.googleLogin()" class="btn btn-block btn-social btn-google-plus">
+        <button ng-click="app.socialLogin('google')" class="btn btn-block btn-social btn-google-plus">
             <i class="fa fa-google-plus"></i> Sign in with Google
         </button>
 
-        <button ng-click="app.socialLogin(facebook)" class="btn btn-block btn-social btn-facebook">
+        <button ng-click="app.socialLogin('facebook')" class="btn btn-block btn-social btn-facebook">
             <i class="fa fa-facebook"></i> Sign in with Facebook
         </button>
 

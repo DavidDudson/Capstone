@@ -17,12 +17,12 @@ angular
             "bots" : name === "" ? [] : getUserBots()
         };
 
-        this.googleLogin = function(){
-            $http.post('SocialLogin', {
-                loginType : 'google',
-                callbackurl : "http://localhost:8080/Capstone/login",
-                baseURL : ""
-            })
+        this.socialLogin = function(type){
+            $http.post('SocialLogin',
+                "loginType=" + encodeURIComponent(type) +
+                "&callbackurl=" + encodeURIComponent("http://localhost:8080/Capstone/") +
+                "&baseURL=" + encodeURIComponent("")
+            )
         };
 
         this.debugLogin = function(){
