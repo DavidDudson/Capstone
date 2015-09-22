@@ -1,4 +1,7 @@
-'use strict';
+angular
+    .module("app")
+    .controller("editorController",function(){
+    });
 
 var currentBotName = null;
 

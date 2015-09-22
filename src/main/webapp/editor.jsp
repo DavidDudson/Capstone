@@ -9,7 +9,6 @@
     pageContext.setAttribute("isDebug",services.getConfiguration().isDebug());
     pageContext.setAttribute("screenName", session.getAttribute("userName"));
     pageContext.setAttribute("profilePicture", session.getAttribute("userPicture"));
-    pageContext.setAttribute("gameName", services.getGameSupport().getName());
 %>
 
 <!DOCTYPE html>
@@ -45,46 +44,13 @@
     <link rel="stylesheet" type="text/css" href="static/css/editor.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
+    <script src="static/js/app.js"></script>
     <script src="static/js/editor.js"></script>
-    <script src="static/js/starbattle.js"></script>
+    <script src="static/js/header.js"></script>
 </head>
 <body onload="setupWorkspace();">
 
-<!--Header-->
-<div id="header">
-    <div id="nav_container">
-        <div class="container_12" style="padding:0;">
-            <div id="nav_menu" class="left">
-                <div id="logo" class="left">
-                    <a href="index.jsp"> ${gameName} </a>
-                </div>
-                <nav class="menu">
-                    <a class="toggle-nav" href="#">&#9776;</a>
-                    <ul class="list_inline active">
-                        <li href="test.jsp"> Test </li>
-                        <li href=""> Survey </li>
-                        <li class="menu-on"> My Bots </li>
-                    </ul>
-
-                </nav>
-            </div>
-            <div id="user" class="right">
-                <ul class="list_inline">
-                    <li> <a d="profilePicture2" class="username" href="">${screenName}</a> </li>
-                    <li class="logout" href="index.jsp"> Logout </li>
-                    <c:if test="${profilePicture != null}">
-                        <li class="profilePictureContent" id="profilePicture3"><img
-                                id="profilePictureURL" src="${profilePicture}"
-                                class="img-responsive img-rounded center-block"
-                                style="width: 40px; margin: 5px;" alt="Profile Picture"></li>
-                    </c:if>
-                </ul>
-            </div>
-        </div>
-        <div class="clear"> </div>
-    </div>
-</div>
-<!--End Header-->
+<page-header></page-header>
 
 <div class="container_12">
     <div id="content">
