@@ -18,36 +18,38 @@
 <head>
     <meta charset="utf-8">
     <title>${gameName} Editor</title>
-    <script type="text/javascript" src="static/js/blockly/blockly_uncompressed.js"></script>
-    <script type="text/javascript" src="static/js/blockly/java.js"></script>
-    <script type="text/javascript" src="static/js/blockly/java/logic.js"></script>
-    <script type="text/javascript" src="static/js/blockly/java/loops.js"></script>
-    <script type="text/javascript" src="static/js/blockly/java/math.js"></script>
-    <script type="text/javascript" src="static/js/blockly/java/text.js"></script>
-    <script type="text/javascript" src="static/js/blockly/java/lists.js"></script>
-    <script type="text/javascript" src="static/js/blockly/java/variables.js"></script>
-    <script type="text/javascript" src="static/js/blockly/java/procedures.js"></script>
-    <script type="text/javascript" src="static/js/blockly/java/customBlocks.js"></script>
-    <script type="text/javascript" src="static/js/blockly/messages.js"></script>
-    <script type="text/javascript" src="static/js/blockly/blocks/logic.js"></script>
-    <script type="text/javascript" src="static/js/blockly/blocks/loops.js"></script>
-    <script type="text/javascript" src="static/js/blockly/blocks/math.js"></script>
-    <script type="text/javascript" src="static/js/blockly/blocks/text.js"></script>
-    <script type="text/javascript" src="static/js/blockly/blocks/lists.js"></script>
-    <script type="text/javascript" src="static/js/blockly/blocks/variables.js"></script>
-    <script type="text/javascript" src="static/js/blockly/blocks/procedures.js"></script>
-    <script type="text/javascript" src="static/js/blockly/blocks/customBlocks.js"></script>
+    <script type="text/javascript" src="static/js/Blockly/blockly_uncompressed.js"></script>
+    <script type="text/javascript" src="static/js/Blockly/java.js"></script>
+    <script type="text/javascript" src="static/js/Blockly/java/logic.js"></script>
+    <script type="text/javascript" src="static/js/Blockly/java/loops.js"></script>
+    <script type="text/javascript" src="static/js/Blockly/java/math.js"></script>
+    <script type="text/javascript" src="static/js/Blockly/java/text.js"></script>
+    <script type="text/javascript" src="static/js/Blockly/java/lists.js"></script>
+    <script type="text/javascript" src="static/js/Blockly/java/variables.js"></script>
+    <script type="text/javascript" src="static/js/Blockly/java/procedures.js"></script>
+    <script type="text/javascript" src="static/js/Blockly/java/customBlocks.js"></script>
+    <script type="text/javascript" src="static/js/Blockly/messages.js"></script>
+    <script type="text/javascript" src="static/js/Blockly/blocks/logic.js"></script>
+    <script type="text/javascript" src="static/js/Blockly/blocks/loops.js"></script>
+    <script type="text/javascript" src="static/js/Blockly/blocks/math.js"></script>
+    <script type="text/javascript" src="static/js/Blockly/blocks/text.js"></script>
+    <script type="text/javascript" src="static/js/Blockly/blocks/lists.js"></script>
+    <script type="text/javascript" src="static/js/Blockly/blocks/variables.js"></script>
+    <script type="text/javascript" src="static/js/Blockly/blocks/procedures.js"></script>
+    <script type="text/javascript" src="static/js/Blockly/blocks/customBlocks.js"></script>
 
     <script src="static/js/jquery-1.10.2.min.js"></script>
+    <script src="static/js/jquery-ui-1.8.21.custom.min.js"></script>
     <script src="static/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="static/css/editor.css">
+    <link rel="stylesheet" type="text/css" href="static/css/grid.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
     <script src="static/js/editor.js"></script>
+    <script src="static/js/test.js"></script>
 </head>
-<body onload="setupWorkspace(); getUserBots()">
+<body onload="setupWorkspace(); getUserBots(addUserBotsToUI)">
 
 <!--Header-->
 <div id="header">
@@ -60,9 +62,8 @@
                 <nav class="menu">
                     <a class="toggle-nav" href="#">&#9776;</a>
                     <ul class="list_inline active">
-                        <li href="test.jsp"> Test </li>
-                        <li href=""> Survey </li>
-                        <li class="menu-on"> My Bots </li>
+                        <li ><a href="test.jsp"> Test </a></li>
+                        <li><a href="http://tinyurl.com/ptbweh9"> Survey </a></li>
                     </ul>
 
                 </nav>
@@ -82,10 +83,10 @@
         </div>
         <div class="clear"> </div>
     </div>
-</div>
-<!--End Header-->
 
-<div class="container_12">
+</div>
+
+<div class="container_10">
     <div id="content">
         <div id="sidebar_left" class="sidebar left">
             <div id="my_bots" class="sidebar_box">
@@ -124,6 +125,18 @@
             </div>
         </div>
 
+        <div id="test_grid_box">
+                <ul class="test_grid">
+                    <%for (int i = 0; i < 10; i++) {%>
+                    <%for (int j = 0; j < 10; j++) {%>
+                    <li id="a<%=i * 10 + j%>"></li>
+                        <%}%>
+                    </br>
+                    <%}%>
+
+                </ul>
+
+        </div>
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog modal-sm">
                 <div class="modal-content">
