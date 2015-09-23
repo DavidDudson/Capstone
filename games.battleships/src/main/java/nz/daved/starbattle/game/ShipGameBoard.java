@@ -25,7 +25,7 @@ public class ShipGameBoard extends GameBoard {
         super(sbgc);
         seed = new Random().nextLong();
         rand = new Random(seed);
-        ships = new ArrayList<>();
+        ships = new LinkedList<>();
         placeShipsOnGrid();
     }
 

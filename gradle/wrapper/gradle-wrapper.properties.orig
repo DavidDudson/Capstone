@@ -1,0 +1,10 @@
+<<<<<<< HEAD
+#Fri Sep 11 10:46:18 NZST 2015
+=======
+#Mon Sep 14 12:48:55 NZST 2015
+>>>>>>> d065a9eddd8ecfbf052ae77a3dfa5ef5e40362af
+distributionBase=GRADLE_USER_HOME
+distributionPath=wrapper/dists
+zipStoreBase=GRADLE_USER_HOME
+zipStorePath=wrapper/dists
+distributionUrl=https\://services.gradle.org/distributions/gradle-2.6-bin.zip
