@@ -22,9 +22,10 @@ body {
 	width: 100%;
 }
 
-.container_12 { 
+.container_10 { 
+        padding-left: 150px;
 	position: relative; 
-	margin: 0 auto; 
+	margin-left: 10%; 
 	max-width: 1200px;
 	padding: 20px;
 }
@@ -39,6 +40,10 @@ img {
 
 .clear {
 	clear: both; 
+}
+.test_grid_box {
+    float : right;
+    
 }
 
 .left {
@@ -274,11 +279,27 @@ padding: 15px;
 
 
 
-ul.grid_box li {
+ul.test_grid{
+    position: relative;
+    float: right;
+    border: 3px solid #0090db;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 22px;
+        box-shadow: 0px 10px 35px 6px #000000;
+    background: url(images/player1.jpg) center center no-repeat;    
+    list-style-type: none;    
+    display: block;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+}
+
+ul.test_grid li {
 	position: relative;
 	display: block;
-    float: left;
-	border: 1px solid #cccccc;
+        float: left;
+	border: 1px solid #00ccff;
 	height: 25px;
 	width: 25px;
 	overflow: hidden;

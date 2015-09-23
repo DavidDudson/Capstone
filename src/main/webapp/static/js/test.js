@@ -1,6 +1,3 @@
-var bot1 = null;
-var bot2 = null;
-
 jsonMoves = {};
 jsonUserBots = {};
 jsonBuiltInBots = {};
@@ -11,12 +8,13 @@ var gameStart = true;
 var gameSpeed = 500;
 var playGame = false;
 var myGame;
+var bot1 = null;
+var bot2 = null;
 var isRed = true;
 
 function setBots(botID){
-
+    console.log(botID);
     if(bot1 === null){
-        console.log(botID);
         bot1 = botID;
         $("#" + bot1).css("background-color", "red");
 
@@ -128,7 +126,7 @@ function playPause() {
     }
 }
 
-function getGameMoves() {
+function getGameMoves(jqxhr) {
     $.getJSON(jqxhr.getResponseHeader("Location"), function (data) {
         jsonMoves = data;
     });
@@ -140,6 +138,28 @@ function makeBotGame() {
         type: "POST",
         data: "" + bot1 + "\n" + bot2 + "\n",
         dataType: "json",
-        success : getGameMoves()
+        success : getGameMoves
     });
 }
+
+function getBots() {
+            var userBotsURL = "userbots/__current_user";
+            var buildBotsURL = "builtinbots";
+            $.ajax({
+                url: userBotsURL,
+                type: "GET",
+                dataType: "json",
+                success : function (data) {
+                            $.each(data.collection.items, function(i, items){
+                                var entry = document.createElement('li');
+                                var textNode = document.createTextNode(data.collection.items[i].name);
+                                entry.appendChild(textNode);
+                                entry.setAttribute("id", data.collection.items[i].id);
+                                entry.setAttribute("value", data.collection.items[i].name);
+                                entry.setAttribute("onClick", "setBots('" + data.collection.items[i].id + "');");
+                                entry.className = "bot";
+                                document.getElementById("userBots").appendChild(entry);
+                            });
+                }
+            });
+        };
