@@ -19,16 +19,19 @@
         <title>${gameName} Testing</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1.0, initial-scale=1.0" />
-        <script src="static/js/jquery-1.10.2.min.js"></script>
-        <script src="static/js/gameState.js"></script>
+        
         <link rel="stylesheet" type="text/css" href="static/css/style.css">
         <link rel="stylesheet" type="text/css" href="static/css/grid.css">
+        
+        <script src="static/js/jquery-1.10.2.min.js"></script>
+        <script src="static/js/gameState.js"></script>
         <script src="https://apis.google.com/js/api.js"></script>
         <script src = "static/js/test.js"></script>
+        <script src = "static/js/editor.js"></script>
 
     </head>
 
-    <body onload="getUserBots()">
+    <body onload="getUserBots(addUserBotsToUI)">
 
         <!--Header-->
         <div id="header">
@@ -102,8 +105,8 @@
 
                             <div class="sidebar_content">
                                 <ul class="list_block">
-                                    <li id="firstSquareBot" value="FirstSquareBot" class="bot" onclick="setBots(‘FirstSquareBot')">First square bot</li>
-                                    <li id="lastSquareBot" value="LastSquareBot" class="bot" onclick="setBots(‘LastSquareBot')">Last square bot</li>
+                                    <li id="firstSquareBot" value="FirstSquareBot" class="bot" onclick="setBots('FirstSquareBot')">First square bot</li>
+                                    <li id="lastSquareBot" value="LastSquareBot" class="bot" onclick="setBots('LastSquareBot')">Last square bot</li>
                                     <li id="betterBot" value="BetterBot" class="bot" onclick="setBots('betterBot')">better bot</li>
                                     <li id="dreadnought" value="Dreadnought" class="bot" onclick="setBots('dreadnought')">Dreadnought</li>
                                 </ul>

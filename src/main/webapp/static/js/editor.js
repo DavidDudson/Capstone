@@ -1,7 +1,7 @@
 'use strict';
 
 var currentBotName = null;
-
+var workspace;
 //Blockly configuration, Set up the grid, specify always left to right,
 var blocklyConfig = {
     toolbox: document.getElementById('toolbox'),
@@ -18,7 +18,7 @@ var blocklyConfig = {
 };
 
 function setupWorkspace() {
-    var workspace = Blockly.inject('blocklyDiv', blocklyConfig);
+    workspace = Blockly.inject('blocklyDiv', blocklyConfig);
 
     Blockly.Xml.domToWorkspace(workspace, document.getElementById('initialBlocklyState'));
     workspace.getBlockById(1).inputList[2].connection.check_ = ["Coordinate"];
@@ -55,12 +55,23 @@ function addUserBotsToUI(data) {
     });
 }
 
-function getUserBots() {
+function selectBot(botID){
+    if(selectedBot !== null){
+        $("#" + selectedBot).css("background-color", "#1a445b");
+
+    }
+    selectedBot = botID;
+    $("#" + selectedBot).css("background-color", "red");
+    $("#del").prop("disabled", false);
+    $("#save").prop("disabled", false);
+
+}
+function getUserBots(callBackFunct) {
     $.ajax({
         url: "userbots/__current_user",
         type: "GET",
         dataType: "json",
-        success: addUserBotsToUI(data),
+        success: callBackFunct,
         failure: console.log("getUserBots failed")
     });
 }
@@ -106,4 +117,23 @@ function createNewBot() {
 
     $("#del").prop("disabled", false);
     $("#save").prop("disabled", false);
+}
+
+function getBotSource(id){
+    var url = "/bot-data/" + id;
+    
+    $.ajax({
+        url : url,
+        type: "POST",
+        datatype : "JSON",
+        success : function (data){
+            console.log(data);
+            return data.src;
+            
+        }
+        
+        
+    });
+    
+    
 }
