@@ -138,7 +138,7 @@ function makeBotGame() {
         type: "POST",
         data: "" + bot1 + "\n" + bot2 + "\n",
         dataType: "json",
-        success : getGameMoves
+        success : getGameMoves()
     });
 }
 

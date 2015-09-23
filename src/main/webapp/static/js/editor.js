@@ -2,22 +2,23 @@
 
 var currentBotID = null;
 var workspace;
-//Blockly configuration, Set up the grid, specify always left to right,
-var blocklyConfig = {
-    toolbox: document.getElementById('toolbox'),
-    rtl: false,
-    comments: true,
-    collapse: true,
-    scrollbars: true,
-    grid: {
-        spacing: 25,
-        length: 3,
-        colour: '#ccc',
-        snap: true
-    }
-};
 
 function setupWorkspace() {
+    //Blockly configuration, Set up the grid, specify always left to right,
+    var blocklyConfig = {
+        toolbox: document.getElementById('toolbox'),
+        rtl: false,
+        comments: true,
+        collapse: true,
+        scrollbars: true,
+        grid: {
+            spacing: 25,
+            length: 3,
+            colour: '#ccc',
+            snap: true
+        }
+    };
+
     workspace = Blockly.inject('blocklyDiv', blocklyConfig);
 
     Blockly.Xml.domToWorkspace(workspace, document.getElementById('initialBlocklyState'));
@@ -37,8 +38,8 @@ function saveBot() {
         url: 'http://localhost:8080/Capstone/bots',
         type: "POST",
         data: data,
-        success: console.log("Build success"), //TODO Show green bar
-        failure: console.log("Build failure")  //TODO Show Red bar
+        success: function(){console.log("Build success")}, //TODO Show green bar
+        failure: function(){console.log("Build failure")}  //TODO Show Red bar
     });
 }
 
@@ -72,7 +73,7 @@ function getUserBots(callBackFunct) {
         type: "GET",
         dataType: "json",
         success: callBackFunct,
-        failure: console.log("getUserBots failed")
+        failure: function(){console.log("getUserBots failed")}
     });
 }
 
@@ -92,7 +93,7 @@ function deleteCurrentBot() {
         url: "delete/" + currentBotID,
         type: "DELETE",
         success: deleteBotFromUI(),
-        failure: console.log("deleteCurrentBot failed")
+        failure: function(){console.log("deleteCurrentBot failed")}
     });
 }
 
