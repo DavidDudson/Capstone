@@ -17,13 +17,12 @@ angular
         }
     })
     //Basically the Editor "class", it has functions you can call on it etc.
-    .controller("editorCtrl", function ($scope, $http, userBots) {
+    .controller("editorCtrl", function ($http,$rootScope) {
 
         //The reason i have done it this way is so in the
         //html you type editor.something, rather than just something.
         //This makes it clearer what the intention behind it is. eg. editor.save()
-        $scope.editor = {
-            selectedBot: "",
+        $rootScope.editor = {
             blocklyConfig: {
                 toolbox: document.getElementById('toolbox'),
                 rtl: false,
@@ -48,7 +47,7 @@ angular
             //Save the current bot
             save: function () {
                 var data = {
-                    name: $scope.editor.selectedBot,
+                    name: user.bots.selected.name,
                     language: 'JAVA',
                     src: Blockly.Java.workspaceToCode(workspace, ["notests"])
                 };
@@ -64,7 +63,7 @@ angular
             //Create a new bot
             create: function (name) {
                 if (name != "") {
-                    userBots.bots.add(name);
+                    $rootScope.user.bots.add(name);
                 }
             }
 
