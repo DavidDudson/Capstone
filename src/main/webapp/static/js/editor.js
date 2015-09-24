@@ -137,3 +137,19 @@ function getBotSource(id){
     
     
 }
+
+function loadBotIntoBlockly(id) {
+    //var src = getBotSource(id);
+    var src= 'public class CustomStarBattleBot extends StarBattleBot {\
+\
+// <xml xmlns="http://www.w3.org/1999/xhtml"><block type="procedures_defreturn" id="1" deletable="false" editable="false" x="63" y="63"><field name="NAME">nextMove</field><value name="RETURN"><block type="get_first_valid_coordinate" id="2"></block></value></block></xml>\
+\
+        public CustomStarBattleBot(String id) { super(id); }\
+\
+@Override\
+    public Coordinate nextMove(BotGameBoard botGameBoard) {\
+        return botGameBoard.getFirstValidCoordinate();\
+    }'
+    var xml = src.match(/<xml.*<\/xml>/g);
+    workspace
+}
