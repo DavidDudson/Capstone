@@ -23,12 +23,13 @@ body {
 }
 
 .container_10 { 
-        padding-left: 150px;
+    padding-left: 150px;
 	position: relative; 
 	margin-left: 10%; 
 	max-width: 1400px;
 	padding: 20px;
 }
+
 #main_content{
     position:relative;
     float:left;

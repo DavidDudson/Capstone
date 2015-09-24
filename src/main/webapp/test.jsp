@@ -48,6 +48,7 @@
                         <nav class="menu">
                             <a class="toggle-nav" href="#">&#9776;</a>
                             <ul class="list_inline active">
+                                <li ><a href="about.jsp"> About </a></li>
                                 <li> <a href="editor.jsp"> Editor </a></li>
                                 <li> <a href="http://tinyurl.com/ptbweh9"> Survey </a> </li>
 
