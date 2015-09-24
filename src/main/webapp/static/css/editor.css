@@ -29,14 +29,7 @@ body {
 	max-width: 1200px;
 	padding: 20px;
 }
-.container_13 {
-	padding-left: 150px;
-	position: relative; 
-	margin-left: 10%; 
-	max-width: 1200px;
-	padding: 20px;
-	background-color: blue;
-}
+
 #main_content{
     position:relative;
     float:left;
