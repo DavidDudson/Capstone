@@ -38,7 +38,7 @@
     <script type="text/javascript" src="static/js/Blockly/blocks/procedures.js"></script>
     <script type="text/javascript" src="static/js/Blockly/blocks/customBlocks.js"></script>
 
-    <script src="static/js/jquery-1.10.2.min.js"></script>
+    <script src="static/js/jquery-1.7.2.min.js"></script>
     <script src="static/js/jquery-ui-1.8.21.custom.min.js"></script>
     <script src="static/js/bootstrap.min.js"></script>
 
