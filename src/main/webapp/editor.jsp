@@ -35,7 +35,9 @@
     <link rel="stylesheet" type="text/css" href="static/css/editor.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
+    <script src="static/js/jquery-1.10.2.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.4/ui-bootstrap-tpls.min.js"></script>
     <script src="static/js/app.js"></script>
     <script src="static/js/editor.js"></script>
 </head>
@@ -58,23 +60,22 @@
 
                     <div class="sidebar_content">
                         <ul id="userBots" class="list_block">
-                            <li ng-repeat="bot in user.bots.list" ng-click="user.bots.selected=bot">{{bot.name}}</li>
-                            <li ng-if="user.bots.list.length === 0">
-                                No Bots.
-                            </li>
+                            <li ng-repeat="bot in user.bots.list" class="bot" ng-click="user.bots.selected=bot">{{bot.name}}</li>
+                            <li ng-if="user.bots.list.length === 0"> No Bots. </li>
                         </ul>
                     </div>
 
                 </div>
             </div>
         </div>
-
         <div id="main_content" ng-controller="editorCtrl" style="color:white">
             <div class="main-cont-menu">
 
                 <ul>
                     <li>
-                        <button class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"> New</button>
+                        <button class="btn btn-info btn-lg" ng-click="editor.modal.create()">
+                            New
+                        </button>
                     </li>
                     <li>
                         <button id="del" class="btn btn-info btn-lg" ng-click="user.bots.delete()"
@@ -87,25 +88,16 @@
                         </button>
                     </li>
                     <li>
-                        <button id="source" class="btn btn-info btn-lg" ng-click="editor.toggleBlockly()"> Toggle
-                            Source
+                        <button id="share" class="btn btn-info btn-lg" ng-click="user.bots.share()"
+                                ng-disabled="user.bots.selected != {}"> Share
                         </button>
                     </li>
                 </ul>
             </div>
-            <div class="main-blockly" ng-init="editor.initialize()">
-                <h4 ng-if="!user.bots.selected">Please select a bot or press new</h4>
-
-                <p ng-if="user.bots.selected != {}">{{user.bots.selected}}</p>
-
-                <div id="blocklyDiv" ng-if="user.bots.selected != {} && editor.showBlockly" style="height:450px"></div>
-
-                <form ng-if="editor.showNew" name="myForm" ng-controller="ExampleController">
-                    <label>Create a new Bot </label>
-                    <input type="text" name="name" ng-model="name" required ng-trim="true">
-                    <input type="button" name="submit" ng-click="editor.save(name)" ng-value="name">
-                </form>
+            <div class="main-blockly">
+                <div id="blocklyDiv" style="height:450px"></div>
             </div>
+            <div ng-style="background-color:editor.lastBuildPassed"></div>
         </div>
     </div>
 </div>

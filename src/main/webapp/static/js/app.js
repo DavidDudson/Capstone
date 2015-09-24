@@ -1,5 +1,5 @@
 angular
-    .module("app", [])
+    .module("app", ['ui.bootstrap'])
     //The header, basically it will find <page-header></page-header>
     //and replace it with the contents of header.html
     .directive("pageHeader", function () {
@@ -53,7 +53,7 @@ angular
                         });
                 },
                 getMeta: function(id){
-                    $http.get("bot-data/" + id)
+                    $http.get("bot-metadata/" + id)
                         .success(function (data) {
                            return data
                         })

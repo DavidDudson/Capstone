@@ -1,0 +1,24 @@
+<div class="modal-header">
+    <h3 class="modal-title">Create a new Bot</h3>
+</div>
+<div class="modal-body">
+    <ul>
+        <div class="input-g roup">
+            <span class="input-group-addon" id="basic-addon1"> Name </span>
+            <input type="text" class="form-control" ng-model="name" required ng-trim="true" placeholder="StarbattleBot"
+                   aria-describedby="basic-addon1">
+        </div>
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+            Action <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li ng-repeat="bot in builtInBots"><a href="#">{{bot.name}}</a></li>
+        </ul>
+    </ul>
+</div>
+<div class="modal-footer">
+    <p>Create bot with name : {{name}} based on {{editor.modal.selectedBot.name}}</p>
+    <button class="btn btn-primary" type="button" ng-click="editor.modal.ok(name,selectedBot)">OK</button>
+    <button class="btn btn-warning" type="button" ng-click="editor.modal.cancel()">Cancel</button>
+</div>
