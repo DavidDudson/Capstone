@@ -1,5 +1,5 @@
-<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
-<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 
 <%
     pageContext.setAttribute("screenName", session.getAttribute("userName"));
@@ -57,9 +57,9 @@
                     </div>
 
                     <div class="sidebar_content">
-                        <ul id="userBots" class="list_block" >
-                            <li ng-repeat="bot in user.bots">{{bot}}</li>
-                            <li ng-if="user.bots.length === 0">
+                        <ul id="userBots" class="list_block">
+                            <li ng-repeat="bot in user.bots.list" ng-click="user.bots.selected=bot">{{bot.name}}</li>
+                            <li ng-if="user.bots.list.length === 0">
                                 No Bots.
                             </li>
                         </ul>
@@ -69,41 +69,42 @@
             </div>
         </div>
 
-        <div id="main_content" ng-controller="editorCtrl">
+        <div id="main_content" ng-controller="editorCtrl" style="color:white">
             <div class="main-cont-menu">
 
                 <ul>
                     <li>
-                        <button class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"> New </button>
+                        <button class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"> New</button>
                     </li>
                     <li>
-                        <button id="del" class="btn btn-info btn-lg" ng-click="user.bots.delete()" ng-disabled="!user.bots.selected"> Delete </button>
+                        <button id="del" class="btn btn-info btn-lg" ng-click="user.bots.delete()"
+                                ng-disabled="user.bots.selected != {}"> Delete
+                        </button>
                     </li>
                     <li>
-                        <button id="save" class="btn btn-info btn-lg" ng-click="user.bots.save()" ng-disabled="!user.bots.selected"> Save </button>
+                        <button id="save" class="btn btn-info btn-lg" ng-click="user.bots.save()"
+                                ng-disabled="user.bots.selected != {}"> Save
+                        </button>
+                    </li>
+                    <li>
+                        <button id="source" class="btn btn-info btn-lg" ng-click="editor.toggleBlockly()"> Toggle
+                            Source
+                        </button>
                     </li>
                 </ul>
             </div>
             <div class="main-blockly" ng-init="editor.initialize()">
                 <h4 ng-if="!user.bots.selected">Please select a bot or press new</h4>
-                <div id="blocklyDiv" ng-if="user.bots.selected != ''" style="height:450px"></div>
-            </div>
-        </div>
 
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog modal-sm">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Modal Header</h4>
-                    </div>
-                    <p>name for bot:</p>
-                    <input id="botName">
+                <p ng-if="user.bots.selected != {}">{{user.bots.selected}}</p>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="user.bots.add('Bob')"> Submit </button>
-                    </div>
-                </div>
+                <div id="blocklyDiv" ng-if="user.bots.selected != {} && editor.showBlockly" style="height:450px"></div>
+
+                <form ng-if="editor.showNew" name="myForm" ng-controller="ExampleController">
+                    <label>Create a new Bot </label>
+                    <input type="text" name="name" ng-model="name" required ng-trim="true">
+                    <input type="button" name="submit" ng-click="editor.save(name)" ng-value="name">
+                </form>
             </div>
         </div>
     </div>

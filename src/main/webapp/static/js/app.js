@@ -43,11 +43,24 @@ angular
                 update: function () {
                     $http.get("userbots/__current_user")
                         .success(function (data) {
-                            $rootScope.user.bots.list = data.collection.items
+                            $rootScope.user.bots.list = data.collection.items;
+                            $rootScope.user.bots.list.forEach(function(bot){
+                                bot.metadata = $rootScope.user.bots.getMeta(bot.id)
+                            })
                         })
                         .error(function () {
                             console.error("Update user bots Failure")
                         });
+                },
+                getMeta: function(id){
+                    $http.get("bot-data/" + id)
+                        .success(function (data) {
+                           return data
+                        })
+                        .error(function () {
+                            console.error("MetaData could not be loaded for: " + id)
+                        });
+
                 }
             },
             //This method is a cheat so that we can use the JSP data
@@ -57,8 +70,6 @@ angular
                 $rootScope.user.profilePictureUrl = profilePicture;
                 $rootScope.user.bots.update();
                 $rootScope.builtInBots.update();
-                console.log("Initialization complete");
-
             }
         };
 
