@@ -23,7 +23,7 @@
         <link rel="stylesheet" type="text/css" href="static/css/style.css">
         <link rel="stylesheet" type="text/css" href="static/css/grid.css">
         
-        <script src="static/js/jquery-1.10.2.min.js"></script>
+        <script src="static/js/jquery-1.7.2.min.js"></script>
         <script src="static/js/jquery-ui-1.8.21.custom.min.js"></script>
         <script src="static/js/gameState.js"></script>
         <script src="https://apis.google.com/js/api.js"></script>
@@ -283,15 +283,6 @@
             </div>
         </div>
 
-        <script>
-            $(document).ready(function () {
-                $('.toggle-nav').click(function (e) {
-                    $(this).toggleClass('active');
-                    $('.menu ul').toggleClass('active');
 
-                    e.preventDefault();
-                });
-            });
-        </script>
     </body>
 </html>

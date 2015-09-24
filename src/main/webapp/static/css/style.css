@@ -720,33 +720,23 @@ input.search_btn[type="submit"]
 	{
 	border:1px solid #00ccff;
 	}
-#player_one ul.grid_box li:hover
-	{
-	background:url(../images/layer1-ship.png) center center no-repeat;
-	border:1px solid #00ccff;
-	}
-#player_two ul.grid_box li:hover
-	{
-	background:url(../images/layer2-ship.png) center center no-repeat;
-	border:1px solid #00ccff;
-	}
 #player_one ul.grid_box li.miss,
 #player_two ul.grid_box li.miss
 	{
-	background:url(../images/miss.png) center center no-repeat;
+	background:url(images/miss.png) center center no-repeat;
 	}
 #player_one ul.grid_box li.hit,
 #player_two ul.grid_box li.hit
 	{
-	background:url(../images/hit.png) center center no-repeat;
+	background:url(images/hit.png) center center no-repeat;
 	}
 #player_one ul.grid_box li.ship
 	{
-	background:url(../images/layer1-ship.png) center center no-repeat;
+	background:url(images/layer1-ship.png) center center no-repeat;
 	}
 #player_two ul.grid_box li.ship
 	{
-	background:url(../images/layer2-ship.png) center center no-repeat;
+	background:url(images/layer2-ship.png) center center no-repeat;
 	}
 
 
