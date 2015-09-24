@@ -53,7 +53,7 @@ angular
                         });
                 },
                 getMeta: function(id){
-                    $http.get("bot-metadata/" + id)
+                    $http.get("bot-meta-data/" + id)
                         .success(function (data) {
                            return data
                         })
@@ -79,7 +79,7 @@ angular
                 $http.get("userbots/builtinbots")
                     .success(function (data) {
                         console.log($rootScope.builtInBots);
-                        return $rootScope.builtInBots = data.collection.items;
+                        return $rootScope.builtInBots.list = data.collection.items;
                     })
                     .error(function () {
                         console.error("Update Built in bots Failure")

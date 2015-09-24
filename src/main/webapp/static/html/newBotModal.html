@@ -2,20 +2,18 @@
     <h3 class="modal-title">Create a new Bot</h3>
 </div>
 <div class="modal-body">
-    <ul>
-        <div class="input-g roup">
-            <span class="input-group-addon" id="basic-addon1"> Name </span>
-            <input type="text" class="form-control" ng-model="name" required ng-trim="true" placeholder="StarbattleBot"
-                   aria-describedby="basic-addon1">
-        </div>
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false">
-            Action <span class="caret"></span>
+    <div class="input-g roup">
+        <label for="name"> Name </label>
+        <input id="name" type="text" class="form-control" ng-model="name" required ng-trim="true" placeholder="StarbattleBot">
+    </div>
+    <div class="btn-group" dropdown is-open="status.isopen">
+        <button id="single-button" type="button" class="btn btn-primary" dropdown-toggle>
+            {{editor.modal.selectedBot == undefined ? Template: editor.modal.selectedBot.name}} <span class="caret"></span>
         </button>
-        <ul class="dropdown-menu">
-            <li ng-repeat="bot in builtInBots"><a href="#">{{bot.name}}</a></li>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
+            <li ng-repeat="bot in builtInBots.list" ng-click="editor.modal.selectedBot = bot"><a href="#">{{bot.name}}</a></li>
         </ul>
-    </ul>
+    </div>
 </div>
 <div class="modal-footer">
     <p>Create bot with name : {{name}} based on {{editor.modal.selectedBot.name}}</p>

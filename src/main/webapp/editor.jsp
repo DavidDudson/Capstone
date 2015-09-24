@@ -60,8 +60,10 @@
 
                     <div class="sidebar_content">
                         <ul id="userBots" class="list_block">
-                            <li ng-repeat="bot in user.bots.list" class="bot" ng-click="user.bots.selected=bot">{{bot.name}}</li>
-                            <li ng-if="user.bots.list.length === 0"> No Bots. </li>
+                            <li ng-repeat="bot in user.bots.list" class="bot" ng-click="user.bots.selected=bot">
+                                {{bot.name}}
+                            </li>
+                            <li ng-if="user.bots.list.length === 0"> No Bots.</li>
                         </ul>
                     </div>
 
@@ -96,10 +98,15 @@
             </div>
             <div class="main-blockly">
                 <div id="blocklyDiv" style="height:450px"></div>
+                <br/>
+                <div>
+                    <progressbar value="editor.build.progress" type="editor.build.type" style="width:100%"><b>{{editor.build.text}}</b></progressbar>
+                </div>
             </div>
-            <div ng-style="background-color:editor.lastBuildPassed"></div>
         </div>
     </div>
+
 </div>
+
 </body>
 </html>

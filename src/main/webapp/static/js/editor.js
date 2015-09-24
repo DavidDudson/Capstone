@@ -25,7 +25,6 @@ angular
             $rootScope.editor.initialize()
         }, false);
 
-
         //The reason i have done it this way is so in the
         //html you type editor.something, rather than just something.
         //This makes it clearer what the intention behind it is. eg. editor.save()
@@ -67,15 +66,47 @@ angular
                         console.error("Build failure")
                     });
             },
+            //Share bot
             share: function () {
                 console.log("This would share the bot")
+            },
+            build: {
+                //How many bots in queue
+                total: 100,
+                //position in queue
+                position: 100,
+                //Whether a build is in progress
+                active: false,
+                //eg success error etc.
+                type: null,
+                //The text to show on the bar
+                text: 'Press save to build your bot',
+
+                //Updates the progress bar
+                update: function (position, pass) {
+                    $rootScope.editor.build.progress = position;
+                    if (position != $rootScope.editor.build.total) {
+                        $rootScope.editor.build.active = true;
+                        $rootScope.editor.build.type = null;
+                        $rootScope.editor.build.text =
+                            'In queue... ' + $rootScope.editor.build.position + '/' + $rootScope.editor.build.total;
+                    } else if (pass) {
+                        $rootScope.editor.build.active = false;
+                        $rootScope.editor.build.type = 'success';
+                        $rootScope.editor.build.text = 'Build Success'
+                    } else {
+                        $rootScope.editor.build.active = false;
+                        $rootScope.editor.build.type = 'error';
+                        $rootScope.editor.build.text = 'Build Failure'
+                    }
+                }
             },
             //The modal for selecting create new bot options
             modal: {
                 //The modal itself
                 instance: null,
                 //The currently selected bot to use as a template
-                selectedBot: null,
+                selectedBot: $rootScope.builtInBots.list[0],
                 //When the modal ok button is pressed create a new bot and close modal
                 ok: function (name, bot) {
                     $rootScope.editor.modal.instance.dismiss();
