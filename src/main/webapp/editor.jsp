@@ -60,7 +60,7 @@
 
                     <div class="sidebar_content">
                         <ul id="userBots" class="list_block">
-                            <li ng-repeat="bot in user.bots.list" class="bot" ng-click="user.bots.selected=bot">
+                            <li ng-repeat="bot in user.bots.list" class="bot" ng-click="editor.selectedBot=bot">
                                 {{bot.name}}
                             </li>
                             <li ng-if="user.bots.list.length === 0"> No Bots.</li>
@@ -81,27 +81,27 @@
                     </li>
                     <li>
                         <button id="del" class="btn btn-info btn-lg" ng-click="user.bots.delete()"
-                                ng-disabled="user.bots.selected != {}"> Delete
+                                ng-disabled="!editor.selectedBot"> Delete
                         </button>
                     </li>
                     <li>
-                        <button id="save" class="btn btn-info btn-lg" ng-click="user.bots.save()"
-                                ng-disabled="user.bots.selected != {}"> Save
+                        <button id="save" class="btn btn-info btn-lg" ng-click="user.bots.save(false)"
+                                ng-disabled="!editor.selectedBot"> Save
                         </button>
                     </li>
                     <li>
                         <button id="share" class="btn btn-info btn-lg" ng-click="user.bots.share()"
-                                ng-disabled="user.bots.selected != {}"> Share
+                                ng-disabled="!editor.selectedBot"> Share
                         </button>
                     </li>
                 </ul>
             </div>
             <div class="main-blockly">
                 <div id="blocklyDiv" style="height:450px"></div>
-                <br/>
-                <div>
-                    <progressbar value="editor.build.progress" type="editor.build.type" style="width:100%"><b>{{editor.build.text}}</b></progressbar>
-                </div>
+            </div>
+            <br/>
+            <div>
+                <progressbar ng-value="editor.build.progress" ng-type="editor.build.type" style="width:80%"><b>{{editor.build.text}}</b></progressbar>
             </div>
         </div>
     </div>

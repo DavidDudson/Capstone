@@ -29,46 +29,28 @@ angular
         //html you type editor.something, rather than just something.
         //This makes it clearer what the intention behind it is. eg. editor.save()
         $rootScope.editor = {
+            workspace : null,
+            blocklyConfig : {
+                toolbox: document.getElementById('toolbox'),
+                rtl: false,
+                comments: true,
+                collapse: true,
+                scrollbars: true,
+                grid: {
+                    spacing: 25,
+                    length: 3,
+                    colour: '#ccc',
+                    snap: true
+                }
+            },
+            selectedBot: null,
             //Initialize the blockly workspace
             initialize: function () {
-                var workspace = Blockly.inject('blocklyDiv', {
-                    toolbox: document.getElementById('toolbox'),
-                    rtl: false,
-                    comments: true,
-                    collapse: true,
-                    scrollbars: true,
-                    grid: {
-                        spacing: 25,
-                        length: 3,
-                        colour: '#ccc',
-                        snap: true
-                    }
-                });
+                $rootScope.editor.workspace = Blockly.inject('blocklyDiv', $rootScope.editor.blocklyConfig);
                 //TODO, only call this line once a bot has been selected and use the bot src rather than this.
                 //Also pull this data from the builtInBot source code, that way it isn't hardcoded here.
-                Blockly.Xml.domToWorkspace(workspace, document.getElementById('initialBlocklyState'));
-                workspace.getBlockById(1).inputList[2].connection.check_ = ["Coordinate"];
-            },
-            //Save the current bot
-            save: function () {
-                //The data to use as the request body
-                var data = {
-                    name: user.bots.selected.name,
-                    language: 'JAVA',
-                    src: Blockly.Java.workspaceToCode(workspace, ["notests"])
-                };
-                //The actual request
-                $http.post('bots', data)
-                    .success(function () {
-                        console.log("Build success")
-                    })
-                    .error(function () {
-                        console.error("Build failure")
-                    });
-            },
-            //Share bot
-            share: function () {
-                console.log("This would share the bot")
+                Blockly.Xml.domToWorkspace($rootScope.editor.workspace, document.getElementById('initialBlocklyState'));
+                $rootScope.editor.workspace.getBlockById(1).inputList[2].connection.check_ = ["Coordinate"];
             },
             build: {
                 //How many bots in queue
@@ -109,6 +91,7 @@ angular
                 selectedBot: $rootScope.builtInBots.list[0],
                 //When the modal ok button is pressed create a new bot and close modal
                 ok: function (name, bot) {
+                    console.log(name,bot);
                     $rootScope.editor.modal.instance.dismiss();
                     $rootScope.user.bots.list.push({name: name, src: bot.src})
                 },

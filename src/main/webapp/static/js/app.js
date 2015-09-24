@@ -22,17 +22,27 @@ angular
 
         //The user object
         $rootScope.user = {
+
             name: "",
             profilePictureUrl: "",
+            //This method is a cheat so that we can use the JSP data
+            //that gets added to page context after a user is logged in to populate our user
+            initialize: function (username, profilePicture) {
+                $rootScope.user.name = username;
+                $rootScope.user.profilePictureUrl = profilePicture;
+                $rootScope.user.bots.update();
+                $rootScope.builtInBots.update();
+            },
+            //The bots object, contains all the bot functionality
             bots: {
                 list: [],
-                selected: {},
                 add: function (bot) {
                     $rootScope.user.bots.list.push(bot)
                 },
-                remove: function () {
-                    $http.delete('delete/' + $rootScope.user.bots.selected.id)
+                delete: function () {
+                    $http.delete('delete/' + $rootScope.editor.selectedBot.id)
                         .success(function () {
+                            console.error("Delete Success");
                             var index = $rootScope.user.bots.list.indexOf(name);
                             if (index > -1) user.bots.list.splice(index, 1);
                         })
@@ -44,7 +54,7 @@ angular
                     $http.get("userbots/__current_user")
                         .success(function (data) {
                             $rootScope.user.bots.list = data.collection.items;
-                            $rootScope.user.bots.list.forEach(function(bot){
+                            $rootScope.user.bots.list.forEach(function (bot) {
                                 bot.metadata = $rootScope.user.bots.getMeta(bot.id)
                             })
                         })
@@ -52,24 +62,41 @@ angular
                             console.error("Update user bots Failure")
                         });
                 },
-                getMeta: function(id){
-                    $http.get("bot-meta-data/" + id)
-                        .success(function (data) {
-                           return data
+                //Save the current bot
+                save: function (share) {
+                    //The data to use as the request body
+                    var data = {
+                        name: $rootScope.editor.selectedBot.name,
+                        language: 'JAVA',
+                        share: share,
+                        src: Blockly.Java.workspaceToCode($rootScope.editor.workspace, ["notests"])
+                    };
+                    console.log("Saving", data);
+                    //The actual request
+                    $http.post('bots', data)
+                        .success(function () {
+                            console.log("Bot save success");
+                            $rootScope.editor.build.update(100, true)
                         })
                         .error(function () {
-                            console.error("MetaData could not be loaded for: " + id)
+                            $rootScope.editor.build.update(100, false)
+                        });
+                },
+                //Share bot
+                share: function () {
+                    console.log("This would share the bot")
+                    $rootScope.user.bots.save(true);
+                },
+                src: function (id) {
+                    $http.get("bot-src/" + id)
+                        .success(function (data) {
+                            return data
+                        })
+                        .error(function () {
+                            console.error("Source could not be loaded for: " + id)
                         });
 
                 }
-            },
-            //This method is a cheat so that we can use the JSP data
-            //that gets added to page context after a user is logged in to populate our user
-            initialize: function (username, profilePicture) {
-                $rootScope.user.name = username;
-                $rootScope.user.profilePictureUrl = profilePicture;
-                $rootScope.user.bots.update();
-                $rootScope.builtInBots.update();
             }
         };
 
