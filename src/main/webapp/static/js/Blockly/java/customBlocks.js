@@ -12,7 +12,7 @@ Blockly.Java['check_state_of_coordinate'] = function (block) {
     // TODO: Assemble Java into code variable.
     var code = 'botGameBoard.getStateOfCoordinate(' + value_coordinate + ', "' + dropdown_state + '")';
     // TODO: Change ORDER_NONE to the correct strength.
-    return [code, Blockly.Java.ORDER_NONE];
+    return [code, Blockly.Java.ORDER_ATOMIC];
 };
 
 Blockly.Java['get_coordinate_at_pos'] = function (block) {
@@ -28,7 +28,7 @@ Blockly.Java['get_coordinate_at_pos'] = function (block) {
     catch (err){}
     var code = 'botGameBoard.getCoordinateAtPosition(' + value_input + ', "' + dropdown_position + '")';
     // TODO: Change ORDER_NONE to the correct strength.
-    return [code, Blockly.Java.ORDER_NONE];
+    return [code, Blockly.Java.ORDER_ATOMIC];
 };
 
 Blockly.Java['if_last_move_hit_aim_direction'] = function (block) {
@@ -50,19 +50,19 @@ Blockly.Java['can_attack_coordinate'] = function (block) {
     catch (err){}
     var code = 'botGameBoard.canAttackCoordinate(' + value_coordinate + ')';
     // TODO: Change ORDER_NONE to the correct strength.
-    return [code, Blockly.Java.ORDER_NONE];
+    return [code, Blockly.Java.ORDER_ATOMIC];
 };
 
 Blockly.Java['get_first_valid_coordinate'] = function (block) {
     var code = 'botGameBoard.getFirstValidCoordinate()';
     // TODO: Change ORDER_NONE to the correct strength.
-    return [code, Blockly.Java.ORDER_NONE];
+    return [code, Blockly.Java.ORDER_ATOMIC];
 };
 
 Blockly.Java['get_last_valid_coordinate'] = function (block) {
     var code = 'botGameBoard.getLastValidCoordinate()';
     // TODO: Change ORDER_NONE to the correct strength.
-    return [code, Blockly.Java.ORDER_NONE];
+    return [code, Blockly.Java.ORDER_ATOMIC];
 };
 
 Blockly.Java['get_neighbour_valid_coordinates'] = function (block) {
@@ -73,7 +73,7 @@ Blockly.Java['get_neighbour_valid_coordinates'] = function (block) {
     catch (err){}
     var code = 'botGameBoard.getNeighbourValidCoordinates(' + value_coordinate + ")";
     // TODO: Change ORDER_NONE to the correct strength.
-    return [code, Blockly.Java.ORDER_NONE];
+    return [code, Blockly.Java.ORDER_COLLECTION];
 };
 
 Blockly.Java['variable_define'] = function (block) {
@@ -102,13 +102,13 @@ Blockly.Java['variable_define'] = function (block) {
 Blockly.Java['get_gamestate'] = function (block) {
     var code = 'botGameBoard';
     // TODO: Change ORDER_NONE to the correct strength.
-    return [code, Blockly.Java.ORDER_NONE];
+    return [code, Blockly.Java.ORDER_ATOMIC];
 };
 
 Blockly.Java['get_all_valid_moves'] = function(block) {
     var code = 'botGameBoard.getAllValidCoordinates()';
     // TODO: Change ORDER_NONE to the correct strength.
-    return [code, Blockly.Java.ORDER_NONE];
+    return [code, Blockly.Java.ORDER_COLLECTION];
 };
 
 Blockly.Java['last_move_sunk'] = function(block) {
@@ -119,11 +119,11 @@ Blockly.Java['last_move_sunk'] = function(block) {
     catch (err){}
     var code = 'botGameBoard.lastMove(' + dropdown_state + ')';
     // TODO: Change ORDER_NONE to the correct strength.
-    return [code, Blockly.Java.ORDER_NONE];
+    return [code, Blockly.Java.ORDER_ATOMIC];
 };
 
 Blockly.Java['the_last_move'] = function(block) {
     var code = 'botGameBoard.getLastMove()';
     // TODO: Change ORDER_NONE to the correct strength.
-    return [code, Blockly.Java.ORDER_NONE];
+    return [code, Blockly.Java.ORDER_ATOMIC];
 };

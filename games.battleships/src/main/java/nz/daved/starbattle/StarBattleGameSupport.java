@@ -7,7 +7,7 @@ import nz.ac.massey.cs.ig.core.services.defaults.DefaultGameSupport;
 import nz.ac.massey.cs.ig.core.utils.ResourceUtils;
 import nz.daved.starbattle.game.*;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Collection;
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class StarBattleGameSupport extends DefaultGameSupport {
     @Override
     protected List<BotData> loadBuiltInBots() {
         String[] files = new String[]{"FirstSquareBot.src", "LastSquareBot.src"};
-        List<BotData> builtInBots = new ArrayList<>();
+        List<BotData> builtInBots = new LinkedList<>();
         for (String file : files) {
             String id = file.substring(0, file.indexOf("."));
 
@@ -43,7 +43,7 @@ public class StarBattleGameSupport extends DefaultGameSupport {
 
     @Override
     public Collection<Class<?>> getWhitelistedClasses() {
-        ArrayList<Class<?>> clazzes = new ArrayList<Class<?>>();
+        LinkedList<Class<?>> clazzes = new LinkedList<Class<?>>();
         clazzes.add(StarBattleGameSchematic.class);
         clazzes.add(StarBattleGameMove.class);
         clazzes.add(StarBattleGame.class);

@@ -3,29 +3,29 @@
 <head>
     <meta charset="utf-8">
     <title>Blockly Playground</title>
-    <script type="text/javascript" src="static/js/EasyJ/blockly_uncompressed.js"></script>
-    <script type="text/javascript" src="static/js/EasyJ/java.js"></script>
-    <script type="text/javascript" src="static/js/EasyJ/java/logic.js"></script>
-    <script type="text/javascript" src="static/js/EasyJ/java/loops.js"></script>
-    <script type="text/javascript" src="static/js/EasyJ/java/math.js"></script>
-    <script type="text/javascript" src="static/js/EasyJ/java/text.js"></script>
-    <script type="text/javascript" src="static/js/EasyJ/java/lists.js"></script>
-    <script type="text/javascript" src="static/js/EasyJ/java/variables.js"></script>
-    <script type="text/javascript" src="static/js/EasyJ/java/procedures.js"></script>
-    <script type="text/javascript" src="static/js/EasyJ/java/customBlocks.js"></script>
-    <script type="text/javascript" src="static/js/EasyJ/messages.js"></script>
-    <script type="text/javascript" src="static/js/EasyJ/blocks/logic.js"></script>
-    <script type="text/javascript" src="static/js/EasyJ/blocks/loops.js"></script>
-    <script type="text/javascript" src="static/js/EasyJ/blocks/math.js"></script>
-    <script type="text/javascript" src="static/js/EasyJ/blocks/text.js"></script>
-    <script type="text/javascript" src="static/js/EasyJ/blocks/lists.js"></script>
-    <script type="text/javascript" src="static/js/EasyJ/blocks/variables.js"></script>
-    <script type="text/javascript" src="static/js/EasyJ/blocks/procedures.js"></script>
-    <script type="text/javascript" src="static/js/EasyJ/blocks/customBlocks.js"></script>
+    <script type="text/javascript" src="static/js/Blockly/blockly_uncompressed.js"></script>
+    <script type="text/javascript" src="static/js/Blockly/java.js"></script>
+    <script type="text/javascript" src="static/js/Blockly/java/logic.js"></script>
+    <script type="text/javascript" src="static/js/Blockly/java/loops.js"></script>
+    <script type="text/javascript" src="static/js/Blockly/java/math.js"></script>
+    <script type="text/javascript" src="static/js/Blockly/java/text.js"></script>
+    <script type="text/javascript" src="static/js/Blockly/java/lists.js"></script>
+    <script type="text/javascript" src="static/js/Blockly/java/variables.js"></script>
+    <script type="text/javascript" src="static/js/Blockly/java/procedures.js"></script>
+    <script type="text/javascript" src="static/js/Blockly/java/customBlocks.js"></script>
+    <script type="text/javascript" src="static/js/Blockly/messages.js"></script>
+    <script type="text/javascript" src="static/js/Blockly/blocks/logic.js"></script>
+    <script type="text/javascript" src="static/js/Blockly/blocks/loops.js"></script>
+    <script type="text/javascript" src="static/js/Blockly/blocks/math.js"></script>
+    <script type="text/javascript" src="static/js/Blockly/blocks/text.js"></script>
+    <script type="text/javascript" src="static/js/Blockly/blocks/lists.js"></script>
+    <script type="text/javascript" src="static/js/Blockly/blocks/variables.js"></script>
+    <script type="text/javascript" src="static/js/Blockly/blocks/procedures.js"></script>
+    <script type="text/javascript" src="static/js/Blockly/blocks/customBlocks.js"></script>
     <!-- Load the Google Drive SDK Realtime libraries. -->
     <script src="https://apis.google.com/js/api.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="static/js/jquery-1.7.2.min.js"></script>
+    <script src="static/js/jquery-1.10.2.min.js"></script>
     <script src="static/js/jquery-ui-1.8.21.custom.min.js"></script>
     <script src="static/js/gameState.js"></script>
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
@@ -197,19 +197,6 @@
                 </block>
             </value>
         </block>
-        <block type="math_random_int">
-            <value name="FROM">
-                <block type="math_number">
-                    <field name="NUM">1</field>
-                </block>
-            </value>
-            <value name="TO">
-                <block type="math_number">
-                    <field name="NUM">100</field>
-                </block>
-            </value>
-        </block>
-        <block type="math_random_float"></block>
     </category>
     <category name="Lists">
         <block type="lists_create_empty"></block>
@@ -260,15 +247,14 @@
         <block type="get_first_valid_coordinate"></block>
         <block type="get_last_valid_coordinate"></block>
         <block type="get_all_valid_moves"></block>
-    </category>
-    <sep></sep>
-    <category name="Testing">
         <block type="get_neighbour_valid_coordinates"></block>
         <block type="get_gamestate"></block>
         <block type="can_attack_coordinate"></block>
-        <block type="if_coordinate_hit_aim_direction"></block>
+        <block type="if_last_move_hit_aim_direction"></block>
         <block type="get_coordinate_at_pos"></block>
         <block type="check_state_of_coordinate"></block>
+        <block type="last_move_sunk"></block>
+        <block type="the_last_move"></block>
     </category>
 </xml>
 <xml id="mitch-startBlocks" style="display:none">
@@ -276,9 +262,7 @@
         <mutation></mutation>
         <field name="NAME">nextMove</field>
         <value name="RETURN">
-            <block type="math_number">
-                <field name="NUM">100</field>
-            </block>
+            <block type="get_first_valid_coordinate"></block>
         </value>
     </block>
 </xml>

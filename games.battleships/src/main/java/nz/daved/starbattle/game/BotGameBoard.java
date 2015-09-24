@@ -2,10 +2,8 @@ package nz.daved.starbattle.game;
 
 import com.google.common.primitives.Ints;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by David J. Dudson on 4/08/15.
@@ -66,7 +64,7 @@ public class BotGameBoard extends GameBoard {
                 return ship.getCoordinates();
             }
         }
-        return new ArrayList<>();
+        return new LinkedList<>();
     }
 
     public Coordinate getFirstValidCoordinate() {
@@ -79,7 +77,7 @@ public class BotGameBoard extends GameBoard {
     }
 
     public List<Coordinate> getAllValidCoordinates() {
-        List<Coordinate> coords = new ArrayList<>();
+        List<Coordinate> coords = new LinkedList<>();
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
                 if (grid[i][j] == 0) {
@@ -91,7 +89,7 @@ public class BotGameBoard extends GameBoard {
     }
 
     public List<Coordinate> getNeighbourValidCoordinates(Coordinate coordinate){
-        List<Coordinate> coords = new ArrayList<>();
+        List<Coordinate> coords = new LinkedList<>();
         int x = coordinate.getX();
         int y = coordinate.getY();
         for (int i = -1; i < 2; i = i + 2) {

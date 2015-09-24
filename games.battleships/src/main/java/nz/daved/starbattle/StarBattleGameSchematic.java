@@ -1,6 +1,6 @@
 package nz.daved.starbattle;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
  */
 public class StarBattleGameSchematic {
 
-    private List<Integer> ships = new ArrayList<>();
+    private List<Integer> ships = new LinkedList<>();
     private int width;
     private int height;
     private long seed;

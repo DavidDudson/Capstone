@@ -119,7 +119,7 @@ Blockly.Java.AppName_ = 'CustomStarBattleBot';
 /**
  * Default Name of the application for use by all generated classes
  */
-Blockly.Java.Package_ = '';
+Blockly.Java.Package_ = 'package nz.daved.starbattle.bots';
 /**
  * Base class (if any) for the generated Java code
  */
@@ -318,15 +318,17 @@ Blockly.Java.workspaceToCode_ = Blockly.Java.workspaceToCode;
 Blockly.Java.workspaceToCode = function(workspace, parms) {
   // Generate the code first to get all of the required imports calculated.
   var code = this.workspaceToCode_(workspace,parms);
+  var xml = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(workspace));
   if (parms && parms[0] == "tests") {
     return code;
   }
   var finalcode = this.getImports() + '\n\n' +
+                  '// ' + xml + '\n\n' +
                   'public class ' + this.getAppName();
   if (this.getBaseclass()) {
     finalcode += ' extends ' + this.getBaseclass();
   }
-  finalcode += ' {\n\n' + this.getConstructor()+
+  finalcode += ' {\n\n' + this.getConstructor() +
                code + '\n' +
                '}\n\n' +
                this.getClasses()
