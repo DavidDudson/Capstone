@@ -125,7 +125,10 @@
             </div>
         </div>
 
-        <div id="test_grid_box">
+        <div class="test_grid_box">
+                <div class="sidebar_head">
+                        test bot
+                    </div>
                 <ul class="test_grid">
                     <%for (int i = 0; i < 10; i++) {%>
                     <%for (int j = 0; j < 10; j++) {%>

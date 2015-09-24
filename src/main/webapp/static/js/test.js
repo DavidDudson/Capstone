@@ -35,21 +35,20 @@ function setBots(botID){
     }
 }
 function nextMove() {
-
     if (currentMoveIndex < jsonMoves.moves.length) {
         var currentMove = jsonMoves.moves[currentMoveIndex];
         if (currentMove.wasPlayer1) {
             var posA = "a" + (currentMove.coord.x * 10 + currentMove.coord.y);
             document.getElementById(posA);
             if (currentMove.wasShip) {
-                document.getElementById(posA).innerHTML += "<img src='../images/hit.png'/>";
+                document.getElementById(posA).innerHTML += "<img src='static/images/hit.png'/>";
 
                 var sunkElements = currentMove.sunk.length;
                 if (sunkElements > 1) {
                     alterBoatLiveGUI(sunkElements, "p1");
                 }
             } else {
-                document.getElementById(posA).innerHTML += "<img src='../images/miss.png'/>";
+                document.getElementById(posA).innerHTML += "<img src='static/images/miss.png'/>";
 
             }
 
@@ -57,7 +56,7 @@ function nextMove() {
             var posB = "b" + (currentMove.coord.x * 10 + currentMove.coord.y);
             document.getElementById(posB);
             if (currentMove.wasShip) {
-                document.getElementById(posB).innerHTML += "<img src='../images/hit.png'/>";
+                document.getElementById(posB).innerHTML += "<img src='static/images/hit.png'/>";
 
                 var sunkElements = currentMove.sunk.length;
 
@@ -65,7 +64,7 @@ function nextMove() {
                     alterBoatLiveGUI(sunkElements, "p2", "dec");
                 }
             } else {
-                document.getElementById(posB).innerHTML += "<img src='../images/miss.png'/>";
+                document.getElementById(posB).innerHTML += "<img src='static/images/miss.png'/>";
 
             }
         }
@@ -133,18 +132,21 @@ function getGameMoves(jqxhr) {
 }
 
 function makeBotGame() {
-    var jqxhr = $.ajax({
-        url: "creategame_b2b",
+    var url = "creategame_b2b";
+    var data = "" + bot1 + "\n" + bot2 + "\n";
+    $.ajax({
+        url: url,
         type: "POST",
-        data: "" + bot1 + "\n" + bot2 + "\n",
-        dataType: "json",
-        success : getGameMoves()
+        data: data,
+        success : function(data, textStatus, request) {
+            getGameMoves(request);
+        }
     });
-}
+};
+
 
 function getBots() {
             var userBotsURL = "userbots/__current_user";
-            var buildBotsURL = "builtinbots";
             $.ajax({
                 url: userBotsURL,
                 type: "GET",
