@@ -36,45 +36,36 @@
 
         <!--Header-->
         <div id="header">
-            <div id="nav_container">
+    <div id="nav_container">
+        <div class="container_12" style="padding:0;">
+            <div id="nav_menu" class="left">
+                <nav class="menu">
+                    <a class="toggle-nav" href="#">&#9776;</a>
+                    <ul class="list_inline active">
+                        <li><a href="index.jsp"> ${gameName} </a></li>
+                        <li><a href="editor.jsp"> Editor </a></li>
+                        <li><a href="http://tinyurl.com/ptbweh9"> Survey </a></li>
+                        <li><a href="about.jsp"> About </a></li>
+                    </ul>
 
-
-                <div class="container_12" style="padding:0;">
-
-                    <div id="nav_menu" class="left">
-                        <nav class="menu">
-                            <a class="toggle-nav" href="#">&#9776;</a>
-                            <ul class="list_inline active">
-                                <li><a href="index.jsp"> ${gameName} </a></li>
-                                <li ><a href="about.jsp"> About </a></li>
-                                <li> <a href="editor.jsp"> Editor </a></li>
-                                <li> <a href="http://tinyurl.com/ptbweh9"> Survey </a> </li>
-
-                            </ul>
-
-                        </nav>
-                    </div>	
-
-
-                    <div id="user" class="right">
-                        <ul class="list_inline">
-                            <li id="profilePicture2" class="username">${screenName}</li>
-                            <li> <a class="logout" href="index.jsp"> Logout </a> </li>
-                            <c:if test="${profilePicture != null}">
-                            <li class="profilePictureContent" id="profilePicture3"><img
-                                    id="profilePictureURL" src="${profilePicture}"
-                                    class="img-responsive img-rounded center-block"
-                                    alt="Profile Picture"></li>
-                            </c:if>
-                        </ul>
-                    </div>
-
-                </div>
-
-                <div class="clear"> </div>
-
+                </nav>
+            </div>
+            <div class="right">
+                <ul class="list_inline" >
+                    <li id="profilePicture2" > ${screenName}</li>
+                    <li><a  href="index.jsp"> Logout</a></li>
+                    <c:if test="${profilePicture != null}">
+                        <li class="profilePictureContent" id="profilePicture3"><img
+                                id="profilePictureURL" src="${profilePicture}"
+                                class="img-responsive center-block"
+                                style="width: 40px;" alt="Profile Picture"></li>
+                    </c:if>
+                </ul>
             </div>
         </div>
+        <div class="clear"> </div>
+    </div>
+</div>
         <!--End Header-->
 
 

@@ -15,39 +15,14 @@
 <head>
     <meta charset="utf-8">
     <title>${gameName} About</title>
-    <script type="text/javascript" src="static/js/Blockly/blockly_uncompressed.js"></script>
-    <script type="text/javascript" src="static/js/Blockly/java.js"></script>
-    <script type="text/javascript" src="static/js/Blockly/java/logic.js"></script>
-    <script type="text/javascript" src="static/js/Blockly/java/loops.js"></script>
-    <script type="text/javascript" src="static/js/Blockly/java/math.js"></script>
-    <script type="text/javascript" src="static/js/Blockly/java/text.js"></script>
-    <script type="text/javascript" src="static/js/Blockly/java/lists.js"></script>
-    <script type="text/javascript" src="static/js/Blockly/java/variables.js"></script>
-    <script type="text/javascript" src="static/js/Blockly/java/procedures.js"></script>
-    <script type="text/javascript" src="static/js/Blockly/java/customBlocks.js"></script>
-    <script type="text/javascript" src="static/js/Blockly/messages.js"></script>
-    <script type="text/javascript" src="static/js/Blockly/blocks/logic.js"></script>
-    <script type="text/javascript" src="static/js/Blockly/blocks/loops.js"></script>
-    <script type="text/javascript" src="static/js/Blockly/blocks/math.js"></script>
-    <script type="text/javascript" src="static/js/Blockly/blocks/text.js"></script>
-    <script type="text/javascript" src="static/js/Blockly/blocks/lists.js"></script>
-    <script type="text/javascript" src="static/js/Blockly/blocks/variables.js"></script>
-    <script type="text/javascript" src="static/js/Blockly/blocks/procedures.js"></script>
-    <script type="text/javascript" src="static/js/Blockly/blocks/customBlocks.js"></script>
-
-    <script src="static/js/jquery-1.10.2.min.js"></script>
-    <script src="static/js/jquery-ui-1.8.21.custom.min.js"></script>
-    <script src="static/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="static/css/editor.css">
-    <link rel="stylesheet" type="text/css" href="static/css/grid.css">
     <link rel="stylesheet" type="text/css" href="static/css/about.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
     <script src="static/js/editor.js"></script>
     <script src="static/js/test.js"></script>
 </head>
-<body onload="setupWorkspace(); getUserBots(addUserBotsToUI)">
 
 <!--Header-->
 <div id="header">
@@ -67,13 +42,13 @@
             </div>
             <div id="user" class="right">
                 <ul class="list_inline">
-                    <li> <a d="profilePicture2" class="username" href="">${screenName}</a> </li>
-                    <li class="logout" href="index.jsp"> Logout </li>
+                    <li id="profilePicture2" class="username" >${screenName}</li>
+                    <li> <a class="logout" href="index.jsp"> Logout </a></li>
                     <c:if test="${profilePicture != null}">
                         <li class="profilePictureContent" id="profilePicture3"><img
                                 id="profilePictureURL" src="${profilePicture}"
-                                class="img-responsive img-rounded center-block"
-                                style="width: 40px; margin: 5px;" alt="Profile Picture"></li>
+                                class="img-responsive center-block"
+                                style="width: 40px;" alt="Profile Picture"></li>
                     </c:if>
                 </ul>
             </div>

@@ -52,7 +52,7 @@
                         <input type="hidden" name="loginType" value="google" /> <input
                             type="hidden" class="callbackUrlElement" name="callbackurl"
                             value="http://localhost:8080/Capstone" /> <input type="hidden" class="baseURLElement"
-                            name="baseURL" value="" />
+                            name="baseURL" value="http://localhost:8080/Capstone" />
                         <p>
                             <button type="submit"
                                     class="btn btn-block btn-social btn-google-plus">
@@ -68,7 +68,7 @@
                         <input type="hidden" name="loginType" value="facebook" /> <input
                             type="hidden" class="callbackUrlElement" name="callbackurl"
                             value="http://localhost:8080/Capstone" /> <input type="hidden" class="baseURLElement"
-                            name="baseURL" value="" />
+                            name="baseURL" value="http://localhost:8080/Capstone" />
                         <p>
                             <button type="submit"
                                     class="btn btn-block btn-social btn-facebook">

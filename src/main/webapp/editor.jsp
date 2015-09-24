@@ -38,7 +38,7 @@
     <script type="text/javascript" src="static/js/Blockly/blocks/procedures.js"></script>
     <script type="text/javascript" src="static/js/Blockly/blocks/customBlocks.js"></script>
 
-    <script src="static/js/jquery-1.7.2.min.js"></script>
+    <script src="static/js/jquery-1.11.3.min.js"></script>
     <script src="static/js/jquery-ui-1.8.21.custom.min.js"></script>
     <script src="static/js/bootstrap.min.js"></script>
 
@@ -60,9 +60,9 @@
                     <a class="toggle-nav" href="#">&#9776;</a>
                     <ul class="list_inline active">
                         <li><a href="index.jsp"> ${gameName} </a></li>
-                        <li><a href="about.jsp"> About </a></li>
                         <li><a href="test.jsp"> Test </a></li>
                         <li><a href="http://tinyurl.com/ptbweh9"> Survey </a></li>
+                        <li><a href="about.jsp"> About </a></li>
                     </ul>
 
                 </nav>
@@ -74,17 +74,15 @@
                     <c:if test="${profilePicture != null}">
                         <li class="profilePictureContent" id="profilePicture3"><img
                                 id="profilePictureURL" src="${profilePicture}"
-                                class="img-responsive img-rounded center-block"
-                                style="width: 40px; margin: 5px;" alt="Profile Picture"></li>
+                                class="img-responsive center-block"
+                                style="width: 40px;" alt="Profile Picture"></li>
                     </c:if>
                 </ul>
             </div>
         </div>
         <div class="clear"> </div>
     </div>
-
 </div>
-
 <div class="container_10">
     <div id="content">
         <div id="sidebar_left" class="sidebar left">

@@ -33,7 +33,6 @@ buildscript {
 //Apply server plugin
 apply plugin: 'org.akhikhl.gretty'
 apply plugin: 'project-reports'
-
 repositories {
     // Treat SoGaCo build output as a repository
     flatDir {
