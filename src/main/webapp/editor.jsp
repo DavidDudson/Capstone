@@ -56,12 +56,10 @@
     <div id="nav_container">
         <div class="container_12" style="padding:0;">
             <div id="nav_menu" class="left">
-                <div id="logo" class="left">
-                    <a href="index.jsp"> ${gameName} </a>
-                </div>
                 <nav class="menu">
                     <a class="toggle-nav" href="#">&#9776;</a>
                     <ul class="list_inline active">
+                        <li><a href="index.jsp"> ${gameName} </a></li>
                         <li><a href="about.jsp"> About </a></li>
                         <li><a href="test.jsp"> Test </a></li>
                         <li><a href="http://tinyurl.com/ptbweh9"> Survey </a></li>

@@ -19,6 +19,7 @@
         <link rel="stylesheet" type="text/css" href="static/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="static/css/bootstrap-social.css">
         <link rel="stylesheet" type="text/css" href="static/css/font-awesome.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="static/css/index.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>
             var getUrl = window.location;
@@ -41,42 +42,40 @@
                     <h1>${gameName}</h1>
                 </div>
             </div>
-            <div >
-                    <div id="ldapLogin" class="text-center">
-                <div id="socialLogin" class="">
-                    <div class="paddingBlock"></div>
-                    <!-- Login buttons for social authentication -->
-                    <div class="googlePlusButton" style="float:right">
-                        <form action="SocialLogin" method="POST" style="width: 200px;"
-                              class="center-block">
-                            <input type="hidden" name="loginType" value="google" /> <input
-                                type="hidden" class="callbackUrlElement" name="callbackurl"
-                                value="http://localhost:8080/Capstone" /> <input type="hidden" class="baseURLElement"
-                                name="baseURL" value="" />
-                            <p>
-                                <button type="submit"
-                                        class="btn btn-block btn-social btn-google-plus">
-                                    <i class="fa fa-google-plus"></i>Sign in with Google
-                                </button>
-                            </p>
-                        </form>
-                    </div>
+            <div id="socialLogin" class="text-center">
+                <div class="paddingBlock"></div>
 
-                    <div class="facebookButton" style="float:left">
-                        <form action="SocialLogin" method="POST" style="width: 200px;"
-                              class="center-block">
-                            <input type="hidden" name="loginType" value="facebook" /> <input
-                                type="hidden" class="callbackUrlElement" name="callbackurl"
-                                value="http://localhost:8080/Capstone" /> <input type="hidden" class="baseURLElement"
-                                name="baseURL" value="" />
-                            <p>
-                                <button type="submit"
-                                        class="btn btn-block btn-social btn-facebook">
-                                    <i class="fa fa-facebook"></i>Sign in with Facebook
-                                </button>
-                            </p>
-                        </form>
-                    </div>
+                <!-- Login buttons for social authentication -->
+                <div class="googlePlusButton">
+                    <form action="SocialLogin" method="POST" style="width: 200px;"
+                          class="center-block">
+                        <input type="hidden" name="loginType" value="google" /> <input
+                            type="hidden" class="callbackUrlElement" name="callbackurl"
+                            value="http://localhost:8080/Capstone" /> <input type="hidden" class="baseURLElement"
+                            name="baseURL" value="" />
+                        <p>
+                            <button type="submit"
+                                    class="btn btn-block btn-social btn-google-plus">
+                                <i class="fa fa-google-plus"></i>Sign in with Google
+                            </button>
+                        </p>
+                    </form>
+                </div>
+
+                <div class="facebookButton">
+                    <form action="SocialLogin" method="POST" style="width: 200px;"
+                          class="center-block">
+                        <input type="hidden" name="loginType" value="facebook" /> <input
+                            type="hidden" class="callbackUrlElement" name="callbackurl"
+                            value="http://localhost:8080/Capstone" /> <input type="hidden" class="baseURLElement"
+                            name="baseURL" value="" />
+                        <p>
+                            <button type="submit"
+                                    class="btn btn-block btn-social btn-facebook">
+                                <i class="fa fa-facebook"></i>Sign in with Facebook
+                            </button>
+                        </p>
+                    </form>
                 </div>
 
                 <c:if test="${isDebug}">
@@ -85,16 +84,17 @@
                         <div class="alert alert-danger" role="alert">${authMessage}</div>
                         <% } %>
                         <!-- This form is for handling LDAP authentication requests-->
+                        <div class="debugButton">
                         <form name="loginform" action="login" method="POST" class="center-block loginForm">
                             <input type="hidden" class="baseURLElement" name="baseURL" value="" />
                             <input type="hidden" class="form-control" name="username" required="required" placeholder="Username" value="Debug" />
                             <input type="hidden" name="password" class="form-control" required="required" placeholder="Password" value="DebugPassword"/><br />
                             <input class="form-control" type="submit" value="Login"><br>
                         </form>
+                        </div>
                     </div>
                 </c:if>
             </div>
         </div>
-    </div>
 </body>
 </html>

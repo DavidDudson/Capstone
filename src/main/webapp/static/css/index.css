@@ -1,0 +1,18 @@
+#socialLogin {
+	max-width: 25em;
+	position: center; 
+	margin: 0 auto; 
+}
+
+.googlePlusButton {
+	float: center;
+}
+
+.facebookButton {
+	float: center;
+}
+
+.debugButton {
+	margin-left: 22%;
+	float: center;
+}
