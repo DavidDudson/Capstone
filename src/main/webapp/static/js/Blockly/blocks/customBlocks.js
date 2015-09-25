@@ -109,7 +109,7 @@ Blockly.Blocks['variable_define'] = {
 Blockly.Blocks['get_gamestate'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Gamestate");
+        .appendField("Game Board");
     this.setOutput(true, "Array");
     this.setColour(330);
     this.setTooltip('The StarBattles gamestate');
