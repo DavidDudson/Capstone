@@ -55,7 +55,7 @@ angular
                         .success(function (data) {
                             $rootScope.user.bots.list = data.collection.items;
                             $rootScope.user.bots.list.forEach(function (bot) {
-                                bot.metadata = $rootScope.user.bots.getMeta(bot.id)
+                                bot.src = $rootScope.user.bots.src(bot.id)
                             })
                         })
                         .error(function () {
@@ -63,7 +63,7 @@ angular
                         });
                 },
                 //Save the current bot
-                save: function (share) {
+                save: function () {
                     //The data to use as the request body
                     var data = {
                         name: $rootScope.editor.selectedBot.name,
@@ -84,8 +84,24 @@ angular
                 },
                 //Share bot
                 share: function () {
-                    console.log("This would share the bot")
-                    $rootScope.user.bots.save(true);
+                    if ($rootScope.editor.selectedBot.share === true) {
+                        $http.post('shareBot', {botId: $rootScope.editor.selectedBot.getId(), unshare: true})
+                            .success(function () {
+                                $rootScope.editor.selectedBot.share = false
+                            })
+                            .error(function () {
+                                console.error("Bot unhsare fail")
+                            })
+
+                    } else {
+                        $http.post('shareBot', {botId: $rootScope.editor.selectedBot.getId()})
+                            .success(function () {
+                                $rootScope.editor.selectedBot.share = true
+                            })
+                            .error(function () {
+                                console.error("Bot share fail")
+                            })
+                    }
                 },
                 src: function (id) {
                     $http.get("bot-src/" + id)
@@ -98,7 +114,8 @@ angular
 
                 }
             }
-        };
+        }
+        ;
 
         $rootScope.builtInBots = {
             list: [],
@@ -115,4 +132,5 @@ angular
 
         };
 
-    });
+    })
+;

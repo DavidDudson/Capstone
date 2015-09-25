@@ -30,6 +30,7 @@ angular
         //This makes it clearer what the intention behind it is. eg. editor.save()
         $rootScope.editor = {
             workspace : null,
+            workspaceXml : '<xml><xml>',
             blocklyConfig : {
                 toolbox: document.getElementById('toolbox'),
                 rtl: false,
@@ -51,6 +52,7 @@ angular
                 //Also pull this data from the builtInBot source code, that way it isn't hardcoded here.
                 Blockly.Xml.domToWorkspace($rootScope.editor.workspace, document.getElementById('initialBlocklyState'));
                 $rootScope.editor.workspace.getBlockById(1).inputList[2].connection.check_ = ["Coordinate"];
+
             },
             build: {
                 //How many bots in queue
@@ -58,7 +60,7 @@ angular
                 //position in queue
                 position: 100,
                 //Whether a build is in progress
-                active: false,
+                active: '',
                 //eg success error etc.
                 type: null,
                 //The text to show on the bar
@@ -68,16 +70,16 @@ angular
                 update: function (position, pass) {
                     $rootScope.editor.build.progress = position;
                     if (position != $rootScope.editor.build.total) {
-                        $rootScope.editor.build.active = true;
+                        $rootScope.editor.build.active = 'active';
                         $rootScope.editor.build.type = null;
                         $rootScope.editor.build.text =
                             'In queue... ' + $rootScope.editor.build.position + '/' + $rootScope.editor.build.total;
                     } else if (pass) {
-                        $rootScope.editor.build.active = false;
+                        $rootScope.editor.build.active = '';
                         $rootScope.editor.build.type = 'success';
                         $rootScope.editor.build.text = 'Build Success'
                     } else {
-                        $rootScope.editor.build.active = false;
+                        $rootScope.editor.build.active = '';
                         $rootScope.editor.build.type = 'error';
                         $rootScope.editor.build.text = 'Build Failure'
                     }

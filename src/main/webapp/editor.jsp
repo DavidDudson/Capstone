@@ -60,7 +60,9 @@
 
                     <div class="sidebar_content">
                         <ul id="userBots" class="list_block">
-                            <li ng-repeat="bot in user.bots.list" class="bot" ng-click="editor.selectedBot=bot">
+                            <li ng-repeat="bot in user.bots.list" class="bot"
+                                ng-style="{'background-color': editor.selectedBot == bot ? 'red' : '#1a445b'}"
+                                ng-click="editor.selectedBot=bot">
                                 {{bot.name}}
                             </li>
                             <li ng-if="user.bots.list.length === 0"> No Bots.</li>
@@ -85,13 +87,14 @@
                         </button>
                     </li>
                     <li>
-                        <button id="save" class="btn btn-info btn-lg" ng-click="user.bots.save(false)"
+                        <button id="save" class="btn btn-info btn-lg" ng-click="user.bots.save()"
                                 ng-disabled="!editor.selectedBot"> Save
                         </button>
                     </li>
                     <li>
                         <button id="share" class="btn btn-info btn-lg" ng-click="user.bots.share()"
-                                ng-disabled="!editor.selectedBot"> Share
+                                ng-disabled="!editor.selectedBot">
+                            {{editor.selectedBot.share === true ? "Unshare" : "Share"}}
                         </button>
                     </li>
                 </ul>
@@ -100,8 +103,12 @@
                 <div id="blocklyDiv" style="height:450px"></div>
             </div>
             <br/>
+
             <div>
-                <progressbar ng-value="editor.build.progress" ng-type="editor.build.type" style="width:80%"><b>{{editor.build.text}}</b></progressbar>
+                <progressbar class="progress-striped"
+                             ng-class="editor.build.active"
+                             ng-value="editor.build.progress" type="{{editor.build.type}}"
+                             style="width:100%; height: 40px"><b>{{editor.build.text}}</b></progressbar>
             </div>
         </div>
     </div>
