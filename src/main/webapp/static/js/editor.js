@@ -1,5 +1,6 @@
 'use strict';
 
+
 var currentBotID = null;
 var workspace;
 
@@ -25,10 +26,10 @@ function setupWorkspace() {
     workspace.getBlockById(1).inputList[2].connection.check_ = ["Coordinate"];
 }
 
-function saveBot() {
+function saveBot(botName) {
 
     var data = {};
-    data.name = currentBotID;
+    data.name = botName;
     data.language = 'JAVA';
     data.src = Blockly.Java.workspaceToCode(workspace, ["notests"]);
     data = JSON.stringify(data);
@@ -41,6 +42,26 @@ function saveBot() {
         success: function(){console.log("Build success")}, //TODO Show green bar
         failure: function(){console.log("Build failure")}  //TODO Show Red bar
     });
+}
+
+function updateBot(){
+    var botName = $("#" + currentBotID).val();
+    var data = {};
+    data.name = botName;
+    data.language = 'JAVA';
+    data.src = Blockly.Java.workspaceToCode(workspace, ["notests"]);
+    data = JSON.stringify(data);
+
+    $.ajax({
+        dataType: "json",
+        url: 'http://localhost:8080/Capstone/bots/' + currentBotID,
+        type: "PUT",
+        data: data,
+        success: function(){console.log("Bot update success")}, //TODO Show green bar
+        failure: function(){console.log("Bot update failure")}  //TODO Show Red bar
+    });
+    
+    
 }
 
 function addUserBotsToUI(data) {
@@ -98,21 +119,21 @@ function deleteCurrentBot() {
 }
 
 function createNewBot() {
-    currentBotID = $('#botName').val();
-
-    if (currentBotID.length === 0) {
+    var botName = $('#botName').val();
+    console.log(botName);
+    if (botName.length === 0) {
         alert("Bot must have name");
         return;
     }
 
-    var newBot = saveBot();
+    saveBot(botName);
+    
     var entry = document.createElement('li');
-    var textNode = document.createTextNode(currentBotID);
-
+    var textNode = document.createTextNode(botName);
     entry.appendChild(textNode);
     entry.setAttribute("id", currentBotID);
     entry.setAttribute("value", currentBotID);
-    entry.setAttribute("onClick", "selectBot('" + newBot + "');");
+    entry.setAttribute("onClick", "selectBot('" + botName + "');");
     entry.className = "bot";
     document.getElementById("userBots").appendChild(entry);
 
@@ -139,18 +160,3 @@ function getBotSource(id){
     
 }
 
-function loadBotIntoBlockly(id) {
-    //var src = getBotSource(id);
-    var src= 'public class CustomStarBattleBot extends StarBattleBot {\
-\
-// <xml xmlns="http://www.w3.org/1999/xhtml"><block type="procedures_defreturn" id="1" deletable="false" editable="false" x="63" y="63"><field name="NAME">nextMove</field><value name="RETURN"><block type="get_first_valid_coordinate" id="2"></block></value></block></xml>\
-\
-        public CustomStarBattleBot(String id) { super(id); }\
-\
-@Override\
-    public Coordinate nextMove(BotGameBoard botGameBoard) {\
-        return botGameBoard.getFirstValidCoordinate();\
-    }'
-    var xml = src.match(/<xml.*<\/xml>/g);
-    workspace
-}

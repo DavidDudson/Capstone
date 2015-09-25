@@ -113,7 +113,7 @@
                         <button id="del" class="btn btn-info btn-lg" onclick="deleteCurrentBot()" disabled="disabled"> Delete </button>
                     </li>
                     <li>
-                        <button id="save" class="btn btn-info btn-lg" onclick="saveBot()" disabled="disabled"> Save </button>
+                        <button id="save" class="btn btn-info btn-lg" onclick="updateBot()" disabled="disabled"> Save </button>
                     </li>
                 </ul>
             </div>
