@@ -10,6 +10,7 @@
                     <ul class="list_inline active">
                         <li><a href="editor.jsp"> Editor </a> </li>
                         <li><a href="test.jsp"> Test </a></li>
+                        <li><a href="about.jsp"> About </a></li>
                         <li><a href=""> Survey </a> </li>
                     </ul>
 
@@ -19,10 +20,10 @@
                 <ul class="list_inline">
                     <li class="username"> <a href="">{{user.name}}</a> </li>
                     <li class="logout" href="logout"> Logout </li>
-                    <li class="profilePictureContent" ng-if="user.profilePictureUrl != ''" id="profilePicture3"><img
-                            id="profilePictureURL" ng-src="{{user.profilePictureUrl}}"
-                            class="img-responsive img-rounded center-block"
-                            style="width: 40px; margin: 5px;" alt="Profile Picture"></li>
+                    <li class="profilePictureContent" ng-if="user.profilePictureUrl != ''">
+                        <img ng-src="{{user.profilePictureUrl}}" class="img-responsive img-rounded center-block"
+                            style="width: 40px; margin: 5px;" alt="Profile Picture"/>
+                    </li>
                 </ul>
             </div>
         </div>
