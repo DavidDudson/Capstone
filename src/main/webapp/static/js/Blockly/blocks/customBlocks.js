@@ -150,3 +150,15 @@ Blockly.Blocks['the_last_move'] = {
         this.setHelpUrl('http://www.example.com/');
     }
 };
+
+Blockly.Blocks['comment'] = {
+    init: function() {
+        this.appendDummyInput()
+            .appendField(new Blockly.FieldTextInput("Comment"), "comment");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(65);
+        this.setTooltip('');
+        this.setHelpUrl('http://www.example.com/');
+    }
+};

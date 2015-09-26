@@ -127,3 +127,14 @@ Blockly.Java['the_last_move'] = function(block) {
     // TODO: Change ORDER_NONE to the correct strength.
     return [code, Blockly.Java.ORDER_ATOMIC];
 };
+
+Blockly.Java['comment'] = function(block) {
+    var text_comment;
+    try {
+        text_comment = block.getFieldValue('comment');
+    }
+    catch(err){}
+    // TODO: Assemble Java into code variable.
+    var code = '';
+    return code;
+};

@@ -271,7 +271,9 @@
     </category>
     <sep></sep>
     <category name="Variables" custom="VARIABLE"></category>
-    <category name="Functions" custom="PROCEDURE"></category>
+    <category name="Functions">
+        <block type="procedures_ifreturn"></block>
+    </category>
     <sep></sep>
     <category name="StarBattles">
         <block type="get_first_valid_coordinate"></block>
@@ -285,6 +287,7 @@
         <block type="check_state_of_coordinate"></block>
         <block type="last_move_sunk"></block>
         <block type="the_last_move"></block>
+        <block type="comment"></block>
     </category>
 </xml>
 <xml id="initialBlocklyState" style="display:none">
