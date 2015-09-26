@@ -26,35 +26,17 @@ function setupWorkspace() {
     };
 
     workspace = Blockly.inject('blocklyDiv', blocklyConfig);
-
     Blockly.Xml.domToWorkspace(workspace, document.getElementById('initialBlocklyState'));
-    workspace.getBlockById(1).inputList[2].connection.check_ = ["Coordinate"];
 }
 
-function saveBot(botName) {
 
-    var data = {};
-    data.name = botName;
-    data.language = 'JAVA';
-    data.src = Blockly.Java.workspaceToCode(workspace, ["notests"]);
-    data = JSON.stringify(data);
-
-    $.ajax({
-        dataType: "json",
-        url: 'http://localhost:8080/Capstone/bots',
-        type: "POST",
-        data: data,
-        success: function(){console.log("Build success")}, //TODO Show green bar
-        failure: function(){console.log("Build failure")}  //TODO Show Red bar
-    });
-}
 
 function updateBot(){
     var botName = $("#" + currentBotID).html();
     var data = {};
     data.name = botName;
     data.language = 'JAVA';
-    data.src = Blockly.Java.workspaceToCode(workspace, ["notests"]);
+    data.src = addXMLToSource();
     data = JSON.stringify(data);
 
     $.ajax({
@@ -82,19 +64,26 @@ function addUserBotsToUI(data) {
     });
 }
 
-function selectBot(botID){
-    if(currentBotID !== null){
-        $("#" + currentBotID).css("background-color", "#1a445b");
 
-    }
-    currentBotID = botID;
-    $("#" + currentBotID).css("background-color", "red");
-    $("#del").prop("disabled", false);
-    $("#save").prop("disabled", false);
-    $("#test").prop("disabled", false);
-    $("#reset").prop("disabled", false);
 
+
+function loadBotBlockly(){
+    $.ajax({
+        url: 'bots-src/' + currentBotID,
+        type: "GET",
+        success: function(data, textStatus, jqxhr){
+            var xmlString = data.match(/<xml.*>/);
+//            console.log(xmlString[0]);
+            var blocklyXML = Blockly.Xml.textToDom(xmlString);
+            console.log(blocklyXML);
+            Blockly.Xml.domToWorkspace( workspace, blocklyXML );
+            
+            
+        }, //TODO Show green bar
+        failure: function(){console.log("get bot source failure");}  //TODO Show Red bar
+    });
 }
+
 function getUserBots() {
     $.ajax({
         url: "userbots/__current_user",
@@ -128,27 +117,66 @@ function deleteCurrentBot() {
     });
 }
 
+function selectBot(botID){
+    if(currentBotID !== null){
+        $("#" + currentBotID).css("background-color", "#1a445b");
+
+    }
+    currentBotID = botID;
+//    loadBotBlockly();
+
+    
+    $("#" + currentBotID).css("background-color", "red");
+    $("#del").prop("disabled", false);
+    $("#save").prop("disabled", false);
+    $("#test").prop("disabled", false);
+    $("#reset").prop("disabled", false);
+
+}
+
+function saveBot(botName) {
+
+    var data = {};
+    data.name = botName;
+    data.language = 'JAVA';
+    data.src = addXMLToSource();
+    data = JSON.stringify(data);
+
+    return $.ajax({
+        dataType: "json",
+        url: 'http://localhost:8080/Capstone/bots',
+        type: "POST",
+        data: data,
+        success: function(data){
+            console.log("Build success");
+            
+            
+            var entry = document.createElement('li');
+            var textNode = document.createTextNode(botName);
+            entry.appendChild(textNode);
+            entry.setAttribute("id", data.botId);
+            entry.setAttribute("value", data.botId);
+            entry.setAttribute("onClick", "selectBot('" + data.botId + "');");
+            entry.className = "bot";
+            $("#userBots").prepend(entry);
+            $("#del").prop("disabled", false);
+            $("#save").prop("disabled", false);
+            selectBot(data.botId);
+            
+            
+            }, //TODO Show green bar
+        failure: function(){console.log("Build failure");}  //TODO Show Red bar
+    });
+}
+
+
 function createNewBot() {
     var botName = $('#botName').val();
-    console.log(botName);
     if (botName.length === 0) {
         alert("Bot must have name");
         return;
     }
-
     saveBot(botName);
-    
-    var entry = document.createElement('li');
-    var textNode = document.createTextNode(botName);
-    entry.appendChild(textNode);
-    entry.setAttribute("id", currentBotID);
-    entry.setAttribute("value", currentBotID);
-    entry.setAttribute("onClick", "selectBot('" + currentBotID + "');");
-    entry.className = "bot";
-    $("#userBots").prepend(entry);
-    $("#del").prop("disabled", false);
-    $("#save").prop("disabled", false);
-    selectBot(currentBotID);
 }
 
 function getBotSource(id){
@@ -223,4 +251,11 @@ function resetBot(){
     currentMoveIndex = 0;
     $("#test").prop("disabled", false);
     
+}
+
+function addXMLToSource(){
+    var xmlSRC = Blockly.Xml.workspaceToDom(workspace);
+    console.log(xmlSRC);
+    var javaSRC = Blockly.Java.workspaceToCode(workspace, ["notests"]) + "// "+ Blockly.Xml.domToText(xmlSRC);
+    return javaSRC;
 }
