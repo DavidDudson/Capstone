@@ -29,26 +29,27 @@ angular
         //html you type editor.something, rather than just something.
         //This makes it clearer what the intention behind it is. eg. editor.save()
         $rootScope.editor = {
-            workspace : null,
-            workspaceXml : '<xml><xml>',
-            blocklyConfig : {
-                toolbox: document.getElementById('toolbox'),
-                rtl: false,
-                comments: true,
-                collapse: true,
-                scrollbars: true,
-                grid: {
-                    spacing: 25,
-                    length: 3,
-                    colour: '#ccc',
-                    snap: true
-                }
-            },
+            workspace: null,
+            workspaceXml: '<xml><xml>',
             selectedBot: null,
-            allBots : function(){return $rootScope.builtInBots.list.concat($rootScope.user.bots.list)},
+            allBots: function () {
+                return $rootScope.builtInBots.list.concat($rootScope.user.bots.list)
+            },
             //Initialize the blockly workspace
             initialize: function () {
-                $rootScope.editor.workspace = Blockly.inject('blocklyDiv', $rootScope.editor.blocklyConfig);
+                $rootScope.editor.workspace = Blockly.inject('blocklyDiv', {
+                    toolbox: document.getElementById('toolbox'),
+                    rtl: false,
+                    comments: true,
+                    collapse: true,
+                    scrollbars: true,
+                    grid: {
+                        spacing: 25,
+                        length: 3,
+                        colour: '#ccc',
+                        snap: true
+                    }
+                });
                 //TODO, only call this line once a bot has been selected and use the bot src rather than this.
                 //Also pull this data from the builtInBot source code, that way it isn't hardcoded here.
                 Blockly.Xml.domToWorkspace($rootScope.editor.workspace, document.getElementById('initialBlocklyState'));
@@ -69,7 +70,7 @@ angular
 
                 //Updates the progress bar
                 update: function (position, pass) {
-                    $rootScope.editor.build.progress = position;
+                    $rootScope.editor.build.position = position;
                     if (position != $rootScope.editor.build.total) {
                         $rootScope.editor.build.active = 'active';
                         $rootScope.editor.build.type = null;
@@ -84,6 +85,22 @@ angular
                         $rootScope.editor.build.type = 'error';
                         $rootScope.editor.build.text = 'Build Failure'
                     }
+                },
+                checkStatus: function () {
+                    $http.get('http://localhost:8080/CCapstone/buildStatus/' + $rootScope.editor.selectedBot.id)
+                        .success(function () {
+                            if (data.done) {
+                                if (data.error) {
+                                    $rootScope.editor.build.update(100, false)
+                                } else {
+                                    $rootScope.editor.build.update(100, true)
+                                }
+                            } else {
+                                $rootScope.editor.build.update(data.position, true)
+                                $rootScope.editor.build.total = data.queueSize;
+                            }
+                        })
+
                 }
             },
             //The modal for selecting create new bot options
@@ -91,12 +108,11 @@ angular
                 //The modal itself
                 instance: null,
                 //The currently selected bot to use as a template
-                selectedBot: {name:'FirstSquareBot'},
+                selectedBot: {name: 'FirstSquareBot'},
                 //When the modal ok button is pressed create a new bot and close modal
                 ok: function (name, bot) {
-                    console.log(name,bot);
                     $rootScope.editor.modal.instance.dismiss();
-                    $rootScope.user.bots.list.push({name: name, src: bot.src, xml: bot.xml})
+                    $rootScope.user.bots.list.push({name: name, src: bot.src, xml: bot.xml, new: true})
                 },
                 //When the modal cancel button close the model
                 cancel: function () {
@@ -107,6 +123,7 @@ angular
                     $rootScope.editor.modal.instance = $modal.open({
                         animation: true,
                         templateUrl: './static/html/newBotModal.html',
+                        size: "small",
                         resolve: {
                             bots: function () {
                                 return $rootScope.builtInBots.list;

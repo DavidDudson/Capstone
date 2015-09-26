@@ -9,11 +9,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
-    <script src="static/js/jquery-1.10.2.min.js"></script>
+    <script src="static/js/jquery-1.11.3.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.4/ui-bootstrap-tpls.min.js"></script>
     <script src="static/js/app.js"></script>
-    <script src=""></script>
+    <script src="static/js/showErrors.min.js"></script>
     <script>
     </script>
 </head>
@@ -31,12 +31,12 @@
     </div>
 
     <div class="row">
-        <div class="googleButton">
+        <div class="googlePlusButton">
             <form action="SocialLogin" method="POST">
                 <input type="hidden" name="loginType" value="google" />
                 <input type="hidden" name="callbackurl" value="http://localhost:8080/Capstone" />
                 <input type="hidden" name="baseURL" value="" />
-                <button type="submit" class="btn btn-block btn-social btn-google">
+                <button type="submit" class="btn btn-block btn-social btn-google-plus">
                     <i class="fa fa-google"></i> Sign in with Google
                 </button>
             </form>

@@ -1,5 +1,8 @@
 angular
-    .module("app", ['ui.bootstrap'])
+    .module("app", ['ui.bootstrap', 'ui.bootstrap.showErrors'])
+    .config(['showErrorsConfigProvider', function (showErrorsConfigProvider) {
+        showErrorsConfigProvider.showSuccess(true);
+    }])
     //The header, basically it will find <page-header></page-header>
     //and replace it with the contents of header.html
     .directive("pageHeader", function () {
@@ -42,9 +45,11 @@ angular
                 delete: function () {
                     $http.delete('delete/' + $rootScope.editor.selectedBot.id)
                         .success(function () {
-                            console.error("Delete Success");
+                            console.log("Delete Success");
                             var index = $rootScope.user.bots.list.indexOf(name);
+                            console.log(index);
                             if (index > -1) user.bots.list.splice(index, 1);
+                            console.log(user.bots.list);
                         })
                         .error(function () {
                             console.error("Delete failure")
@@ -71,21 +76,36 @@ angular
                         share: share,
                         src: Blockly.Java.workspaceToCode($rootScope.editor.workspace, ["notests"])
                     };
-                    console.log("Saving", data);
+                    if (!$rootScope.editor.selectedBot) {
+                        $http.put('bots', data)
+                            .success(function () {
+                                $rootScope.editor.build.checkStatus();
+                            })
+                            .error(function () {
+                                console.log("Saving bot failed");
+                            });
+
+                    } else {
+                        $rootScope.editor.selectedBot.new = null;
+                        $http.post('bots', data)
+                            .success(function () {
+                                $rootScope.editor.selectedBot.id = data.id;
+                                $rootScope.editor.build.checkStatus();
+                            })
+                            .error(function () {
+                                console.log("Saving bot failed");
+                            });
+                    }
                     //The actual request
-                    $http.post('bots', data)
-                        .success(function () {
-                            console.log("Bot save success");
-                            $rootScope.editor.build.update(100, true)
-                        })
-                        .error(function () {
-                            $rootScope.editor.build.update(100, false)
-                        });
+
                 },
                 //Share bot
                 share: function () {
                     if ($rootScope.editor.selectedBot.share === true) {
-                        $http.post('shareBot', {botId: $rootScope.editor.selectedBot.id, unshare: true})
+                        $http.post("shareBot", {
+                            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                            data: "botId=" + $rootScope.editor.selectedBot.id + "&unshare=true"
+                        })
                             .success(function () {
                                 $rootScope.editor.selectedBot.share = false
                             })
@@ -94,13 +114,17 @@ angular
                             })
 
                     } else {
-                        $http.post('shareBot', {botId: $rootScope.editor.selectedBot.getId()})
+                        $http.post("shareBot", {
+                            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                            data: "botId=" + $rootScope.editor.selectedBot.id
+                        })
                             .success(function () {
                                 $rootScope.editor.selectedBot.share = true
                             })
                             .error(function () {
                                 console.error("Bot share fail")
                             })
+
                     }
                 },
                 src: function (bot) {
@@ -115,14 +139,14 @@ angular
                         });
 
                 },
-                nameInBotList: function(name){
-                    var filteredList = $rootScope.user.bots.list.filter(function(bot){
+                nameInBotList: function (name) {
+                    var filteredList = $rootScope.user.bots.list.filter(function (bot) {
                         bot.name = name;
                     });
                     return filteredList.length != 0;
                 },
-                idInBotList: function(id){
-                    var filteredList = $rootScope.user.bots.list.filter(function(bot){
+                idInBotList: function (id) {
+                    var filteredList = $rootScope.user.bots.list.filter(function (bot) {
                         bot.id = id;
                     });
                     return filteredList.length != 0;

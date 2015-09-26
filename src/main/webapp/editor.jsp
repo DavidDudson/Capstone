@@ -40,6 +40,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.4/ui-bootstrap-tpls.min.js"></script>
     <script src="static/js/app.js"></script>
     <script src="static/js/editor.js"></script>
+    <script src="static/js/showErrors.min.js"></script>
 </head>
 <body ng-init="user.initialize('${screenName}','${profilePicture}')">
 
@@ -93,7 +94,7 @@
                     </li>
                     <li>
                         <button id="share" class="btn btn-info btn-lg" ng-click="user.bots.share()"
-                                ng-disabled="!editor.selectedBot.share">
+                                ng-disabled="!editor.selectedBot || editor.selectedBot.new">
                             {{editor.selectedBot.share === true ? "Unshare" : "Share"}}
                         </button>
                     </li>
@@ -110,6 +111,23 @@
                              ng-value="editor.build.progress" type="{{editor.build.type}}"
                              style="width:100%; height: 40px"><b>{{editor.build.text}}</b></progressbar>
             </div>
+        </div>
+        <div class="test_grid_box">
+            <div class="sidebar_head">
+                {{!editor.selectedBot ? "Select a bot first" : editor.selectedBot.name}}
+            </div>
+            <ul class="test_grid">
+                <%for (int i = 0; i < 10; i++) {%>
+                    <%for (int j = 0; j < 10; j++) {%>
+                        <li id="a<%=i * 10 + j%>"></li>
+                    <%}%>
+                    <br/>
+                <%}%>
+
+            </ul>
+            <button id="test" class="btn btn-info btn-lg" ng-click="testBot()" ng-disabled="!editor.selectedBot || editor.selectedBot.new"> Test </button>
+            <button id="reset" class="btn btn-info btn-lg" ng-click="resetBot()" ng-disabled="!editor.selectedBot || editor.selectedBot.new"> Reset </button>
+
         </div>
     </div>
 
