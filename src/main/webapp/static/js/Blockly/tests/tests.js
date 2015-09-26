@@ -12,7 +12,7 @@ var block_tests = [
     {block:'the_last_move', expected:['botGameBoard.getLastMove()',Blockly.Java.ORDER_ATOMIC]}];
 
 var default_blocks = '<xml id="mitch-startBlocks" style="display:none"><block type="procedures_defreturn" id="1" x="63" y="63" deletable="false" editable="false"><mutation></mutation><field name="NAME">nextMove</field><value name="RETURN"><block type="get_first_valid_coordinate"></block></value></block></xml>';
-var default_output = 'import nz.daved.starbattle.StarBattleBot;\nimport nz.daved.starbattle.game.BotGameBoard;\nimport nz.daved.starbattle.game.Coordinate;\n\npublic class CustomStarBattleBot extends StarBattleBot {\n\npublic CustomStarBattleBot(String id) { super(id); }\n\n@Override\npublic Coordinate nextMove(BotGameBoard botGameBoard) {\n  return botGameBoard.getFirstValidCoordinate();\n}\n\n}\n\n';
+var default_output = 'import nz.daved.starbattle.StarBattleBot;\nimport nz.daved.starbattle.game.BotGameBoard;\nimport nz.daved.starbattle.game.Coordinate;\n\n// <xml xmlns=\"http://www.w3.org/1999/xhtml\"><block type=\"procedures_defreturn\" id=\"1\" deletable=\"false\" editable=\"false\" x=\"63\" y=\"63\"><field name=\"NAME\">nextMove</field><value name=\"RETURN\"><block type=\"get_first_valid_coordinate\" id=\"2\"></block></value></block></xml>\n\npublic class CustomStarBattleBot extends StarBattleBot {\n\npublic CustomStarBattleBot(String id) { super(id); }\n\n@Override\npublic Coordinate nextMove(BotGameBoard botGameBoard) {\n  return botGameBoard.getFirstValidCoordinate();\n}\n\n}\n\n';
 
 var default_test = {blocks: default_blocks, expected: default_output};
 

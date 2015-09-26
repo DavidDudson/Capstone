@@ -1,6 +1,6 @@
 'use strict';
 
-var currentBotName = null;
+var currentBotID = null;
 var workspace;
 //Blockly configuration, Set up the grid, specify always left to right,
 var blocklyConfig = {
@@ -27,7 +27,7 @@ function setupWorkspace() {
 function saveBot() {
 
     var data = {};
-    data.name = currentBotName;
+    data.name = currentBotID;
     data.language = 'JAVA';
     data.src = Blockly.Java.workspaceToCode(workspace, ["notests"]);
     data = JSON.stringify(data);
@@ -56,12 +56,12 @@ function addUserBotsToUI(data) {
 }
 
 function selectBot(botID){
-    if(selectedBot !== null){
-        $("#" + selectedBot).css("background-color", "#1a445b");
+    if(currentBotID !== null){
+        $("#" + currentBotID).css("background-color", "#1a445b");
 
     }
-    selectedBot = botID;
-    $("#" + selectedBot).css("background-color", "red");
+    currentBotID = botID;
+    $("#" + currentBotID).css("background-color", "red");
     $("#del").prop("disabled", false);
     $("#save").prop("disabled", false);
 
@@ -77,7 +77,7 @@ function getUserBots(callBackFunct) {
 }
 
 function deleteBotFromUI() {
-    var deletedBot = document.getElementById(currentBotName);
+    var deletedBot = document.getElementById(currentBotID);
     deletedBot.parentNode.removeChild(deletedBot);
     var botList = document.getElementById("userBots").getElementsByTagName("li");
 
@@ -89,7 +89,7 @@ function deleteBotFromUI() {
 
 function deleteCurrentBot() {
     $.ajax({
-        url: "delete/" + currentBotName,
+        url: "delete/" + currentBotID,
         type: "DELETE",
         success: deleteBotFromUI(),
         failure: console.log("deleteCurrentBot failed")
@@ -97,20 +97,20 @@ function deleteCurrentBot() {
 }
 
 function createNewBot() {
-    currentBotName = $('#botName').val();
+    currentBotID = $('#botName').val();
 
-    if (currentBotName.length === 0) {
+    if (currentBotID.length === 0) {
         alert("Bot must have name");
         return;
     }
 
     var newBot = saveBot();
     var entry = document.createElement('li');
-    var textNode = document.createTextNode(currentBotName);
+    var textNode = document.createTextNode(currentBotID);
 
     entry.appendChild(textNode);
-    entry.setAttribute("id", currentBotName);
-    entry.setAttribute("value", currentBotName);
+    entry.setAttribute("id", currentBotID);
+    entry.setAttribute("value", currentBotID);
     entry.setAttribute("onClick", "selectBot('" + newBot + "');");
     entry.className = "bot";
     document.getElementById("userBots").appendChild(entry);
@@ -136,4 +136,20 @@ function getBotSource(id){
     });
     
     
+}
+
+function loadBotIntoBlockly(id) {
+    //var src = getBotSource(id);
+    var src= 'public class CustomStarBattleBot extends StarBattleBot {\
+\
+// <xml xmlns="http://www.w3.org/1999/xhtml"><block type="procedures_defreturn" id="1" deletable="false" editable="false" x="63" y="63"><field name="NAME">nextMove</field><value name="RETURN"><block type="get_first_valid_coordinate" id="2"></block></value></block></xml>\
+\
+        public CustomStarBattleBot(String id) { super(id); }\
+\
+@Override\
+    public Coordinate nextMove(BotGameBoard botGameBoard) {\
+        return botGameBoard.getFirstValidCoordinate();\
+    }'
+    var xml = src.match(/<xml.*<\/xml>/g);
+    workspace
 }
