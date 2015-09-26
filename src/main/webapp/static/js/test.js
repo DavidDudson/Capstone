@@ -25,7 +25,7 @@ function setBots(botID){
         if(bot2 === botID){
             return;
         }
-        $("#" + bot1).css("background-color", "#1a445b");
+        $("#" + bot1).css("background-color", "");
         bot1 = bot2;
         bot2 = botID;
         $("#" + bot2).css("background-color", "red");

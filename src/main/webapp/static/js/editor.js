@@ -60,7 +60,7 @@ function addUserBotsToUI(data) {
         entry.setAttribute("value", data.collection.items[i].name);
         entry.setAttribute("onClick", "selectBot('" + data.collection.items[i].id + "');");
         entry.className = "bot";
-        document.getElementById("userBots").appendChild(entry);
+        $("#userBots").prepend(entry);
     });
 }
 
@@ -73,7 +73,6 @@ function loadBotBlockly(){
         type: "GET",
         success: function(data, textStatus, jqxhr){
             var xmlString = data.match(/<xml.*>/);
-//            console.log(xmlString[0]);
             var blocklyXML = Blockly.Xml.textToDom(xmlString);
             console.log(blocklyXML);
             Blockly.Xml.domToWorkspace( workspace, blocklyXML );
@@ -90,7 +89,7 @@ function getUserBots() {
         type: "GET",
         dataType: "json",
         success: addUserBotsToUI,
-        failure: function(){console.log("getUserBots failed")}
+        failure: function(){console.log("getUserBots failed");}
     });
 }
 
@@ -113,20 +112,20 @@ function deleteCurrentBot() {
         url: "delete/" + currentBotID,
         type: "DELETE",
         success: deleteBotFromUI(),
-        failure: function(){console.log("deleteCurrentBot failed")}
+        failure: function(){console.log("deleteCurrentBot failed");}
     });
 }
 
 function selectBot(botID){
     if(currentBotID !== null){
-        $("#" + currentBotID).css("background-color", "#1a445b");
+        $("#" + currentBotID).css("background-color", "");
 
     }
     currentBotID = botID;
-//    loadBotBlockly();
-
+    loadBotBlockly();
+    console.log(botID);
     
-    $("#" + currentBotID).css("background-color", "red");
+    $("#" + botID).css("background-color", "red");
     $("#del").prop("disabled", false);
     $("#save").prop("disabled", false);
     $("#test").prop("disabled", false);
@@ -142,14 +141,13 @@ function saveBot(botName) {
     data.src = addXMLToSource();
     data = JSON.stringify(data);
 
-    return $.ajax({
+    $.ajax({
         dataType: "json",
         url: 'http://localhost:8080/Capstone/bots',
         type: "POST",
         data: data,
         success: function(data){
             console.log("Build success");
-            
             
             var entry = document.createElement('li');
             var textNode = document.createTextNode(botName);
@@ -159,8 +157,7 @@ function saveBot(botName) {
             entry.setAttribute("onClick", "selectBot('" + data.botId + "');");
             entry.className = "bot";
             $("#userBots").prepend(entry);
-            $("#del").prop("disabled", false);
-            $("#save").prop("disabled", false);
+            
             selectBot(data.botId);
             
             
