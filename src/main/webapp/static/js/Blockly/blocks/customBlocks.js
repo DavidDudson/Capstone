@@ -1,10 +1,11 @@
 Blockly.Blocks['check_state_of_coordinate'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField(new Blockly.FieldDropdown([["is Water", "water"], ["is Ship", "ship"]]), "state");
+        .appendField("is there ")
+        .appendField(new Blockly.FieldDropdown([["Water", "water"], ["Ship", "ship"]]), "state");
     this.appendValueInput("Coordinate")
         .setCheck("Coordinate")
-        .appendField("at coordinate");
+        .appendField("at position");
     this.setInputsInline(true);
     this.setOutput(true, "Boolean");
     this.setColour(230);
@@ -16,10 +17,11 @@ Blockly.Blocks['check_state_of_coordinate'] = {
 Blockly.Blocks['get_coordinate_at_pos'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField(new Blockly.FieldDropdown([["get Left", "left"], ["get Right", "right"], ["get Up", "up"], ["get Down", "down"]]), "POSITION");
+        .appendField("get the position")
+        .appendField(new Blockly.FieldDropdown([["Left", "left"], ["Right", "right"], ["Up", "up"], ["Down", "down"]]), "POSITION");
     this.appendValueInput("INPUT")
         .setCheck("Coordinate")
-        .appendField("from position");
+        .appendField("of the position");
     this.setInputsInline(true);
     this.setOutput(true, "Coordinate");
     this.setColour(230);
@@ -32,7 +34,7 @@ Blockly.Blocks['get_coordinate_at_pos'] = {
 Blockly.Blocks['if_last_move_hit_aim_direction'] = {
     init: function() {
         this.appendDummyInput()
-            .appendField("if last move hit, aim")
+            .appendField("if the last move was a hit, aim")
             .appendField(new Blockly.FieldDropdown([["up", "up"], ["down", "down"], ["left", "left"], ["right", "right"]]), "direction");
         this.setOutput(true, "Coordinate");
         this.setColour(230);
@@ -131,7 +133,7 @@ Blockly.Blocks['get_all_valid_moves'] = {
 Blockly.Blocks['last_move_sunk'] = {
     init: function() {
         this.appendDummyInput()
-            .appendField("was the last move")
+            .appendField("was the last move a")
             .appendField(new Blockly.FieldDropdown([["hit", "1"], ["miss", "2"], ["sunk", "3"]]), "state");
         this.setOutput(true, "Boolean");
         this.setColour(230);

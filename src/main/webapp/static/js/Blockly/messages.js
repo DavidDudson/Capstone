@@ -340,11 +340,11 @@ Blockly.Msg.LOGIC_NULL_TYPEBLOCK = 'Null';
 /// url - Describes the programming language operator known as the ''ternary'' or ''conditional'' operator.  It is recommended that you use the translation of [https://en.wikipedia.org/wiki/%3F: https://en.wikipedia.org/wiki/%3F:] if it exists.
 Blockly.Msg.LOGIC_TERNARY_HELPURL = 'https://en.wikipedia.org/wiki/%3F:';
 /// block input text - Label for the input whose value determines which of the other two inputs is returned.  In some programming languages, this is called a ''''predicate''''.
-Blockly.Msg.LOGIC_TERNARY_CONDITION = 'test';
+Blockly.Msg.LOGIC_TERNARY_CONDITION = 'if';
 /// block input text - Indicates that the following input should be returned (used as output) if the test input is true.  Remember to try to keep block text terse (short).
-Blockly.Msg.LOGIC_TERNARY_IF_TRUE = 'if true';
+Blockly.Msg.LOGIC_TERNARY_IF_TRUE = 'then';
 /// block input text - Indicates that the following input should be returned (used as output) if the test input is false.
-Blockly.Msg.LOGIC_TERNARY_IF_FALSE = 'if false';
+Blockly.Msg.LOGIC_TERNARY_IF_FALSE = 'else';
 /// tooltip - See [https://en.wikipedia.org/wiki/%3F: https://en.wikipedia.org/wiki/%3F:].
 Blockly.Msg.LOGIC_TERNARY_TOOLTIP = 'Check the condition in "test". If the condition is true, returns the "if true" value; otherwise returns the "if false" value.';
 /// typeblock - Typing to add the block
