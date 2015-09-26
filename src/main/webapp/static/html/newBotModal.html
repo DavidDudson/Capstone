@@ -2,21 +2,23 @@
     <h3 class="modal-title">Create a new Bot</h3>
 </div>
 <div class="modal-body">
-    <div class="input-g roup">
-        <label for="name"> Name </label>
-        <input id="name" type="text" class="form-control" ng-model="name" required ng-trim="true" placeholder="StarbattleBot">
+    <div class="input-group">
+        <h4>Name: </h4>
+        <input type="text" class="form-control" ng-model="name" required ng-trim="true" placeholder="StarbattleBot">
     </div>
-    <div class="btn-group" dropdown is-open="status.isopen">
-        <button id="single-button" type="button" class="btn btn-primary" dropdown-toggle>
-            {{editor.modal.selectedBot == undefined ? builtInBots.list[0].name : editor.modal.selectedBot.name}} <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
-            <li ng-repeat="bot in builtInBots.list" ng-click="editor.modal.selectedBot = bot"><a href="#">{{bot.name}}</a></li>
-        </ul>
+    <div>
+        <h4>Template: </h4>
+        <div class="btn-group" dropdown is-open="status.isopen">
+            <button id="single-button" type="button" class="btn btn-primary" dropdown-toggle>
+                {{editor.modal.selectedBot == undefined ? builtInBots.list[0].name : editor.modal.selectedBot.name}} <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
+                <li ng-repeat="bot in editor.allBots()" ng-click="editor.modal.selectedBot = bot"><a href="#">{{bot.name}}</a></li>
+            </ul>
+        </div>
     </div>
 </div>
 <div class="modal-footer">
-    <p>Create bot with name : {{name}} based on {{editor.modal.selectedBot.name}}</p>
     <button class="btn btn-primary" type="button" ng-click="editor.modal.ok(name,editor.modal.selectedBot)">OK</button>
     <button class="btn btn-warning" type="button" ng-click="editor.modal.cancel()">Cancel</button>
 </div>

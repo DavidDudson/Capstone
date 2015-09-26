@@ -45,6 +45,7 @@ angular
                 }
             },
             selectedBot: null,
+            allBots : function(){return $rootScope.builtInBots.list.concat($rootScope.user.bots.list)},
             //Initialize the blockly workspace
             initialize: function () {
                 $rootScope.editor.workspace = Blockly.inject('blocklyDiv', $rootScope.editor.blocklyConfig);
@@ -90,12 +91,12 @@ angular
                 //The modal itself
                 instance: null,
                 //The currently selected bot to use as a template
-                selectedBot: $rootScope.builtInBots.list[0],
+                selectedBot: {name:'FirstSquareBot'},
                 //When the modal ok button is pressed create a new bot and close modal
                 ok: function (name, bot) {
                     console.log(name,bot);
                     $rootScope.editor.modal.instance.dismiss();
-                    $rootScope.user.bots.list.push({name: name, src: bot.src})
+                    $rootScope.user.bots.list.push({name: name, src: bot.src, xml: bot.xml})
                 },
                 //When the modal cancel button close the model
                 cancel: function () {

@@ -55,7 +55,7 @@ angular
                         .success(function (data) {
                             $rootScope.user.bots.list = data.collection.items;
                             $rootScope.user.bots.list.forEach(function (bot) {
-                                bot.src = $rootScope.user.bots.src(bot.id)
+                                $rootScope.user.bots.src(bot);
                             })
                         })
                         .error(function () {
@@ -85,7 +85,7 @@ angular
                 //Share bot
                 share: function () {
                     if ($rootScope.editor.selectedBot.share === true) {
-                        $http.post('shareBot', {botId: $rootScope.editor.selectedBot.getId(), unshare: true})
+                        $http.post('shareBot', {botId: $rootScope.editor.selectedBot.id, unshare: true})
                             .success(function () {
                                 $rootScope.editor.selectedBot.share = false
                             })
@@ -103,15 +103,29 @@ angular
                             })
                     }
                 },
-                src: function (id) {
-                    $http.get("bot-src/" + id)
+                src: function (bot) {
+                    $http.get("bots-src/" + bot.id)
                         .success(function (data) {
-                            return data
+                            bot.src = data;
+                            bot.xml = data.match(/<xml.*>/);
+                            console.log(bot);
                         })
                         .error(function () {
-                            console.error("Source could not be loaded for: " + id)
+                            console.error("Source could not be loaded for: " + bot.id)
                         });
 
+                },
+                nameInBotList: function(name){
+                    var filteredList = $rootScope.user.bots.list.filter(function(bot){
+                        bot.name = name;
+                    });
+                    return filteredList.length != 0;
+                },
+                idInBotList: function(id){
+                    var filteredList = $rootScope.user.bots.list.filter(function(bot){
+                        bot.id = id;
+                    });
+                    return filteredList.length != 0;
                 }
             }
         }
