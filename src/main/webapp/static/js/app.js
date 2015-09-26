@@ -77,7 +77,7 @@ angular
                         src: Blockly.Java.workspaceToCode($rootScope.editor.workspace, ["notests"])
                     };
                     if (!$rootScope.editor.selectedBot) {
-                        $http.put('bots', data)
+                        $http.put('bots/' + $rootScope.editor.selectedBot.id, data)
                             .success(function () {
                                 $rootScope.editor.build.checkStatus();
                             })

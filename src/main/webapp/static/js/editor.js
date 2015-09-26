@@ -17,7 +17,7 @@ angular
         }
     })
     //Basically the Editor "class", it has functions you can call on it etc.
-    .controller("editorCtrl", function ($modal, $http, $rootScope) {
+    .controller("editorCtrl", function ($modal, $http, $rootScope, $interval) {
 
         //Initialize blockly once the dom has finished loading,
         //aka after the toolbox has been injected
@@ -130,6 +130,58 @@ angular
                             }
                         }
                     });
+                }
+            },
+            game: {
+                moves: null,
+                state : null,
+                position : 0,
+                images:{
+                    hit: 'static/images/hit.png',
+                    miss: 'static/images/miss.png',
+                    sunk: 'static/images/sunk.png'
+                },
+                create: function () {
+                    $http.post('creategame_b2b', "" + $rootScope.editor.selectedBot.id + "\n" + $rootScope.editor.selectedBot.id + "\n")
+                        .success(function (data, status, headers) {
+                            $rootScope.editor.game.getMoves(headers("Location"))
+                        })
+                        .error(function () {
+                            console.error("Couldnt create bot to bot game")
+                        })
+                },
+                getMoves: function (url) {
+                    $http.get(url)
+                        .success(function (data) {
+                            $rootScope.editor.game.moves = data.moves.filter(function (move) {
+                                if (move.wasPlayer1) return move
+                            });
+                            $rootScope.editor.game.run();
+                        })
+                        .error(function () {
+                            console.error("Could retrieve game moves")
+                        })
+                },
+                run: function() {
+                    $rootScope.editor.game.state = $interval(function(){
+                        var move = $rootScope.editor.game.moves[$rootScope.editor.game.position];
+                        if (move) {
+                            var posA = "a" + (move.coord.x * 10 + move.coord.y);
+                            if (move.wasShip) {
+                                document.getElementById(posA).innerHTML += "<img src='static/images/hit.png'/>";
+                            } else {
+                                document.getElementById(posA).innerHTML += "<img src='static/images/miss.png'/>";
+                            }
+                        }
+                        $rootScope.editor.game.position++;
+                    },100,  $rootScope.editor.game.moves.length);
+                },
+                reset: function(){
+                    for(var i =0; i < 100; i++){
+                        $("#a"+i).html("");
+
+                    }
+                    $rootScope.editor.game.position = 0;
                 }
             }
         }
