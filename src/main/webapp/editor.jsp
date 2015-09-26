@@ -49,7 +49,7 @@
     <script src="static/js/editor.js"></script>
     <script src="static/js/test.js"></script>
 </head>
-<body onload="setupWorkspace(); getUserBots(addUserBotsToUI)">
+<body onload="setupWorkspace(); getUserBots()">
 
 <!--Header-->
 <div id="header">
@@ -135,6 +135,8 @@
                     <%}%>
 
                 </ul>
+                <button id="test" class="btn btn-info btn-lg" onclick="testBot()" disabled="disabled"> Test </button>
+                <button id="reset" class="btn btn-info btn-lg" onclick="resetBot()" disabled="disabled"> Reset </button>
 
         </div>
         <div class="modal fade" id="myModal" role="dialog">

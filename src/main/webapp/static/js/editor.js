@@ -3,6 +3,11 @@
 
 var currentBotID = null;
 var workspace;
+var reset = false;
+var gameTimer;
+var currentMoveIndex = 0;
+
+
 
 function setupWorkspace() {
     //Blockly configuration, Set up the grid, specify always left to right,
@@ -45,7 +50,7 @@ function saveBot(botName) {
 }
 
 function updateBot(){
-    var botName = $("#" + currentBotID).val();
+    var botName = $("#" + currentBotID).html();
     var data = {};
     data.name = botName;
     data.language = 'JAVA';
@@ -57,8 +62,8 @@ function updateBot(){
         url: 'http://localhost:8080/Capstone/bots/' + currentBotID,
         type: "PUT",
         data: data,
-        success: function(){console.log("Bot update success")}, //TODO Show green bar
-        failure: function(){console.log("Bot update failure")}  //TODO Show Red bar
+        success: function(){console.log("Bot update success");}, //TODO Show green bar
+        failure: function(){console.log("Bot update failure");}  //TODO Show Red bar
     });
     
     
@@ -86,14 +91,16 @@ function selectBot(botID){
     $("#" + currentBotID).css("background-color", "red");
     $("#del").prop("disabled", false);
     $("#save").prop("disabled", false);
+    $("#test").prop("disabled", false);
+    $("#reset").prop("disabled", false);
 
 }
-function getUserBots(callBackFunct) {
+function getUserBots() {
     $.ajax({
         url: "userbots/__current_user",
         type: "GET",
         dataType: "json",
-        success: callBackFunct,
+        success: addUserBotsToUI,
         failure: function(){console.log("getUserBots failed")}
     });
 }
@@ -106,6 +113,9 @@ function deleteBotFromUI() {
     if (botList.length === 0) {
         $("#del").prop("disabled", true);
         $("#save").prop("disabled", true);
+        $("#test").prop("disabled", true);
+        $("#reset").prop("disabled", true);
+        
     }
 }
 
@@ -133,12 +143,12 @@ function createNewBot() {
     entry.appendChild(textNode);
     entry.setAttribute("id", currentBotID);
     entry.setAttribute("value", currentBotID);
-    entry.setAttribute("onClick", "selectBot('" + botName + "');");
+    entry.setAttribute("onClick", "selectBot('" + currentBotID + "');");
     entry.className = "bot";
-    document.getElementById("userBots").appendChild(entry);
-
+    $("#userBots").prepend(entry);
     $("#del").prop("disabled", false);
     $("#save").prop("disabled", false);
+    selectBot(currentBotID);
 }
 
 function getBotSource(id){
@@ -159,4 +169,58 @@ function getBotSource(id){
     
     
 }
+function testBot(){
+    var url = "creategame_b2b";
+    var data = "" + currentBotID + "\n" + "FirstSquareBot" + "\n";
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: data,
+        success : function(data, textStatus, request) {
+            $.getJSON(request.getResponseHeader("Location"), function (json) {
+                    runTestGame(json);
+                
+                
+            });
+        }
+    });
+    
+}
 
+function runTestGame(jsonMoves){
+        $("#test").prop("disabled", true);
+
+
+        gameTimer = setInterval(function() {
+
+            if (currentMoveIndex < jsonMoves.moves.length) {
+                var currentMove = jsonMoves.moves[currentMoveIndex];
+
+                if (currentMove.wasPlayer1) {
+                    var posA = "a" + (currentMove.coord.x * 10 + currentMove.coord.y);
+                    if (currentMove.wasShip) {
+                        document.getElementById(posA).innerHTML += "<img src='static/images/hit.png'/>";
+
+                    } else {
+                        document.getElementById(posA).innerHTML += "<img src='static/images/miss.png'/>";
+
+                    }
+                }
+                currentMoveIndex++;
+            }
+
+    },250);
+    
+}  
+    
+function resetBot(){
+    clearTimeout(gameTimer);
+    
+    for(var i =0; i < 100; i++){
+        $("#a"+i).html("");
+        
+    }
+    currentMoveIndex = 0;
+    $("#test").prop("disabled", false);
+    
+}
