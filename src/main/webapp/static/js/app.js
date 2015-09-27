@@ -50,7 +50,7 @@ angular
                         } else {
                             console.error("Bot name wasn't in list")
                         }
-                    } else{
+                    } else {
                         $http.delete('delete/' + $rootScope.editor.selectedBot.id)
                             .success(function () {
                                 console.log("Delete Success");
@@ -91,7 +91,7 @@ angular
                         $http.post('bots', data)
                             .success(function (data) {
                                 $rootScope.editor.selectedBot.new = null;
-                                $rootScope.editor.selectedBot.id = data.id;
+                                $rootScope.editor.selectedBot.id = data.botId;
                                 $rootScope.editor.build.checkStatus();
                             })
                             .error(function () {
@@ -154,8 +154,10 @@ angular
                         $rootScope.editor.selectedBot.xml = $rootScope.editor.selectedBot.src.match(/<xml.*>/);
                     }
                     $rootScope.editor.build.reset();
+                    $rootScope.editor.game.hardReset();
                     $rootScope.editor.selectedBot = bot;
                     $rootScope.editor.xml = bot.xml;
+                    $rootScope.editor.switchWorkspace();
                     console.log(bot.xml);
                 }
             }
@@ -175,5 +177,4 @@ angular
 
         };
 
-    })
-;
+    });

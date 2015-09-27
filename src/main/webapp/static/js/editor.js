@@ -50,6 +50,9 @@ angular
                     }
                 });
             },
+            switchWorkspace: function () {
+                Blockly.Xml.domToWorkspace($rootScope.editor.workspace, Blockly.Xml.textToDom($rootScope.editor.selectedBot.xml))
+            },
             build: {
                 //How many bots in queue
                 total: 100,
@@ -93,7 +96,7 @@ angular
                     }
                 },
                 checkStatus: function () {
-                    $http.get('http://localhost:8080/Capstone/buildStatus/' + $rootScope.editor.selectedBot.id)
+                    $http.get('buildStatus/' + $rootScope.editor.selectedBot.id)
                         .success(function (data) {
                             if (data.done) {
                                 if (data.error) {
@@ -106,7 +109,9 @@ angular
                                 $rootScope.editor.build.total = data.queueSize;
                             }
                         })
-
+                        .error(function () {
+                            console.error("Failed to check status")
+                        });
                 }
             },
             //The modal for selecting create new bot options
@@ -170,6 +175,7 @@ angular
                         })
                 },
                 run: function () {
+                    $rootScope.editor.game.reset();
                     $rootScope.editor.game.state = $interval(function () {
                         var move = $rootScope.editor.game.moves[$rootScope.editor.game.position];
                         if (move) {
@@ -190,11 +196,16 @@ angular
                 reset: function () {
                     $interval.cancel($rootScope.editor.game.state);
                     $rootScope.editor.game.state = null;
+
                     for (var i = 0; i < 100; i++) {
                         $("#a" + i).html("");
 
                     }
                     $rootScope.editor.game.position = 0;
+                },
+                hardReset: function () {
+                    $rootScope.editor.game.reset();
+                    $rootScope.editor.game.moves = null;
                 }
             }
         }
