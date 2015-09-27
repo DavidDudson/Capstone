@@ -1,100 +1,70 @@
-<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
-<%@page import="nz.ac.massey.cs.ig.core.services.Services" %>
-<%
-    Services services = (Services) application.getAttribute(Services.NAME);
-
-    pageContext.setAttribute("isDebug",services.getConfiguration().isDebug());
-    pageContext.setAttribute("gameName", services.getGameSupport().getName());
-%>
-
 <!DOCTYPE html>
-<html>
-    <head>
+<html ng-app="app" ng-controller="appCtrl">
+<head>
 
-        <title>${gameName} Home</title>
+    <title>{{app.name}} Home</title>
 
-        <link rel="stylesheet" type="text/css" href="static/css/style.css">
-        <link rel="stylesheet" type="text/css" href="static/css/bootstrap.css">
-        <link rel="stylesheet" type="text/css" href="static/css/bootstrap-social.css">
-        <link rel="stylesheet" type="text/css" href="static/css/font-awesome.css" rel="stylesheet" />
-        <link rel="stylesheet" type="text/css" href="static/css/index.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script>
-            var getUrl = window.location;
-            var baseUrl = getUrl.protocol + "//" + getUrl.host + "/"
-                    + getUrl.pathname.split('/')[1];
-            $(".callbackUrlElement").val(baseUrl);
-            $(".baseURLElement").val(baseUrl);
-        </script>
-    </head>
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="static/css/bootstrap-social.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
-    <body>
+    <script src="static/js/jquery-1.11.3.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.4/ui-bootstrap-tpls.min.js"></script>
+    <script src="static/js/app.js"></script>
+    <script src="static/js/showErrors.min.js"></script>
+    <script>
+    </script>
+</head>
 
-        <div style="clear: both"></div>
-        <br />
+<body>
 
-        <div class="main container">
-            <div class="row">
+<div style="clear: both"></div>
+<br/>
 
-                <div class="jumbotron">
-                    <h1>${gameName}</h1>
-                </div>
-            </div>
-            <div id="socialLogin" class="text-center">
-                <div class="paddingBlock"></div>
-
-                <!-- Login buttons for social authentication -->
-                <div class="googlePlusButton">
-                    <form action="SocialLogin" method="POST" style="width: 200px;"
-                          class="center-block">
-                        <input type="hidden" name="loginType" value="google" /> <input
-                            type="hidden" class="callbackUrlElement" name="callbackurl"
-                            value="http://localhost:8080/Capstone" /> <input type="hidden" class="baseURLElement"
-                            name="baseURL" value="http://localhost:8080/Capstone" />
-                        <p>
-                            <button type="submit"
-                                    class="btn btn-block btn-social btn-google-plus">
-                                <i class="fa fa-google-plus"></i>Sign in with Google
-                            </button>
-                        </p>
-                    </form>
-                </div>
-
-                <div class="facebookButton">
-                    <form action="SocialLogin" method="POST" style="width: 200px;"
-                          class="center-block">
-                        <input type="hidden" name="loginType" value="facebook" /> <input
-                            type="hidden" class="callbackUrlElement" name="callbackurl"
-                            value="http://localhost:8080/Capstone" /> <input type="hidden" class="baseURLElement"
-                            name="baseURL" value="http://localhost:8080/Capstone" />
-                        <p>
-                            <button type="submit"
-                                    class="btn btn-block btn-social btn-facebook">
-                                <i class="fa fa-facebook"></i>Sign in with Facebook
-                            </button>
-                        </p>
-                    </form>
-                </div>
-
-                <c:if test="${isDebug}">
-
-                        <% if(request.getAttribute("authMessage") != null) { %>
-                        <div class="alert alert-danger" role="alert">${authMessage}</div>
-                        <% } %>
-                        <!-- This form is for handling LDAP authentication requests-->
-                        <div class="debugButton">
-                        <form name="loginform" action="login" method="POST" class="center-block loginForm">
-                            <input type="hidden" class="baseURLElement" name="baseURL" value="" />
-                            <input type="hidden" class="form-control" name="username" required="required" placeholder="Username" value="Debug" />
-                            <input type="hidden" name="password" class="form-control" required="required" placeholder="Password" value="DebugPassword"/><br />
-                            <input class="form-control" type="submit" value="Login"><br>
-                        </form>
-                        </div>
-                    </div>
-                </c:if>
-            </div>
+<div class="main container">
+    <div class="row">
+        <div class="jumbotron">
+            <h1>{{app.name}}</h1>
         </div>
+    </div>
+
+    <div class="row">
+        <div class="googlePlusButton">
+            <form action="SocialLogin" method="POST">
+                <input type="hidden" name="loginType" value="google" />
+                <input type="hidden" name="callbackurl" value="http://localhost:8080/Capstone" />
+                <input type="hidden" name="baseURL" value="" />
+                <button type="submit" class="btn btn-block btn-social btn-google-plus">
+                    <i class="fa fa-google"></i> Sign in with Google
+                </button>
+            </form>
+        </div>
+
+
+        <div class="facebookButton">
+            <form action="SocialLogin" method="POST">
+                <input type="hidden" name="loginType" value="facebook" />
+                <input type="hidden" name="callbackurl" value="http://localhost:8080/Capstone" />
+                <input type="hidden" name="baseURL" value="" />
+                <button type="submit" class="btn btn-block btn-social btn-facebook">
+                    <i class="fa fa-facebook"></i> Sign in with Facebook
+                </button>
+            </form>
+        </div>
+
+        <div>
+            <form action="login" method="POST">
+                <input type="hidden" name="baseURL" value="" />
+                <input type="hidden" name="username" value="Debug" />
+                <input type="hidden" name="password" value="Debug" />
+                <input type="submit" class="btn btn-block"  value="Debug Login"/>
+            </form>
+        </div>
+
+		</div>
+	</div>
+
 </body>
 </html>

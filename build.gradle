@@ -72,7 +72,6 @@ dependencies {
 //Configure Server plugin
 gretty {
     servletContainer = 'tomcat8'
-
 }
 
 war {
@@ -162,7 +161,6 @@ task buildAndDeploy(type: Exec,dependsOn:'buildDebug'){
 task buildAndDeployDebug(type: Exec,dependsOn:'buildAll'){
     commandLine 'heroku deploy:war --war target/starbattle-0.1.war --app battleships-capstone'.split()
 }
-
 
 task stage {
     dependsOn buildAll
