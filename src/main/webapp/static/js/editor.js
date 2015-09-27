@@ -138,6 +138,7 @@ angular
                 create: function () {
                     $http.post('creategame_b2b', "" + $rootScope.editor.selectedBot.id + "\n" + $rootScope.editor.selectedBot.id + "\n")
                         .success(function (data, status, headers) {
+                            //TODO Track the current progress of the bot
                             $rootScope.editor.game.getMoves(headers("Location"))
                         })
                         .error(function () {
@@ -171,6 +172,7 @@ angular
                     }, 100, $rootScope.editor.game.moves.length);
                 },
                 reset: function () {
+                    $rootScope.editor.game.state.stop();
                     for (var i = 0; i < 100; i++) {
                         $("#a" + i).html("");
 

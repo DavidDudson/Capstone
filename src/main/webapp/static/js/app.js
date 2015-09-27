@@ -43,7 +43,7 @@ angular
                     $rootScope.user.bots.list.push(bot)
                 },
                 delete: function () {
-                    $http.delete('delete/' + $rootScope.editor.selectedBot.id)
+                    $http.delete('delete:' + $rootScope.editor.selectedBot.id)
                         .success(function () {
                             console.log("Delete Success");
                             var index = $rootScope.user.bots.list.indexOf(name);

@@ -125,7 +125,7 @@
 
             </ul>
             <button id="test" class="btn btn-info btn-lg" ng-click="editor.game.create()" ng-disabled="!editor.selectedBot || editor.selectedBot.new"> Test </button>
-            <button id="reset" class="btn btn-info btn-lg" ng-click="editor.game.reset()" ng-disabled="!editor.selectedBot || editor.selectedBot.new"> Reset </button>
+            <button id="reset" class="btn btn-info btn-lg" ng-click="editor.game.reset()" ng-disabled="!editor.selectedBot || editor.selectedBot.new || !editor.game.moves"> Reset </button>
 
         </div>
     </div>
