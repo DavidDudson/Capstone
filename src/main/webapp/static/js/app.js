@@ -157,8 +157,9 @@ angular
                     $rootScope.editor.game.hardReset();
                     $rootScope.editor.selectedBot = bot;
                     $rootScope.editor.xml = bot.xml;
-                    $rootScope.editor.switchWorkspace();
+                    console.log(bot.src);
                     console.log(bot.xml);
+                    //$rootScope.editor.switchWorkspace();
                 }
             }
         };
