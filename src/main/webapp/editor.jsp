@@ -63,7 +63,7 @@
                         <ul id="userBots" class="list_block">
                             <li ng-repeat="bot in user.bots.list" class="bot"
                                 ng-style="{'background-color': editor.selectedBot == bot ? 'red' : '#1a445b'}"
-                                ng-click="editor.selectedBot=bot">
+                                ng-click="user.bots.select(bot)">
                                 {{bot.name}}
                             </li>
                             <li ng-if="user.bots.list.length === 0"> No Bots.</li>
@@ -124,7 +124,8 @@
                 <%}%>
 
             </ul>
-            <button id="test" class="btn btn-info btn-lg" ng-click="editor.game.create()" ng-disabled="!editor.selectedBot || editor.selectedBot.new"> Test </button>
+            <button id="test" class="btn btn-info btn-lg" ng-click="editor.game.create()" ng-disabled="!editor.selectedBot || editor.selectedBot.new || editor.selectedBot.position == 0" > Test </button>
+            <button id="restart" class="btn btn-info btn-lg" ng-click="editor.game.restart()" ng-disabled="!editor.selectedBot || editor.selectedBot.new || !editor.game.moves"> Restart </button>
             <button id="reset" class="btn btn-info btn-lg" ng-click="editor.game.reset()" ng-disabled="!editor.selectedBot || editor.selectedBot.new || !editor.game.moves"> Reset </button>
 
         </div>

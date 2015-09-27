@@ -6,7 +6,7 @@ angular
             restrict: 'E',
             templateUrl: './static/html/toolbox.xml',
             replace: true,
-            link: function($rootScope){
+            link: function ($rootScope) {
                 $rootScope.editor.initialize()
             }
         }
@@ -17,7 +17,7 @@ angular
             restrict: 'E',
             templateUrl: './static/html/blocklyInitial.xml',
             replace: true,
-            link: function($rootScope){
+            link: function ($rootScope) {
                 Blockly.Xml.domToWorkspace($rootScope.editor.workspace, document.getElementById('initialBlocklyState'));
                 $rootScope.editor.workspace.getBlockById(1).inputList[2].connection.check_ = ["Coordinate"];
             }
@@ -62,10 +62,22 @@ angular
                 //The text to show on the bar
                 text: 'Press save to build your bot',
 
+                //Rests the build to default,
+                reset: function () {
+                    $rootScope.editor.build.total = 100;
+                    $rootScope.editor.build.active = '';
+                    $rootScope.editor.build.type = null;
+                    $rootScope.editor.build.text = 'Press save to build your bot';
+                },
                 //Updates the progress bar
                 update: function (position, pass) {
-                    $rootScope.editor.build.position = position;
-                    if (position != $rootScope.editor.build.total) {
+                    if (position === -1) {
+                        $rootScope.editor.build.position = $rootScope.editor.build.total;
+                    } else {
+                        $rootScope.editor.build.position = position;
+                    }
+
+                    if ($rootScope.editor.build.position != $rootScope.editor.build.total) {
                         $rootScope.editor.build.active = 'active';
                         $rootScope.editor.build.type = null;
                         $rootScope.editor.build.text =
@@ -81,8 +93,8 @@ angular
                     }
                 },
                 checkStatus: function () {
-                    $http.get('http://localhost:8080/CCapstone/buildStatus/' + $rootScope.editor.selectedBot.id)
-                        .success(function () {
+                    $http.get('http://localhost:8080/Capstone/buildStatus/' + $rootScope.editor.selectedBot.id)
+                        .success(function (data) {
                             if (data.done) {
                                 if (data.error) {
                                     $rootScope.editor.build.update(100, false)
@@ -90,7 +102,7 @@ angular
                                     $rootScope.editor.build.update(100, true)
                                 }
                             } else {
-                                $rootScope.editor.build.update(data.position, true)
+                                $rootScope.editor.build.update(data.currentPosition, true);
                                 $rootScope.editor.build.total = data.queueSize;
                             }
                         })
@@ -106,7 +118,7 @@ angular
                 //When the modal ok button is pressed create a new bot and close modal
                 ok: function (name, bot) {
                     $rootScope.editor.modal.instance.dismiss();
-                    $rootScope.user.bots.list.push({name: name, src: bot.src, xml: bot.xml, new: true})
+                    $rootScope.user.bots.add({name: name, src: bot.src, xml: bot.xml, new: true})
                 },
                 //When the modal cancel button close the model
                 cancel: function () {
@@ -171,8 +183,13 @@ angular
                         $rootScope.editor.game.position++;
                     }, 100, $rootScope.editor.game.moves.length);
                 },
+                restart: function () {
+                    $rootScope.editor.game.reset();
+                    $rootScope.editor.game.run();
+                },
                 reset: function () {
-                    $rootScope.editor.game.state.stop();
+                    $interval.cancel($rootScope.editor.game.state);
+                    $rootScope.editor.game.state = null;
                     for (var i = 0; i < 100; i++) {
                         $("#a" + i).html("");
 

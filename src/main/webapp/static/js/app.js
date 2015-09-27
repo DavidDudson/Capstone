@@ -43,17 +43,28 @@ angular
                     $rootScope.user.bots.list.push(bot)
                 },
                 delete: function () {
-                    $http.delete('delete:' + $rootScope.editor.selectedBot.id)
-                        .success(function () {
-                            console.log("Delete Success");
-                            var index = $rootScope.user.bots.list.indexOf(name);
-                            console.log(index);
-                            if (index > -1) user.bots.list.splice(index, 1);
-                            console.log(user.bots.list);
-                        })
-                        .error(function () {
-                            console.error("Delete failure")
-                        });
+                    if ($rootScope.editor.selectedBot.new) {
+                        var index = $rootScope.user.bots.list.indexOf($rootScope.editor.selectedBot);
+                        if (index > -1) {
+                            $rootScope.user.bots.list.splice(index, 1);
+                        } else {
+                            console.error("Bot name wasn't in list")
+                        }
+                    } else{
+                        $http.delete('delete/' + $rootScope.editor.selectedBot.id)
+                            .success(function () {
+                                console.log("Delete Success");
+                                var index = $rootScope.user.bots.list.indexOf($rootScope.editor.selectedBot);
+                                if (index > -1) {
+                                    $rootScope.user.bots.list.splice(index, 1);
+                                } else {
+                                    console.error("Bot name wasn't in list")
+                                }
+                            })
+                            .error(function () {
+                                console.error("Delete failure")
+                            });
+                    }
                 },
                 update: function () {
                     $http.get("userbots/__current_user")
@@ -76,7 +87,18 @@ angular
                         share: share,
                         src: Blockly.Java.workspaceToCode($rootScope.editor.workspace, ["notests"])
                     };
-                    if (!$rootScope.editor.selectedBot) {
+                    if ($rootScope.editor.selectedBot.new) {
+                        $http.post('bots', data)
+                            .success(function (data) {
+                                $rootScope.editor.selectedBot.new = null;
+                                $rootScope.editor.selectedBot.id = data.id;
+                                $rootScope.editor.build.checkStatus();
+                            })
+                            .error(function () {
+                                console.log("Saving bot failed");
+                            });
+                        //Update the bot if its not new
+                    } else {
                         $http.put('bots/' + $rootScope.editor.selectedBot.id, data)
                             .success(function () {
                                 $rootScope.editor.build.checkStatus();
@@ -85,19 +107,7 @@ angular
                                 console.log("Saving bot failed");
                             });
 
-                    } else {
-                        $rootScope.editor.selectedBot.new = null;
-                        $http.post('bots', data)
-                            .success(function () {
-                                $rootScope.editor.selectedBot.id = data.id;
-                                $rootScope.editor.build.checkStatus();
-                            })
-                            .error(function () {
-                                console.log("Saving bot failed");
-                            });
                     }
-                    //The actual request
-
                 },
                 //Share bot
                 share: function () {
@@ -132,35 +142,30 @@ angular
                         .success(function (data) {
                             bot.src = data;
                             bot.xml = data.match(/<xml.*>/);
-                            console.log(bot);
                         })
                         .error(function () {
                             console.error("Source could not be loaded for: " + bot.id)
                         });
 
                 },
-                nameInBotList: function (name) {
-                    var filteredList = $rootScope.user.bots.list.filter(function (bot) {
-                        bot.name = name;
-                    });
-                    return filteredList.length != 0;
-                },
-                idInBotList: function (id) {
-                    var filteredList = $rootScope.user.bots.list.filter(function (bot) {
-                        bot.id = id;
-                    });
-                    return filteredList.length != 0;
+                select: function (bot) {
+                    if ($rootScope.editor.selectedBot) {
+                        $rootScope.editor.selectedBot.src = Blockly.Java.workspaceToCode($rootScope.editor.workspace, ["notests"]);
+                        $rootScope.editor.selectedBot.xml = $rootScope.editor.selectedBot.src.match(/<xml.*>/);
+                    }
+                    $rootScope.editor.build.reset();
+                    $rootScope.editor.selectedBot = bot;
+                    $rootScope.editor.xml = bot.xml;
+                    console.log(bot.xml);
                 }
             }
-        }
-        ;
+        };
 
         $rootScope.builtInBots = {
             list: [],
             update: function () {
                 $http.get("userbots/builtinbots")
                     .success(function (data) {
-                        console.log($rootScope.builtInBots);
                         return $rootScope.builtInBots.list = data.collection.items;
                     })
                     .error(function () {
