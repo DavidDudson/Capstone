@@ -75,7 +75,6 @@
         </div>
         <div id="main_content" ng-controller="editorCtrl" style="color:white">
             <div class="main-cont-menu">
-
                 <ul>
                     <li>
                         <button class="btn btn-info btn-lg" ng-click="editor.modal.create()">
