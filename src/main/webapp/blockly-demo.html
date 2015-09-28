@@ -61,7 +61,10 @@
                             chatbox: {elementId: 'chatbox'},
                             collabElementId: 'collaborators'
                         },
-                        scrollbars: true
+                        scrollbars: true,
+                        zoom: {
+                            enabled: true
+                        }
                     });
             Blockly.Xml.domToWorkspace(workspace,
                     document.getElementById('mitch-startBlocks'));

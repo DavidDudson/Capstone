@@ -40,15 +40,15 @@ Blockly.WidgetDiv.DIV = null;
 
 /**
  * The object currently using this container.
- * @private
  * @type {Object}
+ * @private
  */
 Blockly.WidgetDiv.owner_ = null;
 
 /**
  * Optional cleanup function set by whichever object uses the widget.
- * @private
  * @type {Function}
+ * @private
  */
 Blockly.WidgetDiv.dispose_ = null;
 
@@ -85,6 +85,9 @@ Blockly.WidgetDiv.show = function(newOwner, rtl, dispose) {
 Blockly.WidgetDiv.hide = function() {
   if (Blockly.WidgetDiv.owner_) {
     Blockly.WidgetDiv.DIV.style.display = 'none';
+    Blockly.WidgetDiv.DIV.style.left = '';
+    Blockly.WidgetDiv.DIV.style.top = '';
+    Blockly.WidgetDiv.DIV.style.height = '';
     Blockly.WidgetDiv.dispose_ && Blockly.WidgetDiv.dispose_();
     Blockly.WidgetDiv.owner_ = null;
     Blockly.WidgetDiv.dispose_ = null;
@@ -127,7 +130,7 @@ Blockly.WidgetDiv.position = function(anchorX, anchorY, windowSize,
     anchorY = scrollOffset.y;
   }
   if (rtl) {
-    // Don't let the menu go right of the right edge of the window.
+    // Don't let the widget go right of the right edge of the window.
     if (anchorX > windowSize.width + scrollOffset.x) {
       anchorX = windowSize.width + scrollOffset.x;
     }
@@ -139,5 +142,24 @@ Blockly.WidgetDiv.position = function(anchorX, anchorY, windowSize,
   }
   Blockly.WidgetDiv.DIV.style.left = anchorX + 'px';
   Blockly.WidgetDiv.DIV.style.top = anchorY + 'px';
-  Blockly.WidgetDiv.DIV.style.height = windowSize.height - anchorY + 'px';
+  Blockly.WidgetDiv.DIV.style.height =
+      (windowSize.height - anchorY + scrollOffset.y) + 'px';
 };
+
+/**
+ * We keep a listener pointer in case of needing to unlisten to it. We only want
+ * one listener at a time, and a reload could create a second one, so we
+ * unlisten first and then listen back
+ * @private
+ */
+Blockly.WidgetDiv.onKeyDown_ = function(e){
+    if (!Blockly.WidgetDiv.DIV) {
+      return;
+    }
+    if (e.altKey || e.ctrlKey || e.metaKey ||
+        e.keycode === goog.events.KeyCodes.TAB) {
+      return;
+    }
+//arrows, up and down on the menus.
+//accelerators for other keys.
+  };

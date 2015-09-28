@@ -47,6 +47,9 @@ angular
                         length: 3,
                         colour: '#ccc',
                         snap: true
+                    },
+                    zoom: {
+                        enabled: true
                     }
                 });
             },

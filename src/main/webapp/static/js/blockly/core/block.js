@@ -35,6 +35,7 @@ goog.require('Blockly.Warning');
 goog.require('Blockly.Workspace');
 goog.require('Blockly.Xml');
 goog.require('Blockly.FieldClickImage');
+goog.require('Blockly.FieldScopeVariable');
 goog.require('goog.array');
 goog.require('goog.asserts');
 goog.require('goog.math.Coordinate');
@@ -80,6 +81,7 @@ Blockly.Block.obtain = function(workspace, prototypeName) {
  *     type-specific functions for this block.
  */
 Blockly.Block.prototype.initialize = function(workspace, prototypeName) {
+  /** @type {string} */
   this.id = Blockly.Blocks.genUid();
   workspace.addTopBlock(this);
   this.fill(workspace, prototypeName);
@@ -259,30 +261,6 @@ Blockly.Block.prototype.unplug = function(healStack, bump) {
     var dy = Blockly.SNAP_RADIUS * 2;
     this.moveBy(dx, dy);
   }
-};
-
-/**
- * Duplicate this block and its children.
- * @return {!Blockly.Block} The duplicate.
- * @private
- */
-Blockly.Block.prototype.duplicate_ = function() {
-  // Create a duplicate via XML.
-  var xmlBlock = Blockly.Xml.blockToDom_(this);
-  Blockly.Xml.deleteNext(xmlBlock);
-  var newBlock = Blockly.Xml.domToBlock(
-      /** @type {!Blockly.Workspace} */ (this.workspace), xmlBlock);
-  // Move the duplicate next to the old block.
-  var xy = this.getRelativeToSurfaceXY();
-  if (this.RTL) {
-    xy.x -= Blockly.SNAP_RADIUS;
-  } else {
-    xy.x += Blockly.SNAP_RADIUS;
-  }
-  xy.y += Blockly.SNAP_RADIUS * 2;
-  newBlock.moveBy(xy.x, xy.y);
-  newBlock.select();
-  return newBlock;
 };
 
 /**
@@ -641,6 +619,22 @@ Blockly.Block.prototype.getField = function(name) {
 };
 
 /**
+ * Returns an array of all editable fields in a block
+ * @return {Array<Blockly.Field>} Array of fields (which can be empty)
+ */
+ Blockly.Block.prototype.getEditableFields = function() {
+  var fields = [];
+  for (var i = 0, input; input = this.inputList[i]; i++) {
+    for (var j = 0, field; field = input.fieldRow[j]; j++) {
+      if (field.EDITABLE && field.SERIALIZABLE) {
+        fields.push(field);
+      }
+    }
+  }
+  return fields;
+}
+
+/**
  * Returns the language-neutral value from the field of a block.
  * @param {string} name The name of the field.
  * @return {?string} Value from the field or null if field does not exist.
@@ -832,6 +826,9 @@ Blockly.Block.prototype.getInheritedDisabled = function() {
     block = block.getSurroundParent();
     if (!block) {
       // Ran off the top.
+      if (!this.workspace.options.disableDisconnected) {
+        return false;
+      }
       // We need to check the block at the top of the stack
       while(lastBlock.previousConnection != null &&
             lastBlock.previousConnection.targetConnection != null) {
