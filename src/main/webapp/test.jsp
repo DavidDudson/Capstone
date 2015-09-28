@@ -19,7 +19,8 @@
         <title>${gameName} Testing</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1.0, initial-scale=1.0" />
-        <script src="static/js/jquery-1.10.2.min.js"></script>
+        <script src="static/js/jquery-1.11.3.min.js"></script>
+        <script src="static/js/jquery-ui.min.js"></script>
         <script src="static/js/gameState.js"></script>
         <link rel="stylesheet" type="text/css" href="static/css/style.css">
         <link rel="stylesheet" type="text/css" href="static/css/grid.css">
