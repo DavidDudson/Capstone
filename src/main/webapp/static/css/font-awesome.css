@@ -629,7 +629,7 @@
 }
 .fa-facebook-f:before,
 .fa-facebook:before {
-  content: "\f09a";
+  content: "f";
 }
 .fa-github:before {
   content: "\f09b";
@@ -766,7 +766,7 @@
   content: "\f0d4";
 }
 .fa-google-plus:before {
-  content: "\f0d5";
+  content: "\g";
 }
 .fa-money:before {
   content: "\f0d6";

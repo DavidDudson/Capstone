@@ -38,7 +38,6 @@ public class StarBattleSerializer implements Serializer {
 
         jsonObject.add("moves", retJArray);
         gson.toJson(jsonObject, out);
-        System.out.println(jsonObject.toString());
         if (game.getError() != null) {
             Throwable error = game.getError();
             gson.toJson(error.getClass().getName(), out);

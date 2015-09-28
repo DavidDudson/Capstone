@@ -104,7 +104,6 @@ public class StarBattleGame extends SimpleGame<BotGameBoard, Coordinate> {
      */
     @Override
     protected void registerMove(Coordinate coordinate, Bot<BotGameBoard, Coordinate> bot) {
-        System.out.println("Registering a move");
     }
 
     /**

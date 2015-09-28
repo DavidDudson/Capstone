@@ -22,16 +22,16 @@ public class ShipGameBoardTest {
         assertFalse(sgb.isValidGridValue(23));
     }
 
-    @Test
-    public void testGenerateBotMap() throws Exception {
-        ShipGameBoard sgb = new ShipGameBoard();
-        BotGameBoard bgb = sgb.generateBotMap();
-        assertFalse(bgb.getGrid() == sgb.getGrid());
-        assertFalse(bgb.getShips().equals(sgb.getShips()));
-        assertFalse(bgb.getShips() == sgb.getShips());
-        assertTrue(bgb.getShipSizes().equals(sgb.getShipSizes()));
-        assertFalse(bgb.getShipSizes() == sgb.getShipSizes());
-    }
+//    @Test
+//    public void testGenerateBotMap() throws Exception {
+//        ShipGameBoard sgb = new ShipGameBoard();
+//        BotGameBoard bgb = sgb.generateBotMap();
+//        assertFalse(bgb.getGrid() == sgb.getGrid());
+//        assertFalse(bgb.getShips().equals(sgb.getShips()));
+//        assertFalse(bgb.getShips() == sgb.getShips());
+//        assertTrue(bgb.getShipSizes().equals(sgb.getShipSizes()));
+//        assertFalse(bgb.getShipSizes() == sgb.getShipSizes());
+//    }
 
 
     @Test

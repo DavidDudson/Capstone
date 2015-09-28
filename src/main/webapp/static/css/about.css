@@ -1,0 +1,32 @@
+.container_13 {
+	max-width: 70em;
+	position: relative; 
+	margin: 0 auto; 
+	margin-top: 30px;
+	padding: 20px;
+	background-color: #F0F8FF;
+	box-shadow:10px 10px 5px black;
+}
+
+ul {
+	list-style-type: none;
+	list-style: none; 
+}
+
+@media only screen and (min-width: 768px) and (max-width: 999px) {
+	.container_13 { 
+		width: 768px; 
+	}    
+}
+
+@media only screen and (max-width: 767px) {
+    .container_13{
+    	width: 300px;
+    }    
+}
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+    .container_13 { 
+    	width: 420px; 
+    }
+}
