@@ -123,7 +123,7 @@ Blockly.Java['procedures_ifreturn'] = function(block) {
     if (block.hasReturnValue_) {
         var value = Blockly.Java.valueToCode(block, 'VALUE',
                 Blockly.Java.ORDER_NONE) || 'None';
-        code += '  return ' + value + ';\n}';
+        code += '  return (Coordinate)' + value + ';\n}';
     } else {
         code += '  return;\n}';
     }

@@ -12,25 +12,25 @@
 <head>
     <meta charset="utf-8">
     <title>{{app.name}} Editor</title>
-    <script type="text/javascript" src="static/js/Blockly/blockly_uncompressed.js"></script>
-    <script type="text/javascript" src="static/js/Blockly/java.js"></script>
-    <script type="text/javascript" src="static/js/Blockly/java/logic.js"></script>
-    <script type="text/javascript" src="static/js/Blockly/java/loops.js"></script>
-    <script type="text/javascript" src="static/js/Blockly/java/math.js"></script>
-    <script type="text/javascript" src="static/js/Blockly/java/text.js"></script>
-    <script type="text/javascript" src="static/js/Blockly/java/lists.js"></script>
-    <script type="text/javascript" src="static/js/Blockly/java/variables.js"></script>
-    <script type="text/javascript" src="static/js/Blockly/java/procedures.js"></script>
-    <script type="text/javascript" src="static/js/Blockly/java/customBlocks.js"></script>
-    <script type="text/javascript" src="static/js/Blockly/messages.js"></script>
-    <script type="text/javascript" src="static/js/Blockly/blocks/logic.js"></script>
-    <script type="text/javascript" src="static/js/Blockly/blocks/loops.js"></script>
-    <script type="text/javascript" src="static/js/Blockly/blocks/math.js"></script>
-    <script type="text/javascript" src="static/js/Blockly/blocks/text.js"></script>
-    <script type="text/javascript" src="static/js/Blockly/blocks/lists.js"></script>
-    <script type="text/javascript" src="static/js/Blockly/blocks/variables.js"></script>
-    <script type="text/javascript" src="static/js/Blockly/blocks/procedures.js"></script>
-    <script type="text/javascript" src="static/js/Blockly/blocks/customBlocks.js"></script>
+    <script type="text/javascript" src="static/js/blockly/blockly_uncompressed.js"></script>
+    <script type="text/javascript" src="static/js/blockly/java.js"></script>
+    <script type="text/javascript" src="static/js/blockly/java/logic.js"></script>
+    <script type="text/javascript" src="static/js/blockly/java/loops.js"></script>
+    <script type="text/javascript" src="static/js/blockly/java/math.js"></script>
+    <script type="text/javascript" src="static/js/blockly/java/text.js"></script>
+    <script type="text/javascript" src="static/js/blockly/java/lists.js"></script>
+    <script type="text/javascript" src="static/js/blockly/java/variables.js"></script>
+    <script type="text/javascript" src="static/js/blockly/java/procedures.js"></script>
+    <script type="text/javascript" src="static/js/blockly/java/customBlocks.js"></script>
+    <script type="text/javascript" src="static/js/blockly/messages.js"></script>
+    <script type="text/javascript" src="static/js/blockly/blocks/logic.js"></script>
+    <script type="text/javascript" src="static/js/blockly/blocks/loops.js"></script>
+    <script type="text/javascript" src="static/js/blockly/blocks/math.js"></script>
+    <script type="text/javascript" src="static/js/blockly/blocks/text.js"></script>
+    <script type="text/javascript" src="static/js/blockly/blocks/lists.js"></script>
+    <script type="text/javascript" src="static/js/blockly/blocks/variables.js"></script>
+    <script type="text/javascript" src="static/js/blockly/blocks/procedures.js"></script>
+    <script type="text/javascript" src="static/js/blockly/blocks/customBlocks.js"></script>
 
     <link rel="stylesheet" type="text/css" href="static/css/editor.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -62,7 +62,7 @@
                     <div class="sidebar_content">
                         <ul id="userBots" class="list_block">
                             <li ng-repeat="bot in user.bots.list" class="bot"
-                                ng-style="{'background-color': editor.selectedBot == bot ? 'red' : '#1a445b'}"
+                                ng-style="{'background-color': editor.selectedBot == bot ? 'red' : ''}"
                                 ng-click="user.bots.select(bot)">
                                 {{bot.name}}
                             </li>
