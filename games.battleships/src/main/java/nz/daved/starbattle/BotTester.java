@@ -2,9 +2,9 @@ package nz.daved.starbattle;
 
 import nz.daved.starbattle.bots.FirstSquareBot;
 import nz.daved.starbattle.bots.LastSquareBot;
+import nz.daved.starbattle.bots.blocklyBot;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -16,7 +16,7 @@ import java.io.PrintWriter;
 public class BotTester {
 
     public static void main(String[] args) throws IOException {
-        StarBattleGame game = new StarBattleGame("test", new FirstSquareBot("1"), new LastSquareBot("2"));
+        StarBattleGame game = new StarBattleGame("test", new blocklyBot("1"), new LastSquareBot("2"));
         game.runTestGame();
         game.getHistory().forEach(x -> System.out.println(x.toString()));
         StarBattleSerializer serializer = new StarBattleSerializer();

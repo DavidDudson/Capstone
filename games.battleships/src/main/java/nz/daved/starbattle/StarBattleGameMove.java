@@ -16,7 +16,6 @@ public class StarBattleGameMove {
     private String botId;
     private boolean wasPlayer1;
 
-
     private Coordinate coord;
     private boolean wasShip;
 

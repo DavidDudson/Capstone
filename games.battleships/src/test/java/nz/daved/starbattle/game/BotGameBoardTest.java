@@ -10,7 +10,7 @@ public class BotGameBoardTest {
 
     @Test
     public void testIsValidGridValue() throws Exception {
-        BotGameBoard bgb = new ShipGameBoard().generateBotMap();
+        BotGameBoard bgb = new ShipGameBoard().generateBotMap(1, history);
         assertFalse(bgb.isValidGridValue(0));
         assertTrue(bgb.isValidGridValue(1));
         assertTrue(bgb.isValidGridValue(2));
@@ -22,7 +22,7 @@ public class BotGameBoardTest {
 
     @Test
     public void testKillShip() throws Exception {
-        BotGameBoard bgb = new ShipGameBoard().generateBotMap();
+        BotGameBoard bgb = new ShipGameBoard().generateBotMap(1, history);
         Ship ship = bgb.getShips().get(0);
         List<Coordinate> coords = ship.getCoordinates();
         bgb.killShip(ship);
@@ -31,7 +31,7 @@ public class BotGameBoardTest {
 
     @Test
     public void testAttackCoordinate() throws Exception {
-        BotGameBoard bgb = new ShipGameBoard().generateBotMap();
+        BotGameBoard bgb = new ShipGameBoard().generateBotMap(1, history);
         Ship ship = bgb.getShips().get(0);
         Coordinate coord = ship.getCoordinates().get(0);
         assertTrue(bgb.getState(coord) == 0);
@@ -46,21 +46,21 @@ public class BotGameBoardTest {
 
     @Test
     public void testGetFirstValidCoordinate() throws Exception {
-        BotGameBoard bgb = new ShipGameBoard().generateBotMap();
+        BotGameBoard bgb = new ShipGameBoard().generateBotMap(1, history);
         bgb.fillGrid(0);
         assertTrue(bgb.getFirstValidCoordinate().equals(new Coordinate(0,0)));
     }
 
     @Test
     public void testGetLastValidCoordinate() throws Exception {
-        BotGameBoard bgb = new ShipGameBoard().generateBotMap();
+        BotGameBoard bgb = new ShipGameBoard().generateBotMap(1, history);
         bgb.fillGrid(0);
         assertTrue(bgb.getLastValidCoordinate().equals(new Coordinate(9,9)));
     }
 
     @Test
     public void testGetAllValidCoordinates() throws Exception {
-        BotGameBoard bgb = new ShipGameBoard().generateBotMap();
+        BotGameBoard bgb = new ShipGameBoard().generateBotMap(1, history);
         bgb.fillGrid(0);
         assertTrue(bgb.getAllValidCoordinates().size() == 100);
         bgb.fillGrid(2);
@@ -71,7 +71,7 @@ public class BotGameBoardTest {
 
     @Test
     public void testIsValidMove() throws Exception {
-        BotGameBoard bgb = new ShipGameBoard().generateBotMap();
+        BotGameBoard bgb = new ShipGameBoard().generateBotMap(1, history);
         assertTrue(bgb.isValidMove(new Coordinate(0,0)));
         bgb.fillGrid(1);
         assertFalse(bgb.isValidMove(new Coordinate(0,0)));

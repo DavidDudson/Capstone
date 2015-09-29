@@ -23,6 +23,8 @@ public class StarBattleGame extends SimpleGame<BotGameBoard, Coordinate> {
     private BotGameBoard bot1map;
     private BotGameBoard bot2map;
     private List<StarBattleGameMove> history = new LinkedList<>();
+    private static final int BOT1 = 1;
+    private static final int BOT2 = 2;
 
     /**
      * Construct a new game bu generating the map for each bot and the shipMap
@@ -35,8 +37,8 @@ public class StarBattleGame extends SimpleGame<BotGameBoard, Coordinate> {
     public StarBattleGame(String uid, Bot<?, ?> player1, Bot<?, ?> player2) {
         super(uid, (StarBattleBot) player1, (StarBattleBot) player2);
         this.shipGameBoard = new ShipGameBoard();
-        this.bot1map = shipGameBoard.generateBotMap();
-        this.bot2map = shipGameBoard.generateBotMap();
+        this.bot1map = shipGameBoard.generateBotMap(BOT1,history);
+        this.bot2map = shipGameBoard.generateBotMap(BOT2,history);
     }
 
     /**
@@ -147,6 +149,7 @@ public class StarBattleGame extends SimpleGame<BotGameBoard, Coordinate> {
      *
      * @return Null due to there being no public gamestate
      */
+
     @Override
     public BotGameBoard getPublicState() {
         return state == GameState.WAITING_FOR_PLAYER_1 ? bot1map : bot2map;

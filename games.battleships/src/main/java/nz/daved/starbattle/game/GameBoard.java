@@ -2,6 +2,7 @@ package nz.daved.starbattle.game;
 
 import nz.daved.starbattle.StarBattleGameSchematic;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 public abstract class GameBoard {
 
     private final List<Integer> shipSizes;
+    protected ArrayList<Coordinate> listOfMoves;
     protected int[][] grid;
     protected int width;
     protected int height;
@@ -33,6 +35,7 @@ public abstract class GameBoard {
         this.width = _width;
         this.height = _height;
         this.grid = new int[_width][_height];
+        this.listOfMoves = new ArrayList<Coordinate>();
         this.remainingShips = _ships.size();
 
         fillGrid(0);
@@ -87,6 +90,7 @@ public abstract class GameBoard {
      */
     protected void setCellTo(Coordinate coord, int val) {
         if (isValidGridValue(val)) {
+            listOfMoves.add(coord);
             grid[coord.getX()][coord.getY()] = val;
         } else {
             throw new IllegalArgumentException("Tried to set an invalid grid value " + val);
@@ -124,5 +128,9 @@ public abstract class GameBoard {
         return shipSizes.stream()
                 .map(Integer::new)
                 .collect(Collectors.toList());
+    }
+    public ArrayList<Coordinate> getPlayerMoves(){
+        return this.listOfMoves;
+
     }
 }
