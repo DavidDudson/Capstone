@@ -119,12 +119,7 @@ public class BotGameBoard extends GameBoard {
                .collect(Collectors.toList());
     }
 
-    public Coordinate getLastMove() {
 
-        int length = this.getPlayerMoves().size() - 1;
-        System.out.println(length);
-        return this.getPlayerMoves().get(length);
-    }
 
     public Boolean canAttackCoordinate(Coordinate coordinate) {
         return getAllValidCoordinates().contains(coordinate);

@@ -40,7 +40,7 @@ angular
             bots: {
                 list: [],
                 add: function (bot) {
-                    $rootScope.user.bots.list.push(bot)
+                    $rootScope.user.bots.list.push(bot);
                 },
                 delete: function () {
                     if ($rootScope.editor.selectedBot.new) {
@@ -48,7 +48,7 @@ angular
                         if (index > -1) {
                             $rootScope.user.bots.list.splice(index, 1);
                         } else {
-                            console.error("Bot name wasn't in list")
+                            console.error("Bot name wasn't in list");
                         }
                     } else {
                         $http.delete('delete/' + $rootScope.editor.selectedBot.id)
@@ -58,11 +58,11 @@ angular
                                 if (index > -1) {
                                     $rootScope.user.bots.list.splice(index, 1);
                                 } else {
-                                    console.error("Bot name wasn't in list")
+                                    console.error("Bot name wasn't in list");
                                 }
                             })
                             .error(function () {
-                                console.error("Delete failure")
+                                console.error("Delete failure");
                             });
                     }
                 },
@@ -72,10 +72,10 @@ angular
                             $rootScope.user.bots.list = data.collection.items;
                             $rootScope.user.bots.list.forEach(function (bot) {
                                 $rootScope.user.bots.src(bot);
-                            })
+                            });
                         })
                         .error(function () {
-                            console.error("Update user bots Failure")
+                            console.error("Update user bots Failure");
                         });
                 },
                 //Save the current bot
@@ -119,11 +119,11 @@ angular
                             data: "botId=" + $rootScope.editor.selectedBot.id + "&unshare=true"
                         })
                             .success(function () {
-                                $rootScope.editor.selectedBot.share = false
+                                $rootScope.editor.selectedBot.share = false;
                             })
                             .error(function () {
                                 console.error("Bot unhsare fail")
-                            })
+                            });
 
                     } else {
                         $http.post("shareBot", {
@@ -131,10 +131,10 @@ angular
                             data: "botId=" + $rootScope.editor.selectedBot.id
                         })
                             .success(function () {
-                                $rootScope.editor.selectedBot.share = true
+                                $rootScope.editor.selectedBot.share = true;
                             })
                             .error(function () {
-                                console.error("Bot share fail")
+                                console.error("Bot share fail");
                             })
 
                     }
@@ -146,11 +146,11 @@ angular
                             bot.xml = data.match(/<xml.*>/);
                         })
                         .error(function () {
-                            console.error("Source could not be loaded for: " + bot.id)
+                            console.error("Source could not be loaded for: " + bot.id);
                         });
 
                 },
-                select: function (bot) {
+                 select: function (bot) {
                     if ($rootScope.editor.selectedBot) {
                         $rootScope.editor.selectedBot.src = Blockly.Java.workspaceToCode($rootScope.editor.workspace, ["notests"]);
                         $rootScope.editor.selectedBot.xml = $rootScope.editor.selectedBot.src.match(/<xml.*>/);
@@ -161,9 +161,11 @@ angular
                     $rootScope.editor.xml = bot.xml;
                     console.log(bot.src);
                     console.log(bot.xml);
-                    //$rootScope.editor.switchWorkspace();
+                    Blockly.mainWorkspace.clear();
+                    $rootScope.editor.switchWorkspace();
                 }
             }
+            
         };
 
         $rootScope.builtInBots = {
@@ -171,10 +173,16 @@ angular
             update: function () {
                 $http.get("userbots/builtinbots")
                     .success(function (data) {
-                        return $rootScope.builtInBots.list = data.collection.items;
+                        var botList = data.collection.items;
+                        
+//                        botList.forEach(function(bot){
+//                            $rootScope.user.bots.src(bot.id);
+//                        });
+//                        console.log(botList);
+                        return $rootScope.builtInBots.list = botList;
                     })
                     .error(function () {
-                        console.error("Update Built in bots Failure")
+                        console.error("Update Built in bots Failure");
                     });
             }
 

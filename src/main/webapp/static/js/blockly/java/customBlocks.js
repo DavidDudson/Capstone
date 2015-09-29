@@ -159,7 +159,7 @@ Blockly.Java['function_next_move'] = function(block) {
     var code = '@Override\n' +
                 'public Coordinate nextMove(BotGameBoard botGameBoard) {\n' +
                 statements_block + '\n' +
-                value_return + ';\n' +
+                'return ' + value_return + ';\n' +
                 '}';
     return code;
 };
