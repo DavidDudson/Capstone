@@ -1,9 +1,13 @@
 package nz.daved.starbattle.game;
 
 import com.google.common.primitives.Ints;
+import nz.daved.starbattle.StarBattleGameMove;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by David J. Dudson on 4/08/15.
@@ -12,13 +16,20 @@ import java.util.List;
  */
 public class BotGameBoard extends GameBoard {
 
+    private final int player;
+    private final List<StarBattleGameMove> history;
+
     /**
      * Generate a botMap
      *
      * @param shipGameBoard The shipMap to use as a schema
+     * @param player        Which player the boot is
+     * @param history       The game history
      */
-    public BotGameBoard(ShipGameBoard shipGameBoard) {
+    public BotGameBoard(ShipGameBoard shipGameBoard, int player, List<StarBattleGameMove> history) {
         super(shipGameBoard.getShipSizes(), shipGameBoard.width, shipGameBoard.height);
+        this.player = player;
+        this.history = history;
         this.ships = shipGameBoard.getShips();
     }
 
@@ -34,7 +45,7 @@ public class BotGameBoard extends GameBoard {
         return Ints.contains(possibleValues, val);
     }
 
-    public boolean isValidMove(Coordinate coord){
+    public boolean isValidMove(Coordinate coord) {
         return getState(coord) == 0;
     }
 
@@ -88,32 +99,42 @@ public class BotGameBoard extends GameBoard {
         return coords;
     }
 
-    public List<Coordinate> getNeighbourValidCoordinates(Coordinate coordinate){
-        List<Coordinate> coords = new LinkedList<>();
-        int x = coordinate.getX();
-        int y = coordinate.getY();
-        for (int i = -1; i < 2; i = i + 2) {
-            if (0 <= i && i < grid.length) {
-                if (grid[x][y+i] == 0) {
-                    coords.add(new Coordinate(x, y+i));
-                }
-                if (grid[x+i][y] == 0) {
-                    coords.add(new Coordinate(x + i, y));
+    public List<Coordinate> getCoordinatesWithState(int state){
+        LinkedList<Coordinate> stateCoordinates = new LinkedList<>();
+        for(int y = 0; y < height; y++){
+            for(int x = 0 ;x < width; x++){
+                if(grid[x][y] == state){
+                    stateCoordinates.add(new Coordinate(x,y));
                 }
             }
+
+
         }
-        return coords;
+        return stateCoordinates;
     }
 
-    public Coordinate getLastMove(){
+    public List<Coordinate> getNeighbourValidCoordinates(Coordinate coordinate) {
+       return coordinate.getNeighbours().stream()
+               .filter(this::canAttackCoordinate)
+               .collect(Collectors.toList());
+    }
 
-        int length = this.getPlayerMoves().size() -1;
+    public Coordinate getLastMove() {
+
+        int length = this.getPlayerMoves().size() - 1;
         System.out.println(length);
         return this.getPlayerMoves().get(length);
     }
+
     public Boolean canAttackCoordinate(Coordinate coordinate) {
         return getAllValidCoordinates().contains(coordinate);
     }
 
-
+    public List<StarBattleGameMove> getHistory() {
+        if (player == 1) {
+            return history.stream().filter(StarBattleGameMove::isPlayer1).collect(Collectors.toList());
+        } else {
+            return history.stream().filter(move -> !move.isPlayer1()).collect(Collectors.toList());
+        }
+    }
 }
