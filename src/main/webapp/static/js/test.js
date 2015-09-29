@@ -165,3 +165,27 @@ function getBots() {
                 }
             });
         };
+        
+        
+function getUserBots() {
+    $.ajax({
+        url: "userbots/__current_user",
+        type: "GET",
+        dataType: "json",
+        success: addUserBotsToUI,
+        failure: function(){console.log("getUserBots failed");}
+    });
+}
+
+function addUserBotsToUI(data) {
+    $.each(data.collection.items, function (i) {
+        var entry = document.createElement('li');
+        var textNode = document.createTextNode(data.collection.items[i].name);
+        entry.appendChild(textNode);
+        entry.setAttribute("id", data.collection.items[i].id);
+        entry.setAttribute("value", data.collection.items[i].name);
+        entry.setAttribute("onClick", "selectBot('" + data.collection.items[i].id + "');");
+        entry.className = "bot";
+        $("#userBots").prepend(entry);
+    });
+}

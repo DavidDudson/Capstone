@@ -81,11 +81,13 @@ angular
                 //Save the current bot
                 save: function () {
                     //The data to use as the request body
+                    var botSrc = Blockly.Java.workspaceToCode($rootScope.editor.workspace, ["notests"]);
+                    console.log(botSrc);
                     var data = {
                         name: $rootScope.editor.selectedBot.name,
                         language: 'JAVA',
                         share: share,
-                        src: Blockly.Java.workspaceToCode($rootScope.editor.workspace, ["notests"])
+                        src: botSrc
                     };
                     if ($rootScope.editor.selectedBot.new) {
                         $http.post('bots', data)

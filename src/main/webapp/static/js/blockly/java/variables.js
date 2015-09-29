@@ -60,7 +60,7 @@ Blockly.Java['variables_set'] = function(block) {
       compatible = true;
   }
   if (destType === 'String' && !compatible) {
-    argument0 = Blockly.Java.toStringCode(argument0);
+    argument0 = Blockly.Java.toStringCode(block, 'VALUE');
   }
   var code = varName;
   if(Blockly.Java.GetVariableType(this.procedurePrefix_+
@@ -166,4 +166,4 @@ Blockly.Java['initialize_variable'] = function (block) {
     Blockly.Java.setGlobalVar(block,block.getFieldValue('VAR'), argument0);
     return '';
   }
-}
+};

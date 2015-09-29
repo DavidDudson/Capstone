@@ -62,7 +62,7 @@
                     <div class="sidebar_content">
                         <ul id="userBots" class="list_block">
                             <li ng-repeat="bot in user.bots.list" class="bot"
-                                ng-style="{'background-color': editor.selectedBot == bot ? 'red' : '#1a445b'}"
+                                ng-style="{'background-color': editor.selectedBot == bot ? 'red' : ''}"
                                 ng-click="user.bots.select(bot)">
                                 {{bot.name}}
                             </li>

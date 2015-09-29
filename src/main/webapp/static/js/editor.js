@@ -7,9 +7,9 @@ angular
             templateUrl: './static/html/toolbox.xml',
             replace: true,
             link: function ($rootScope) {
-                $rootScope.editor.initialize()
+                $rootScope.editor.initialize();
             }
-        }
+        };
     })
     //Initial blockly state
     .directive("blocklyInitial", function () {
@@ -32,7 +32,7 @@ angular
             workspace: null,
             selectedBot: null,
             allBots: function () {
-                return $rootScope.builtInBots.list.concat($rootScope.user.bots.list)
+                return $rootScope.builtInBots.list.concat($rootScope.user.bots.list);
             },
             //Initialize the blockly workspace
             initialize: function () {
@@ -47,11 +47,14 @@ angular
                         length: 3,
                         colour: '#ccc',
                         snap: true
+                    },
+                    zoom: {
+                        enabled: true
                     }
                 });
             },
             switchWorkspace: function () {
-                Blockly.Xml.domToWorkspace($rootScope.editor.workspace, Blockly.Xml.textToDom($rootScope.editor.selectedBot.xml))
+                Blockly.Xml.domToWorkspace($rootScope.editor.workspace, Blockly.Xml.textToDom($rootScope.editor.selectedBot.xml));
             },
             build: {
                 //How many bots in queue
@@ -80,7 +83,7 @@ angular
                         $rootScope.editor.build.position = position;
                     }
 
-                    if ($rootScope.editor.build.position != $rootScope.editor.build.total) {
+                    if ($rootScope.editor.build.position !== $rootScope.editor.build.total) {
                         $rootScope.editor.build.active = 'active';
                         $rootScope.editor.build.type = null;
                         $rootScope.editor.build.text =
@@ -88,11 +91,11 @@ angular
                     } else if (pass) {
                         $rootScope.editor.build.active = '';
                         $rootScope.editor.build.type = 'success';
-                        $rootScope.editor.build.text = 'Build Success'
+                        $rootScope.editor.build.text = 'Build Success';
                     } else {
                         $rootScope.editor.build.active = '';
                         $rootScope.editor.build.type = 'error';
-                        $rootScope.editor.build.text = 'Build Failure'
+                        $rootScope.editor.build.text = 'Build Failure';
                     }
                 },
                 checkStatus: function () {
@@ -100,9 +103,9 @@ angular
                         .success(function (data) {
                             if (data.done) {
                                 if (data.error) {
-                                    $rootScope.editor.build.update(100, false)
+                                    $rootScope.editor.build.update(100, false);
                                 } else {
-                                    $rootScope.editor.build.update(100, true)
+                                    $rootScope.editor.build.update(100, true);
                                 }
                             } else {
                                 $rootScope.editor.build.update(data.currentPosition, true);
@@ -110,7 +113,7 @@ angular
                             }
                         })
                         .error(function () {
-                            console.error("Failed to check status")
+                            console.error("Failed to check status");
                         });
                 }
             },
@@ -123,7 +126,7 @@ angular
                 //When the modal ok button is pressed create a new bot and close modal
                 ok: function (name, bot) {
                     $rootScope.editor.modal.instance.dismiss();
-                    $rootScope.user.bots.add({name: name, src: bot.src, xml: bot.xml, new: true})
+                    $rootScope.user.bots.add({name: name, src: bot.src, xml: bot.xml, new: true});
                 },
                 //When the modal cancel button close the model
                 cancel: function () {
@@ -156,22 +159,22 @@ angular
                     $http.post('creategame_b2b', "" + $rootScope.editor.selectedBot.id + "\n" + $rootScope.editor.selectedBot.id + "\n")
                         .success(function (data, status, headers) {
                             //TODO Track the current progress of the bot
-                            $rootScope.editor.game.getMoves(headers("Location"))
+                            $rootScope.editor.game.getMoves(headers("Location"));
                         })
                         .error(function () {
-                            console.error("Couldnt create bot to bot game")
-                        })
+                            console.error("Couldnt create bot to bot game");
+                        });
                 },
                 getMoves: function (url) {
                     $http.get(url)
                         .success(function (data) {
                             $rootScope.editor.game.moves = data.moves.filter(function (move) {
-                                if (move.wasPlayer1) return move
+                                if (move.wasPlayer1) return move;
                             });
                             $rootScope.editor.game.run();
                         })
                         .error(function () {
-                            console.error("Could retrieve game moves")
+                            console.error("Could retrieve game moves");
                         })
                 },
                 run: function () {

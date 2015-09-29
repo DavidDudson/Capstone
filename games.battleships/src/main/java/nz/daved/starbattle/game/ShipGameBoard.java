@@ -1,5 +1,6 @@
 package nz.daved.starbattle.game;
 
+import nz.daved.starbattle.StarBattleGameMove;
 import nz.daved.starbattle.StarBattleGameSchematic;
 
 import java.util.*;
@@ -144,9 +145,11 @@ public class ShipGameBoard extends GameBoard {
      * Generate a botmap based on this shipMap
      *
      * @return the new botmap
+     * @param player whether the bot is player 1 or 2
+     * @param history the actual game history
      */
-    public BotGameBoard generateBotMap() {
-        return new BotGameBoard(this);
+    public BotGameBoard generateBotMap(int player, List<StarBattleGameMove> history) {
+        return new BotGameBoard(this,player,history);
     }
 
     public boolean isShip(Coordinate coord) {

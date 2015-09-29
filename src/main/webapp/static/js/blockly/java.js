@@ -48,9 +48,9 @@ Blockly.Java.addReservedWords(
     // print ','.join(keyword.kwlist)
     // http://en.wikipedia.org/wiki/List_of_Java_keywords
     'abstract,assert,boolean,break,case,catch,class,const,continue,default,do,double,else,enum,extends,final,finally,float,for,goto,if,implements,import,instanceof,int,interface,long,native,new,package,private,protected,public,return,short,static,strictfp,super,switch,synchronized,this,throw,throws,transient,try,void,volatile,while,' +
-    //http://en.wikipedia.org/wiki/List_of_Java_keywords#Reserved_words_for_literal_values
+      //http://en.wikipedia.org/wiki/List_of_Java_keywords#Reserved_words_for_literal_values
     'false,null,true,' +
-    // http://docs.Java.org/library/functions.html
+      // http://docs.Java.org/library/functions.html
     'abs,divmod,input,open,staticmethod,all,enumerate,int,ord,str,any,eval,isinstance,pow,sum,basestring,execfile,issubclass,print,super,bin,file,iter,property,tuple,bool,filter,len,range,type,bytearray,float,list,raw_input,unichr,callable,format,locals,reduce,unicode,chr,frozenset,long,reload,vars,classmethod,getattr,map,repr,xrange,cmp,globals,max,reversed,zip,compile,hasattr,memoryview,round,__import__,complex,hash,min,set,apply,delattr,help,next,setattr,buffer,dict,hex,object,slice,coerce,dir,id,oct,sorted,intern,equal');
 
 /**
@@ -111,7 +111,7 @@ Blockly.Java.variableTypes_ = {};
  * List of all known Blockly variable types. 
  *  NOTE: Only valid after a call to workspaceToCode
  */
-Blockly.Java.blocklyTypes_ = {}
+Blockly.Java.blocklyTypes_ = {};
 /**
  * Default Name of the application for use by all generated classes
  */
@@ -130,6 +130,10 @@ Blockly.Java.Baseclass_ = 'StarBattleBot';
  */
 Blockly.Java.needImports_ = ["nz.daved.starbattle.StarBattleBot", "nz.daved.starbattle.game.BotGameBoard", "nz.daved.starbattle.game.Coordinate"];
 /**
+ * List of interfaces that this class implements
+ **/
+Blockly.Java.Interfaces_ = [];
+/**
  * List of libraries used by the caller's generated java code.  These will
  * be processed by Blockly.Java.addImport
  */
@@ -146,7 +150,35 @@ Blockly.Java.classes_ = [];
  * List of global variables to be generated.
  */
 Blockly.Java.globals_ = {};
-
+/**
+ *
+ */
+Blockly.Java.fileHeader =
+    '/*\n'+
+    ' * Copyright (c) 2015, Mitchell Osborne\n'+
+    ' * All rights reserved.\n'+
+    ' *\n'+
+    ' * Redistribution and use in source and binary forms, with or without\n'+
+    ' * modification, are permitted provided that the following conditions are met:\n'+
+    ' *\n'+
+    ' * * Redistributions of source code must retain the above copyright notice, this\n'+
+    ' *   list of conditions and the following disclaimer.\n'+
+    ' * * Redistributions in binary form must reproduce the above copyright notice,\n'+
+    ' *   this list of conditions and the following disclaimer in the documentation\n'+
+    ' *   and/or other materials provided with the distribution.\n'+
+    ' *\n'+
+    ' * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"\n'+
+    ' * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n'+
+    ' * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE\n'+
+    ' * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE\n'+
+    ' * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR\n'+
+    ' * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF\n'+
+    ' * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS\n'+
+    ' * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN\n'+
+    ' * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)\n'+
+    ' * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE\n'+
+    ' * POSSIBILITY OF SUCH DAMAGE.\n'+
+    ' */\n';
 /**
  * Set the application name for generated classes
  * @param {string} name Name for the application for any generated code
@@ -163,8 +195,8 @@ Blockly.Java.setAppName = function(name) {
  * @return {string} name Name for the application for any generated code
  */
 Blockly.Java.getAppName = function() {
-  return this.AppName_;
-};
+  return Blockly.Java.variableDB_.getName(this.AppName_,'CLASS');
+}
 
 /**
  * Generate the constructor for the generated class
@@ -206,7 +238,33 @@ Blockly.Java.setBaseclass = function(baseclass) {
  * @return {string} baseclass Name of a base class this workspace is derived from
  */
 Blockly.Java.getBaseclass = function() {
-  return this.Baseclass_;
+  var baseClass = this.Baseclass_;
+  if (baseClass != '') {
+    baseClass = Blockly.Java.variableDB_.getName(baseClass,'CLASS');
+  }
+  return baseClass;
+};
+
+/**
+ * Add an implementaiton (if any) for the generated Java code
+ * @param {string} iface Name of a interface that this class provides
+ */
+Blockly.Java.addInterface = function(iface) {
+  if (!goog.array.contains(this.Interfaces_, iface)) {
+    this.Interfaces_.push(iface);
+  }
+};
+
+/**
+ * Get the interface list (if any) for the generated Java code
+ * @return {Array<string>} baseclass Array of all interfaces that
+ *         this class implements or null if no interfaces
+ */
+Blockly.Java.getInterfaces = function() {
+  if (this.Interfaces_.length === 0) {
+    return null;
+  }
+  return this.Interfaces_;
 };
 
 /**
@@ -231,8 +289,8 @@ Blockly.Java.GetVariableType = function(name) {
   var type = this.variableTypes_[name];
   if (!type) {
     type = 'String';
-//    type = 'Var';
-//    Blockly.Java.provideVarClass();
+    //type = 'Var';
+    //Blockly.Java.provideVarClass();
   }
   return type;
 };
@@ -327,6 +385,14 @@ Blockly.Java.workspaceToCode = function(workspace, parms) {
                   'public class ' + this.getAppName();
   if (this.getBaseclass()) {
     finalcode += ' extends ' + this.getBaseclass();
+  }
+  var interfaces = this.getInterfaces();
+  if (interfaces) {
+    var extra = ' implements ';
+    for(var iface = 0; iface < interfaces.length; iface++) {
+      finalcode += extra + interfaces[iface];
+      extra = ', ';
+    }
   }
   finalcode += ' {\n\n' + this.getConstructor() +
                code + '\n' +
@@ -996,53 +1062,55 @@ Blockly.Java.init = function(workspace, imports) {
     this.variableDB_.reset();
   }
 
-  var defvars = [];
-  var variables = Blockly.Variables.allVariables(workspace);
-  this.blocklyTypes_ = Blockly.Variables.allVariablesTypes(workspace);
-  // Make sure all the type variables are pushed.  This is because we
-  // Don't return the special function parameters in the allVariables list
-  for(var name in this.blocklyTypes_) {
-      variables.push(name);
-  }
-  var needVarClass = false;
-  for (var x = 0; x < variables.length; x++) {
-    var key = variables[x];
-    var type = this.blocklyTypes_[key];
-    if (type === 'Object') {
-      type = 'Object';
-    } else if (type === 'Array') {
-      type = 'List';
-    } else if (type === 'Var') {
-      type = 'Var';
-      needVarClass = true;
-    } else if (type === 'Boolean') {
-      type = 'Boolean';
-    } else if (type === 'String') {
-      type = 'String';
-    } else if (type === 'Colour') {
-      type = 'String';
-    } else if (type === 'Coordinate') {
-      type = 'Coordinate';
-    } else if (type === 'Number') {
-      type = 'double';
-    } else if (typeof type !== 'undefined' && type !== '') {
-      if (Blockly.Blocks[type] && Blockly.Blocks[type].GBPClass ) {
-        type = Blockly.Blocks[type].GBPClass;
-      } else {
-        console.log('Unknown type for '+key+' using Var for '+type);
-        type = 'Var';
-        needVarClass = true;
-      }
-    } else {
-      // Unknown type
-      console.log('Unknown type for '+key+' using Object');
-      type = 'Object';
+    var defvars = [];
+    var variables = Blockly.Variables.allVariables(workspace);
+    this.blocklyTypes_ = Blockly.Variables.allVariablesTypes(workspace);
+    // Make sure all the type variables are pushed.  This is because we
+    // Don't return the special function parameters in the allVariables list
+    for(var name in this.blocklyTypes_) {
+        variables.push(name);
     }
-    this.variableTypes_[key] = type;
-  }
-  if (needVarClass) {
-    Blockly.Java.provideVarClass();
-  }
+    var needVarClass = false;
+    for (var x = 0; x < variables.length; x++) {
+        var key = variables[x];
+        var type = this.blocklyTypes_[key];
+        if (type === 'Object') {
+            type = 'Object';
+        } else if (type === 'Array') {
+            type = 'LinkedList';
+        } else if (type === 'Map') {
+            type = 'HashMap';
+        } else if (type === 'Var') {
+            type = 'Var';
+            needVarClass = true;
+        } else if (type === 'Boolean') {
+            type = 'Boolean';
+        } else if (type === 'String') {
+            type = 'String';
+        } else if (type === 'Colour') {
+            type = 'String';
+        } else if (type === 'Number') {
+            type = 'double';
+        } else if (type === 'Coordinate') {
+            type = 'Coordinate';
+        } else if (typeof type !== 'undefined' && type !== '') {
+            if (Blockly.Blocks[type] && Blockly.Blocks[type].GBPClass ) {
+                type = Blockly.Blocks[type].GBPClass;
+            } else {
+                console.log('Unknown type for '+key+' using Var for '+type);
+                type = 'Var';
+                needVarClass = true;
+            }
+        } else {
+            // Unknown type
+            console.log('Unknown type for '+key+' using Object');
+            type = 'Object';
+        }
+        this.variableTypes_[key] = type;
+    }
+    if (needVarClass) {
+        Blockly.Java.provideVarClass();
+    }
 };
 
 /**
@@ -1051,95 +1119,96 @@ Blockly.Java.init = function(workspace, imports) {
  * @return {string} Completed code.
  */
 Blockly.Java.finish = function(code) {
-  // Convert the definitions dictionary into a list.
-  var definitions = {};
-  var funcs = [[],[]];
-  for (var name in this.definitions_) {
-    if (name === 'variables') {
-      continue;
+    // Convert the definitions dictionary into a list.
+    var definitions = {};
+    var funcs = [[],[]];
+    for (var name in this.definitions_) {
+        if (name === 'variables') {
+            continue;
+        }
+        var def = this.definitions_[name];
+        var slot = 1;
+        // If the call back for the definition is a function we will asssume that
+        // it is not static
+        if (typeof def !== "function") {
+            // Since we have the text for the function, let's figure out if it is
+            // static and sort it first.  Just look at the first two words of the
+            // function and if it has 'static' we are good
+            var head = def.split(" ",3);
+            if (goog.array.contains(head, 'static')) {
+                slot = 0;
+            }
+        }
+        funcs[slot].push(name);
     }
-    var def = this.definitions_[name];
-    var slot = 1;
-    // If the call back for the definition is a function we will asssume that
-    // it is not static
-    if (typeof def !== "function") {
-      // Since we have the text for the function, let's figure out if it is
-      // static and sort it first.  Just look at the first two words of the
-      // function and if it has 'static' we are good
-      var head = def.split(" ",3);
-      if (goog.array.contains(head, 'static')) {
-        slot = 0;
-      }
+
+    // We have all the functions broken into two slots.  So go through in order
+    // and get the statics and then the non-statics to output.
+    var allDefs = '';
+
+    for(var def in this.globals_) {
+        var initializer = '';
+        var type = this.GetVariableType(def);
+        if (this.globals_[def] != null && this.globals_[def] !== '') {
+            initializer = ' = ' + this.globals_[def];
+        } else if (type === 'Var') {
+            initializer = ' = new Var(0)';
+        } else if (type === 'Boolean') {
+            initializer = ' = false';
+        } else if (type === 'String') {
+            initializer = ' = ""';
+        }
+        var varname = Blockly.Java.variableDB_.getName(def,
+            Blockly.Variables.NAME_TYPE);
+        allDefs += 'protected ' + type + ' ' + varname + initializer + ';\n';
     }
-    funcs[slot].push(name);
-  }
 
-  // We have all the functions broken into two slots.  So go through in order
-  // and get the statics and then the non-statics to output.
-  var allDefs = '';
+    for(var slot = 0; slot < 2; slot++) {
+        var names = funcs[slot].sort();
+        for (var pos = 0; pos < names.length; pos++) {
+            var def = this.definitions_[names[pos]];
+            if (typeof def === "function") {
+                def = def.call(this);
+            }
 
-  for(var def in this.globals_) {
-    var initializer = '';
-    var type = this.GetVariableType(def);
-    if (this.globals_[def] != null && this.globals_[def] !== '') {
-      initializer = ' = ' + this.globals_[def];
-    } else if (type === 'Var') {
-      initializer = ' = new Var(0)';
-    } else if (type === 'Boolean') {
-      initializer = ' = false';
-    } else if (type === 'String') {
-      initializer = ' = ""';
+            // Figure out the header to put on the function
+            var header = '';
+            var res1 = def.split("(", 2);
+            if ((res1.length >= 2) && (res1[0].indexOf(";") ===-1)) {
+                // Figure out the header to put on the function
+                var header = '/**\n' +
+                    ' * Description goes here\n';
+                var extra =  ' *\n';
+                var res = res1[0];  // Get everything before the (
+                var res2 = res.split(" ");
+                var rettype = res2[res2.length-2]; // The next to the last word
+                res = res1[1];  // Take the parameters after the (
+                res2 = res.split(")",1);
+                res = res2[0].trim();
+                if (res !== '') {
+                    var args = res.split(",");
+                    for (var arg = 0; arg < args.length; arg++) {
+                        var argline = args[arg].split(" ");
+                        header += extra + ' * @param ' + argline[argline.length-1] + '\n';
+                        extra = '';
+                    }
+                }
+                if (rettype !== 'void' && rettype !== 'public') {
+                    header += extra + ' * @return ' + rettype + '\n';
+                    extra = '';
+                }
+                header += ' */\n';
+            }
+
+            //allDefs += header + def + '\n\n';
+            allDefs += def + '\n\n';
+        }
     }
-    var varname = Blockly.Java.variableDB_.getName(def,
-        Blockly.Variables.NAME_TYPE);
-    allDefs += 'protected ' + type + ' ' + varname + initializer + ';\n';
-  }
-
-  for(var slot = 0; slot < 2; slot++) {
-    var names = funcs[slot].sort();
-    for (var pos = 0; pos < names.length; pos++) {
-      var def = this.definitions_[names[pos]];
-      if (typeof def === "function") {
-        def = def.call(this);
-      }
-
-      // Figure out the header to put on the function
-      var header = '';
-      var res1 = def.split("(", 2);
-      //if (res1.length >= 2) {
-        //// Figure out the header to put on the function
-        //var header = '/**\n' +
-        //             ' * Description goes here\n';
-        //var extra =  ' *\n';
-        //var res = res1[0];  // Get everything before the (
-        //var res2 = res.split(" ");
-        //var rettype = res2[res2.length-2]; // The next to the last word
-        //res = res1[1];  // Take the parameters after the (
-        //res2 = res.split(")",1);
-        //res = res2[0].trim();
-        //if (res !== '') {
-        //  var args = res.split(",");
-        //  for (var arg = 0; arg < args.length; arg++) {
-        //    var argline = args[arg].split(" ");
-        //    header += extra + ' * @param ' + argline[argline.length-1] + '\n';
-        //    extra = '';
-        //  }
-        //}
-        //if (rettype !== 'void') {
-        //  header += extra + ' * @return ' + rettype + '\n';
-        //  extra = '';
-        //}
-        //header += ' */\n';
-      //}
-
-      allDefs += header + def + '\n\n';
-    }
-  }
-  // Clean up temporary data.
-  delete Blockly.Java.definitions_;
-  delete Blockly.Java.functionNames_;
-  Blockly.Java.variableDB_.reset();
-  return allDefs.replace(/\n\n+/g, '\n\n').replace(/\n*$/, '\n\n\n') + code;
+    // Clean up temporary data.
+    delete Blockly.Java.definitions_;
+    delete Blockly.Java.functionNames_;
+    Blockly.Java.variableDB_.reset();
+    return allDefs.replace(/\n\n+/g, '\n\n').replace(/\n*$/, '\n\n\n') + code;
 };
 
 /**
@@ -1169,55 +1238,66 @@ Blockly.Java.quote_ = function(string) {
  * @param {string} string Text to encode.
  * @return {string} Java code for string.
  */
-Blockly.Java.toStringCode = function(item) {
-  item = item.trim();
-  // Empty strings and quoted strings are perfectly fine as they are
-  if (item !== '' && item.charAt(0) !== '"') {
-    // Pure numbers get quoted
-    if (Blockly.isNumber(item)) {
-      item = '"' + item + '"';
-    } else if(Blockly.Java.GetVariableType(item) === 'Var') {
-      item = item + '.toString()';
-    } else {
-      // It is something else so we need to convert it on the fly
-      this.addImport('java.text.DecimalFormat');
-      this.addImport('java.text.NumberFormat');
-
-      var functionName = this.provideFunction_(
-          'blocklyToString',
-         [ 'public static String blocklyToString(Object object) {',
-           '    String result;',
-           '    if (object instanceof String) {',
-           '        result = (String) object;',
-           '    } else {',
-           '        // must be a number',
-           '        // might be a double',
-           '        try {',
-           '            Double d = (double) object;',
-           '            // it was a double, so keep going',
-           '            NumberFormat formatter = new DecimalFormat("#.#####");',
-           '            result = formatter.format(d);',
-           '',
-           '        } catch (Exception ex) {',
-           '            // not a double, see if it is an integer',
-           '            try {',
-           '                Integer i = (int) object;',
-           '                // format should be number with a decimal point',
-           '                result = i.toString();',
-           '            } catch (Exception ex2) {',
-           '                // not a double or integer',
-           '                result = "UNKNOWN";',
-           '            }',
-           '        }',
-           '    }',
-           '',
-           '  return result;',
-           '}'
-          ]);
-      item = functionName + '(' + item + ')';
+Blockly.Java.toStringCode = function(block,name) {
+    var targetBlock = block.getInputTargetBlock(name);
+    if (!targetBlock) {
+        return '';
     }
-  }
-  return item;
+    var item = Blockly.Java.valueToCode(block,name,Blockly.Java.ORDER_NONE);
+    item = item.trim();
+
+    // Empty strings and quoted strings are perfectly fine as they are
+    if (item !== '' && item.charAt(0) !== '"') {
+        if ((targetBlock.type === 'variables_get') &&
+            (Blockly.Java.GetVariableType(targetBlock.procedurePrefix_+
+                targetBlock.getFieldValue('VAR')) === 'Var')) {
+            item += '.toString()';
+        } else if (Blockly.isNumber(item)) {
+            // Pure numbers get quoted
+            item = '"' + item + '"';
+        } else if(targetBlock.type !== 'variables_get' &&
+            Blockly.Java.GetVariableType(item) === 'Var') {
+            item = item + '.toString()';
+        } else {
+            // It is something else so we need to convert it on the fly
+            this.addImport('java.text.DecimalFormat');
+            this.addImport('java.text.NumberFormat');
+
+            var functionName = this.provideFunction_(
+                'blocklyToString',
+                [ 'public static String blocklyToString(Object object) {',
+                    '    String result;',
+                    '    if (object instanceof String) {',
+                    '        result = (String) object;',
+                    '    } else {',
+                    '        // must be a number',
+                    '        // might be a double',
+                    '        try {',
+                    '            Double d = (double) object;',
+                    '            // it was a double, so keep going',
+                    '            NumberFormat formatter = new DecimalFormat("#.#####");',
+                    '            result = formatter.format(d);',
+                    '',
+                    '        } catch (Exception ex) {',
+                    '            // not a double, see if it is an integer',
+                    '            try {',
+                    '                Integer i = (int) object;',
+                    '                // format should be number with a decimal point',
+                    '                result = i.toString();',
+                    '            } catch (Exception ex2) {',
+                    '                // not a double or integer',
+                    '                result = "UNKNOWN";',
+                    '            }',
+                    '        }',
+                    '    }',
+                    '',
+                    '  return result;',
+                    '}'
+                ]);
+            item = functionName + '(' + item + ')';
+        }
+    }
+    return item;
 };
 
 /**
@@ -1230,36 +1310,36 @@ Blockly.Java.toStringCode = function(item) {
  * @private
  */
 Blockly.Java.scrub_ = function(block, code, parms) {
-  var commentCode = '';
-  // Only collect comments for blocks that aren't inline.
-  if (!block.outputConnection || !block.outputConnection.targetConnection) {
-    // Collect comment for this block.
-    var comment = block.getCommentText();
-    if (comment) {
-      commentCode += this.prefixLines(comment, '// ') + '\n';
-    }
-    // Collect comments for all value arguments.
-    // Don't collect comments for nested statements.
-    for (var x = 0; x < block.inputList.length; x++) {
-      if (block.inputList[x].type == Blockly.INPUT_VALUE) {
-        var childBlock = block.inputList[x].connection.targetBlock();
-        if (childBlock) {
-          var comment = this.allNestedComments(childBlock);
-          if (comment) {
-            commentCode += this.prefixLines(comment, '// ');
-          }
+    var commentCode = '';
+    // Only collect comments for blocks that aren't inline.
+    if (!block.outputConnection || !block.outputConnection.targetConnection) {
+        // Collect comment for this block.
+        var comment = block.getCommentText();
+        if (comment) {
+            commentCode += this.prefixLines(comment, '// ') + '\n';
         }
-      }
+        // Collect comments for all value arguments.
+        // Don't collect comments for nested statements.
+        for (var x = 0; x < block.inputList.length; x++) {
+            if (block.inputList[x].type == Blockly.INPUT_VALUE) {
+                var childBlock = block.inputList[x].connection.targetBlock();
+                if (childBlock) {
+                    var comment = this.allNestedComments(childBlock);
+                    if (comment) {
+                        commentCode += this.prefixLines(comment, '// ');
+                    }
+                }
+            }
+        }
     }
-  }
-  var postFix = this.POSTFIX;
-  this.POSTFIX = '';
-  var extraIndent = this.EXTRAINDENT;
-  this.EXTRAINDENT = '';
-  var nextBlock = block.nextConnection && block.nextConnection.targetBlock();
-  var nextCode = this.blockToCode(nextBlock, parms);
-  if (extraIndent != '') {
-    nextCode = this.prefixLines(nextCode, extraIndent);
-  }
-  return commentCode + code + nextCode + postFix;
+    var postFix = this.POSTFIX;
+    this.POSTFIX = '';
+    var extraIndent = this.EXTRAINDENT;
+    this.EXTRAINDENT = '';
+    var nextBlock = block.nextConnection && block.nextConnection.targetBlock();
+    var nextCode = this.blockToCode(nextBlock, parms);
+    if (extraIndent != '') {
+        nextCode = this.prefixLines(nextCode, extraIndent);
+    }
+    return commentCode + code + nextCode + postFix;
 };

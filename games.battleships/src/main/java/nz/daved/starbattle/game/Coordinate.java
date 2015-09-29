@@ -1,5 +1,8 @@
 package nz.daved.starbattle.game;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * Created by David J. Dudson on 4/08/15.
  * <p>
@@ -73,6 +76,14 @@ public class Coordinate {
         return coord;
     }
 
+    public List<Coordinate> getNeighbours(){
+        List<Coordinate> neighbours = new LinkedList<>();
+        neighbours.add(this.addToY(1));
+        neighbours.add(this.addToX(1));
+        neighbours.add(this.takeFromY(1));
+        neighbours.add(this.takeFromX(1));
+        return neighbours;
+    }
 
     /**
      * Get the which x in the array

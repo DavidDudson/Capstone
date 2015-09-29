@@ -53,7 +53,7 @@ goog.inherits(Blockly.FieldClickImage, Blockly.FieldImage);
  * However we don't want to serialize it even if it is present
  */
 Blockly.FieldClickImage.prototype.EDITABLE = true;
-Blockly.FieldLabel.prototype.SERIALIZABLE = false;
+Blockly.FieldClickImage.prototype.SERIALIZABLE = false;
 
 /**
  * Mouse cursor style when over the hotspot that initiates the editor.
@@ -87,9 +87,16 @@ Blockly.FieldClickImage.prototype.init = function(block) {
   // We want to use the styling of an Icon  to indicate clickability
   Blockly.addClass_(/** @type {!Element} */ (this.fieldGroup_),
                     'blocklyIconGroup');
-  // TODO akinard: Add another class called blocklyIconFading
+  // Mark this as being a fadable Icon
   Blockly.addClass_(/** @type {!Element} */ (this.fieldGroup_),
                     'blocklyIconFading');
+  // If the image was already hidden, make it hidden.  We have to do this
+  // because setVisible skips this step if the object wasn't rendered at the
+  // time it marked it as hidden.
+  if (!this.visible_) {
+    this.visible_ = true;
+    this.setVisible(false);
+  }
   //
   // Update the classes for this to appear editable
   this.updateEditable();
