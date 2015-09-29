@@ -45,6 +45,8 @@
                             <a class="toggle-nav" href="#">&#9776;</a>
                             <ul class="list_inline active">
                                 <li> <a href="editor.jsp"> Editor </a></li>
+                                <li> <a href="test.jsp"> Test </a></li>
+                                <li> <a href="about.jsp"> About </a></li>
                                 <li> <a href=""> Survey </a> </li>
 
                             </ul>
