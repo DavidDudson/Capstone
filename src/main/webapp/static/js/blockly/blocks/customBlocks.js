@@ -30,7 +30,6 @@ Blockly.Blocks['get_coordinate_at_pos'] = {
   }
 };
 
-// TODO: The type of block is incorrect
 Blockly.Blocks['if_last_move_hit_aim_direction'] = {
     init: function() {
         this.appendDummyInput()
@@ -209,6 +208,22 @@ Blockly.Blocks['return_coordinate'] = {
             .setCheck('Coordinate')
             .appendField("return");
         this.setPreviousStatement(true, null);
+        this.setColour(290);
+        this.setTooltip('');
+        this.setHelpUrl('http://www.example.com/');
+    }
+};
+
+Blockly.Blocks['function_next_move'] = {
+    init: function() {
+        this.appendDummyInput()
+            .appendField("To get the next move");
+        this.appendStatementInput("BLOCK")
+            .setCheck(null);
+        this.appendValueInput("RETURN")
+            .setCheck("Coordinate")
+            .setAlign(Blockly.ALIGN_RIGHT)
+            .appendField("return");
         this.setColour(290);
         this.setTooltip('');
         this.setHelpUrl('http://www.example.com/');

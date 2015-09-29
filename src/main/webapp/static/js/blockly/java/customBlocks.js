@@ -152,3 +152,14 @@ Blockly.Java['return_coordinate'] = function(block) {
     var code = 'return ' + value_return + ';\n';
     return code;
 };
+
+Blockly.Java['function_next_move'] = function(block) {
+    var statements_block = Blockly.Java.statementToCode(block, 'BLOCK');
+    var value_return = Blockly.Java.valueToCode(block, 'RETURN', Blockly.Java.ORDER_ATOMIC);
+    var code = '@Override\n' +
+                'public Coordinate nextMove(BotGameBoard botGameBoard) {\n' +
+                statements_block + '\n' +
+                value_return + ';\n' +
+                '}';
+    return code;
+};
