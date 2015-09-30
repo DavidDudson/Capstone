@@ -14,15 +14,30 @@ angular
         //html you type editor.something, rather than just something.
         //This makes it clearer what the intention behind it is. eg. editor.save()
         $rootScope.editor = {
-            workspace: null,
+            workspace: Blockly.inject('blocklyDiv', {
+                    toolbox: null,
+                    rtl: false,
+                    comments: true,
+                    collapse: true,
+                    scrollbars: true,
+                    grid: {
+                        spacing: 25,
+                        length: 3,
+                        colour: '#ccc',
+                        snap: true
+                    },
+                    zoom: {
+                        enabled: true
+                    }
+                }),
             selectedBot: null,
             allBots: function () {
                 return $rootScope.builtInBots.list.concat($rootScope.user.bots.list);
             },
-            //Initialize the blockly workspace
-            initialize: function () {
+            loadBlocklyDiv: function(toolbox){
+                $rootScope.editor.workspace.dispose();
                 $rootScope.editor.workspace = Blockly.inject('blocklyDiv', {
-                    toolbox: document.getElementById('toolbox'),
+                    toolbox: toolbox,
                     rtl: false,
                     comments: true,
                     collapse: true,
@@ -113,6 +128,7 @@ angular
                     console.log(bot);
                     $rootScope.editor.modal.instance.dismiss();
                     $rootScope.user.bots.add({name: name, src: bot.src, xml: bot.xml, new: true});
+                    $rootScope.editor.selectedBot = bot;
                 },
                 //When the modal cancel button close the model
                 cancel: function () {
@@ -172,16 +188,15 @@ angular
                         var move = $rootScope.editor.game.moves[$rootScope.editor.game.position];
                         if (move) {
                             var posA = "a" + (move.coord.x * 10 + move.coord.y);
-                            if (move.sunk != []) {
-                                move.sunk.forEach(function (move) {
-                                    posA = "a" + (move.coord.x * 10 + move.coord.y);
-                                    document.getElementById(posA).innerHTML += "<img src='static/images/sunk.png'/>"
-                                });
-                            } else if (move.wasShip) {
-                                document.getElementById(posA).innerHTML += "<img src='static/images/hit.png'/>";
+                            if (move.wasShip) {
+                                document.getElementById(posA).innerHTML = "<img src='static/images/hit.png'/>";
                             } else {
-                                document.getElementById(posA).innerHTML += "<img src='static/images/miss.png'/>";
+                                document.getElementById(posA).innerHTML = "<img src='static/images/miss.png'/>";
                             }
+                            move.sunk.forEach(function (move) {
+                                posA = "a" + (move.x * 10 + move.y);
+                                document.getElementById(posA).innerHTML = "<img src='static/images/sunk.png'/>"
+                            });
                         }
                         $rootScope.editor.game.position++;
                     }, 100, $rootScope.editor.game.moves.length);

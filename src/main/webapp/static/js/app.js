@@ -47,6 +47,11 @@ angular
                         var index = $rootScope.user.bots.list.indexOf($rootScope.editor.selectedBot);
                         if (index > -1) {
                             $rootScope.user.bots.list.splice(index, 1);
+                            if($rootScope.user.bots.list.length === 0){
+                                $rootScope.editor.loadBlocklyDiv(null)
+                            } else{
+                                $rootScope.user.bots.select($rootScope.user.bots.list[0])
+                            }
                         } else {
                             console.error("Bot name wasn't in list");
                         }
@@ -155,7 +160,7 @@ angular
                         $rootScope.editor.selectedBot.src = Blockly.Java.workspaceToCode($rootScope.editor.workspace, ["notests"]);
                         $rootScope.editor.selectedBot.xml = $rootScope.editor.selectedBot.src.match(/<xml.*>/);
                     } else {
-                        $rootScope.editor.initialize()
+                        $rootScope.editor.loadBlocklyDiv(document.getElementById('toolbox'));
                     }
                     $rootScope.editor.build.reset();
                     $rootScope.editor.game.hardReset();

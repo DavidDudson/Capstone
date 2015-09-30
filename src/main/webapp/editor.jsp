@@ -42,7 +42,7 @@
     <script src="static/js/editor.js"></script>
     <script src="static/js/showErrors.min.js"></script>
 </head>
-<body ng-init="user.initialize('${screenName}','${profilePicture}')">
+<body ng-init="user.initialize('${screenName}','${profilePicture}');">
 
 <toolbox></toolbox>
 
@@ -65,7 +65,7 @@
                                 ng-click="user.bots.select(bot)">
                                 {{bot.name}}
                             </li>
-                            <li ng-if="user.bots.list.length === 0"> No Bots.</li>
+                            <li class="bot" style="color:darkred" ng-show="user.bots.list.length === 0"> No Bots.</li>
                         </ul>
                     </div>
 
