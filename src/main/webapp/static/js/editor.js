@@ -5,23 +5,8 @@ angular
         return {
             restrict: 'E',
             templateUrl: './static/html/toolbox.xml',
-            replace: true,
-            link: function ($rootScope) {
-                $rootScope.editor.initialize();
-            }
+            replace: true
         };
-    })
-    //Initial blockly state
-    .directive("blocklyInitial", function () {
-        return {
-            restrict: 'E',
-            templateUrl: './static/html/blocklyInitial.xml',
-            replace: true,
-            link: function ($rootScope) {
-                Blockly.Xml.domToWorkspace($rootScope.editor.workspace, document.getElementById('initialBlocklyState'));
-                $rootScope.editor.workspace.getBlockById(1).inputList[2].connection.check_ = ["Coordinate"];
-            }
-        }
     })
     //Basically the Editor "class", it has functions you can call on it etc.
     .controller("editorCtrl", function ($modal, $http, $rootScope, $interval) {
@@ -122,7 +107,7 @@ angular
                 //The modal itself
                 instance: null,
                 //The currently selected bot to use as a template
-                selectedBot: {name: 'FirstSquareBot'},
+                selectedBot: null,
                 //When the modal ok button is pressed create a new bot and close modal
                 ok: function (name, bot) {
                     console.log(bot);
@@ -135,6 +120,9 @@ angular
                 },
                 //Generate and display the modal
                 create: function () {
+                    if(!$rootScope.editor.modal.selectedBot){
+                        $rootScope.editor.modal.selectedBot = $rootScope.builtInBots.list[0];
+                    }
                     $rootScope.editor.modal.instance = $modal.open({
                         animation: true,
                         templateUrl: './static/html/newBotModal.html',

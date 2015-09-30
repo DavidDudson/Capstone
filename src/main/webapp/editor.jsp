@@ -45,7 +45,6 @@
 <body ng-init="user.initialize('${screenName}','${profilePicture}')">
 
 <toolbox></toolbox>
-<blockly-initial></blockly-initial>
 
 <page-header></page-header>
 

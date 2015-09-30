@@ -2,11 +2,7 @@ import nz.daved.starbattle.StarBattleBot;
 import nz.daved.starbattle.game.BotGameBoard;
 import nz.daved.starbattle.game.Coordinate;
 
-/**
- * Created by David J. Dudson on 4/08/15.
- * <p>
- * Bot that picks the Last Square
- */
+//<xml><block type="function_next_move" id="1" x="63" y="63" deletable="false" editable="false"><value name="RETURN"><block type="get_last_valid_coordinate" id="2"/></value></block></xml>
 public class LastSquareBot extends StarBattleBot {
 
     public LastSquareBot(String id) {

@@ -4,9 +4,8 @@ import nz.daved.starbattle.StarBattleBot;
 import nz.daved.starbattle.game.BotGameBoard;
 import nz.daved.starbattle.game.Coordinate;
 
-/**
- * Created by aidan on 24/08/2015.
- */
+//<xml><block type="function_next_move" id="1" x="63" y="63" deletable="false" editable="false"><value name="RETURN"><block type="get_first_valid_coordinate" id="2"/></value></block></xml>
+
 public class FirstSquareBot  extends StarBattleBot {
 
 

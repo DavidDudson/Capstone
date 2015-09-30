@@ -30,7 +30,6 @@ Blockly.Blocks['get_coordinate_at_pos'] = {
   }
 };
 
-// TODO: The type of block is incorrect
 Blockly.Blocks['if_last_move_hit_aim_direction'] = {
     init: function() {
         this.appendDummyInput()
@@ -160,6 +159,72 @@ Blockly.Blocks['comment'] = {
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(65);
+        this.setTooltip('');
+        this.setHelpUrl('http://www.example.com/');
+    }
+};
+
+Blockly.Blocks['list_of_played_moves'] = {
+    init: function() {
+        this.appendDummyInput()
+            .appendField("list of all moves played");
+        this.setOutput(true, "Array");
+        this.setColour(230);
+        this.setTooltip('');
+        this.setHelpUrl('http://www.example.com/');
+    }
+};
+
+Blockly.Blocks['last_hit_move'] = {
+    init: function() {
+        this.appendDummyInput()
+            .appendField("the last move that was a hit");
+        this.setOutput(true, "Coordinate");
+        this.setColour(230);
+        this.setTooltip('');
+        this.setHelpUrl('http://www.example.com/');
+    }
+};
+
+Blockly.Blocks['define_coordinate'] = {
+    init: function() {
+        this.appendValueInput("X")
+            .setCheck("Number")
+            .appendField("create a new coordinate at X:");
+        this.appendValueInput("Y")
+            .setCheck("Number")
+            .appendField(", Y:");
+        this.setInputsInline(true);
+        this.setOutput(true, "Coordinate");
+        this.setColour(330);
+        this.setTooltip('');
+        this.setHelpUrl('http://www.example.com/');
+    }
+};
+
+Blockly.Blocks['return_coordinate'] = {
+    init: function() {
+        this.appendValueInput("RETURN")
+            .setCheck('Coordinate')
+            .appendField("return");
+        this.setPreviousStatement(true, null);
+        this.setColour(290);
+        this.setTooltip('');
+        this.setHelpUrl('http://www.example.com/');
+    }
+};
+
+Blockly.Blocks['function_next_move'] = {
+    init: function() {
+        this.appendDummyInput()
+            .appendField("To get the next move");
+        this.appendStatementInput("BLOCK")
+            .setCheck(null);
+        this.appendValueInput("RETURN")
+            .setCheck("Coordinate")
+            .setAlign(Blockly.ALIGN_RIGHT)
+            .appendField("return");
+        this.setColour(290);
         this.setTooltip('');
         this.setHelpUrl('http://www.example.com/');
     }
