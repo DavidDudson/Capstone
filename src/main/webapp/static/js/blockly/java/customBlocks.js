@@ -86,12 +86,12 @@ Blockly.Java['variable_define'] = function (block) {
 };
 
 Blockly.Java['get_gamestate'] = function (block) {
-    var code = 'botGameBoard';
+    var code = 'botGameBoard.getGameBoard';
     return [code, Blockly.Java.ORDER_ATOMIC];
 };
 
 Blockly.Java['get_all_valid_moves'] = function(block) {
-    var code = 'botGameBoard.getAllValidCoordinates();';
+    var code = 'botGameBoard.getAllValidCoordinates()';
     return [code, Blockly.Java.ORDER_COLLECTION];
 };
 
@@ -101,12 +101,12 @@ Blockly.Java['last_move_sunk'] = function(block) {
         dropdown_state = block.getFieldValue('state');
     }
     catch (err){}
-    var code = 'botGameBoard.lastMove(' + dropdown_state + ');';
+    var code = 'botGameBoard.lastMove(' + dropdown_state + ')';
     return [code, Blockly.Java.ORDER_ATOMIC];
 };
 
 Blockly.Java['the_last_move'] = function(block) {
-    var code = 'botGameBoard.getLastMove();';
+    var code = 'botGameBoard.getLastMove()';
     return [code, Blockly.Java.ORDER_ATOMIC];
 };
 
@@ -149,7 +149,7 @@ Blockly.Java['return_coordinate'] = function(block) {
         value_return = Blockly.Java.valueToCode(block, 'RETURN', Blockly.Java.ORDER_ATOMIC);
     }
     catch (err){}
-    var code = 'return ' + value_return + ';\n';
+    var code = 'return ' + value_return + '\n';
     return code;
 };
 
@@ -159,7 +159,7 @@ Blockly.Java['function_next_move'] = function(block) {
     var code = '@Override\n' +
                 'public Coordinate nextMove(BotGameBoard botGameBoard) {\n' +
                 statements_block + '\n' +
-                'return ' + value_return + ';\n' +
+                'return ' + value_return + '\n' +
                 '}';
     return code;
 };

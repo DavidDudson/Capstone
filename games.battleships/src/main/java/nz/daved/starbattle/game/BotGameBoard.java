@@ -87,8 +87,8 @@ public class BotGameBoard extends GameBoard {
         return arr.get(arr.size() - 1);
     }
 
-    public List<Coordinate> getAllValidCoordinates() {
-        List<Coordinate> coords = new LinkedList<>();
+    public LinkedList<Coordinate> getAllValidCoordinates() {
+        LinkedList<Coordinate> coords = new LinkedList<>();
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
                 if (grid[i][j] == 0) {
@@ -99,7 +99,19 @@ public class BotGameBoard extends GameBoard {
         return coords;
     }
 
-    public List<Coordinate> getCoordinatesWithState(int state){
+    public LinkedList<Integer> getGameBoard(){
+        LinkedList<Integer> coords = new LinkedList<>();
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                    coords.add(grid[i][j]);
+            }
+        
+        }
+        return coords;
+    }
+
+
+    public LinkedList<Coordinate> getCoordinatesWithState(int state){
         LinkedList<Coordinate> stateCoordinates = new LinkedList<>();
         for(int y = 0; y < height; y++){
             for(int x = 0 ;x < width; x++){
