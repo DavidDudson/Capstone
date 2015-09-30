@@ -184,7 +184,12 @@ angular
                         var move = $rootScope.editor.game.moves[$rootScope.editor.game.position];
                         if (move) {
                             var posA = "a" + (move.coord.x * 10 + move.coord.y);
-                            if (move.wasShip) {
+                            if (move.sunk != []) {
+                                move.sunk.forEach(function (move) {
+                                    posA = "a" + (move.coord.x * 10 + move.coord.y);
+                                    document.getElementById(posA).innerHTML += "<img src='static/images/sunk.png'/>"
+                                });
+                            } else if (move.wasShip) {
                                 document.getElementById(posA).innerHTML += "<img src='static/images/hit.png'/>";
                             } else {
                                 document.getElementById(posA).innerHTML += "<img src='static/images/miss.png'/>";
