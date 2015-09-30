@@ -112,6 +112,7 @@
     <category name="Variables" custom="VARIABLE"></category>
     <category name="Functions">
         <block type="procedures_ifreturn"></block>
+        <block type="return_coordinate"></block>
     </category>
     <sep></sep>
     <category name="StarBattles">
@@ -127,5 +128,8 @@
         <block type="last_move_sunk"></block>
         <block type="the_last_move"></block>
         <block type="comment"></block>
+        <block type="list_of_played_moves"></block>
+        <block type="last_hit_move"></block>
+        <block type="define_coordinate"></block>
     </category>
 </xml>

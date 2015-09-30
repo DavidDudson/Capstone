@@ -140,7 +140,7 @@ public class StarBattleGame extends SimpleGame<BotGameBoard, Coordinate> {
      *
      * @return A copy of the history
      */
-    public List<StarBattleGameMove> getHistory() {
+    public List<StarBattleGameMove>getHistory() {
         return history.stream().map(StarBattleGameMove::new).collect(Collectors.toList());
     }
 

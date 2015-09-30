@@ -152,6 +152,8 @@ public class ShipGameBoard extends GameBoard {
         return new BotGameBoard(this,player,history);
     }
 
+
+
     public boolean isShip(Coordinate coord) {
         return grid[coord.getX()][coord.getY()] == 1;
     }

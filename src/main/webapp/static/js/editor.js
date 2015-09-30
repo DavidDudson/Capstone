@@ -125,6 +125,7 @@ angular
                 selectedBot: {name: 'FirstSquareBot'},
                 //When the modal ok button is pressed create a new bot and close modal
                 ok: function (name, bot) {
+                    console.log(bot);
                     $rootScope.editor.modal.instance.dismiss();
                     $rootScope.user.bots.add({name: name, src: bot.src, xml: bot.xml, new: true});
                 },

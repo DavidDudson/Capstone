@@ -87,8 +87,8 @@ public class BotGameBoard extends GameBoard {
         return arr.get(arr.size() - 1);
     }
 
-    public List<Coordinate> getAllValidCoordinates() {
-        List<Coordinate> coords = new LinkedList<>();
+    public LinkedList<Coordinate> getAllValidCoordinates() {
+        LinkedList<Coordinate> coords = new LinkedList<>();
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
                 if (grid[i][j] == 0) {
@@ -99,7 +99,19 @@ public class BotGameBoard extends GameBoard {
         return coords;
     }
 
-    public List<Coordinate> getCoordinatesWithState(int state){
+    public LinkedList<Integer> getGameBoard(){
+        LinkedList<Integer> coords = new LinkedList<>();
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                    coords.add(grid[i][j]);
+            }
+        
+        }
+        return coords;
+    }
+
+
+    public LinkedList<Coordinate> getCoordinatesWithState(int state){
         LinkedList<Coordinate> stateCoordinates = new LinkedList<>();
         for(int y = 0; y < height; y++){
             for(int x = 0 ;x < width; x++){
@@ -119,22 +131,30 @@ public class BotGameBoard extends GameBoard {
                .collect(Collectors.toList());
     }
 
-    public Coordinate getLastMove() {
 
-        int length = this.getPlayerMoves().size() - 1;
-        System.out.println(length);
-        return this.getPlayerMoves().get(length);
-    }
 
     public Boolean canAttackCoordinate(Coordinate coordinate) {
         return getAllValidCoordinates().contains(coordinate);
     }
 
-    public List<StarBattleGameMove> getHistory() {
-        if (player == 1) {
-            return history.stream().filter(StarBattleGameMove::isPlayer1).collect(Collectors.toList());
-        } else {
-            return history.stream().filter(move -> !move.isPlayer1()).collect(Collectors.toList());
-        }
+    public LinkedList<Coordinate> getHistory() {
+        LinkedList<Coordinate> historyCoords = new LinkedList<>();
+
+        for(StarBattleGameMove move: history){
+            if((player == 1) && (move.isPlayer1())) {
+                historyCoords.add(move.getCoord());
+            }else {
+                if((player == 2)&& (!move.isPlayer1()) ){
+                    historyCoords.add(move.getCoord());
+
+                    }
+                }
+            }
+        return  historyCoords;
+
+    }
+    public Coordinate getLastMove(){
+        return getHistory().get(getHistory().size());
+
     }
 }

@@ -128,7 +128,7 @@ Blockly.Java.Baseclass_ = 'StarBattleBot';
  * List of libraries used globally by the generated java code. These are
  * Processed by Blockly.Java.addImport
  */
-Blockly.Java.needImports_ = ["nz.daved.starbattle.StarBattleBot", "nz.daved.starbattle.game.BotGameBoard", "nz.daved.starbattle.game.Coordinate"];
+Blockly.Java.needImports_ = ["nz.daved.starbattle.StarBattleBot", "nz.daved.starbattle.game.BotGameBoard", "nz.daved.starbattle.game.Coordinate", "java.util.LinkedList;"];
 /**
  * List of interfaces that this class implements
  **/

@@ -1,7 +1,5 @@
 <xml id="initialBlocklyState" style="display:none">
-    <block type="procedures_defreturn" id="1" x="63" y="63" deletable="false" editable="false">
-        <mutation/>
-        <field name="NAME">nextMove</field>
+    <block type="function_next_move" id="1" x="63" y="63" deletable="false" editable="false">
         <value name="RETURN">
             <block type="get_first_valid_coordinate" id="2"/>
         </value>
