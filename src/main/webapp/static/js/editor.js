@@ -53,6 +53,12 @@ angular
                     }
                 });
             },
+            reset: function(){
+                $rootScope.editor.build.reset();
+                $rootScope.editor.game.hardReset();
+                $rootScope.editor.selectedBot = null;
+                Blockly.mainWorkspace.clear();
+            },
             switchWorkspace: function () {
                 Blockly.Xml.domToWorkspace($rootScope.editor.workspace, Blockly.Xml.textToDom($rootScope.editor.selectedBot.xml));
             },
@@ -125,10 +131,9 @@ angular
                 selectedBot: null,
                 //When the modal ok button is pressed create a new bot and close modal
                 ok: function (name, bot) {
-                    console.log(bot);
                     $rootScope.editor.modal.instance.dismiss();
                     $rootScope.user.bots.add({name: name, src: bot.src, xml: bot.xml, new: true});
-                    $rootScope.editor.selectedBot = bot;
+                    $rootScope.user.bots.select(bot);
                 },
                 //When the modal cancel button close the model
                 cancel: function () {

@@ -46,10 +46,11 @@ angular
                     if ($rootScope.editor.selectedBot.new) {
                         var index = $rootScope.user.bots.list.indexOf($rootScope.editor.selectedBot);
                         if (index > -1) {
+                            $rootScope.editor.reset();
                             $rootScope.user.bots.list.splice(index, 1);
-                            if($rootScope.user.bots.list.length === 0){
-                                $rootScope.editor.loadBlocklyDiv(null)
-                            } else{
+                            if ($rootScope.user.bots.list.length === 0) {
+                                $rootScope.editor.loadBlocklyDiv(null);
+                            } else {
                                 $rootScope.user.bots.select($rootScope.user.bots.list[0])
                             }
                         } else {
@@ -61,7 +62,13 @@ angular
                                 console.log("Delete Success");
                                 var index = $rootScope.user.bots.list.indexOf($rootScope.editor.selectedBot);
                                 if (index > -1) {
+                                    $rootScope.editor.reset();
                                     $rootScope.user.bots.list.splice(index, 1);
+                                    if ($rootScope.user.bots.list.length === 0) {
+                                        $rootScope.editor.loadBlocklyDiv(null);
+                                    } else {
+                                        $rootScope.user.bots.select($rootScope.user.bots.list[0])
+                                    }
                                 } else {
                                     console.error("Bot name wasn't in list");
                                 }
@@ -162,12 +169,11 @@ angular
                     } else {
                         $rootScope.editor.loadBlocklyDiv(document.getElementById('toolbox'));
                     }
+                    $rootScope.editor.reset();
                     $rootScope.editor.build.reset();
                     $rootScope.editor.game.hardReset();
                     $rootScope.editor.selectedBot = bot;
                     $rootScope.editor.xml = bot.xml;
-                    console.log(bot.src);
-                    console.log(bot.xml);
                     Blockly.mainWorkspace.clear();
                     $rootScope.editor.switchWorkspace();
                 }
