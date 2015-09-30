@@ -1,12 +1,12 @@
 package nz.daved.starbattle;
 
 import nz.daved.starbattle.bots.FirstSquareBot;
-import nz.daved.starbattle.bots.LastSquareBot;
-import nz.daved.starbattle.bots.blocklyBot;
+        import nz.daved.starbattle.bots.LastSquareBot;
+        import nz.daved.starbattle.bots.blocklyBot;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
+        import java.io.File;
+        import java.io.IOException;
+        import java.io.PrintWriter;
 
 /**
  * Created by David J. Dudson on 13/08/15.

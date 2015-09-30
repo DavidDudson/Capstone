@@ -48,7 +48,7 @@
                                 <li> <a href="editor.jsp"> Editor </a></li>
                                 <li> <a href="test.jsp"> Test </a></li>
                                 <li> <a href="about.jsp"> About </a></li>
-                                <li> <a href=""> Survey </a> </li>
+                                <li><a href="http://tinyurl.com/ptbweh9"> Survey </a></li>
 
                             </ul>
 

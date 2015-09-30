@@ -22,15 +22,7 @@ Blockly.Java['get_coordinate_at_pos'] = function (block) {
     return [code, Blockly.Java.ORDER_ATOMIC];
 };
 
-Blockly.Java['if_last_move_hit_aim_direction'] = function (block) {
-    var dropdown_direction = 'up';
-    try {
-        dropdown_direction = block.getFieldValue('direction');
-    }
-    catch (err){}
-    var code = 'botGameBoard.ifLastMoveHitAimDirection("' + dropdown_direction + '")';
-    return code;
-};
+
 
 Blockly.Java['can_attack_coordinate'] = function (block) {
     var value_coordinate = '';
@@ -105,8 +97,8 @@ Blockly.Java['last_move_sunk'] = function(block) {
     return [code, Blockly.Java.ORDER_ATOMIC];
 };
 
-Blockly.Java['the_last_move'] = function(block) {
-    var code = 'botGameBoard.getLastMove()';
+Blockly.Java['last_move_state'] = function(block) {
+    var code = 'botGameBoard.getLastMoveState()';
     return [code, Blockly.Java.ORDER_ATOMIC];
 };
 

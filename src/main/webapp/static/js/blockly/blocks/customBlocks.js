@@ -2,7 +2,7 @@ Blockly.Blocks['check_state_of_coordinate'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("is there ")
-        .appendField(new Blockly.FieldDropdown([["Water", "water"], ["Ship", "ship"]]), "state");
+        .appendField(new Blockly.FieldDropdown([["Water", "0"], ["Ship", "1"]]), "state");
     this.appendValueInput("Coordinate")
         .setCheck("Coordinate")
         .appendField("at position");
@@ -28,18 +28,6 @@ Blockly.Blocks['get_coordinate_at_pos'] = {
     this.setTooltip('get the coordinate neighbouring the given position');
     this.setHelpUrl('http://www.example.com/');
   }
-};
-
-Blockly.Blocks['if_last_move_hit_aim_direction'] = {
-    init: function() {
-        this.appendDummyInput()
-            .appendField("if the last move was a hit, aim")
-            .appendField(new Blockly.FieldDropdown([["up", "up"], ["down", "down"], ["left", "left"], ["right", "right"]]), "direction");
-        this.setOutput(true, "Coordinate");
-        this.setColour(230);
-        this.setTooltip('');
-        this.setHelpUrl('http://www.example.com/');
-    }
 };
 
 Blockly.Blocks['can_attack_coordinate'] = {
@@ -129,7 +117,7 @@ Blockly.Blocks['get_all_valid_moves'] = {
     }
 };
 
-Blockly.Blocks['last_move_sunk'] = {
+Blockly.Blocks['last_move_state'] = {
     init: function() {
         this.appendDummyInput()
             .appendField("was the last move a")
@@ -190,10 +178,10 @@ Blockly.Blocks['define_coordinate'] = {
     init: function() {
         this.appendValueInput("X")
             .setCheck("Number")
-            .appendField("create a new coordinate at X:");
+            .appendField("Coordinate X:");
         this.appendValueInput("Y")
             .setCheck("Number")
-            .appendField(", Y:");
+            .appendField(" Y:");
         this.setInputsInline(true);
         this.setOutput(true, "Coordinate");
         this.setColour(330);

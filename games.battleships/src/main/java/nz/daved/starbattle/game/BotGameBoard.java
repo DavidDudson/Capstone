@@ -125,10 +125,10 @@ public class BotGameBoard extends GameBoard {
         return stateCoordinates;
     }
 
-    public List<Coordinate> getNeighbourValidCoordinates(Coordinate coordinate) {
+    public LinkedList<Coordinate> getNeighbourValidCoordinates(Coordinate coordinate) {
        return coordinate.getNeighbours().stream()
                .filter(this::canAttackCoordinate)
-               .collect(Collectors.toList());
+               .collect(Collectors.toCollection(LinkedList::new));
     }
 
 
@@ -155,6 +155,27 @@ public class BotGameBoard extends GameBoard {
     }
     public Coordinate getLastMove(){
         return getHistory().get(getHistory().size());
+
+    }
+
+    public Boolean getStateOfCoordinate(Coordinate coords, String state){
+        return grid[coords.getY()][coords.getY()] == Integer.parseInt(state);
+
+
+    }
+    public Boolean getLastMoveState(int state){
+        return grid[getLastMove().getY()][getLastMove().getY()] == state;
+
+    }
+    public Coordinate getLastHitMove(){
+        for(int i = getHistory().size(); i > 0; i--){
+            Coordinate historyCoord = getHistory().get(i);
+            if(grid[historyCoord.getX()][historyCoord.getY()] == 1){
+                return historyCoord;
+            }
+
+        }
+        return null;
 
     }
 }
