@@ -44,7 +44,7 @@
             <div id="user" class="right">
                 <ul class="list_inline">
                     <li id="profilePicture2" class="username" >${screenName}</li>
-                    <li> <a class="logout" href="index.jsp"> Logout </a></li>
+                    <li> <a class="logout" href="logout"> Logout </a></li>
                     <c:if test="${profilePicture != null}">
                         <li class="profilePictureContent" id="profilePicture3"><img
                                 id="profilePictureURL" src="${profilePicture}"
