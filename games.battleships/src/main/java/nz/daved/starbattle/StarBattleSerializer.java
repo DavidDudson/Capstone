@@ -10,6 +10,7 @@ import nz.ac.massey.cs.ig.core.services.Serializer;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import nz.daved.starbattle.game.Coordinate;
 
 /**
  * Created by David J. Dudson on 4/08/15.

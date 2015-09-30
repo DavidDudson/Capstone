@@ -125,11 +125,24 @@ public class BotGameBoard extends GameBoard {
         return getAllValidCoordinates().contains(coordinate);
     }
 
-    public List<StarBattleGameMove> getHistory() {
-        if (player == 1) {
-            return history.stream().filter(StarBattleGameMove::isPlayer1).collect(Collectors.toList());
-        } else {
-            return history.stream().filter(move -> !move.isPlayer1()).collect(Collectors.toList());
-        }
+    public LinkedList<Coordinate> getHistory() {
+        LinkedList<Coordinate> historyCoords = new LinkedList<>();
+
+        for(StarBattleGameMove move: history){
+            if((player == 1) && (move.isPlayer1())) {
+                historyCoords.add(move.getCoord());
+            }else {
+                if((player == 2)&& (!move.isPlayer1()) ){
+                    historyCoords.add(move.getCoord());
+
+                    }
+                }
+            }
+        return  historyCoords;
+
+    }
+    public Coordinate getLastMove(){
+        return getHistory().get(getHistory().size());
+
     }
 }

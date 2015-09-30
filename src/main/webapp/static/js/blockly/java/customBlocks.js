@@ -91,7 +91,7 @@ Blockly.Java['get_gamestate'] = function (block) {
 };
 
 Blockly.Java['get_all_valid_moves'] = function(block) {
-    var code = 'botGameBoard.getAllValidCoordinates()';
+    var code = 'botGameBoard.getAllValidCoordinates();';
     return [code, Blockly.Java.ORDER_COLLECTION];
 };
 
@@ -101,12 +101,12 @@ Blockly.Java['last_move_sunk'] = function(block) {
         dropdown_state = block.getFieldValue('state');
     }
     catch (err){}
-    var code = 'botGameBoard.lastMove(' + dropdown_state + ')';
+    var code = 'botGameBoard.lastMove(' + dropdown_state + ');';
     return [code, Blockly.Java.ORDER_ATOMIC];
 };
 
 Blockly.Java['the_last_move'] = function(block) {
-    var code = 'botGameBoard.getLastMove()';
+    var code = 'botGameBoard.getLastMove();';
     return [code, Blockly.Java.ORDER_ATOMIC];
 };
 
@@ -121,7 +121,7 @@ Blockly.Java['comment'] = function(block) {
 };
 
 Blockly.Java['list_of_played_moves'] = function(block) {
-    var code = 'botGameBoard.getAllPlayedMoves()';
+    var code = 'botGameBoard.getHistory()';
     return [code, Blockly.Java.ORDER_COLLECTION];
 };
 
