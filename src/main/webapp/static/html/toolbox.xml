@@ -1,6 +1,6 @@
 <xml id="toolbox" style="display: none">
     <category name="Logic">
-        
+        <block type="last_move_sink_bot"></block>
         <block type="last_move_state"></block>
         <block type="check_state_of_coordinate"></block>
         <block type="can_attack_coordinate"></block>

@@ -157,3 +157,10 @@ Blockly.Java['function_next_move'] = function(block) {
                 '}';
     return code;
 };
+
+Blockly.Java['last_move_sink_bot'] = function(block) {
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'botGameBoard.lastMoveSinkBot()';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Java.ORDER_ATOMIC];
+};

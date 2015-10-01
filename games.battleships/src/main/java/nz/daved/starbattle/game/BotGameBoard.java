@@ -253,4 +253,8 @@ public class BotGameBoard extends GameBoard {
 
 
     }
+    public Boolean lastMoveSinkBot(){
+        Coordinate lastMove = getLastMove();
+        return grid[lastMove.getX()][lastMove.getY()] == 3;
+    }
 }
