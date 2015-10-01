@@ -178,6 +178,7 @@ angular
                 getMoves: function (url) {
                     $http.get(url)
                         .success(function (data) {
+                            console.log(data);
                             $rootScope.editor.game.moves = data.moves.filter(function (move) {
                                 if (move.wasPlayer1) return move;
                             });

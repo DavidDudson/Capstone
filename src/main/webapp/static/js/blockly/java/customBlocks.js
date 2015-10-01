@@ -78,7 +78,7 @@ Blockly.Java['variable_define'] = function (block) {
 };
 
 Blockly.Java['get_gamestate'] = function (block) {
-    var code = 'botGameBoard.getGameBoard';
+    var code = 'botGameBoard.getGameBoard()';
     return [code, Blockly.Java.ORDER_ATOMIC];
 };
 

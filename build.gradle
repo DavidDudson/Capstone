@@ -57,6 +57,9 @@ dependencies {
     compile 'org.apache.httpcomponents:httpclient:4.4.1'
     compile 'joda-time:joda-time:2.7'
     compile 'javax.servlet:jstl:1.2'
+    compile 'com.carrotsearch:java-sizeof:0.0.5'
+
+
 
 
     compile name: 'services-0.0.3-SNAPSHOT'
