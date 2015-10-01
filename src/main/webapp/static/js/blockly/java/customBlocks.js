@@ -98,7 +98,9 @@ Blockly.Java['last_move_sunk'] = function(block) {
 };
 
 Blockly.Java['last_move_state'] = function(block) {
-    var code = 'botGameBoard.getLastMoveState()';
+    var state = block.getFieldValue('STATE');
+    var code = "botGameBoard.getLastMoveState("+ state +")";
+    
     return [code, Blockly.Java.ORDER_ATOMIC];
 };
 

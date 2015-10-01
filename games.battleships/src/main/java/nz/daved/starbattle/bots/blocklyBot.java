@@ -1,24 +1,26 @@
 package nz.daved.starbattle.bots;
 
 
-import java.util.LinkedList;
+import java.util.LinkedList;;
 import nz.daved.starbattle.StarBattleBot;
 import nz.daved.starbattle.game.BotGameBoard;
 import nz.daved.starbattle.game.Coordinate;
 
-// <xml xmlns="http://www.w3.org/1999/xhtml"><block type="procedures_defreturn" deletable="false" editable="false" x="63" y="63"><field name="NAME">nextMove</field><statement name="STACK"><block type="variables_set"><field name="VAR">item</field><value name="VALUE"><block type="get_neighbour_valid_coordinates"><value name="Coordinate"><block type="the_last_move"></block></value></block></value></block></statement><value name="RETURN"><block type="variables_get"><field name="VAR">item</field></block></value></block></xml>
+// <xml xmlns="http://www.w3.org/1999/xhtml"><block type="function_next_move" deletable="false" editable="false" x="138" y="88"><statement name="BLOCK"><block type="controls_if"><statement name="DO0"><block type="variables_set"><field name="VAR">item</field><value name="VALUE"><block type="last_move_state"><field name="STATE">1</field></block></value></block></statement></block></statement><value name="RETURN"><block type="get_first_valid_coordinate"></block></value></block></xml>
 
-public class blocklyBot extends StarBattleBot {
+public class CustomStarBattleBot extends StarBattleBot {
 
-    public blocklyBot(String id) {
-        super(id);
-    }
+    public CustomStarBattleBot(String id) { super(id); }
 
-    protected LinkedList item;
+    protected Coordinate item;
+
 
     @Override
     public Coordinate nextMove(BotGameBoard botGameBoard) {
-        item = (LinkedList) botGameBoard.getNeighbourValidCoordinates(botGameBoard.getHistory().get(botGameBoard.getHistory().size()));
-        return (Coordinate) item.get(0);
+        if (false) {
+            item = botGameBoard.getCoordinateAtPosition(new Coordinate(0, 0), "left");
+        }
+
+        return botGameBoard.getFirstValidCoordinate();
     }
 }

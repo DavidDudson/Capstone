@@ -78,15 +78,27 @@ public class BotGameBoard extends GameBoard {
         return new LinkedList<>();
     }
 
+    /**
+     * ge the first coordinate not already chosen
+     * @return first coodinate that is valid
+     */
     public Coordinate getFirstValidCoordinate() {
         return getAllValidCoordinates().get(0);
     }
 
+    /**
+     *  get the last valid coordinate not already chosen
+     * @return last coordinate that is valid
+     */
     public Coordinate getLastValidCoordinate() {
         List<Coordinate> arr = getAllValidCoordinates();
         return arr.get(arr.size() - 1);
     }
 
+    /**
+     * get a list of all the coordinate not already chosen
+     * @return list of all possible coordinates
+     */
     public LinkedList<Coordinate> getAllValidCoordinates() {
         LinkedList<Coordinate> coords = new LinkedList<>();
         for (int i = 0; i < grid.length; i++) {
@@ -99,6 +111,10 @@ public class BotGameBoard extends GameBoard {
         return coords;
     }
 
+    /**
+     * get the all positions and states of the gameBoard
+     * @return list of all current states and positions of the board
+     */
     public LinkedList<Integer> getGameBoard(){
         LinkedList<Integer> coords = new LinkedList<>();
         for (int i = 0; i < grid.length; i++) {
@@ -110,7 +126,11 @@ public class BotGameBoard extends GameBoard {
         return coords;
     }
 
-
+    /**
+     * get the state of a specified coordinate
+     * @param state the bot selected coordinate to be evaluated
+     * @return state of coordinate
+     */
     public LinkedList<Coordinate> getCoordinatesWithState(int state){
         LinkedList<Coordinate> stateCoordinates = new LinkedList<>();
         for(int y = 0; y < height; y++){
@@ -125,6 +145,11 @@ public class BotGameBoard extends GameBoard {
         return stateCoordinates;
     }
 
+    /**
+     * return a list of all neighbours that havn't been hit
+     * @param coordinate coordinate to be evaluated
+     * @return list of avaliable coordiantes
+     */
     public LinkedList<Coordinate> getNeighbourValidCoordinates(Coordinate coordinate) {
        return coordinate.getNeighbours().stream()
                .filter(this::canAttackCoordinate)
@@ -132,11 +157,19 @@ public class BotGameBoard extends GameBoard {
     }
 
 
-
+    /**
+     * check wheather coordinate can be attacked
+     * @param coordinate coordinate to be evaluated
+     * @return weather coordinate is free to be attacked
+     */
     public Boolean canAttackCoordinate(Coordinate coordinate) {
         return getAllValidCoordinates().contains(coordinate);
     }
 
+    /**
+     * get bot history of hit moves
+     * @return list of coordinates containing already hit moves
+     */
     public LinkedList<Coordinate> getHistory() {
         LinkedList<Coordinate> historyCoords = new LinkedList<>();
 
@@ -153,20 +186,42 @@ public class BotGameBoard extends GameBoard {
         return  historyCoords;
 
     }
+
+    /**
+     * get the last move played by the bot
+     * @return coordinate of last move played
+     */
     public Coordinate getLastMove(){
         return getHistory().get(getHistory().size());
 
     }
 
+    /**
+     * check to see if coordinate containes defined state
+     * @param coords coordinate to be evaluated
+     * @param state value to be evaluated against
+     * @return weather the coordinate contains the expected coordinate
+     */
     public Boolean getStateOfCoordinate(Coordinate coords, String state){
         return grid[coords.getY()][coords.getY()] == Integer.parseInt(state);
 
 
     }
+
+    /**
+     * get the state of the last movr
+     * @param state value to be evaluated against
+     * @return weather the last coordinate contains the expected state
+     */
     public Boolean getLastMoveState(int state){
         return grid[getLastMove().getY()][getLastMove().getY()] == state;
 
     }
+
+    /**
+     * get the last move of bot history that was a hit
+     * @return coordinate of the last hit move
+     */
     public Coordinate getLastHitMove(){
         for(int i = getHistory().size(); i > 0; i--){
             Coordinate historyCoord = getHistory().get(i);
@@ -176,6 +231,26 @@ public class BotGameBoard extends GameBoard {
 
         }
         return null;
+
+    }
+
+    /**
+     * get the state of a coordinate at a defined by the position
+     * @param coord coordinate to be evaluated
+     * @param position position relative to the coordinate
+     * @return state of coordinate with the position
+     */
+    public Integer getCoordinateAtPosition(Coordinate coord, String position){
+        switch (position){
+            case "up" :   return grid[coord.getX()][coord.getY() - 1];
+            case "right": return grid[coord.getX() + 1][coord.getY()];
+            case "down" : return grid[coord.getX()][coord.getY() -1];
+            case "left" : return grid[coord.getX() - 1][coord.getY()];
+
+
+        }
+        return  -1;
+
 
     }
 }

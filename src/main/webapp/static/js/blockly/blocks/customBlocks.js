@@ -121,7 +121,7 @@ Blockly.Blocks['last_move_state'] = {
     init: function() {
         this.appendDummyInput()
             .appendField("was the last move a")
-            .appendField(new Blockly.FieldDropdown([["hit", "1"], ["miss", "2"], ["sunk", "3"]]), "state");
+            .appendField(new Blockly.FieldDropdown([["hit", "1"], ["miss", "2"], ["sunk", "3"]]), "STATE");
         this.setOutput(true, "Boolean");
         this.setColour(230);
         this.setTooltip('was the last move a hit, miss, or sunk');
