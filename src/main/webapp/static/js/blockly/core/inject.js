@@ -400,6 +400,7 @@ Blockly.createMainWorkspace_ = function(svg, options) {
     var workspaceChanged = function() {
       if (Blockly.dragMode_ == 0) {
         var metrics = mainWorkspace.getMetrics();
+        if (!metrics) {return;}
         var edgeLeft = metrics.viewLeft + metrics.absoluteLeft;
         var edgeTop = metrics.viewTop + metrics.absoluteTop;
         if (metrics.contentTop < edgeTop ||
