@@ -16,51 +16,25 @@
     <meta charset="utf-8">
     <title>{{app.name}} About</title>
     <link rel="icon" type="image/png" href="static/images/favicon.ico" sizes="32x32">
-    <link rel="stylesheet" type="text/css" href="static/css/editor.css">
-    <link rel="stylesheet" type="text/css" href="static/css/about.css">
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
     <link rel="stylesheet" type="text/css" href="static/css/grid.css">
+    <link rel="stylesheet" type="text/css" href="static/css/about.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
+    <script src="static/js/jquery-1.11.3.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.4/ui-bootstrap-tpls.min.js"></script>
+    <script src="static/js/app.js"></script>
     <script src="static/js/editor.js"></script>
     <script src="static/js/test.js"></script>
+    <script src="static/js/showErrors.min.js"></script>
 </head>
+<body ng-init="user.initialize('${screenName}','${profilePicture}');" Ng-app="app">
 
-<!--Header-->
-<div id="header">
-    <div id="nav_container">
-        <div class="container_12" style="padding:0;">
-            <div id="nav_menu" class="left">
-                <nav class="menu">
-                    <a class="toggle-nav" href="#">&#9776;</a>
-                    <ul class="list_inline active">
-                        <li><a href="index.jsp"> ${gameName} </a></li>
-                        <li><a href="editor.jsp"> Editor </a></li>
-                        <li ><a href="test.jsp"> Test </a></li>
-                        <li> <a href="about.jsp"> About </a></li>
-                        <li><a href="http://tinyurl.com/ptbweh9"> Survey </a></li>
-                    </ul>
+<!--Navigation bar-->
+<page-header></page-header>
+<!--End Navigation bar-->
 
-                </nav>
-            </div>
-            <div id="user" class="right">
-                <ul class="list_inline">
-                    <li id="profilePicture2" class="username" >${screenName}</li>
-                    <li> <a class="logout" href="logout"> Logout </a></li>
-                    <c:if test="${profilePicture != null}">
-                        <li class="profilePictureContent" id="profilePicture3"><img
-                                id="profilePictureURL" src="${profilePicture}"
-                                class="img-responsive center-block"
-                                style="width: 40px;" alt="Profile Picture"></li>
-                    </c:if>
-                </ul>
-            </div>
-        </div>
-        <div class="clear"> </div>
-    </div>
-
-</div>
-<!--End Header-->
 <div class="container_13">
     <h1>StarBattle - Learn Coding Through Gaming</h1>
     <p>

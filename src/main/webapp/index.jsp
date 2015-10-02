@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html ng-app="app" ng-controller="appCtrl">
 <head>
-
     <title>{{app.name}} Home</title>
     <link rel="icon" type="image/png" href="static/images/favicon.ico" sizes="32x32">
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
@@ -15,7 +14,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.4/ui-bootstrap-tpls.min.js"></script>
     <script src="static/js/app.js"></script>
     <script src="static/js/showErrors.min.js"></script>
-
 </head>
 
 <body>

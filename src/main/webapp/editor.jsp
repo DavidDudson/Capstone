@@ -33,10 +33,10 @@
     <script type="text/javascript" src="static/js/blockly/blocks/customBlocks.js"></script>
     
     <link rel="icon" type="image/png" href="static/images/favicon.ico" sizes="32x32">
-    <link rel="stylesheet" type="text/css" href="static/css/editor.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
     <link rel="stylesheet" type="text/css" href="static/css/grid.css">
+    <link rel="stylesheet" type="text/css" href="static/css/editor.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
     <script src="static/js/jquery-1.11.3.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
@@ -45,11 +45,13 @@
     <script src="static/js/editor.js"></script>
     <script src="static/js/showErrors.min.js"></script>
 </head>
-<body ng-init="user.initialize('${screenName}','${profilePicture}');">
+<body ng-init="user.initialize('${screenName}','${profilePicture}');" Ng-app="app">
+
+<!--Navigation bar-->
+<page-header></page-header>
+<!--End Navigation bar-->
 
 <toolbox></toolbox>
-
-<page-header></page-header>
 
 <div class="container_10">
     <div id="content">

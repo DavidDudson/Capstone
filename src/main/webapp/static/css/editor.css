@@ -346,12 +346,6 @@ section {
     position: relative;
 }
 
-ul.list_inline li img {
-    position: relative;
-    float: right;
-    margin: -10px 0px 0px 10px;
-}
-
 a {
     color: #ffffff;
 }
