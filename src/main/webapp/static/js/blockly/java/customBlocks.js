@@ -22,7 +22,15 @@ Blockly.Java['get_coordinate_at_pos'] = function (block) {
     return [code, Blockly.Java.ORDER_ATOMIC];
 };
 
-
+Blockly.Java['if_last_move_hit_aim_direction'] = function (block) {
+    var dropdown_direction = 'up';
+    try {
+        dropdown_direction = block.getFieldValue('direction');
+    }
+    catch (err){}
+    var code = 'botGameBoard.ifLastMoveHitAimDirection("' + dropdown_direction + '")';
+    return code;
+};
 
 Blockly.Java['can_attack_coordinate'] = function (block) {
     var value_coordinate = '';
@@ -78,7 +86,7 @@ Blockly.Java['variable_define'] = function (block) {
 };
 
 Blockly.Java['get_gamestate'] = function (block) {
-    var code = 'botGameBoard.getGameBoard()';
+    var code = 'botGameBoard.getGameBoard';
     return [code, Blockly.Java.ORDER_ATOMIC];
 };
 
@@ -87,14 +95,18 @@ Blockly.Java['get_all_valid_moves'] = function(block) {
     return [code, Blockly.Java.ORDER_COLLECTION];
 };
 
-Blockly.Java['last_move_state'] = function(block) {
-    var state = 1;
+Blockly.Java['last_move_sunk'] = function(block) {
+    var dropdown_state = '1';
     try {
-        state = block.getFieldValue('STATE');
+        dropdown_state = block.getFieldValue('state');
     }
     catch (err){}
-    var code = "botGameBoard.getLastMoveState("+ state +")";
-    
+    var code = 'botGameBoard.lastMove(' + dropdown_state + ')';
+    return [code, Blockly.Java.ORDER_ATOMIC];
+};
+
+Blockly.Java['the_last_move'] = function(block) {
+    var code = 'botGameBoard.getLastMove()';
     return [code, Blockly.Java.ORDER_ATOMIC];
 };
 
@@ -115,11 +127,6 @@ Blockly.Java['list_of_played_moves'] = function(block) {
 
 Blockly.Java['last_hit_move'] = function(block) {
     var code = 'botGameBoard.getLastHitMove()';
-    return [code, Blockly.Java.ORDER_ATOMIC];
-};
-
-Blockly.Java['the_last_move'] = function(block) {
-    var code = 'botGameBoard.getHistory().getLast()';
     return [code, Blockly.Java.ORDER_ATOMIC];
 };
 
@@ -155,11 +162,4 @@ Blockly.Java['function_next_move'] = function(block) {
                 'return ' + value_return + ';\n' +
                 '}';
     return code;
-};
-
-Blockly.Java['last_move_sink_bot'] = function(block) {
-  // TODO: Assemble JavaScript into code variable.
-  var code = 'botGameBoard.lastMoveSinkBot()';
-  // TODO: Change ORDER_NONE to the correct strength.
-  return [code, Blockly.Java.ORDER_ATOMIC];
 };
