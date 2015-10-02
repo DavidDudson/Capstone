@@ -2,8 +2,8 @@
 <html ng-app="app" ng-controller="appCtrl">
 <head>
 
-    <title>Home</title>
-
+    <title>{{app.name}} Home</title>
+    <link rel="icon" type="image/png" href="static/images/favicon.ico" sizes="32x32">
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
     <link rel="stylesheet" type="text/css" href="static/css/bootstrap-social.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -22,7 +22,7 @@
 <body>
     <div class="main_container">
         <div id="heading">
-            <h1><span><img src="static/images/rocketship.jpg" alt="RocketShip"> </span>StarBattle</h1> 
+            <h1>Star Battle <span><img src="static/images/rocketship.png" alt="RocketShip"> </span></h1> 
         </div>
         <div id="socialLogin">
             <div class="facebookButton">

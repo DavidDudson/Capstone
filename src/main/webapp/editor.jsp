@@ -31,7 +31,8 @@
     <script type="text/javascript" src="static/js/blockly/blocks/variables.js"></script>
     <script type="text/javascript" src="static/js/blockly/blocks/procedures.js"></script>
     <script type="text/javascript" src="static/js/blockly/blocks/customBlocks.js"></script>
-
+    
+    <link rel="icon" type="image/png" href="static/images/favicon.ico" sizes="32x32">
     <link rel="stylesheet" type="text/css" href="static/css/editor.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
@@ -65,7 +66,7 @@
                                 ng-click="user.bots.select(bot)">
                                 {{bot.name}}
                             </li>
-                            <li class="bot" style="color:darkred" ng-show="user.bots.list.length === 0"> No Bots.</li>
+                            <li class="bot" style="color:darkred" ng-show="user.bots.list.length === 0"> No Bots</li>
                         </ul>
                     </div>
 
