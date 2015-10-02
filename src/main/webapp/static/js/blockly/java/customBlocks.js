@@ -87,18 +87,12 @@ Blockly.Java['get_all_valid_moves'] = function(block) {
     return [code, Blockly.Java.ORDER_COLLECTION];
 };
 
-Blockly.Java['last_move_sunk'] = function(block) {
-    var dropdown_state = '1';
+Blockly.Java['last_move_state'] = function(block) {
+    var state = 1;
     try {
-        dropdown_state = block.getFieldValue('state');
+        state = block.getFieldValue('STATE');
     }
     catch (err){}
-    var code = 'botGameBoard.lastMove(' + dropdown_state + ')';
-    return [code, Blockly.Java.ORDER_ATOMIC];
-};
-
-Blockly.Java['last_move_state'] = function(block) {
-    var state = block.getFieldValue('STATE');
     var code = "botGameBoard.getLastMoveState("+ state +")";
     
     return [code, Blockly.Java.ORDER_ATOMIC];
@@ -121,6 +115,11 @@ Blockly.Java['list_of_played_moves'] = function(block) {
 
 Blockly.Java['last_hit_move'] = function(block) {
     var code = 'botGameBoard.getLastHitMove()';
+    return [code, Blockly.Java.ORDER_ATOMIC];
+};
+
+Blockly.Java['the_last_move'] = function(block) {
+    var code = 'botGameBoard.getHistory().getLast()';
     return [code, Blockly.Java.ORDER_ATOMIC];
 };
 
