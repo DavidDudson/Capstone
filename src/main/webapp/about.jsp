@@ -11,13 +11,15 @@
     pageContext.setAttribute("gameName", services.getGameSupport().getName());
 %>
 <!DOCTYPE html>
-<html>
+<html ng-app="app" ng-controller="appCtrl">
 <head>
     <meta charset="utf-8">
     <title>{{app.name}} About</title>
     <link rel="icon" type="image/png" href="static/images/favicon.ico" sizes="32x32">
     <link rel="stylesheet" type="text/css" href="static/css/editor.css">
     <link rel="stylesheet" type="text/css" href="static/css/about.css">
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="static/css/grid.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
     <script src="static/js/editor.js"></script>
