@@ -1,15 +1,11 @@
-<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
-<%@page import="nz.ac.massey.cs.ig.core.services.Services" %>
-<%
-    Services services = (Services) application.getAttribute(Services.NAME);
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 
-    pageContext.setAttribute("isDebug",services.getConfiguration().isDebug());
+<%
     pageContext.setAttribute("screenName", session.getAttribute("userName"));
     pageContext.setAttribute("profilePicture", session.getAttribute("userPicture"));
-    pageContext.setAttribute("gameName", services.getGameSupport().getName());
 %>
+
 <!DOCTYPE html>
 
 <html ng-app="app" ng-controller="appCtrl">
@@ -36,7 +32,7 @@
         <script src="static/js/test.js"></script>
         <script src="static/js/showErrors.min.js"></script>
     </head>
-    <body onload="getUserBots()" ng-init="user.initialize('${screenName}','${profilePicture}');" Ng-app="app">
+    <body ng-init="user.initialize('${screenName}','${profilePicture}');" ng-app="app">
 
     <!--Navigation bar-->
     <page-header></page-header>
@@ -227,16 +223,5 @@
 
         </div>
     </div>
-
-        <script>
-            $(document).ready(function () {
-                $('.toggle-nav').click(function (e) {
-                    $(this).toggleClass('active');
-                    $('.menu ul').toggleClass('active');
-
-                    e.preventDefault();
-                });
-            });
-        </script>
     </body>
 </html>

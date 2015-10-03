@@ -41,10 +41,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.4/ui-bootstrap-tpls.min.js"></script>
     <script src="static/js/app.js"></script>
+    <script src="static/js/bots.js"></script>
+    <script src="static/js/user.js"></script>
     <script src="static/js/editor.js"></script>
     <script src="static/js/showErrors.min.js"></script>
 </head>
-<body ng-init="user.initialize('${screenName}','${profilePicture}');" Ng-app="app">
+<body ng-init="createUser('${screenName}','${profilePicture}');" ng-app="app">
 
 <!--Navigation bar-->
 <page-header></page-header>
