@@ -22,13 +22,6 @@ body {
 	width: 100%;
 }
 
-.container_12 { 
-	position: relative; 
-	margin: 0 auto; 
-	width: 1200px;
-	padding: 20px;
-}
-
 img {
 	border: none;
 }
@@ -155,20 +148,11 @@ input[type=submit].search_btn {
 	position: relative;
 	width: 70%;
 	display: inline;
-	height: 44px;
-	
+	height: 44px;	
 }
 
 #nav_menu a {
 	color: #576379;
-}
-
-#nav_menu {
-	
-}
-
-#nav_menu ul {
-    padding: 15px;
 }
 
 #nav_menu ul li {
@@ -195,11 +179,6 @@ input[type=submit].search_btn {
 	position: relative;
 	width: 25%;
 	text-align: right;
-}
-
-#user ul {
-	
-padding: 15px;
 }
 
 #user .logout {
@@ -328,8 +307,6 @@ padding: 15px;
 	height: 32px;
 }
 
-
-
 #results {
 	padding: 10px 2px;
 }
@@ -355,23 +332,12 @@ padding: 15px;
 	border-right: 0;
 }
 
-#player_one .grid_box li:hover {
-	background-color: #990000;
-	border: 1px solid #dddddd;
-}
-
 #player_one ul, #player_two ul, #key ul {
 	list-style-type: none;
 	padding-top: 10px;
     padding-left: 20px;
     margin: 0;
 }
-
-#player_two .grid_box li:hover {
-	background-color: #9900fe;
-	border: 1px solid #dddddd;
-}
-
 
 ul.grid_box li {
 	position: relative;
@@ -481,12 +447,6 @@ section {
 	border-radius: 25px;
 }
 
-
-
-
-
-
-
 /*New Style*/
 a
 	{
@@ -514,15 +474,15 @@ body
 #logo
 	{
 	padding:12px;
+	position: relative;
+    float: left;
 	}
-#nav_menu ul
-	{
-	padding:12px;
-	}
+
 #nav_menu ul li
 	{
 	padding:12px 15px 14px 15px;
 	}
+	
 #nav_menu ul li:hover,
 /*.sidebar_content ul li.bot:hover
 	{
@@ -540,10 +500,7 @@ body
 	font-family:Designer;
 	font-size:14px;
 	}
-#user ul 
-	{
-	padding:12px;
-	}
+
 #user .logout
 	{
 	color:#00a8ff;
