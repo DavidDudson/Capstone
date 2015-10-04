@@ -129,9 +129,8 @@ input[type=submit].search_btn {
 }
 
 #nav_container {
+	background:#030e12;
 	background: url(../images/nav_bg.png) repeat-x;
-	
-	
 }
 
 #logo {
