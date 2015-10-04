@@ -28,13 +28,12 @@ angular
             }
         });
 
-        //var builtInBots = BuiltInBots;
-        $scope.userBots = Bots("__currentuser");
         $scope.builtInBots = Bots("builtinbots");
 
         $scope.build = undefined;
         $scope.game = undefined;
-        $scope.botSelector = BotSelector();
+        //Create a new bot selector that can select 1 bot at a time
+        $scope.botSelector = BotSelector(1);
 
         $scope.allBots = function () {
             return $scope.builtInBots.list.concat($scope.userBots.list);
@@ -55,8 +54,11 @@ angular
         };
 
         $scope.reset = function () {
-
-        }
+            game.reset();
+            build.reset();
+            botSelector.reset();
+            Blockly.mainWorkspace.clear();
+        };
 
         $scope.loadBlocklyDiv = function (toolbox) {
             $scope.workspace.dispose();
@@ -79,17 +81,6 @@ angular
         };
 
         $scope.switchWorkspace = function () {
-            Blockly.Xml.domToWorkspace($scope.workspace, Blockly.Xml.textToDom($rootScope.editor.selectedBot.xml));
+            Blockly.Xml.domToWorkspace($scope.workspace, Blockly.Xml.textToDom(BotSelector.bots[0].xml));
         };
-
-        //The reason i have done it this way is so in the
-        //html you type editor.something, rather than just something.
-        //This makes it clearer what the intention behind it is. eg. editor.save()
-        //$rootScope.editor = {
-        //    reset: function () {
-        //        $rootScope.editor.build.reset();
-        //        $rootScope.editor.game.hardReset();
-        //        $rootScope.editor.selectedBot = null;
-        //        Blockly.mainWorkspace.clear();
-        //    },
     });

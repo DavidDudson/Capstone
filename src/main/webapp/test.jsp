@@ -35,60 +35,7 @@
 
     <div class="container_12">
         <div id="content">
-            <div id="sidebar_left" class="sidebar left">
-                <div id="my_bots" class="sidebar_box">
-                    <div class="sidebar_box_inner">
 
-                        <div class="sidebar_head">
-                            My Bots
-                        </div>
-
-                        <div class="sidebar_content">
-                            <ul id="userBots" class="list_block">
-                            </ul>
-                        </div>
-                    </div>  
-                </div>
-
-                <div id="built-in_bots" class="sidebar_box">
-                    <div class="sidebar_box_inner">
-                        <div class="sidebar_head">
-                            Built-in Bots
-                        </div>
-
-                        <div class="sidebar_content">
-                            <ul class="list_block">
-                                <li id="firstSquareBot" value="FirstSquareBot" class="bot" onclick="setBots('FirstSquareBot')">First square bot</li>
-                                <li id="lastSquareBot" value="LastSquareBot" class="bot" onclick="setBots('LastSquareBot')">Last square bot</li>
-                                <li id="betterBot" value="BetterBot" class="bot" onclick="setBots('betterBot')">Better bot</li>
-                                <li id="dreadnought" value="Dreadnought" class="bot" onclick="setBots('dreadnought')">Dreadnought</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="shared_bots" class="sidebar_box">
-                    <div class="sidebar_box_inner">
-                        <div class="sidebar_head">
-                            Shared Bots
-                        </div>
-
-                        <div class="sidebar_content">
-                            <div id="search">
-                                <form method="">
-                                    <input class="search_box" type="text" value="Search..." onBlur="if (this.value == '') {
-                                                                this.value = 'Search...'
-                                                            }" onFocus="if (this.value == 'Search...') {
-                                                                        this.value = ''
-                                                            }" />
-
-                                    <input class="search_btn" type="submit" value="" />
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <div id="main_content">
                 <div id="player_one" class="left">

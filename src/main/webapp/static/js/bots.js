@@ -5,6 +5,7 @@ angular.module("app")
 // Methods with an _ in front should be considered private.
 function BotService($http) {
 
+    //The name is simply the request name to actually retrieve the bots from the server
     return function (name) {
         var bots = {
             list: [],
@@ -116,6 +117,7 @@ function BotService($http) {
             }
         };
 
+        bots.update();
         return bots;
     }
 }

@@ -26,8 +26,8 @@ angular
         //The user object
         $rootScope.user = undefined;
 
-        $rootScope.createUser = function(username,profilePictureUrl){
-            $rootScope.user = User(username,profilePictureUrl)
+        $rootScope.createUser = function (username, profilePictureUrl) {
+            $rootScope.user = User(username, profilePictureUrl)
         };
 
     });
