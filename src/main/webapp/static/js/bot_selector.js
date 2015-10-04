@@ -14,6 +14,9 @@ function BotSelectorService() {
                 if (selector.bots.size === selector.limit) {
                     selector.bots.shift()
                 }
+            },
+            reset: function(){
+                selector.bots = [];
             }
         };
         return selector
