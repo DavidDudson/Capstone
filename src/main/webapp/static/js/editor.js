@@ -50,13 +50,14 @@ angular
             //Wait for the modal to be closed then return the bpt that's selected
             $scope.instance.result.then(function (bot) {
                 $scope.userBots.add(bot);
+                $scope.botSelector.select(bot);
             })
         };
 
         $scope.reset = function () {
-            game.reset();
-            build.reset();
-            botSelector.reset();
+            $scope.game.reset();
+            $scope.build.reset();
+            $scope.botSelector.reset();
             Blockly.mainWorkspace.clear();
         };
 
