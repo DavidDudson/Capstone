@@ -76,6 +76,12 @@
                         <%}%>
                     </ul>
                 </div>
+                <div>
+                    <progressbar class="progress-striped"
+                                 ng-class="notificationBar.active"
+                                 ng-value="notificationBar.progress" type="{{notificationBar.type}}"
+                                 style="width:100%; height: 40px"><b>{{notificationBar.text}}</b></progressbar>
+                </div>
             </div>
 
             <div id="sidebar_right" class="sidebar right">

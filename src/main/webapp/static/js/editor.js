@@ -36,6 +36,7 @@ angular
         $scope.bots = $scope.botSelector.getBots();
 
         $scope.notificationBar = NotificationBar();
+        
         $scope.allBots = function () {
             var builtIn = $scope.builtInBots.get();
             var user = $scope.user.bots.get();
