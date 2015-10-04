@@ -19,7 +19,6 @@
         <script src="https://apis.google.com/js/api.js"></script>
         <script src="static/js/lib/jquery-1.11.3.min.js"></script>
         <script src="static/js/lib/jquery-ui.min.js"></script>
-        <script src="static/js/gameState.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.4/ui-bootstrap-tpls.min.js"></script>
         <script src="static/js/app.js"></script>
@@ -32,7 +31,7 @@
         <script src="static/js/test.js"></script>
         <script src="static/js/lib/showErrors.min.js"></script>
     </head>
-    <body ng-init="createUser('${screenName}','${profilePicture}');" ng-app="app">
+    <body ng-init="createUser('${screenName}','${profilePicture}'); createBuiltInBots();" ng-app="app">
 
     <!--Navigation bar-->
     <page-header></page-header>

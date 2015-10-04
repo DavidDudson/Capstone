@@ -49,7 +49,7 @@
     <script src="static/js/editor.js"></script>
     <script src="static/js/lib/showErrors.min.js"></script>
 </head>
-<body ng-init="createUser('${screenName}','${profilePicture}');" ng-app="app">
+<body ng-init="createUser('${screenName}','${profilePicture}'); createBuiltInBots();" ng-app="app">
 
 <page-header></page-header>
 

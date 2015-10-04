@@ -535,6 +535,7 @@ body
 	}
 .list_inline li a
 	{
+	display:block;
 	font-family:sans;
 	}
 
@@ -560,7 +561,7 @@ body
    box-shadow:inset         2px 2px 27px 10px #000000;
    
    border-radius:10px;
-   position:relativel;
+   position:relative;
    float:left;
    width:100%;
   

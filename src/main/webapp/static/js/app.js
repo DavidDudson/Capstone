@@ -26,7 +26,11 @@ angular
         //The user object
         $rootScope.user = undefined;
 
-        $rootScope.builtInBots = Bots("builtinbots");
+        $rootScope.createBuiltInBots = function(){
+            $rootScope.builtInBots = Bots("builtinbots")
+        };
+
+        $rootScope.builtInBots = undefined;
 
         $rootScope.createUser = function (username, profilePictureUrl) {
             $rootScope.user = User(username, profilePictureUrl)

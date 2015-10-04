@@ -7,7 +7,7 @@ function UserService(Bots) {
         var user = {
             name: username,
             profilePictureUrl: profilePicture,
-            bots : Bots("__current_user"),
+            bots : Bots("__current_user")
         };
         return user;
     }
