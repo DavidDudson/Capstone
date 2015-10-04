@@ -13,13 +13,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.4/ui-bootstrap-tpls.min.js"></script>
     <script src="static/js/app.js"></script>
+    <script src="static/js/bots.js"></script>
+    <script src="static/js/user.js"></script>
     <script src="static/js/showErrors.min.js"></script>
 </head>
 
 <body>
     <div class="main_container">
         <div id="heading">
-            <h1>Star Battle <span><img src="static/images/rocketship.png" alt="RocketShip"> </span></h1> 
+            <h1>{{app.name}} <span><img src="static/images/rocketship.png" alt="RocketShip"> </span></h1>
         </div>
         <div id="socialLogin">
             <div class="facebookButton">

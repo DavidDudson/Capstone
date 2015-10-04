@@ -42,6 +42,11 @@
     <script src="static/js/app.js"></script>
     <script src="static/js/bots.js"></script>
     <script src="static/js/user.js"></script>
+    <script src="static/js/bot_selector.js"></script>
+    <script src="static/js/notification_bar.js"></script>
+    <script src="static/js/new_bot_modal.js"></script>
+    <script src="static/js/build.js"></script>
+    <script src="static/js/game.js"></script>
     <script src="static/js/editor.js"></script>
     <script src="static/js/showErrors.min.js"></script>
 </head>

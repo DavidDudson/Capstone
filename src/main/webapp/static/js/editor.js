@@ -9,222 +9,87 @@ angular
         };
     })
     //Basically the Editor "class", it has functions you can call on it etc.
-    .controller("editorCtrl", function ($modal, $http, $rootScope, $interval) {
+    .controller("editorCtrl", function (Bots, Build, Game, NotificationBar, BotSelector, $http, $scope) {
+
+        $scope.workspace = Blockly.inject('blocklyDiv', {
+            toolbox: null,
+            rtl: false,
+            comments: true,
+            collapse: true,
+            scrollbars: true,
+            grid: {
+                spacing: 25,
+                length: 3,
+                colour: '#ccc',
+                snap: true
+            },
+            zoom: {
+                enabled: true
+            }
+        });
+
+        //var builtInBots = BuiltInBots;
+        $scope.userBots = Bots("__currentuser");
+        $scope.builtInBots = Bots("builtinbots");
+
+        $scope.build = undefined;
+        $scope.game = undefined;
+        $scope.botSelector = BotSelector();
+
+        $scope.allBots = function () {
+            return $scope.builtInBots.list.concat($scope.userBots.list);
+        };
+
+        $scope.createNewBot = function () {
+            $scope.instance = $modal.open({
+                animation: true,
+                templateUrl: './static/html/newBotModal.html',
+                resolve: {
+                    bots: allBots()
+                }
+            });
+            //Wait for the modal to be closed then return the bpt that's selected
+            $scope.instance.result.then(function (bot) {
+                $scope.userBots.add(bot);
+            })
+        };
+
+        $scope.reset = function () {
+
+        }
+
+        $scope.loadBlocklyDiv = function (toolbox) {
+            $scope.workspace.dispose();
+            $scope.workspace = Blockly.inject('blocklyDiv', {
+                toolbox: toolbox,
+                rtl: false,
+                comments: true,
+                collapse: true,
+                scrollbars: true,
+                grid: {
+                    spacing: 25,
+                    length: 3,
+                    colour: '#ccc',
+                    snap: true
+                },
+                zoom: {
+                    enabled: true
+                }
+            });
+        };
+
+        $scope.switchWorkspace = function () {
+            Blockly.Xml.domToWorkspace($scope.workspace, Blockly.Xml.textToDom($rootScope.editor.selectedBot.xml));
+        };
+
         //The reason i have done it this way is so in the
         //html you type editor.something, rather than just something.
         //This makes it clearer what the intention behind it is. eg. editor.save()
-        $rootScope.editor = {
-            workspace: Blockly.inject('blocklyDiv', {
-                    toolbox: null,
-                    rtl: false,
-                    comments: true,
-                    collapse: true,
-                    scrollbars: true,
-                    grid: {
-                        spacing: 25,
-                        length: 3,
-                        colour: '#ccc',
-                        snap: true
-                    },
-                    zoom: {
-                        enabled: true
-                    }
-                }),
-            selectedBot: null,
-            allBots: function () {
-                return $rootScope.builtInBots.list.concat($rootScope.user.bots.list);
-            },
-            loadBlocklyDiv: function(toolbox){
-                $rootScope.editor.workspace.dispose();
-                $rootScope.editor.workspace = Blockly.inject('blocklyDiv', {
-                    toolbox: toolbox,
-                    rtl: false,
-                    comments: true,
-                    collapse: true,
-                    scrollbars: true,
-                    grid: {
-                        spacing: 25,
-                        length: 3,
-                        colour: '#ccc',
-                        snap: true
-                    },
-                    zoom: {
-                        enabled: true
-                    }
-                });
-            },
-            reset: function(){
-                $rootScope.editor.build.reset();
-                $rootScope.editor.game.hardReset();
-                $rootScope.editor.selectedBot = null;
-                Blockly.mainWorkspace.clear();
-            },
-            switchWorkspace: function () {
-                Blockly.Xml.domToWorkspace($rootScope.editor.workspace, Blockly.Xml.textToDom($rootScope.editor.selectedBot.xml));
-            },
-            build: {
-                //How many bots in queue
-                total: 100,
-                //position in queue
-                position: 100,
-                //Whether a build is in progress
-                active: '',
-                //eg success error etc.
-                type: null,
-                //The text to show on the bar
-                text: 'Press save to build your bot',
-
-                //Rests the build to default,
-                reset: function () {
-                    $rootScope.editor.build.total = 100;
-                    $rootScope.editor.build.active = '';
-                    $rootScope.editor.build.type = null;
-                    $rootScope.editor.build.text = 'Press save to build your bot';
-                },
-                //Updates the progress bar
-                update: function (position, pass) {
-                    if (position === -1) {
-                        $rootScope.editor.build.position = $rootScope.editor.build.total;
-                    } else {
-                        $rootScope.editor.build.position = position;
-                    }
-
-                    if ($rootScope.editor.build.position !== $rootScope.editor.build.total) {
-                        $rootScope.editor.build.active = 'active';
-                        $rootScope.editor.build.type = null;
-                        $rootScope.editor.build.text =
-                            'In queue... ' + $rootScope.editor.build.position + '/' + $rootScope.editor.build.total;
-                    } else if (pass) {
-                        $rootScope.editor.build.active = '';
-                        $rootScope.editor.build.type = 'success';
-                        $rootScope.editor.build.text = 'Build Success';
-                    } else {
-                        $rootScope.editor.build.active = '';
-                        $rootScope.editor.build.type = 'error';
-                        $rootScope.editor.build.text = 'Build Failure';
-                    }
-                },
-                checkStatus: function () {
-                    $http.get('buildStatus/' + $rootScope.editor.selectedBot.id)
-                        .success(function (data) {
-                            if (data.done) {
-                                if (data.error) {
-                                    $rootScope.editor.build.update(100, false);
-                                } else {
-                                    $rootScope.editor.build.update(100, true);
-                                }
-                            } else {
-                                $rootScope.editor.build.update(data.currentPosition, true);
-                                $rootScope.editor.build.total = data.queueSize;
-                            }
-                        })
-                        .error(function () {
-                            console.error("Failed to check status");
-                        });
-                }
-            },
-            //The modal for selecting create new bot options
-            modal: {
-                //The modal itself
-                instance: null,
-                //The currently selected bot to use as a template
-                selectedBot: null,
-                //When the modal ok button is pressed create a new bot and close modal
-                ok: function (name, bot) {
-                    $rootScope.editor.modal.instance.dismiss();
-                    $rootScope.user.bots.add({name: name, src: bot.src, xml: bot.xml, new: true});
-                    $rootScope.user.bots.select(bot);
-                },
-                //When the modal cancel button close the model
-                cancel: function () {
-                    $rootScope.editor.modal.instance.dismiss();
-                },
-                //Generate and display the modal
-                create: function () {
-                    if(!$rootScope.editor.modal.selectedBot){
-                        $rootScope.editor.modal.selectedBot = $rootScope.builtInBots.list[0];
-                    }
-                    $rootScope.editor.modal.instance = $modal.open({
-                        animation: true,
-                        templateUrl: './static/html/newBotModal.html',
-                        size: "small",
-                        resolve: {
-                            bots: function () {
-                                return $rootScope.builtInBots.list;
-                            }
-                        }
-                    });
-                }
-            },
-            game: {
-                moves: null,
-                state: null,
-                position: 0,
-                images: {
-                    hit: 'static/images/hit.png',
-                    miss: 'static/images/miss.png',
-                    sunk: 'static/images/sunk.png'
-                },
-                create: function () {
-                    $http.post('creategame_b2b', "" + $rootScope.editor.selectedBot.id + "\n" + $rootScope.editor.selectedBot.id + "\n")
-                        .success(function (data, status, headers) {
-                            //TODO Track the current progress of the bot
-                            $rootScope.editor.game.getMoves(headers("Location"));
-                        })
-                        .error(function () {
-                            console.error("Couldnt create bot to bot game");
-                        });
-                },
-                getMoves: function (url) {
-                    $http.get(url)
-                        .success(function (data) {
-                            console.log(data);
-                            $rootScope.editor.game.moves = data.moves.filter(function (move) {
-                                if (move.wasPlayer1) return move;
-                            });
-                            $rootScope.editor.game.run();
-                        })
-                        .error(function () {
-                            console.error("Could retrieve game moves");
-                        })
-                },
-                run: function () {
-                    $rootScope.editor.game.reset();
-                    $rootScope.editor.game.state = $interval(function () {
-                        var move = $rootScope.editor.game.moves[$rootScope.editor.game.position];
-                        if (move) {
-                            var posA = "a" + (move.coord.x * 10 + move.coord.y);
-                            if (move.wasShip) {
-                                document.getElementById(posA).innerHTML = "<img src='static/images/hit.png'/>";
-                            } else {
-                                document.getElementById(posA).innerHTML = "<img src='static/images/miss.png'/>";
-                            }
-                            move.sunk.forEach(function (move) {
-                                posA = "a" + (move.x * 10 + move.y);
-                                document.getElementById(posA).innerHTML = "<img src='static/images/sunk.png'/>"
-                            });
-                        }
-                        $rootScope.editor.game.position++;
-                    }, 100, $rootScope.editor.game.moves.length);
-                },
-                restart: function () {
-                    $rootScope.editor.game.reset();
-                    $rootScope.editor.game.run();
-                },
-                reset: function () {
-                    $interval.cancel($rootScope.editor.game.state);
-                    $rootScope.editor.game.state = null;
-
-                    for (var i = 0; i < 100; i++) {
-                        $("#a" + i).html("");
-
-                    }
-                    $rootScope.editor.game.position = 0;
-                },
-                hardReset: function () {
-                    $rootScope.editor.game.reset();
-                    $rootScope.editor.game.moves = null;
-                }
-            }
-        }
+        //$rootScope.editor = {
+        //    reset: function () {
+        //        $rootScope.editor.build.reset();
+        //        $rootScope.editor.game.hardReset();
+        //        $rootScope.editor.selectedBot = null;
+        //        Blockly.mainWorkspace.clear();
+        //    },
     });
