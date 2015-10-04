@@ -16,17 +16,19 @@ angular
                 showSharedBots: "=?",
                 builtInBots: "=?",
                 userBots: "=?",
-                botSelector: "="
+                botSelector: "=?"
             },
             // Declare Variables on directive load
             // The eval simply says to evaluate the expression inside the attribute,
             // rather than passing it as a static string/number
-            link: function(scope, element, attrs){
+            link: {
+                pre: function(scope, element, attrs) {
 
-                scope.showUserBots = 'userBots' in attrs;
-                scope.showBuiltInBots = 'built_in_bots' in attrs;
-                scope.showSharedBots = 'shared_bots' in attrs;
-                scope.botSelector =  scope.$eval(attrs.botSelector);
+                    scope.showUserBots = 'userBots' in attrs;
+                    scope.showBuiltInBots = 'builtInBots' in attrs;
+                    scope.showSharedBots = 'sharedBots' in attrs;
+                    scope.botSelector = scope.$eval(attrs.botSelector);
+                }
             }
         };
     })
@@ -42,9 +44,14 @@ angular
                 selector : "="
             },
             link: function(scope, element, attrs) {
-                scope.group_bots = scope.$eval(attrs.bots);
-                scope.group_name = attrs.name;
-                scope.selector   = scope.$eval(attrs.botSelector);
+                if('user' in attrs){
+                    scope.group_bots = scope.$root.user.bots.list;
+                    scope.group_name = "User Bots"
+                } else {
+                    scope.group_bots = scope.$root.builtInBots.list;
+                    scope.group_name = "Built In Bots"
+                }
+                scope.selector   = scope.$parent.botSelector;
             }
         };
     });

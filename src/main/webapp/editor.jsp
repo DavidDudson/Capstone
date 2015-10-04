@@ -44,7 +44,6 @@
     <script src="static/js/sidebar.js"></script>
     <script src="static/js/bot_selector.js"></script>
     <script src="static/js/notification_bar.js"></script>
-    <script src="static/js/new_bot_modal.js"></script>
     <script src="static/js/build.js"></script>
     <script src="static/js/game.js"></script>
     <script src="static/js/editor.js"></script>
@@ -52,42 +51,19 @@
 </head>
 <body ng-init="createUser('${screenName}','${profilePicture}');" ng-app="app">
 
-<!--Navigation bar-->
 <page-header></page-header>
-<!--End Navigation bar-->
 
 <toolbox></toolbox>
 
 <div class="container_10" ng-controller="editorCtrl">
     <div id="content">
-
         <!--Main container-->
         <div class="container">
             <div class="row">
 
                 <!--Left bar-->
                 <section class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                    <div id="my_bots" class="sidebar_box">
-                        <div class="sidebar_box_inner">
-
-                            <div class="sidebar_head">
-                                My Bots
-                            </div>
-
-                            <div class="sidebar_content">
-                                <ul id="userBots" class="list_block">
-                                    <li ng-repeat="bot in user.bots.list" class="bot"
-                                        ng-style="{'background-color': editor.selectedBot == bot ? 'red' : ''}"
-                                        ng-click="user.bots.select(bot)">
-                                        {{bot.name}}
-                                    </li>
-                                    <li class="bot" style="color:darkred" ng-show="user.bots.list.length === 0"> No
-                                        Bots
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                    <sidebar bot_selector="botSelector" user_bots></sidebar>
                 </section>
 
                 <!--Blockly bar-->
@@ -135,7 +111,8 @@
                 </section>
 
                 <!--Test bar-->
-                <section class="col-lg-4 col-lg-offset-0 col-md-6 col-md-offset-2 col-sm-6 col-sm-offset-2 col-xs-6">
+                <section
+                        class="col-lg-4 col-lg-offset-0 col-md-6 col-md-offset-2 col-sm-6 col-sm-offset-2 col-xs-6">
                     <div class="test_grid_box">
 
                         <div class="row">

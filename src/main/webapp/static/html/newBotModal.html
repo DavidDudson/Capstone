@@ -1,34 +1,33 @@
-<div ng-controller="modalCtrl">
-    <div class="modal-header">
-        <h3 class="modal-title">Create a new Bot</h3>
-    </div>
-    <div class="modal-body">
-        <form name="modalForm">
-            <div show-errors="{trigger: 'keypress', skipFormGroupCheck: true }">
-                <h4>Name: </h4>
-                <input name="name" type="text" class="form-control" ng-model="name" ng-required
-                       ng-pattern="/^[a-zA-Z0-9]{5,15}$/" ng-trim="true"
-                       placeholder="StarbattleBot">
-            </div>
-            <div>
-                <h4>Template: </h4>
+<div class="modal-header">
+    <h3 class="modal-title">Create a new Bot</h3>
+</div>
+<div class="modal-body">
+    <form name="modalForm">
+        <div show-errors="{trigger: 'keypress', skipFormGroupCheck: true }">
+            <h4>Name: </h4>
+            <input name="name" type="text" class="form-control" ng-model="name" ng-required
+                   ng-pattern="/^[a-zA-Z0-9]{5,15}$/" ng-trim="true"
+                   placeholder="StarbattleBot">
+        </div>
+        <div>
+            <h4>Template: </h4>
 
-                <div class="btn-group" dropdown is-open="status.isopen">
-                    <button id="single-button" type="button" class="btn btn-primary" dropdown-toggle>
-                        {{modal.selectedBot == undefined ? bots[0].name : selectedBot.name}}
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
-                        <li ng-repeat="bot in bots" ng-click="selectedBot = bot"><a href="#">{{bot.name}}</a>
-                        </li>
-                    </ul>
-                </div>
+            <div class="btn-group" dropdown is-open="status.isopen">
+                <button id="single-button" type="button" class="btn btn-primary" dropdown-toggle>
+                    {{selectedBot.name}}
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
+                    <li ng-repeat="bot in modal_bots">
+                        <a ng-click="selectedBot = bot">{{bot.name}}</a>
+                    </li>
+                </ul>
             </div>
-        </form>
-    </div>
-    <div class="modal-footer">
-        <span style="color:red">{{modalForm.$valid ? "" : "Name must not contain symbols and must be 5-15 characters long"}}</span>
-        <button class="btn btn-primary" type="button" ng-click="ok(name, selectedBot)" ng-disabled="!modalForm.$valid">OK</button>
-        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
-    </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <span style="color:red">{{modalForm.$valid ? "" : "Name must not contain symbols and must be 5-15 characters long"}}</span>
+    <button class="btn btn-primary" type="button" ng-click="ok(name, selectedBot)" ng-disabled="!modalForm.$valid">OK</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
 </div>

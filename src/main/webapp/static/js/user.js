@@ -4,10 +4,11 @@ angular.module("app")
 //Makes a user, Requires the BotService
 function UserService(Bots) {
     return function (username, profilePicture) {
-        return {
+        var user = {
             name: username,
             profilePictureUrl: profilePicture,
-            bots: Bots("__current_user")
-        }
+            bots : Bots("__current_user"),
+        };
+        return user;
     }
 }
