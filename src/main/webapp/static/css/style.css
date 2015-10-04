@@ -58,7 +58,7 @@ a:hover {
 ul.list_inline {
 	list-style-type: none;
 	padding-left: 0;
-	margin: 0;
+	margin-top: 4px;
 	padding: 0;
 }
 
@@ -74,6 +74,7 @@ ul.list_block {
 
 ul.list_block li {
 	display: block;
+        color:white;
 }
 
 ul.list_inline-block {
@@ -177,7 +178,6 @@ input[type=submit].search_btn {
 
 #user {
 	position: relative;
-	width: 25%;
 	text-align: right;
 }
 
@@ -480,7 +480,7 @@ body
 
 #nav_menu ul li
 	{
-	padding:12px 15px 14px 15px;
+	padding:8px 15px 14px 15px;
 	}
 	
 #nav_menu ul li:hover,
@@ -803,7 +803,6 @@ input.search_btn[type="submit"]
 	box-shadow:none;
 	background:#fff;
 	color:#1a445b;
-	text-align:left;
 	margin-top:5px;
 	}
 #game_controls .sidebar_content
@@ -818,7 +817,7 @@ input.search_btn[type="submit"]
   -webkit-box-shadow:inset  3px 3px 27px 6px #000000;
   
    box-shadow:inset         2px 2px 27px 6px #000000;
-   
+   color:white;
    border-radius:10px;
    position:relative;
    width:100%;
@@ -882,10 +881,6 @@ input.search_btn[type="submit"]
 	position:relative;
 	float:left;
 	width:100%;
-	}
-#controls
-	{
-	padding:3px 15px;
 	}
 
 #results ul

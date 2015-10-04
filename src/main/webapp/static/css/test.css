@@ -22,11 +22,12 @@ body {
 	width: 100%;
 }
 
-.container_12 { 
+.container_11 { 
 	position: relative; 
 	margin: 0 auto; 
+        margin-top: 20px;
 	width: 1200px;
-	padding: 20px;
+	padding: 50px;
 }
 
 img {

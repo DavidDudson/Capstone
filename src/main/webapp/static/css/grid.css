@@ -12,7 +12,7 @@
 /* #Base 960 Grid
 ================================================== */
 
-    .container_12{ position: relative; margin: 0px auto; width: 80%;}
+    .container_12{ position: relative; margin: 0px auto; margin-top:20px; width: 80%;}
 	
    
 
@@ -133,6 +133,7 @@
 		position: absolute;
 		right: 0px;
 		top: 0;
+                
 	}
 	
 	#game_controls.sidebar_box {
