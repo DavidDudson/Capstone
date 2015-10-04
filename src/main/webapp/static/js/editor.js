@@ -43,6 +43,12 @@ angular
             return builtIn.concat(user);
         };
 
+        $scope.select = function(bot){
+            $scope.selector.select(bot);
+            $scope.reset();
+            $scope.loadBlocklyDiv(document.getElementById('toolbox'))
+        };
+
         $scope.createNewBot = function () {
             var allBots = $scope.allBots();
             $scope.modal = $modal.open({
@@ -77,6 +83,7 @@ angular
             $scope.build.reset();
             $scope.botSelector.reset();
             Blockly.mainWorkspace.clear();
+            $scope.loadBlocklyDiv(null);
         };
 
         $scope.loadBlocklyDiv = function (toolbox) {
