@@ -9,13 +9,13 @@
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
     <link rel="stylesheet" type="text/css" href="static/css/index.css">
 
-    <script src="static/js/jquery-1.11.3.min.js"></script>
+    <script src="./static/js/lib/jquery-1.11.3.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.4/ui-bootstrap-tpls.min.js"></script>
-    <script src="static/js/app.js"></script>
-    <script src="static/js/bots.js"></script>
-    <script src="static/js/user.js"></script>
-    <script src="static/js/showErrors.min.js"></script>
+    <script src="./static/js/lib/showErrors.min.js"></script>
+    <script src="./static/js/app.js"></script>
+    <script src="./static/js/bots.js"></script>
+    <script src="./static/js/user.js"></script>
 </head>
 
 <body>
