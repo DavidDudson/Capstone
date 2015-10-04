@@ -1,11 +1,11 @@
 angular.module("app")
-    .factory("UserBots", UserBotService);
+    .factory("Bots", BotService);
 
 // Makes a user, Requires the BotService
 // Methods with an _ in front should be considered private.
-function UserBotService($http) {
+function BotService($http) {
 
-    return function () {
+    return function (name) {
         var bots = {
             list: [],
             //Add a bot to the list
@@ -40,7 +40,7 @@ function UserBotService($http) {
                 }
             },
             update: function () {
-                $http.get("userbots/__current_user")
+                $http.get("userbots/" + name)
                     .success(function (data) {
                         data.collection.items.forEach(function (bot) {
                             bots._addSource(bot);

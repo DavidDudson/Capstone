@@ -30,32 +30,4 @@ angular
             $rootScope.user = User(username,profilePictureUrl)
         };
 
-        $rootScope.builtInBots = {
-            list: [],
-            update: function () {
-                $http.get("userbots/builtinbots")
-                    .success(function (data) {
-                        var botList = data.collection.items;
-
-                        botList.forEach(function (bot) {
-                            $rootScope.builtInBots.src(bot);
-                        });
-
-                        return $rootScope.builtInBots.list = botList;
-                    })
-                    .error(function () {
-                        console.error("Update Built in bots Failure");
-                    });
-            },
-            src: function (bot) {
-                $http.get("bots-src/" + bot.id)
-                    .success(function (data) {
-                        bot.src = data;
-                        bot.xml = data.match(/<xml.*>/);
-                    })
-                    .error(function () {
-                        console.error("Source could not be loaded for: " + bot.id);
-                    });
-            }
-        }
     });

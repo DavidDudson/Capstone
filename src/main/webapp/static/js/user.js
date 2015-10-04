@@ -7,7 +7,7 @@ function UserService(Bots) {
         return {
             name: username,
             profilePictureUrl: profilePicture,
-            bots: Bots("User")
+            bots: Bots
         }
     }
 }
