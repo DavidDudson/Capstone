@@ -18,8 +18,8 @@
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
-                    <li ng-repeat="bot in modal_bots">
-                        <a ng-click="selectedBot = bot">{{bot.name}}</a>
+                    <li ng-repeat="bot in modal_bots" ng-click="selectedBot = bot">
+                        {{bot.name}}
                     </li>
                 </ul>
             </div>
