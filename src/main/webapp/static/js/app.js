@@ -12,7 +12,7 @@ angular
             replace: true
         }
     })
-    .controller("appCtrl", function (User, $http, $rootScope) {
+    .controller("appCtrl", function (Bots, User, $http, $rootScope) {
         //The reason i have done it this way is so in the
         //html you type app.something, rather than just something.
         //This makes it clearer what the intention behind it is. eg. app.name()
@@ -25,6 +25,8 @@ angular
 
         //The user object
         $rootScope.user = undefined;
+
+        $rootScope.builtInBots = Bots("builtinbots");
 
         $rootScope.createUser = function (username, profilePictureUrl) {
             $rootScope.user = User(username, profilePictureUrl)

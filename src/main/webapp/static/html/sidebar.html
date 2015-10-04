@@ -1,6 +1,6 @@
 <div id="sidebar_left" class="sidebar left">
-    <bot_group ng-if="showUserBots" name="Your Bots" bots="user.bots.list" selector="botSelector"></bot_group>
-    <bot_group ng-if="showBuiltInBots" name="Built In Bots" bots="builtInBots.list" selector="botSelector"></bot_group>
+    <bot_group ng-if="showUserBots" user></bot_group>
+    <bot_group ng-if="showBuiltInBots" builtIn></bot_group>
 
     <div ng-if="showSharedBots" id="shared_bots" class="sidebar_box">
         <div class="sidebar_box_inner">

@@ -9,6 +9,9 @@ function BotService($http) {
     return function (name) {
         var bots = {
             list: [],
+            get: function(){
+                return bots.list;
+            },
             //Add a bot to the list
             add: function (bot) {
                 bots.list.push(bot);
@@ -44,6 +47,7 @@ function BotService($http) {
                 $http.get("userbots/" + name)
                     .success(function (data) {
                         data.collection.items.forEach(function (bot) {
+                            bots.add(bot);
                             bots._addSource(bot);
                         });
                     })
@@ -118,6 +122,7 @@ function BotService($http) {
         };
 
         bots.update();
+        console.log(bots);
         return bots;
     }
 }

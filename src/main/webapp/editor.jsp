@@ -46,7 +46,6 @@
     <script src="static/js/sidebar.js"></script>
     <script src="static/js/bot_selector.js"></script>
     <script src="static/js/notification_bar.js"></script>
-    <script src="static/js/new_bot_modal.js"></script>
     <script src="static/js/build.js"></script>
     <script src="static/js/game.js"></script>
     <script src="static/js/editor.js"></script>
@@ -54,37 +53,35 @@
 </head>
 <body ng-init="createUser('${screenName}','${profilePicture}');" ng-app="app">
 
-<!--Navigation bar-->
 <page-header></page-header>
-<!--End Navigation bar-->
 
 <toolbox></toolbox>
 
 <div class="container_10" ng-controller="editorCtrl">
-    <sidebar bot_selector="editor.botSelector" user_bots></sidebar>
+    <sidebar bot_selector="botSelector" user_bots></sidebar>
 
     <div id="main_content" style="color:white">
         <div class="main-cont-menu">
             <ul>
                 <li>
-                    <button class="btn btn-info btn-lg" ng-click="editor.modal.create()">
+                    <button class="btn btn-info btn-lg" ng-click="createNewBot()">
                         New
                     </button>
                 </li>
                 <li>
-                    <button id="del" class="btn btn-info btn-lg" ng-click="user.bots.delete()"
-                            ng-disabled="!editor.selectedBot"> Delete
+                    <button id="del" class="btn btn-info btn-lg" ng-click="user.bots.delete(botSelector.bots[0])"
+                            ng-disabled="!botSelector.bots"> Delete
                     </button>
                 </li>
                 <li>
-                    <button id="save" class="btn btn-info btn-lg" ng-click="user.bots.save()"
-                            ng-disabled="!editor.selectedBot"> Save
+                    <button id="save" class="btn btn-info btn-lg" ng-click="user.bots.save(botSelector.bots[0])"
+                            ng-disabled="!botSelector.bots"> Save
                     </button>
                 </li>
                 <li>
-                    <button id="share" class="btn btn-info btn-lg" ng-click="user.bots.share()"
-                            ng-disabled="!editor.selectedBot || editor.selectedBot.new">
-                        {{editor.selectedBot.share === true ? "Unshare" : "Share"}}
+                    <button id="share" class="btn btn-info btn-lg" ng-click="user.bots.share(botSelector.bots[0])"
+                            ng-disabled="!botSelector.bots || botSelector.bots[0].new">
+                        {{botSelector.bots[0].share === true ? "Unshare" : "Share"}}
                     </button>
                 </li>
             </ul>
@@ -96,14 +93,14 @@
 
         <div>
             <progressbar class="progress-striped"
-                         ng-class="editor.build.active"
-                         ng-value="editor.build.progress" type="{{editor.build.type}}"
-                         style="width:100%; height: 40px"><b>{{editor.build.text}}</b></progressbar>
+                         ng-class="notificationBar.active"
+                         ng-value="notificationBar.progress" type="{{notificationBar.type}}"
+                         style="width:100%; height: 40px"><b>{{notificationBar.text}}</b></progressbar>
         </div>
     </div>
     <div class="test_grid_box">
         <div class="sidebar_head">
-            {{!editor.selectedBot ? "Select a bot first" : editor.selectedBot.name}}
+            {{!botSelector.bots ? "Select a bot first" : botSelector.bots[0].name}}
         </div>
         <ul class="test_grid">
             <%for (int i = 0; i < 10; i++) {%>
@@ -114,19 +111,17 @@
             <%}%>
 
         </ul>
-        <button id="test" class="btn btn-info btn-lg" ng-click="editor.game.create()"
-                ng-disabled="!editor.selectedBot || editor.selectedBot.new || editor.selectedBot.position == 0"> Test
+        <button id="test" class="btn btn-info btn-lg" ng-click="game.create()"
+                ng-disabled="!botSelector.bots || botSelector.bots[0].new || botSelector.bots[0].position == 0"> Test
         </button>
-        <button id="restart" class="btn btn-info btn-lg" ng-click="editor.game.restart()"
-                ng-disabled="!editor.selectedBot || editor.selectedBot.new || !editor.game.moves"> Restart
+        <button id="restart" class="btn btn-info btn-lg" ng-click="game.restart()"
+                ng-disabled="!botSelector.bots || botSelector.bots[0].new || !game.moves"> Restart
         </button>
-        <button id="reset" class="btn btn-info btn-lg" ng-click="editor.game.reset()"
-                ng-disabled="!editor.selectedBot || editor.selectedBot.new || !editor.game.moves"> Reset
+        <button id="reset" class="btn btn-info btn-lg" ng-click="game.reset()"
+                ng-disabled="!botSelector.bots || botSelector.bots[0].new || !game.moves"> Reset
         </button>
 
     </div>
-</div>
-
 </div>
 
 </body>
