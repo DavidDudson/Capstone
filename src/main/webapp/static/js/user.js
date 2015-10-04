@@ -7,7 +7,7 @@ function UserService(Bots) {
         return {
             name: username,
             profilePictureUrl: profilePicture,
-            bots: Bots
+            bots: Bots("__current_user")
         }
     }
 }

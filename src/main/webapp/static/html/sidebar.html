@@ -1,0 +1,21 @@
+<div id="sidebar_left" class="sidebar left">
+    <bot_group ng-if="showUserBots" name="Your Bots" bots="user.bots.list" selector="botSelector"></bot_group>
+    <bot_group ng-if="showBuiltInBots" name="Built In Bots" bots="builtInBots.list" selector="botSelector"></bot_group>
+
+    <div ng-if="showSharedBots" id="shared_bots" class="sidebar_box">
+        <div class="sidebar_box_inner">
+            <div class="sidebar_head">
+                Shared Bots
+            </div>
+
+            <div class="sidebar_content">
+                <div id="search">
+                    <form>
+                        <input class="search_box" type="text" value="Search..." />
+                        <input class="search_btn" type="submit" value="" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
