@@ -12,32 +12,32 @@
 <head>
     <meta charset="utf-8">
     <title>{{app.name}} Editor</title>
-    <script type="text/javascript" src="static/js/blockly/blockly_uncompressed.js"></script>
-    <script type="text/javascript" src="static/js/blockly/java.js"></script>
-    <script type="text/javascript" src="static/js/blockly/java/logic.js"></script>
-    <script type="text/javascript" src="static/js/blockly/java/loops.js"></script>
-    <script type="text/javascript" src="static/js/blockly/java/math.js"></script>
-    <script type="text/javascript" src="static/js/blockly/java/text.js"></script>
-    <script type="text/javascript" src="static/js/blockly/java/lists.js"></script>
-    <script type="text/javascript" src="static/js/blockly/java/variables.js"></script>
-    <script type="text/javascript" src="static/js/blockly/java/procedures.js"></script>
-    <script type="text/javascript" src="static/js/blockly/java/customBlocks.js"></script>
-    <script type="text/javascript" src="static/js/blockly/messages.js"></script>
-    <script type="text/javascript" src="static/js/blockly/blocks/logic.js"></script>
-    <script type="text/javascript" src="static/js/blockly/blocks/loops.js"></script>
-    <script type="text/javascript" src="static/js/blockly/blocks/math.js"></script>
-    <script type="text/javascript" src="static/js/blockly/blocks/text.js"></script>
-    <script type="text/javascript" src="static/js/blockly/blocks/lists.js"></script>
-    <script type="text/javascript" src="static/js/blockly/blocks/variables.js"></script>
-    <script type="text/javascript" src="static/js/blockly/blocks/procedures.js"></script>
-    <script type="text/javascript" src="static/js/blockly/blocks/customBlocks.js"></script>
+    <script type="text/javascript" src="static/js/lib/blockly/blockly_uncompressed.js"></script>
+    <script type="text/javascript" src="static/js/lib/blockly/java.js"></script>
+    <script type="text/javascript" src="static/js/lib/blockly/java/logic.js"></script>
+    <script type="text/javascript" src="static/js/lib/blockly/java/loops.js"></script>
+    <script type="text/javascript" src="static/js/lib/blockly/java/math.js"></script>
+    <script type="text/javascript" src="static/js/lib/blockly/java/text.js"></script>
+    <script type="text/javascript" src="static/js/lib/blockly/java/lists.js"></script>
+    <script type="text/javascript" src="static/js/lib/blockly/java/variables.js"></script>
+    <script type="text/javascript" src="static/js/lib/blockly/java/procedures.js"></script>
+    <script type="text/javascript" src="static/js/lib/blockly/java/customBlocks.js"></script>
+    <script type="text/javascript" src="static/js/lib/blockly/messages.js"></script>
+    <script type="text/javascript" src="static/js/lib/blockly/blocks/logic.js"></script>
+    <script type="text/javascript" src="static/js/lib/blockly/blocks/loops.js"></script>
+    <script type="text/javascript" src="static/js/lib/blockly/blocks/math.js"></script>
+    <script type="text/javascript" src="static/js/lib/blockly/blocks/text.js"></script>
+    <script type="text/javascript" src="static/js/lib/blockly/blocks/lists.js"></script>
+    <script type="text/javascript" src="static/js/lib/blockly/blocks/variables.js"></script>
+    <script type="text/javascript" src="static/js/lib/blockly/blocks/procedures.js"></script>
+    <script type="text/javascript" src="static/js/lib/blockly/blocks/customBlocks.js"></script>
     
     <link rel="icon" type="image/png" href="static/images/favicon.ico" sizes="32x32">
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
     <link rel="stylesheet" type="text/css" href="static/css/editor.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
-    <script src="static/js/jquery-1.11.3.min.js"></script>
+    <script src="static/js/lib/jquery-1.11.3.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.4/ui-bootstrap-tpls.min.js"></script>
     <script src="static/js/app.js"></script>
@@ -49,7 +49,7 @@
     <script src="static/js/build.js"></script>
     <script src="static/js/game.js"></script>
     <script src="static/js/editor.js"></script>
-    <script src="static/js/showErrors.min.js"></script>
+    <script src="static/js/lib/showErrors.min.js"></script>
 </head>
 <body ng-init="createUser('${screenName}','${profilePicture}');" ng-app="app">
 
