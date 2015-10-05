@@ -10,6 +10,11 @@
 <html ng-app="app" ng-controller="appCtrl">
 <head>
     <title>{{app.name}} Editor</title>
+    <link rel="icon" type="image/png" href="static/images/favicon.ico" sizes="32x32">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="static/css/editor.css">
+
     <script type="text/javascript" src="static/js/lib/blockly/blockly_uncompressed.js"></script>
     <script type="text/javascript" src="static/js/lib/blockly/java.js"></script>
     <script type="text/javascript" src="static/js/lib/blockly/java/logic.js"></script>
@@ -29,7 +34,7 @@
     <script type="text/javascript" src="static/js/lib/blockly/blocks/variables.js"></script>
     <script type="text/javascript" src="static/js/lib/blockly/blocks/procedures.js"></script>
     <script type="text/javascript" src="static/js/lib/blockly/blocks/customBlocks.js"></script>
-
+    
     <link rel="icon" type="image/png" href="static/images/favicon.ico" sizes="32x32">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="static/css/style.css">

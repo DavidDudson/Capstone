@@ -38,7 +38,7 @@ function BuildService($http) {
             //Updates the progress bar
             update: function (complete, position, pass) {
                 if (!complete) {
-                    notificationBar.postion = postion;
+                    notificationBar.postion = position;
                     notificationBar.type = null;
                     notificationBar.active = true;
                     notificationBar.text = 'Position in queue... ' + notificationBar.position;
@@ -48,7 +48,7 @@ function BuildService($http) {
                         notificationBar.type = 'success';
                         notificationBar.text = 'Build Success';
                     } else {
-                        notificationBar.type = 'failure';
+                        notificationBar.type = 'danger';
                         notificationBar.text = 'Build Failure';
                     }
                 }
@@ -58,10 +58,10 @@ function BuildService($http) {
                 $http.get(url)
                     .success(function (data) {
                         if (data.done) {
-                            if (data.error) {
-                                build.update(true, 100, false);
-                            } else {
+                            if (!data.error) {
                                 build.update(true, 100, true);
+                            } else {
+                                build.update(true, 100, false);
                             }
                         } else {
                             build.update(false, data.currentPosition, true);

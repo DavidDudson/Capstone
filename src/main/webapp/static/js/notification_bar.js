@@ -9,6 +9,8 @@ function NotificationBarService() {
             complete: true,
             //position in queue
             position: 100,
+            //Whether or not a build is active
+            active: false,
             //eg success error etc.
             type: null,
             //The text to show on the bar
@@ -16,7 +18,6 @@ function NotificationBarService() {
 
             //Rests the build to default,
             reset: function () {
-                notificationBar.total = 100;
                 notificationBar.position = 100;
                 notificationBar.type = null;
                 notificationBar.text = 'Click Save or Test to get started';

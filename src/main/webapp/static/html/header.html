@@ -1,12 +1,7 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <ul class="nav navbar-nav navbar-left">
-            <li><a class="navbar-brand" href="index.jsp">
-                <span>
-                    <img src="static/images/rocketship-small.png" alt="RocketShip" height="32" width="32">
-                    {{app.name}}
-                </span>
-            </a></li>
+            <li><a class="navbar-brand" href="index.jsp"><img src="static/images/rocketship-small.png" alt="RocketShip" height="32" width="32"> {{app.name}} </a></li>
             <li><a href="editor.jsp"> Editor </a></li>
             <li><a href="test.jsp"> Test </a></li>
             <li><a href="about.jsp"> About </a></li>
@@ -14,8 +9,8 @@
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
-            <li class="username"><a href="logout">{{user.name}}</a></li>
-            <li class="logout"><a href="logout">Logout</a></li>
+            <li class="username"> <a href="logout">{{user.name}}</a> </li>
+            <li> <a class="logout" href="logout">Logout</a> </li>
             <li class="profilePictureContent" ng-if="user.profilePictureUrl != ''">
                 <img ng-src="{{user.profilePictureUrl}}" class="img-responsive img-rounded center-block"
                      style="width: 40px;" alt="Profile Picture"/>
