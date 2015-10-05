@@ -34,7 +34,7 @@
     <script type="text/javascript" src="static/js/lib/blockly/blocks/variables.js"></script>
     <script type="text/javascript" src="static/js/lib/blockly/blocks/procedures.js"></script>
     <script type="text/javascript" src="static/js/lib/blockly/blocks/customBlocks.js"></script>
-    
+
     <link rel="icon" type="image/png" href="static/images/favicon.ico" sizes="32x32">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
@@ -121,8 +121,10 @@
                                 {{!editor.selectedBot ? "Select a bot first" : editor.selectedBot.name}}
                             </div>
                         </div>
-
-                        <div class="row">
+                        <div class="test_grid_box">
+                            <div class="sidebar_head">
+                                {{!botSelector.bots ? "Select a bot first" : botSelector.bots[0].name}}
+                            </div>
                             <ul class="test_grid">
                                 <%for (int i = 0; i < 10; i++) {%>
                                 <%for (int j = 0; j < 10; j++) {%>
@@ -131,19 +133,16 @@
                                 <br/>
                                 <%}%>
                             </ul>
-                        </div>
-                        <div class="row">
-                            <button id="test" class="btn btn-info btn-lg" ng-click="editor.game.create()"
-                                    ng-disabled="!editor.selectedBot || editor.selectedBot.new || editor.selectedBot.position == 0">
+                            <button id="test" class="btn btn-info btn-lg"
+                                    ng-click="game.create(botSelector.bots[0], botSelector.bots[0], true)"
+                                    ng-disabled="!botSelector.bots || botSelector.bots[0].new || botSelector.bots[0].position == 0">
                                 Test
                             </button>
-                            <button id="restart" class="btn btn-info btn-lg" ng-click="editor.game.restart()"
-                                    ng-disabled="!editor.selectedBot || editor.selectedBot.new || !editor.game.moves">
-                                Restart
+                            <button id="restart" class="btn btn-info btn-lg" ng-click="game.restart()"
+                                    ng-disabled="!botSelector.bots || botSelector.bots[0].new || !game.moves"> Restart
                             </button>
-                            <button id="reset" class="btn btn-info btn-lg" ng-click="editor.game.reset()"
-                                    ng-disabled="!editor.selectedBot || editor.selectedBot.new || !editor.game.moves">
-                                Reset
+                            <button id="reset" class="btn btn-info btn-lg" ng-click="game.reset()"
+                                    ng-disabled="!botSelector.bots || botSelector.bots[0].new || !game.moves"> Reset
                             </button>
                         </div>
                     </div>

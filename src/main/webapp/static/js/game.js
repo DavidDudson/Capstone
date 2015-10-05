@@ -10,28 +10,29 @@ function GameService($http, $interval) {
             moves: null,
             state: null,
             position: 0,
-            images: {
-                hit: 'static/images/hit.png',
-                miss: 'static/images/miss.png',
-                sunk: 'static/images/sunk.png'
-            },
-            create: function () {
-                $http.post('creategame_b2b', "" + selectedBot.id + "\n" + selectedBot.id + "\n")
+            create: function (bot1, bot2, testing) {
+                if(notificationBar.active) return;
+                var data = testing ? "" + bot1.id + "\n" + bot1.id + "\n" : "" + bot1.id + "\n" + bot2.id + "\n";
+                $http.post('creategame_b2b', data)
                     .success(function (data, status, headers) {
                         //TODO Track the current progress of the bot
-                        game.getMoves(headers("Location"));
+                        game.getMoves(headers("Location"), testing);
                     })
                     .error(function () {
                         console.error("Couldnt create bot to bot game");
                     });
             },
-            getMoves: function (url) {
+            getMoves: function (url, testing) {
                 $http.get(url)
                     .success(function (data) {
                         console.log(data);
-                        game.moves = data.moves.filter(function (move) {
-                            if (move.wasPlayer1) return move;
-                        });
+                        if(testing){
+                            game.moves = data.moves.filter(function (move) {
+                                if (move.wasPlayer1) return move;
+                            });
+                        } else{
+                            game.moves = data.moves
+                        }
                         game.run();
                     })
                     .error(function () {
@@ -43,15 +44,16 @@ function GameService($http, $interval) {
                 game.state = $interval(function () {
                     var move = game.moves[game.position];
                     if (move) {
-                        var posA = "a" + (move.coord.x * 10 + move.coord.y);
+                        var player = move.wasPlayer1 ? "a" : "b";
+                        var coordinate = player + (move.coord.x * 10 + move.coord.y);
                         if (move.wasShip) {
-                            document.getElementById(posA).innerHTML = "<img src='static/images/hit.png'/>";
+                            document.getElementById(coordinate).innerHTML = "<img src='static/images/hit.png'/>";
                         } else {
-                            document.getElementById(posA).innerHTML = "<img src='static/images/miss.png'/>";
+                            document.getElementById(coordinate).innerHTML = "<img src='static/images/miss.png'/>";
                         }
                         move.sunk.forEach(function (move) {
-                            posA = "a" + (move.x * 10 + move.y);
-                            document.getElementById(posA).innerHTML = "<img src='static/images/sunk.png'/>"
+                            coordinate = player + (move.x * 10 + move.y);
+                            document.getElementById(coordinate).innerHTML = "<img src='static/images/sunk.png'/>"
                         });
                     }
                     game.position++;
@@ -67,6 +69,7 @@ function GameService($http, $interval) {
 
                 for (var i = 0; i < 100; i++) {
                     $("#a" + i).html("");
+                    $("#b" + i).html("");
 
                 }
                 game.position = 0;

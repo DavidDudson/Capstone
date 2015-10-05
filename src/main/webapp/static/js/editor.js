@@ -28,13 +28,15 @@ angular
             }
         });
 
-        $scope.game = Game();
+        $scope.notificationBar = NotificationBar();
+
         //Create a new bot selector that can select 1 bot at a time
         $scope.botSelector = BotSelector(1);
+
         //Watches the bot list in the botSelector
         $scope.bots = $scope.botSelector.bots;
 
-        $scope.notificationBar = NotificationBar();
+        $scope.game = Game($scope.notificationBar);
 
         $scope.save = function () {
             $scope.syncSource();
