@@ -36,18 +36,28 @@ angular
 
         $scope.notificationBar = NotificationBar();
 
+        $scope.save = function () {
+            $scope.syncSource();
+            $rootScope.user.bots.save($scope.botSelector.getBots()[0], $scope.notificationBar)
+
+        };
+
         $scope.allBots = function () {
             var builtIn = $scope.builtInBots.get();
             var user = $scope.user.bots.get();
             return builtIn.concat(user);
         };
 
-        // in rootscope so it can be accessed from anywhere
-        $rootScope.select = function (bot) {
+        $scope.syncSource = function () {
             if ($scope.botSelector.getBots()) {
                 $scope.user.bots.updateSource($scope.botSelector.getBots()[0],
                     Blockly.Java.workspaceToCode($scope.workspace, ["notests"]));
             }
+        };
+
+        // in rootscope so it can be accessed from anywhere
+        $rootScope.select = function (bot) {
+            $scope.syncSource();
 
             $scope.botSelector.select(bot);
             $scope.reset();

@@ -3,15 +3,14 @@ angular.module("app")
 
 function BuildService($http) {
 
-    return function (bot, notificationBar) {
+    return function (notificationBar) {
         var build = {
 
             //Rests the build to default,
             reset: function () {
                 notificationBar.reset();
             },
-            start: function () {
-                console.log("Start");
+            start: function (bot) {
                 var botInformation = {
                     id: bot.id,
                     name: bot.name,
@@ -37,23 +36,21 @@ function BuildService($http) {
                 return $http.put('bots/' + botInformation.id, botInformation)
             },
             //Updates the progress bar
-            update: function (position, pass) {
-                console.log(position, notificationBar.position);
-                if (position === -1) {
-                    notificationBar.position = notificationBar.total;
-                } else {
-                    notificationBar.position = position;
-                }
-
-                if (notificationBar.position !== notificationBar.total) {
+            update: function (complete, position, pass) {
+                if (!complete) {
+                    notificationBar.postion = postion;
                     notificationBar.type = null;
-                    notificationBar.text = 'In queue... ' + notificationBar.position + '/' + notificationBar.total;
-                } else if (pass) {
-                    notificationBar.type = 'success';
-                    notificationBar.text = 'Build Success';
+                    notificationBar.active = true;
+                    notificationBar.text = 'Position in queue... ' + notificationBar.position;
                 } else {
-                    notificationBar.type = 'failure';
-                    notificationBar.text = 'Build Failure';
+                    notificationBar.active = false;
+                    if (pass) {
+                        notificationBar.type = 'success';
+                        notificationBar.text = 'Build Success';
+                    } else {
+                        notificationBar.type = 'failure';
+                        notificationBar.text = 'Build Failure';
+                    }
                 }
             },
             checkStatus: function (bot, buildStatusUrl) {
@@ -61,35 +58,24 @@ function BuildService($http) {
                 $http.get(url)
                     .success(function (data) {
                         if (data.done) {
-                            build.getResults(bot, data.resultsURL);
+                            if (data.error) {
+                                build.update(true, 100, false);
+                            } else {
+                                build.update(true, 100, true);
+                            }
                         } else {
-                            build.update(data.currentPosition, true);
+                            build.update(false, data.currentPosition, true);
                             notificationBar.total = data.queueSize;
-                            build.checkStatus(bot);
+                            setTimeout(function () {
+                                build.checkStatus(bot, buildStatusUrl);
+                            }, 250);
                         }
                     })
                     .error(function () {
                         console.error("Failed to check status");
                     });
-            },
-            getResults: function (bot, resultsUrl) {
-                var url = resultsUrl.replace("/Capstone/", "");
-                $http.get(url)
-                    .success(function (data) {
-                        console.log(data);
-                        if (data.error) {
-                            build.update(100, false);
-                        } else {
-                            build.update(100, true);
-                        }
-                    })
-                    .error(function () {
-                        console.error("Failed to get Build results");
-                    });
             }
         };
-
-        build.start();
         return build;
     }
 }

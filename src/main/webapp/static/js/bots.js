@@ -70,8 +70,8 @@ function BotService($http, Build) {
                 bot.xml = src.match(/<xml.*>/);
             },
             save: function (bot, notificationBar) {
-                var build = Build(bot, notificationBar);
-                build.start();
+                var build = Build(notificationBar);
+                build.start(bot);
             },
             share: function (bot) {
                 $http.post("shareBot", {

@@ -6,7 +6,7 @@ function NotificationBarService() {
     return function () {
         var notificationBar = {
             //How many bots in queue
-            total: 100,
+            complete: true,
             //position in queue
             position: 100,
             //eg success error etc.
