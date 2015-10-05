@@ -38,6 +38,13 @@
     <page-header></page-header>
     <!--End Navigation bar-->
 
+    <div>
+        <progressbar class="progress-striped"
+                     ng-class="notificationBar.active"
+                     ng-value="notificationBar.progress" type="{{notificationBar.type}}"
+                     style="width:100%; height: 40px"><b>{{notificationBar.text}}</b></progressbar>
+    </div>
+
     <div class="container_12" style="color:white">
         <div id="content">
 
@@ -71,12 +78,6 @@
                         </br>
                         <%}%>
                     </ul>
-                </div>
-                <div>
-                    <progressbar class="progress-striped"
-                                 ng-class="notificationBar.active"
-                                 ng-value="notificationBar.progress" type="{{notificationBar.type}}"
-                                 style="width:100%; height: 40px"><b>{{notificationBar.text}}</b></progressbar>
                 </div>
             </div>
 

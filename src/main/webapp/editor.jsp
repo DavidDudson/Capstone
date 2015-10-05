@@ -66,9 +66,7 @@
         <div class="container">
             <div class="row">
                 <!--Left bar-->
-                <section class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                    <sidebar bot_selector="botSelector" user_bots></sidebar>
-                </section>
+                <sidebar bot_selector="botSelector" user_bots></sidebar>
                 <!--Blockly bar-->
                 <section class="col-lg-6 col-md-8 col-sm-8 col-xs-8">
                     <div id="main_content" style="color:white">
@@ -104,16 +102,15 @@
                         </div>
                         <div>
                             <progressbar class="progress-striped"
-                                         ng-class="editor.build.active"
-                                         ng-value="editor.build.progress" type="{{editor.build.type}}"
-                                         style="width:100%; height: 40px"><b>{{editor.build.text}}</b></progressbar>
+                                         ng-class="notificationBar.active"
+                                         ng-value="notificationBar.progress" type="{{notificationBar.type}}"
+                                         style="width:100%; height: 40px"><b>{{notificationBar.text}}</b></progressbar>
                         </div>
                     </div>
                 </section>
 
                 <!--Test bar-->
-                <section
-                        class="col-lg-4 col-lg-offset-0 col-md-6 col-md-offset-2 col-sm-6 col-sm-offset-2 col-xs-6">
+                <section class="col-lg-4 col-lg-offset-0 col-md-6 col-md-offset-2 col-sm-6 col-sm-offset-2 col-xs-6">
                     <div class="test_grid_box">
 
                         <div class="row">
@@ -121,18 +118,17 @@
                                 {{!editor.selectedBot ? "Select a bot first" : editor.selectedBot.name}}
                             </div>
                         </div>
-                        <div class="test_grid_box">
-                            <div class="sidebar_head">
-                                {{!botSelector.bots ? "Select a bot first" : botSelector.bots[0].name}}
-                            </div>
+                        <div class="row">
                             <ul class="test_grid">
                                 <%for (int i = 0; i < 10; i++) {%>
-                                <%for (int j = 0; j < 10; j++) {%>
-                                <li id="a<%=i * 10 + j%>"></li>
-                                <%}%>
-                                <br/>
+                                    <%for (int j = 0; j < 10; j++) {%>
+                                        <li id="a<%=i * 10 + j%>"></li>
+                                    <%}%>
+                                    <br/>
                                 <%}%>
                             </ul>
+                        </div>
+                        <div class="row">
                             <button id="test" class="btn btn-info btn-lg"
                                     ng-click="game.create(botSelector.bots[0], botSelector.bots[0], true)"
                                     ng-disabled="!botSelector.bots || botSelector.bots[0].new || botSelector.bots[0].position == 0">
