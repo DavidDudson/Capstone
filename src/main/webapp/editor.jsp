@@ -131,9 +131,14 @@
             <!--Test bar-->
             <section class = "col-lg-4 col-lg-offset-0 col-md-6 col-md-offset-2 col-sm-6 col-sm-offset-2 col-xs-6">
             <div class="test_grid_box">
+
+                <div class= "row">
                 <div class="sidebar_head">
                     {{!editor.selectedBot ? "Select a bot first" : editor.selectedBot.name}}
                 </div>
+                </div>
+                
+                <div class= "row">
                 <ul class="test_grid">
                     <%for (int i = 0; i < 10; i++) {%>
                         <%for (int j = 0; j < 10; j++) {%>
@@ -143,11 +148,12 @@
                     <%}%>
 
                 </ul>
-                
+            </div>
+                <div class = "row">
                 <button id="test" class="btn btn-info btn-lg" ng-click="editor.game.create()" ng-disabled="!editor.selectedBot || editor.selectedBot.new || editor.selectedBot.position == 0" > Test </button>
                 <button id="restart" class="btn btn-info btn-lg" ng-click="editor.game.restart()" ng-disabled="!editor.selectedBot || editor.selectedBot.new || !editor.game.moves"> Restart </button>
                 <button id="reset" class="btn btn-info btn-lg" ng-click="editor.game.reset()" ng-disabled="!editor.selectedBot || editor.selectedBot.new || !editor.game.moves"> Reset </button>
-            
+            </div>
             </div>
             </section>
         </div>
