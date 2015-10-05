@@ -1,7 +1,7 @@
 angular.module("app")
     .factory("NotificationBar", NotificationBarService);
 
-function NotificationBarService($http) {
+function NotificationBarService() {
 
     return function () {
         var notificationBar = {
@@ -12,14 +12,14 @@ function NotificationBarService($http) {
             //eg success error etc.
             type: null,
             //The text to show on the bar
-            text: '',
+            text: 'Click Save or Test to get started',
 
             //Rests the build to default,
             reset: function () {
                 notificationBar.total = 100;
                 notificationBar.position = 100;
                 notificationBar.type = null;
-                notificationBar.text = '';
+                notificationBar.text = 'Click Save or Test to get started';
             }
         };
         return notificationBar;

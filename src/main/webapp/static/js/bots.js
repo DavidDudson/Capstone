@@ -3,13 +3,13 @@ angular.module("app")
 
 // Makes a user, Requires the BotService
 // Methods with an _ in front should be considered private.
-function BotService($http) {
+function BotService($http, Build) {
 
     //The name is simply the request name to actually retrieve the bots from the server
     return function (name) {
         var bots = {
             list: [],
-            get: function(){
+            get: function () {
                 return bots.list;
             },
             //Add a bot to the list
@@ -65,38 +65,13 @@ function BotService($http) {
                         console.error("Source could not be loaded for: " + bot.id);
                     });
             },
-            save: function (bot) {
-                var botInformation = {
-                    id: bot.id,
-                    name: bot.name,
-                    language: 'JAVA',
-                    src: bot.src
-                };
-                if (bot.new) {
-                    bots._saveNewBot(botInformation)
-                } else {
-                    bots._saveExistingBot(botInformation)
-                }
+            updateSource: function (bot, src) {
+                bot.src = src;
+                bot.xml = src.match(/<xml.*>/);
             },
-            _saveNewBot: function (botInformation) {
-                $http.post('bots', botInformation)
-                    .success(function () {
-                        return true
-                    })
-                    .error(function () {
-                        console.error("Save Failed: New Bot");
-                        return false
-                    });
-            },
-            _saveExistingBot: function (botInformation) {
-                $http.put('bots/' + botInformation.id, botInformation)
-                    .success(function () {
-                        return true
-                    })
-                    .error(function () {
-                        console.error("Saving Failed: Existing bot");
-                        return false
-                    });
+            save: function (bot, notificationBar) {
+                var build = Build(bot, notificationBar);
+                build.start();
             },
             share: function (bot) {
                 $http.post("shareBot", {
@@ -122,7 +97,6 @@ function BotService($http) {
         };
 
         bots.update();
-        console.log(bots);
         return bots;
     }
 }

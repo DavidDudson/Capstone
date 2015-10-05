@@ -9,7 +9,7 @@ angular
         };
     })
     //Basically the Editor "class", it has functions you can call on it etc.
-    .controller("editorCtrl", function (Bots, Build, Game, NotificationBar, BotSelector, $modal, $http, $scope) {
+    .controller("editorCtrl", function (Bots, Game, NotificationBar, BotSelector, $modal, $http, $scope, $rootScope) {
 
         $scope.workspace = Blockly.inject('blocklyDiv', {
             toolbox: null,
@@ -28,26 +28,33 @@ angular
             }
         });
 
-        $scope.build = undefined;
-        $scope.game = undefined;
+        $scope.game = Game();
         //Create a new bot selector that can select 1 bot at a time
         $scope.botSelector = BotSelector(1);
         //Watches the bot list in the botSelector
-        $scope.bots = $scope.botSelector.getBots();
+        $scope.bots = $scope.botSelector.bots;
 
         $scope.notificationBar = NotificationBar();
-        
+
         $scope.allBots = function () {
             var builtIn = $scope.builtInBots.get();
             var user = $scope.user.bots.get();
             return builtIn.concat(user);
         };
 
-        $scope.select = function(bot){
-            $scope.selector.select(bot);
+        // in rootscope so it can be accessed from anywhere
+        $rootScope.select = function (bot) {
+            if ($scope.botSelector.getBots()) {
+                $scope.user.bots.updateSource($scope.botSelector.getBots()[0],
+                    Blockly.Java.workspaceToCode($scope.workspace, ["notests"]));
+            }
+
+            $scope.botSelector.select(bot);
             $scope.reset();
-            $scope.loadBlocklyDiv(document.getElementById('toolbox'))
+            $scope.loadBlocklyDiv(document.getElementById('toolbox'));
+            $scope.switchWorkspace();
         };
+
 
         $scope.createNewBot = function () {
             var allBots = $scope.allBots();
@@ -56,8 +63,10 @@ angular
                 templateUrl: './static/html/newBotModal.html',
                 controller: function ($scope, $modalInstance, modal_bots) {
                     $scope.modal_bots = modal_bots;
-                    $scope.selectedBot = modal_bots[0];
-                    $scope.ok = function (name,bot) {
+                    $scope.modal = {
+                        selected: $scope.modal_bots[0]
+                    };
+                    $scope.ok = function (name, bot) {
                         $modalInstance.close({name: name, src: bot.src, xml: bot.xml, new: true});
                     };
                     $scope.cancel = function () {
@@ -65,7 +74,7 @@ angular
                     };
                 },
                 resolve: {
-                    modal_bots : function(){
+                    modal_bots: function () {
                         return allBots
                     }
                 }
@@ -74,14 +83,13 @@ angular
             // Wait for the modal to be closed then return the bot that's selected
             $scope.modal.result.then(function (bot) {
                 $scope.user.bots.add(bot);
-                $scope.botSelector.select(bot);
+                $rootScope.select(bot);
             })
         };
 
         $scope.reset = function () {
             $scope.game.reset();
-            $scope.build.reset();
-            $scope.botSelector.reset();
+            $scope.notificationBar.reset();
             Blockly.mainWorkspace.clear();
             $scope.loadBlocklyDiv(null);
         };
@@ -107,6 +115,6 @@ angular
         };
 
         $scope.switchWorkspace = function () {
-            Blockly.Xml.domToWorkspace($scope.workspace, Blockly.Xml.textToDom($scope.bots[0].xml));
+            Blockly.Xml.domToWorkspace($scope.workspace, Blockly.Xml.textToDom($scope.botSelector.getBots()[0].xml));
         };
     });

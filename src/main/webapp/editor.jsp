@@ -66,88 +66,89 @@
                     <sidebar bot_selector="botSelector" user_bots></sidebar>
                 </section>
 
+                <div class="main-blockly">
+                    <div id="blocklyDiv" style="height:450px"></div>
+                </div>
+                <br/>
                 <!--Blockly bar-->
                 <section class="col-lg-6 col-md-8 col-sm-8 col-xs-8">
-                    <div id="main_content" ng-controller="editorCtrl" style="color:white">
-                        <div class="main-cont-menu">
+                    <br id="main_content" style="color:white">
 
-                            <ul>
-                                <li>
-                                    <button class="btn btn-info btn-lg" ng-click="editor.modal.create()">
-                                        New
-                                    </button>
-                                </li>
-                                <li>
-                                    <button id="del" class="btn btn-info btn-lg" ng-click="user.bots.delete()"
-                                            ng-disabled="!editor.selectedBot"> Delete
-                                    </button>
-                                </li>
-                                <li>
-                                    <button id="save" class="btn btn-info btn-lg" ng-click="user.bots.save()"
-                                            ng-disabled="!editor.selectedBot"> Save
-                                    </button>
-                                </li>
-                                <li>
-                                    <button id="share" class="btn btn-info btn-lg" ng-click="user.bots.share()"
-                                            ng-disabled="!editor.selectedBot || editor.selectedBot.new">
-                                        {{editor.selectedBot.share === true ? "Unshare" : "Share"}}
-                                    </button>
-                                </li>
-                            </ul>
+                    <div class="main-cont-menu">
+                        <ul>
+                            <li>
+                                <button class="btn btn-info btn-lg" ng-click="createNewBot()">
+                                    New
+                                </button>
+                            </li>
+                            <li>
+                                <button id="del" class="btn btn-info btn-lg"
+                                        ng-click="user.bots.delete(botSelector.bots[0])"
+                                        ng-disabled="!botSelector.bots"> Delete
+                                </button>
+                            </li>
+                            <li>
+                                <button id="save" class="btn btn-info btn-lg"
+                                        ng-click="user.bots.save(botSelector.bots[0], notificationBar)"
+                                        ng-disabled="!botSelector.bots"> Save
+                                </button>
+                            </li>
+                            <li>
+                                <button id="share" class="btn btn-info btn-lg"
+                                        ng-click="user.bots.share(botSelector.bots[0])"
+                                        ng-disabled="!botSelector.bots || botSelector.bots[0].new">
+                                    {{botSelector.bots[0].share === true ? "Unshare" : "Share"}}
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                    </br>
+                    <div>
+                        <progressbar class="progress-striped"
+                                     ng-class="editor.build.active"
+                                     ng-value="editor.build.progress" type="{{editor.build.type}}"
+                                     style="width:100%; height: 40px"><b>{{editor.build.text}}</b></progressbar>
+                    </div>
+            </div>
+            </section>
 
-                        </div>
-                        <div class="main-blockly">
-                            <div id="blocklyDiv" style="height:450px"></div>
-                        </div>
-                        <br/>
+            <!--Test bar-->
+            <section
+                    class="col-lg-4 col-lg-offset-0 col-md-6 col-md-offset-2 col-sm-6 col-sm-offset-2 col-xs-6">
+                <div class="test_grid_box">
 
-                        <div>
-                            <progressbar class="progress-striped"
-                                         ng-class="editor.build.active"
-                                         ng-value="editor.build.progress" type="{{editor.build.type}}"
-                                         style="width:100%; height: 40px"><b>{{editor.build.text}}</b></progressbar>
+                    <div class="row">
+                        <div class="sidebar_head">
+                            {{!editor.selectedBot ? "Select a bot first" : editor.selectedBot.name}}
                         </div>
                     </div>
-                </section>
 
-                <!--Test bar-->
-                <section
-                        class="col-lg-4 col-lg-offset-0 col-md-6 col-md-offset-2 col-sm-6 col-sm-offset-2 col-xs-6">
-                    <div class="test_grid_box">
-
-                        <div class="row">
-                            <div class="sidebar_head">
-                                {{!editor.selectedBot ? "Select a bot first" : editor.selectedBot.name}}
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <ul class="test_grid">
-                                <%for (int i = 0; i < 10; i++) {%>
+                    <div class="row">
+                        <ul class="test_grid">
+                            <%for (int i = 0; i < 10; i++) {%>
                                 <%for (int j = 0; j < 10; j++) {%>
-                                <li id="a<%=i * 10 + j%>"></li>
+                                    <li id="a<%=i * 10 + j%>"></li>
                                 <%}%>
                                 <br/>
-                                <%}%>
-                            </ul>
-                        </div>
-                        <div class="row">
-                            <button id="test" class="btn btn-info btn-lg" ng-click="editor.game.create()"
-                                    ng-disabled="!editor.selectedBot || editor.selectedBot.new || editor.selectedBot.position == 0">
-                                Test
-                            </button>
-                            <button id="restart" class="btn btn-info btn-lg" ng-click="editor.game.restart()"
-                                    ng-disabled="!editor.selectedBot || editor.selectedBot.new || !editor.game.moves">
-                                Restart
-                            </button>
-                            <button id="reset" class="btn btn-info btn-lg" ng-click="editor.game.reset()"
-                                    ng-disabled="!editor.selectedBot || editor.selectedBot.new || !editor.game.moves">
-                                Reset
-                            </button>
-                        </div>
+                            <%}%>
+                        </ul>
                     </div>
-                </section>
-            </div>
+                    <div class="row">
+                        <button id="test" class="btn btn-info btn-lg" ng-click="editor.game.create()"
+                                ng-disabled="!editor.selectedBot || editor.selectedBot.new || editor.selectedBot.position == 0">
+                            Test
+                        </button>
+                        <button id="restart" class="btn btn-info btn-lg" ng-click="editor.game.restart()"
+                                ng-disabled="!editor.selectedBot || editor.selectedBot.new || !editor.game.moves">
+                            Restart
+                        </button>
+                        <button id="reset" class="btn btn-info btn-lg" ng-click="editor.game.reset()"
+                                ng-disabled="!editor.selectedBot || editor.selectedBot.new || !editor.game.moves">
+                            Reset
+                        </button>
+                    </div>
+                </div>
+            </section>
         </div>
     </div>
 </div>
