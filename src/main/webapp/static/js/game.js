@@ -12,10 +12,12 @@ function GameService($http, $interval) {
             position: 0,
             create: function (bot1, bot2, testing) {
                 if(notificationBar.active) return;
+                notificationBar.reset();
+                notificationBar.active = true;
+                notificationBar.text = "Creating test game";
                 var data = testing ? "" + bot1.id + "\n" + bot1.id + "\n" : "" + bot1.id + "\n" + bot2.id + "\n";
                 $http.post('creategame_b2b', data)
                     .success(function (data, status, headers) {
-                        //TODO Track the current progress of the bot
                         game.getMoves(headers("Location"), testing);
                     })
                     .error(function () {
@@ -25,7 +27,8 @@ function GameService($http, $interval) {
             getMoves: function (url, testing) {
                 $http.get(url)
                     .success(function (data) {
-                        console.log(data);
+                        notificationBar.active = false;
+                        notificationBar.text = "Test game creation success";
                         if(testing){
                             game.moves = data.moves.filter(function (move) {
                                 if (move.wasPlayer1) return move;

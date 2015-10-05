@@ -100,7 +100,7 @@ angular
         };
 
         $scope.reset = function () {
-            $scope.game.reset();
+            $scope.game.hardReset();
             $scope.notificationBar.reset();
             Blockly.mainWorkspace.clear();
             $scope.loadBlocklyDiv(null);
