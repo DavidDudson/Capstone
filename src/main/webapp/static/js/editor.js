@@ -9,7 +9,7 @@ angular
         };
     })
     //Basically the Editor "class", it has functions you can call on it etc.
-    .controller("editorCtrl", function (Bots, Game, NotificationBar, BotSelector, $modal, $http, $scope, $rootScope) {
+    .controller("editorCtrl", function (Bots, Game, NotificationBar, BotSelector, $modal, $scope, $rootScope) {
 
         $scope.workspace = Blockly.inject('blocklyDiv', {
             toolbox: null,
@@ -32,9 +32,6 @@ angular
 
         //Create a new bot selector that can select 1 bot at a time
         $scope.botSelector = BotSelector(1);
-
-        //Watches the bot list in the botSelector
-        $scope.bots = $scope.botSelector.bots;
 
         $scope.game = Game($scope.notificationBar);
 

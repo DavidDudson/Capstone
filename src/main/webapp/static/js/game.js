@@ -29,6 +29,7 @@ function GameService($http, $interval) {
                     .success(function (data) {
                         notificationBar.active = false;
                         notificationBar.text = "Test game creation success";
+                        notificationBar.type = "success";
                         if(testing){
                             game.moves = data.moves.filter(function (move) {
                                 if (move.wasPlayer1) return move;
