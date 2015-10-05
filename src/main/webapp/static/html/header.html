@@ -1,29 +1,20 @@
-<div id="header">
-    <div id="nav_container">
-        <div class="container_12" style="padding:0;">
-            <div id="nav_menu" class="left">
-                <nav class="menu">
-                    <a class="toggle-nav" href="#">&#9776;</a>
-                    <ul class="list_inline active">
-                        <li><a href="index.jsp"><img src="static/images/rocketship-small.png" alt="RocketShip" height="32" width="32"> {{app.name}} </a></li>
-                        <li><a href="editor.jsp"> Editor </a></li>
-                        <li><a href="test.jsp"> Test </a></li>
-                        <li><a href="about.jsp"> About </a></li>
-                        <li><a href="http://tinyurl.com/ptbweh9"> Survey </a></li>
-                    </ul>
-                </nav>
-            </div>
-            <div id="user" class="right">
-                <ul class="list_inline">
-                    <li class="username"> <a href="">{{user.name}}</a> </li>
-                    <li> <a class="logout" href="logout"> Logout </a> </li>
-                    <li class="profilePictureContent" ng-if="user.profilePictureUrl != ''">
-                        <img ng-src="{{user.profilePictureUrl}}" class="img-responsive img-rounded center-block"
-                            style="width: 40px;" alt="Profile Picture"/>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="clear"> </div>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav navbar-left">
+            <li><a class="navbar-brand" href="index.jsp"><img src="static/images/rocketship-small.png" alt="RocketShip" height="32" width="32"> {{app.name}} </a></li>
+            <li><a href="editor.jsp"> Editor </a></li>
+            <li><a href="test.jsp"> Test </a></li>
+            <li><a href="about.jsp"> About </a></li>
+            <li><a href="http://tinyurl.com/ptbweh9"> Survey </a></li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+            <li class="username"> <a href="logout">{{user.name}}</a> </li>
+            <li> <a class="logout" href="logout">Logout</a> </li>
+            <li class="profilePictureContent" ng-if="user.profilePictureUrl != ''">
+                <img ng-src="{{user.profilePictureUrl}}" class="img-responsive img-rounded center-block"
+                    style="width: 40px;" alt="Profile Picture"/>
+            </li>
+        </ul>
     </div>
-</div>
+</nav>

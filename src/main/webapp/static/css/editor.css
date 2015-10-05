@@ -29,43 +29,11 @@
     float: right;
 }
 
-ul.list_inline li {
-    display: inline-block;
-}
-
-ul.list_block {
-    list-style-type: none;
-    padding-left: 0;
-    margin: 0;
-}
-
-ul.list_block li {
-    display: block;
-}
-
-ul.list_inline-block {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
-ul.list_inline-block li {
-    display: inline-block;
-}
-
 #search {
-
     padding: 0 5px;
 }
 
 /* END OF GLOBAL */
-
-/* MENU */
-
-/*----- Toggle Button -----*/
-.toggle-nav {
-    display: none;
-}
 
 /* CONTENT */
 
@@ -119,16 +87,6 @@ ul.user-top li {
 
 ul.user-top li {
     margin-left: 10px;
-}
-
-#nav_menu #logo a {
-    font-family: Designer;
-    font-size: 14px;
-}
-
-#nav_menu .menu a.toggle-nav {
-    position: absolute !important;
-    top: 0 !important;
 }
 
 .sidebar_box {

@@ -12,7 +12,6 @@
 }
 
 body {
-	
 	margin: 0;
 	padding: 0;
 	color: #ffffff;
@@ -25,7 +24,7 @@ body {
 .container_11 { 
 	position: relative; 
 	margin: 0 auto; 
-        margin-top: 20px;
+    margin-top: 20px;
 	width: 1200px;
 	padding: 50px;
 }

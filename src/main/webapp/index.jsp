@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html ng-app="app" ng-controller="appCtrl">
 <head>
-    <title>{{app.name}} Home</title>
+    <title>Star Battle Home</title>
     <link rel="icon" type="image/png" href="static/images/favicon.ico" sizes="32x32">
-    <link rel="stylesheet" type="text/css" href="static/css/style.css">
     <link rel="stylesheet" type="text/css" href="static/css/bootstrap-social.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
     <link rel="stylesheet" type="text/css" href="static/css/index.css">
 
     <script src="static/js/jquery-1.11.3.min.js"></script>
