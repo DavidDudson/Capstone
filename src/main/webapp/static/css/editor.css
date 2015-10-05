@@ -39,7 +39,7 @@
 
 ul.test_grid {
     position: relative;
-    float: right;
+    float: left;
     border: 3px solid #0090db;
     padding: 0px 0px 0px 0px;
     margin: 0px 0px 0px 22px;
@@ -78,7 +78,7 @@ ul.test_grid li {
 
 ul.user-top li {
     position: relative;
-    float: right;
+    float: left;
     list-style: none;
     text-align: right;
     padding: 0px 0px 0px 0px;
@@ -109,7 +109,7 @@ ul.user-top li {
 #main_content {
     padding: 0px 1% 0px 3%;
     position: relative;
-    width: 60%;
+    width: 100%;
     float: left;
 }
 

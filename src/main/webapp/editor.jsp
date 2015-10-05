@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
     <link rel="stylesheet" type="text/css" href="static/css/editor.css">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript" src="static/js/blockly/blockly_uncompressed.js"></script>
     <script type="text/javascript" src="static/js/blockly/java.js"></script>
     <script type="text/javascript" src="static/js/blockly/java/logic.js"></script>
@@ -53,7 +53,14 @@
 
     <div class="container_10">
         <div id="content">
-            <div id="sidebar_left" class="sidebar left">
+
+        <!--Main container-->   
+        <div class = "container">
+        <div class = "row">
+
+             <!--Left bar-->
+            <section class = "col-lg-2 col-md-2 col-sm-2 col-xs-2">       
+            <div id="" class="">
                 <div id="my_bots" class="sidebar_box">
                     <div class="sidebar_box_inner">
 
@@ -75,8 +82,13 @@
                     </div>
                 </div>
             </div>
+            </section>
+            
+            <!--Blockly bar-->
+            <section class = "col-lg-6 col-md-8 col-sm-8 col-xs-8">
             <div id="main_content" ng-controller="editorCtrl" style="color:white">
                 <div class="main-cont-menu">
+                    
                     <ul>
                         <li>
                             <button class="btn btn-info btn-lg" ng-click="editor.modal.create()">
@@ -100,6 +112,7 @@
                             </button>
                         </li>
                     </ul>
+                
                 </div>
                 <div class="main-blockly">
                     <div id="blocklyDiv" style="height:450px"></div>
@@ -113,6 +126,10 @@
                                  style="width:100%; height: 40px"><b>{{editor.build.text}}</b></progressbar>
                 </div>
             </div>
+            </section>
+            
+            <!--Test bar-->
+            <section class = "col-lg-4 col-lg-offset-0 col-md-6 col-md-offset-2 col-sm-6 col-sm-offset-2 col-xs-6">
             <div class="test_grid_box">
                 <div class="sidebar_head">
                     {{!editor.selectedBot ? "Select a bot first" : editor.selectedBot.name}}
@@ -126,11 +143,13 @@
                     <%}%>
 
                 </ul>
+                
                 <button id="test" class="btn btn-info btn-lg" ng-click="editor.game.create()" ng-disabled="!editor.selectedBot || editor.selectedBot.new || editor.selectedBot.position == 0" > Test </button>
                 <button id="restart" class="btn btn-info btn-lg" ng-click="editor.game.restart()" ng-disabled="!editor.selectedBot || editor.selectedBot.new || !editor.game.moves"> Restart </button>
                 <button id="reset" class="btn btn-info btn-lg" ng-click="editor.game.reset()" ng-disabled="!editor.selectedBot || editor.selectedBot.new || !editor.game.moves"> Reset </button>
-
+            
             </div>
+            </section>
         </div>
 
     </div>
