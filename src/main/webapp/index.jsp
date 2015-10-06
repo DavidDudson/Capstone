@@ -23,7 +23,7 @@
 <body>
     <div class="main_container">
         <div id="heading">
-            <h1>{{app.name}} <span><img src="static/images/rocketship.png" alt="RocketShip"> </span></h1>
+            <h1>{{app.name}} <span><img id="index_logo" src="static/images/rocketship.png" alt="RocketShip"> </span></h1>
         </div>
         <div id="socialLogin">
             <div class="facebookButton">
@@ -31,7 +31,7 @@
                     <input type="hidden" name="loginType" value="facebook" />
                     <input type="hidden" name="callbackurl" value="http://localhost:8080/Capstone" />
                     <input type="hidden" name="baseURL" value="" />
-                    <button type="submit" class="btn btn-block btn-social btn-facebook">
+                    <button id= "facebook_button" type="submit" class="btn btn-block btn-social btn-facebook">
                         <i class="fa fa-facebook"></i> Sign in with Facebook
                     </button>
                 </form>
@@ -41,7 +41,7 @@
                     <input type="hidden" name="loginType" value="google" />
                     <input type="hidden" name="callbackurl" value="http://localhost:8080/Capstone" />
                     <input type="hidden" name="baseURL" value="" />
-                    <button type="submit" class="btn btn-block btn-social btn-google-plus">
+                    <button id= "google_button" type="submit" class="btn btn-block btn-social btn-google-plus">
                         <i class="fa fa-google"></i> Sign in with Google
                     </button>
                 </form>
