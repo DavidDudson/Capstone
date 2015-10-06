@@ -17,9 +17,16 @@ body {
 	padding: 0;
 	color: #ffffff;
 	font-family: Designer;
-	font-size: 1em;
 	background: #ffffff; 
 	width: 100%;
+	background-image:url(../images/bg-body.jpg);
+	background-repeat: no-repeat;
+    background-attachment: fixed;
+	-webkit-background-size: cover;
+  	-moz-background-size: cover;
+  	-o-background-size: cover;
+  	background-size: cover;
+	}
 }
 
 img {
@@ -143,7 +150,7 @@ a.navbar-brand {
 }
 
 a.ng-binding {
-	font-size: 1.3em;
+	font-size: 1.2em;
 }
 
 .navbar-brand > img {
@@ -153,7 +160,7 @@ a.ng-binding {
 div.container-fluid{
 	margin-left: 10%;
 	margin-right: 10%;
-	font-size: 1.8em
+	font-size: 1.4em
 }
 
 #nav_container {
@@ -481,16 +488,6 @@ li.color_black{
 a
 	{
 	color:#ffffff;
-	}
-body
-	{
-	background-image:url(../images/bg-body.jpg);
-	background-repeat: no-repeat;
-    background-attachment: fixed;
-	-webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
 	}
 
 #header

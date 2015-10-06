@@ -12,6 +12,19 @@
 div.container_13 {
 	font-family: arial;
 	color: #333;
+	width: 80%;
+}
+
+h1 {
+	font-size: 3em;
+}
+
+h3 {
+	font-size: 2em;
+}
+
+p {
+	font-size: 1.1em;
 }
 
 a {
