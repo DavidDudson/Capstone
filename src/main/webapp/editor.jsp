@@ -9,7 +9,7 @@
 
 <html ng-app="app" ng-controller="appCtrl">
 <head>
-    <title>{{app.name}} Editor</title>
+    <title>Star Battle Editor</title>
     <link rel="icon" type="image/png" href="static/images/favicon.ico" sizes="32x32">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
@@ -79,7 +79,7 @@
                                 </li>
                                 <li>
                                     <button id="del" class="btn btn-info btn-lg"
-                                            ng-click="user.bots.delete(botSelector.bots[0])"
+                                            ng-click="delete(botSelector.bots[0])"
                                             ng-disabled="!botSelector.bots"> Delete
                                     </button>
                                 </li>
@@ -100,6 +100,8 @@
                         <div class="main-blockly">
                             <div id="blocklyDiv" style="height:450px"></div>
                         </div>
+                        <br/>
+
                         <div>
                             <progressbar class="progress-striped"
                                          ng-class="notificationBar.active"
@@ -121,10 +123,10 @@
                         <div class="row">
                             <ul class="test_grid">
                                 <%for (int i = 0; i < 10; i++) {%>
-                                    <%for (int j = 0; j < 10; j++) {%>
-                                        <li id="a<%=i * 10 + j%>"></li>
-                                    <%}%>
-                                    <br/>
+                                <%for (int j = 0; j < 10; j++) {%>
+                                <li id="a<%=i * 10 + j%>"></li>
+                                <%}%>
+                                <br/>
                                 <%}%>
                             </ul>
                         </div>

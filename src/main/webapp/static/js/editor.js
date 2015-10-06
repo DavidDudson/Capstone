@@ -64,6 +64,11 @@ angular
             $scope.switchWorkspace();
         };
 
+        $scope.delete = function (bot) {
+            $scope.reset();
+            $rootScope.user.bots.delete(bot);
+        };
+
 
         $scope.createNewBot = function () {
             var allBots = $scope.allBots();

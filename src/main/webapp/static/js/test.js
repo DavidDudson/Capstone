@@ -4,12 +4,14 @@ angular
 
         $scope.notificationBar = NotificationBar();
 
-        //Create a new bot selector that can select 1 bot at a time
+        //Create a new bot selector that can select 2 bot at a time
         $scope.botSelector = BotSelector(2);
 
+        $scope.game = Game($scope.notificationBar);
+
         $rootScope.select = function (bot) {
+            $scope.game.reset();
             $scope.botSelector.select(bot);
         };
 
-        $scope.game = Game($scope.notificationBar);
     });
