@@ -253,8 +253,52 @@ public class BotGameBoard extends GameBoard {
 
 
     }
+
+    /**
+     *  check if the last move sunk a bot
+     * @return boolean value is last his sunk a bot
+     */
     public Boolean lastMoveSinkBot(){
         Coordinate lastMove = getLastMove();
         return grid[lastMove.getX()][lastMove.getY()] == 3;
+    }
+
+
+    public LinkedList<Integer> getNeightbourStates(Coordinate coord){
+        LinkedList<Integer> neightbourStates = new LinkedList<Integer>();
+
+        if(coord.getX() < 0){
+
+        }
+
+
+
+
+    }
+
+    /**
+     * provide hit coordinate and keeps hitting till it is sunk
+     * @param coord coordinate to attempt to strike
+     * @return computed selected coordinate
+     */
+    public Coordinate reStriker(Coordinate coord){
+
+        LinkedList<Coordinate> nearCoords = get;
+
+        if (getHistory() .size() > 2) {
+            Coordinate lastCoord = getLastMove();
+            Coordinate secLatMove = getHistory().get(getHistory().size() - 2);
+
+            if (getStateOfCoordinate(lastCoord, "1") && getStateOfCoordinate(secLatMove, "1")){
+
+
+            }
+
+        }else{
+            return coord;
+        }
+
+
+
     }
 }

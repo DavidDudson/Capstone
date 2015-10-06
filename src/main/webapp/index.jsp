@@ -35,6 +35,7 @@
             <h1>Star Battle <span><img src="static/images/rocketship.png" alt="RocketShip"> </span></h1>
         </div>
     <div class="container">
+<<<<<<< HEAD
         <div class="form-signin mg-btm">
             <h3 class="heading-desc">Login to Star Battle</h3>
             <div class="social-box">
@@ -50,6 +51,22 @@
                                 </button>
                             </form>
                         </div>
+=======
+        <form class="form-signin mg-btm">
+        <h3 class="heading-desc">Sign in to Star Battle:</h3>
+        <div class="social-box">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="facebookButton">
+                        <form action="SocialLogin" method="POST">
+                            <input type="hidden" name="loginType" value="facebook" />
+                            <input type="hidden" name="callbackurl" value="http://localhost:8080/Capstone" />
+                            <input type="hidden" name="baseURL" value="" />
+                            <button type="submit" class="btn btn-block btn-social btn-facebook">
+                                <i class="fa fa-facebook"></i> Sign in with Facebook
+                            </button>
+                        </form>
+>>>>>>> 151f394a2f9a1d3f0fb2cace95dacbdfa4f61654
                     </div>
                 </div>
 
