@@ -13,7 +13,6 @@
 }
 
 body {
-	
 	margin: 0;
 	padding: 0;
 	color: #ffffff;
@@ -143,6 +142,10 @@ a.navbar-brand {
 	margin-top: -5px;
 }
 
+a.ng-binding {
+	font-size: 1.3em;
+}
+
 .navbar-brand > img {
 	display: inline;
 }
@@ -150,6 +153,7 @@ a.navbar-brand {
 div.container-fluid{
 	margin-left: 10%;
 	margin-right: 10%;
+	font-size: 1.8em
 }
 
 #nav_container {
