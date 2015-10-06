@@ -11,13 +11,14 @@
     font-family: sans;
     src: url(../font/sans.ttf);
 }
+
 body {
 	
 	margin: 0;
 	padding: 0;
 	color: #ffffff;
 	font-family: Designer;
-	font-size: 14px;
+	font-size: 1em;
 	background: #ffffff; 
 	width: 100%;
 }
@@ -433,13 +434,7 @@ li.color_black{
 
 /* END OF FOOTER */
 
-section {
-	width: 200px;
-	height: auto;
-	margin: 15px 0;
-    left: 40px;
-	position: relative;
-}
+
 #slider{
 	border-width: 1px;
 	border-style: solid;
