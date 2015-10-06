@@ -52,10 +52,9 @@
         <!--Main container-->
         <div class="container">
             <div class="row">
-
                 <sidebar bot_selector="botSelector" user_bots built_in_bots shared_bots></sidebar>
 
-                <section class="col-lg-6 col-md-10 col-sm-10 col-xs-10">
+                <section class="col-xs-7">
                     <div id="main_content">
                         <div id="player_one" class="left">
                             <ul>
@@ -87,7 +86,7 @@
                         </div>
                     </div>
                 </section>
-                <section class="col-lg-4 col-lg-offset-0 col-md-6 col-md-offset-2 col-sm-6 col-sm-offset-2 col-xs-6">
+                <section class="col-xs-3">
 
                     <div id="sidebar_right" class="sidebar right">
 
