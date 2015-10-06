@@ -301,7 +301,7 @@ public class BotGameBoard extends GameBoard {
     }
 
     /**
-     * provide hit coordinate and hit appropriate neighbour based on other neighgbours
+     * provide hit coordinate and hit appropriate neighbour based on other neighbours if none found hit first available
      * @param coord coordinate to attempt to strike
      * @return computed selected coordinate
      */
