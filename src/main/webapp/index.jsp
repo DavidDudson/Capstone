@@ -51,7 +51,7 @@
                     <input type="hidden" name="baseURL" value="" />
                     <input type="hidden" name="username" value="Debug" />
                     <input type="hidden" name="password" value="Debug" />
-                    <input type="submit" class="btn btn-block"  value="Debug Login"/>
+                    <input id = "debug_login" type="submit" class="btn btn-block"  value="Debug Login"/>
                 </form>
             </div>
     	</div>
