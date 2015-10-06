@@ -612,15 +612,14 @@ input.search_box[type="text"]
 	border-radius:15px;
 	position:relative;
 	float:left;
-	width:92%;
+	width:80%;
 	top:2px;
 	
 	}
 input.search_btn[type="submit"]
 	{
-	width:31px;
+	width:20%;
 	height:30px;
-	position:absolute;
 	top:2px;
 	right:0;
 	background:url(../images/search-icon.png) left top no-repeat;
