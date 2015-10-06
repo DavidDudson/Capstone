@@ -36,7 +36,7 @@
         </div>
     <div class="container">
         <form class="form-signin mg-btm">
-        <h3 class="heading-desc">Login to Star Battle</h3>
+        <h3 class="heading-desc">Sign in to Star Battle:</h3>
         <div class="social-box">
             <div class="row">
                 <div class="col-md-12">
