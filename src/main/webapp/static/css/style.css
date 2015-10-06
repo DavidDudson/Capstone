@@ -27,7 +27,7 @@ body {
   	-o-background-size: cover;
   	background-size: cover;
 	}
-}
+
 
 img {
 	border: none;
@@ -951,6 +951,9 @@ table.results-list tr td.b-left
 	font-size: 14px;
 }
 
+.test-progress {
+    bottom: 0px;
+}
 
 
 
