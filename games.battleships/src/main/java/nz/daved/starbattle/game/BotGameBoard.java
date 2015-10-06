@@ -3,8 +3,6 @@ package nz.daved.starbattle.game;
 import com.google.common.primitives.Ints;
 import nz.daved.starbattle.StarBattleGameMove;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -202,7 +200,7 @@ public class BotGameBoard extends GameBoard {
      * @param state value to be evaluated against
      * @return weather the coordinate contains the expected coordinate
      */
-    public Boolean getStateOfCoordinate(Coordinate coords, String state){
+    public Boolean checkStateOfCoordinate(Coordinate coords, String state){
         return grid[coords.getY()][coords.getY()] == Integer.parseInt(state);
 
 
@@ -240,7 +238,7 @@ public class BotGameBoard extends GameBoard {
      * @param position position relative to the coordinate
      * @return state of coordinate with the position
      */
-    public Integer getCoordinateAtPosition(Coordinate coord, String position){
+    public Integer getStateOfCoordinateAtPosition(Coordinate coord, String position){
         switch (position){
             case "up" :   return grid[coord.getX()][coord.getY() - 1];
             case "right": return grid[coord.getX() + 1][coord.getY()];
@@ -267,36 +265,82 @@ public class BotGameBoard extends GameBoard {
     public LinkedList<Integer> getNeightbourStates(Coordinate coord){
         LinkedList<Integer> neightbourStates = new LinkedList<Integer>();
 
-        if(coord.getX() < 0){
 
+        if(coord.getY() < 0){
+            neightbourStates.add(0, -1);
+        }
+        if(coord.getX() > 9){
+            neightbourStates.add(1, -1);
+        }
+        if (coord.getY() < 9){
+            neightbourStates.add(2, -1);
+        }
+        if(coord.getX() < 0){
+            neightbourStates.add(3, -1);
         }
 
+        for (int i = 0; i < neightbourStates.size(); i++) {
+            if(neightbourStates.get(i) != -1){
+                switch (i){
+                    case 0 : neightbourStates.add(i, getStateOfCoordinateAtPosition(coord, "up"));
+                            break;
+                    case 1 : neightbourStates.add(i, getStateOfCoordinateAtPosition(coord, "right"));
+                            break;
+                    case 2 : neightbourStates.add(i, getStateOfCoordinateAtPosition(coord, "down"));
+                            break;
+                    case 3 : neightbourStates.add(i, getStateOfCoordinateAtPosition(coord, "left"));
+                            break;
 
+                }
 
+            }
+        }
+
+    return neightbourStates;
 
     }
 
     /**
-     * provide hit coordinate and keeps hitting till it is sunk
+     * provide hit coordinate and hit appropriate neighbour based on other neighgbours
      * @param coord coordinate to attempt to strike
      * @return computed selected coordinate
      */
-    public Coordinate reStriker(Coordinate coord){
+    public Coordinate findAndHitNeighbour(Coordinate coord){
 
-        LinkedList<Coordinate> nearCoords = get;
+        LinkedList<Integer> neighbourCoords = getNeightbourStates(coord);
 
-        if (getHistory() .size() > 2) {
-            Coordinate lastCoord = getLastMove();
-            Coordinate secLatMove = getHistory().get(getHistory().size() - 2);
-
-            if (getStateOfCoordinate(lastCoord, "1") && getStateOfCoordinate(secLatMove, "1")){
-
-
+        Coordinate nextMove;
+        for (int i = 0; i < neighbourCoords.size(); i++) {
+            if(neighbourCoords.get(i) != -1 & neighbourCoords.get(i) == 1){
+                    switch (i){
+                        case 0 :
+                            nextMove = new Coordinate(coord.getX(), coord.getY() - 1);
+                            if(checkStateOfCoordinate(nextMove, "0")){
+                                return nextMove;
+                            }
+                            break;
+                        case 1 :
+                            nextMove = new Coordinate(coord.getX() + 1, coord.getY());
+                            if(checkStateOfCoordinate(nextMove, "1")){
+                                return nextMove;
+                            }
+                            break;
+                        case 2 :
+                            nextMove = new Coordinate(coord.getX(), coord.getY() + 1);
+                            if(checkStateOfCoordinate(nextMove, "2")){
+                                return nextMove;
+                            }
+                            break;
+                        case 3 :
+                            nextMove = new Coordinate(coord.getX() - 1, coord.getY());
+                            if(checkStateOfCoordinate(nextMove, "3")){
+                                return nextMove;
+                            }
+                            break;
+                    }
             }
-
-        }else{
-            return coord;
         }
+        return getNeighbourValidCoordinates(coord).getFirst();
 
 
 

@@ -168,3 +168,15 @@ Blockly.Java['hit_the_neighbours_of_unsunk_ships'] = function(block) {
     var code = '...';
     return code;
 };
+
+Blockly.Java['last_move_sink_bot'] = function(block) {
+  var code = 'botGameBoard.lastMoveSinkBot()';
+  return [code, Blockly.Java.ORDER_ATOMIC];
+};
+
+Blockly.Java['last_move_state'] = function(block) {
+    var state = block.getFieldValue('STATE');
+    var code = "botGameBoard.getLastMoveState("+ state +")";
+    
+    return [code, Blockly.Java.ORDER_ATOMIC];
+};

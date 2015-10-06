@@ -241,3 +241,26 @@ Blockly.Blocks['hit_the_neighbours_of_unsunk_ships'] = {
         this.setHelpUrl('http://www.example.com/');
     }
 };
+
+Blockly.Blocks['last_move_sink_bot'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("last Move Sink Space Ship?");
+    this.setOutput(true);
+    this.setColour(230);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.Blocks['last_move_state'] = {
+    init: function() {
+        this.appendDummyInput()
+            .appendField("was the last move a")
+            .appendField(new Blockly.FieldDropdown([["hit", "1"], ["miss", "2"], ["destroyed", "3"]]), "STATE");
+        this.setOutput(true, "Boolean");
+        this.setColour(230);
+        this.setTooltip('was the last move a hit, miss, or sunk');
+        this.setHelpUrl('http://www.example.com/');
+    }
+};
