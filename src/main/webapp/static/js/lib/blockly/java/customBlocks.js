@@ -1,5 +1,5 @@
 Blockly.Java['check_state_of_coordinate'] = function (block) {
-    var dropdown_state = '';
+    var dropdown_state = 0;
     var value_coordinate = '';
     try {
         dropdown_state = block.getFieldValue('state');
@@ -86,7 +86,7 @@ Blockly.Java['variable_define'] = function (block) {
 };
 
 Blockly.Java['get_gamestate'] = function (block) {
-    var code = 'botGameBoard.getGameBoard';
+    var code = 'botGameBoard.getGameBoard()';
     return [code, Blockly.Java.ORDER_ATOMIC];
 };
 
@@ -95,13 +95,13 @@ Blockly.Java['get_all_valid_moves'] = function(block) {
     return [code, Blockly.Java.ORDER_COLLECTION];
 };
 
-Blockly.Java['last_move_sunk'] = function(block) {
-    var dropdown_state = '1';
+Blockly.Java['last_move_state'] = function(block) {
+    var state = 1;
     try {
-        dropdown_state = block.getFieldValue('state');
+        state = block.getFieldValue('STATE');
     }
     catch (err){}
-    var code = 'botGameBoard.lastMove(' + dropdown_state + ')';
+    var code = 'botGameBoard.lastMove(' + state + ')';
     return [code, Blockly.Java.ORDER_ATOMIC];
 };
 
@@ -167,4 +167,9 @@ Blockly.Java['function_next_move'] = function(block) {
 Blockly.Java['hit_the_neighbours_of_unsunk_ships'] = function(block) {
     var code = '...';
     return code;
+};
+
+Blockly.Java['last_move_sink_bot'] = function(block) {
+    var code = 'botGameBoard.lastMoveSinkBot()';
+    return [code, Blockly.Java.ORDER_ATOMIC];
 };

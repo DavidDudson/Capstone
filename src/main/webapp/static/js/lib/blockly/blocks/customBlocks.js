@@ -2,7 +2,7 @@ Blockly.Blocks['check_state_of_coordinate'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("is there ")
-        .appendField(new Blockly.FieldDropdown([["Water", "water"], ["Ship", "ship"]]), "state");
+        .appendField(new Blockly.FieldDropdown([["space", 0], ["Ship", 1]]), "state");
     this.appendValueInput("Coordinate")
         .setCheck("Coordinate")
         .appendField("at position");
@@ -129,11 +129,11 @@ Blockly.Blocks['get_all_valid_moves'] = {
     }
 };
 
-Blockly.Blocks['last_move_sunk'] = {
+Blockly.Blocks['last_move_state'] = {
     init: function() {
         this.appendDummyInput()
             .appendField("was the last move a")
-            .appendField(new Blockly.FieldDropdown([["hit", "1"], ["miss", "2"], ["sunk", "3"]]), "state");
+            .appendField(new Blockly.FieldDropdown([["hit", "1"], ["miss", "2"], ["destroyed", "3"]]), "STATE");
         this.setOutput(true, "Boolean");
         this.setColour(230);
         this.setTooltip('was the last move a hit, miss, or sunk');
@@ -190,10 +190,10 @@ Blockly.Blocks['define_coordinate'] = {
     init: function() {
         this.appendValueInput("X")
             .setCheck("Number")
-            .appendField("create a new coordinate at X:");
+            .appendField("Coordinate X:");
         this.appendValueInput("Y")
             .setCheck("Number")
-            .appendField(", Y:");
+            .appendField(" Y:");
         this.setInputsInline(true);
         this.setOutput(true, "Coordinate");
         this.setColour(330);
@@ -236,6 +236,17 @@ Blockly.Blocks['hit_the_neighbours_of_unsunk_ships'] = {
             .appendField("strike all neighbours of ships not sunk");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
+        this.setColour(230);
+        this.setTooltip('');
+        this.setHelpUrl('http://www.example.com/');
+    }
+};
+
+Blockly.Blocks['last_move_sink_bot'] = {
+    init: function() {
+        this.appendDummyInput()
+            .appendField("last Move Sink Space Ship?");
+        this.setOutput(true);
         this.setColour(230);
         this.setTooltip('');
         this.setHelpUrl('http://www.example.com/');
