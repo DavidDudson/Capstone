@@ -23,85 +23,52 @@
 <body>
     <div class="main_container">
         <div id="heading">
-<<<<<<< HEAD
             <h1>Star Battle <span><img src="static/images/rocketship.png" alt="RocketShip"> </span></h1>
         </div>
     <div class="container">
-            <form class="form-signin mg-btm">
-            <h3 class="heading-desc">Login to Star Battle</h3>
-            <div class="social-box">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="facebookButton">
-                            <form action="SocialLogin" method="POST">
-                                <input type="hidden" name="loginType" value="facebook" />
-                                <input type="hidden" name="callbackurl" value="http://localhost:8080/Capstone" />
-                                <input type="hidden" name="baseURL" value="" />
-                                <button type="submit" class="btn btn-block btn-social btn-facebook">
-                                    <i class="fa fa-facebook"></i> Sign in with Facebook
-                                </button>
-                            </form>
-                        </div>
+        <form class="form-signin mg-btm">
+        <h3 class="heading-desc">Login to Star Battle</h3>
+        <div class="social-box">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="facebookButton">
+                        <form action="SocialLogin" method="POST">
+                            <input type="hidden" name="loginType" value="facebook" />
+                            <input type="hidden" name="callbackurl" value="http://localhost:8080/Capstone" />
+                            <input type="hidden" name="baseURL" value="" />
+                            <button type="submit" class="btn btn-block btn-social btn-facebook">
+                                <i class="fa fa-facebook"></i> Sign in with Facebook
+                            </button>
+                        </form>
                     </div>
                 </div>
+            </div>
 
-                <h4 class="or"> or </h4>
+            <h4 class="or"> or </h4>
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="googlePlusButton">
-                            <form action="SocialLogin" method="POST">
-                                <input type="hidden" name="loginType" value="google" />
-                                <input type="hidden" name="callbackurl" value="http://localhost:8080/Capstone" />
-                                <input type="hidden" name="baseURL" value="" />
-                                <button type="submit" class="btn btn-block btn-social btn-google-plus">
-                                    <i class="fa fa-google"></i> Sign in with Google
-                                </button>
-                            </form>
-                        </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="googlePlusButton">
+                        <form action="SocialLogin" method="POST">
+                            <input type="hidden" name="loginType" value="google" />
+                            <input type="hidden" name="callbackurl" value="http://localhost:8080/Capstone" />
+                            <input type="hidden" name="baseURL" value="" />
+                            <button type="submit" class="btn btn-block btn-social btn-google-plus">
+                                <i class="fa fa-google"></i> Sign in with Google
+                            </button>
+                        </form>
                     </div>
                 </div>
-                <div class="debug-mode">
-                    <form action="login" method="POST">
-                        <input type="hidden" name="baseURL" value="" />
-                        <input type="hidden" name="username" value="Debug" />
-                        <input type="hidden" name="password" value="Debug" />
-                        <input type="submit" class="btn btn-block"  value="Debug Login"/>
-                    </form>
-                </div>
-=======
-            <h1>{{app.name}} <span><img id="index_logo" src="static/images/rocketship.png" alt="RocketShip"> </span></h1>
-        </div>
-        <div id="socialLogin">
-            <div class="facebookButton">
-                <form action="SocialLogin" method="POST">
-                    <input type="hidden" name="loginType" value="facebook" />
-                    <input type="hidden" name="callbackurl" value="http://localhost:8080/Capstone" />
-                    <input type="hidden" name="baseURL" value="" />
-                    <button id= "facebook_button" type="submit" class="btn btn-block btn-social btn-facebook">
-                        <i class="fa fa-facebook"></i> Sign in with Facebook
-                    </button>
-                </form>
             </div>
-            <div class="googlePlusButton">
-                <form action="SocialLogin" method="POST">
-                    <input type="hidden" name="loginType" value="google" />
-                    <input type="hidden" name="callbackurl" value="http://localhost:8080/Capstone" />
-                    <input type="hidden" name="baseURL" value="" />
-                    <button id= "google_button" type="submit" class="btn btn-block btn-social btn-google-plus">
-                        <i class="fa fa-google"></i> Sign in with Google
-                    </button>
-                </form>
-            </div>
-            <div>
+            <div class="debug-mode">
                 <form action="login" method="POST">
                     <input type="hidden" name="baseURL" value="" />
                     <input type="hidden" name="username" value="Debug" />
                     <input type="hidden" name="password" value="Debug" />
-                    <input id = "debug_login" type="submit" class="btn btn-block"  value="Debug Login"/>
+                    <input type="submit" class="btn btn-block"  value="Debug Login"/>
                 </form>
->>>>>>> 7d868411887dff071bbed0eccfe1dfd954df687d
             </div>
+        </div>
     </div>
 </body>
 </html>
