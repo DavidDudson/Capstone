@@ -13,10 +13,7 @@ angular
             scope: {
                 showBuiltInBots: "=?",
                 showUserBots: "=?",
-                showSharedBots: "=?",
-                builtInBots: "=?",
-                userBots: "=?",
-                botSelector: "=?"
+                showSharedBots: "=?"
             },
             // Declare Variables on directive load
             // The eval simply says to evaluate the expression inside the attribute,
@@ -27,7 +24,6 @@ angular
                     scope.showUserBots = 'userBots' in attrs;
                     scope.showBuiltInBots = 'builtInBots' in attrs;
                     scope.showSharedBots = 'sharedBots' in attrs;
-                    scope.botSelector = scope.$eval(attrs.botSelector);
                 }
             }
         };
@@ -51,7 +47,6 @@ angular
                     scope.group_bots = scope.$root.builtInBots.list;
                     scope.group_name = "Built In Bots"
                 }
-                scope.selector   = scope.$parent.botSelector;
             }
         };
     });

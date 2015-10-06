@@ -62,7 +62,7 @@
         <div class="container">
             <div class="row">
                 <!--Left bar-->
-                <sidebar bot_selector="botSelector" user_bots></sidebar>
+                <sidebar user_bots></sidebar>
                 <!--Blockly bar-->
                 <section class="col-lg-6 col-md-8 col-sm-8 col-xs-8">
                     <div id="main_content" style="color:white">
