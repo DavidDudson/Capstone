@@ -40,6 +40,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.4/ui-bootstrap-tpls.min.js"></script>
     <script src="static/js/app.js"></script>
     <script src="static/js/bots.js"></script>
+    <script src="static/js/ship.js"></script>
     <script src="static/js/user.js"></script>
     <script src="static/js/sidebar.js"></script>
     <script src="static/js/bot_selector.js"></script>

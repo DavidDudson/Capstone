@@ -31,6 +31,7 @@
     <script src="static/js/bot_selector.js"></script>
     <script src="static/js/notification_bar.js"></script>
     <script src="static/js/game.js"></script>
+    <script src="static/js/ship.js"></script>
     <script src="static/js/test.js"></script>
     <script src="static/js/lib/showErrors.min.js"></script>
 </head>
@@ -105,7 +106,7 @@
                                             <button type="button" ng-click="game.step_backward()"
                                                     class="btn btn-primary">
                                                 <i class="fa fa-step-backward"></i></button>
-                                            <button type="button" ng-click="game.play_pause(botSelector)"
+                                            <button type="button" ng-click="game.play_pause(botSelector,false)"
                                                     class="btn btn-primary">
                                                 <i class="fa"
                                                    ng-class="game.inProgress && !game.paused ?  'fa-pause' : 'fa-play'"></i>
@@ -116,82 +117,12 @@
                                             <button type="button" ng-click="game.end()" class="btn btn-primary">
                                                 <i class="fa fa-fast-forward"></i></button>
                                         </div>
-
-                                        <%--<div id="set_two" class="slow_fast">--%>
-                                        <%--<div class="left"> Slow</div>--%>
-                                        <%--<section>--%>
-                                        <%--<div id="slider" style="width: 155px"></div>--%>
-                                        <%--</section>--%>
-                                        <%--<div class="right"> Fast</div>--%>
-                                        <%--<div class="clear"></div>--%>
-
-                                        <%--<script>--%>
-                                        <%--$(function () {--%>
-                                        <%--$("#slider").slider({--%>
-                                        <%--range: "min",--%>
-                                        <%--value: 200,--%>
-                                        <%--min: 1,--%>
-                                        <%--max: 1000,--%>
-                                        <%--slide: function (event, ui) {--%>
-                                        <%--gameSpeed = 1000 - ui.value;--%>
-                                        <%--if (playGame) {--%>
-                                        <%--clearInterval(myGame);--%>
-                                        <%--myGame = setInterval(function () {--%>
-                                        <%--nextMove();--%>
-                                        <%--}, gameSpeed);--%>
-                                        <%--}--%>
-                                        <%--}--%>
-                                        <%--});--%>
-                                        <%--if (playGame) {--%>
-                                        <%--setTimeout(nextMove, gameSpeed);--%>
-                                        <%--playPause();--%>
-                                        <%--}--%>
-                                        <%--});--%>
-                                        <%--</script>--%>
-                                        <%--</div>--%>
                                     </div>
 
                                     <div id="results">
-                                        <table width="100%" border="0" cellpadding="0" cellspacing="0"
-                                               class="results-list">
-                                            <tr>
-                                                <td width="48%">SPACESHIPS LEFT</td>
-                                                <td width="26%" class="t-center">PLAYER 1 <br>
-                                                    <img src="static/images/layer1-ship1.png"></td>
-                                                <td width="26%" class="t-center">PLAYER 2 <br>
-                                                    <img src="static/images/layer2-ship2.png"></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Alien Mother Ship<br><img src="static/images/layer1-ship.png"><img
-                                                        src="static/images/layer1-ship.png"><img
-                                                        src="static/images/layer1-ship.png"><img
-                                                        src="static/images/layer1-ship.png"><img
-                                                        src="static/images/layer1-ship.png"></td>
-                                                <td id="p1motherShip" class="b-left">1</td>
-                                                <td id="p2motherShip" class="b-left">1</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Alien Carrier Ship<br> <img src="static/images/layer1-ship.png"><img
-                                                        src="static/images/layer1-ship.png"><img
-                                                        src="static/images/layer1-ship.png"><img
-                                                        src="static/images/layer1-ship.png"></td>
-                                                <td id="p1carrier" class="b-left">2</td>
-                                                <td id="p2carrier" class="b-left">2</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Alien Destroyer<br><img src="static/images/layer1-ship.png"><img
-                                                        src="static/images/layer1-ship.png"><img
-                                                        src="static/images/layer1-ship.png"></td>
-                                                <td id="p1destroyer" class="b-left">2</td>
-                                                <td id="p2destroyer" class="b-left">2</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Alien Fighter Ship<br><img src="static/images/layer1-ship.png"><img
-                                                        src="static/images/layer1-ship.png"></td>
-                                                <td id="p1fighter" class="b-left">2</td>
-                                                <td id="p2fighter" class="b-left">2</td>
-                                            </tr>
-                                        </table>
+                                        <div ng-repeat="ship in player1ShipList">
+                                            <img ng-repeat="coord in ship.coordinates" src="static/images/layer1-ship1.png"/>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
