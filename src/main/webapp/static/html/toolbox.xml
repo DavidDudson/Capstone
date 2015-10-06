@@ -131,5 +131,6 @@
         <block type="define_coordinate"></block>
         <block type="last_hit_move"></block>
         <block type="get_coordinate_at_pos"></block>
+        <block type="hit_the_neighbours_of_unsunk_ships"></block>
     </category>
 </xml>

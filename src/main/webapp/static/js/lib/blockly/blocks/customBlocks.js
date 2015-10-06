@@ -229,3 +229,15 @@ Blockly.Blocks['function_next_move'] = {
         this.setHelpUrl('http://www.example.com/');
     }
 };
+
+Blockly.Blocks['hit_the_neighbours_of_unsunk_ships'] = {
+    init: function() {
+        this.appendDummyInput()
+            .appendField("strike all neighbours of ships not sunk");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(230);
+        this.setTooltip('');
+        this.setHelpUrl('http://www.example.com/');
+    }
+};
