@@ -1,3 +1,10 @@
+<%@page import="nz.ac.massey.cs.ig.core.services.Services" %>
+<%
+    Services services = (Services) application.getAttribute(Services.NAME);
+    pageContext.setAttribute("isDebug",services.getConfiguration().isDebug());
+%>
+
+
 <!DOCTYPE html>
 <html ng-app="app" ng-controller="appCtrl">
 <head>
@@ -60,6 +67,8 @@
                     </div>
                 </div>
             </div>
+            
+            <c:if test="${isDebug}">
             <div class="debug-mode">
                 <form action="login" method="POST">
                     <input type="hidden" name="baseURL" value="" />
@@ -68,6 +77,7 @@
                     <input type="submit" class="btn btn-block"  value="Debug Login"/>
                 </form>
             </div>
+            </c:if>
         </div>
     </div>
 </body>
