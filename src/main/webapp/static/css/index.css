@@ -5,7 +5,7 @@ body {
 }
 
 #heading {
-	padding-top: 10%;
+	padding-top: 5%;
 	text-align: center;
 	color: #E8E8E8;
  }
@@ -13,10 +13,87 @@ body {
 h1 {
     font-size: 10em;
 }
-#socialLogin {
-    width: 22%;
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 10%;
+
+.form-signin {
+  width: 31%; 
+  min-width: 300px;
+  display:block;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #f7f7f7;
+  -moz-box-shadow: 0 0 3px 3px #888;
+    -webkit-box-shadow: 0 0 3px 3px #888;
+	box-shadow: 0 0 3px 3px #888;
+  border-radius:2px;
 }
 
+.main{
+	padding: 38px;
+}
+
+.social-box{
+  margin: 0 auto;
+  padding: 38px;
+  border-bottom:1px #ccc solid;
+}
+
+.social-box a{
+  font-weight:bold;
+  font-size:18px;
+  padding:8px;
+}
+
+.social-box a i{
+  font-weight:bold;
+  font-size:20px;
+}
+
+.heading-desc{
+	font-size:20px;
+	font-weight:bold;
+	padding:38px 38px 0px 38px;
+	color: #303030;
+	text-align: center;	
+}
+
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  font-size: 16px;
+  height: 20px;
+  padding: 20px;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="text"] {
+  margin-bottom: 10px;
+  border-radius: 5px;
+  
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.btn.focus, .btn:focus, .btn:hover {
+	min-width: 150px;
+
+}
+.or {
+	margin-top: 2.5%;
+	text-align: center;
+	color: #303030;
+}
+.or h4 {
+	font-size: 1.2em;
+}
+
+.debug-mode {
+	color: #787878;
+}
