@@ -35,11 +35,6 @@
     <script type="text/javascript" src="static/js/lib/blockly/blocks/procedures.js"></script>
     <script type="text/javascript" src="static/js/lib/blockly/blocks/customBlocks.js"></script>
 
-    <link rel="icon" type="image/png" href="static/images/favicon.ico" sizes="32x32">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="static/css/style.css">
-    <link rel="stylesheet" type="text/css" href="static/css/editor.css">
-
     <script src="static/js/lib/jquery-1.11.3.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.4/ui-bootstrap-tpls.min.js"></script>

@@ -1,31 +1,26 @@
-<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
-<%@page import="nz.ac.massey.cs.ig.core.services.Services" %>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%
-    Services services = (Services) application.getAttribute(Services.NAME);
-    pageContext.setAttribute("isDebug",services.getConfiguration().isDebug());
     pageContext.setAttribute("screenName", session.getAttribute("userName"));
     pageContext.setAttribute("profilePicture", session.getAttribute("userPicture"));
-    pageContext.setAttribute("gameName", services.getGameSupport().getName());
 %>
+
 <!DOCTYPE html>
 <html ng-app="app" ng-controller="appCtrl">
 <head>
-    <meta charset="utf-8">
     <title>Star Battle About</title>
     <link rel="icon" type="image/png" href="static/images/favicon.ico" sizes="32x32">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
     <link rel="stylesheet" type="text/css" href="static/css/about.css">
 
-    <script src="static/js/jquery-1.11.3.min.js"></script>
+    <script src="static/js/lib/jquery-1.11.3.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.4/ui-bootstrap-tpls.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.4/ui-bo otstrap-tpls.min.js"></script>
     <script src="static/js/app.js"></script>
-    <script src="static/js/editor.js"></script>
-    <script src="static/js/test.js"></script>
-    <script src="static/js/showErrors.min.js"></script>
+    <script src="static/js/bots.js"></script>
+    <script src="static/js/user.js"></script>
+
 </head>
 <body ng-init="user.initialize('${screenName}','${profilePicture}');" Ng-app="app">
 
@@ -41,13 +36,13 @@
             We hope that using starbattle will engage children in learning coding and furthering their understanding of computer science as a whole.
         </p>
         <p>
-            The advantages for education providers is that the platform requires no additional setup, installation or knowledge of coding. They can simply use the application from within any web browser. Teaching children how to code through gamification has proven to be highly motivating for the student and improve their efficacy. And our hope is that through the use of our application the children that use it will continue to discover the possibilities of code.
+            The advantages for education providers is that the platform requires no additional setup, installation or knowledge of coding. They can simply use the application from within any web browser. Teaching children how to code through gamification has proven to be highly motivating for the student and improve their efficacy. Our hope is that through the use of our application the children that use it will continue to discover the possibilities of code.
         </p>
         <p>
             <h3>Special thanks to:</h3>
             <ul> 
                 <li>Massey University’s <a href="http://sogaco.massey.ac.nz">SoGaCo platform</a></li>
-                <li>John Toebes of <a href="http://www.extremenetworks.com">Extreme Networks</a></li>
+                <li>John Toebe's <a href="https://github.com/toebes-extreme/blockly">Blockly Library</a></li>
                 <li>Google <a href="https://developers.google.com/blockly">Blockly</a></li>
             </ul>
            
