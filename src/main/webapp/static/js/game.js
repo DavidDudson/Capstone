@@ -10,8 +10,11 @@ function GameService($http, $interval) {
             moves: null,
             state: null,
             position: 0,
+            inProgress: false,
+            paused: false,
+            speed: 100,
             create: function (bot1, bot2, testing) {
-                if(notificationBar.active) return;
+                if (notificationBar.active) return;
                 notificationBar.reset();
                 notificationBar.active = true;
                 notificationBar.text = "Creating test game";
@@ -30,11 +33,11 @@ function GameService($http, $interval) {
                         notificationBar.active = false;
                         notificationBar.text = "Test game creation success";
                         notificationBar.type = "success";
-                        if(testing){
+                        if (testing) {
                             game.moves = data.moves.filter(function (move) {
                                 if (move.wasPlayer1) return move;
                             });
-                        } else{
+                        } else {
                             game.moves = data.moves
                         }
                         game.run();
@@ -45,24 +48,15 @@ function GameService($http, $interval) {
             },
             run: function () {
                 game.reset();
-                game.state = $interval(function () {
-                    var move = game.moves[game.position];
-                    if (move) {
-                        var player = move.wasPlayer1 ? "a" : "b";
-                        var coordinate = player + (move.coord.x * 10 + move.coord.y);
-                        if (move.wasShip) {
-                            document.getElementById(coordinate).innerHTML = "<img src='static/images/hit.png'/>";
-                        } else {
-                            document.getElementById(coordinate).innerHTML = "<img src='static/images/miss.png'/>";
-                        }
-                        move.sunk.forEach(function (move) {
-                            coordinate = player + (move.x * 10 + move.y);
-                            document.getElementById(coordinate).innerHTML = "<img src='static/images/sunk.png'/>"
-                        });
-                    }
-                    game.position++;
-                }, 100, game.moves.length);
+                game.start();
             },
+            start: function () {
+                game.inProgress = true;
+                game.state = $interval(function () {
+                    game.move_forward();
+                }, game.speed, game.moves.length);
+            },
+
             restart: function () {
                 game.reset();
                 game.run();
@@ -70,6 +64,8 @@ function GameService($http, $interval) {
             reset: function () {
                 $interval.cancel(game.state);
                 game.state = null;
+                game.inProgress = false;
+                game.paused = false;
 
                 for (var i = 0; i < 100; i++) {
                     $("#a" + i).html("");
@@ -81,6 +77,69 @@ function GameService($http, $interval) {
             hardReset: function () {
                 game.reset();
                 game.moves = null;
+            },
+            step_forward: function () {
+
+            },
+            move_forward: function () {
+                var move = game.moves[game.position];
+                if (move) {
+                    var player = move.wasPlayer1 ? "a" : "b";
+                    var coordinate = player + (move.coord.x * 10 + move.coord.y);
+                    if (move.wasShip) {
+                        document.getElementById(coordinate).innerHTML = "<img src='static/images/hit.png'/>";
+                    } else {
+                        document.getElementById(coordinate).innerHTML = "<img src='static/images/miss.png'/>";
+                    }
+                    move.sunk.forEach(function (move) {
+                        coordinate = player + (move.x * 10 + move.y);
+                        document.getElementById(coordinate).innerHTML = "<img src='static/images/sunk.png'/>"
+                    });
+                } else {
+                    $interval.cancel(game.state);
+                    game.inProgress = false;
+                }
+                game.position++;
+            },
+            step_backward: function () {
+                game.pause();
+                game.position--;
+                var move = game.moves[game.position];
+                if (move) {
+                    var player = move.wasPlayer1 ? "a" : "b";
+                    var coordinate = player + (move.coord.x * 10 + move.coord.y);
+                    move.sunk.forEach(function (move) {
+                        var sunkCoordinate = player + (move.x * 10 + move.y);
+                        document.getElementById(sunkCoordinate).innerHTML = "<img src='static/images/hit.png'/>"
+                    });
+                    document.getElementById(coordinate).innerHTML = "";
+                    game.inProgress = true;
+                }
+            },
+            play_pause: function (botSelector, testing) {
+                if (!game.inProgress) {
+                    game.inProgress = true;
+                    if (testing) {
+                        game.create(botSelector.bots[0], botSelector.bots[0], testing)
+                    } else {
+                        game.create(botSelector.bots[0], botSelector.bots[1], testing)
+                    }
+                } else {
+                    game.paused ? game.unpause() : game.pause()
+                }
+            },
+            pause: function () {
+                game.paused = true;
+                $interval.cancel(game.state)
+            },
+            unpause: function () {
+                game.paused = false;
+                game.start();
+            },
+            end: function () {
+                while (game.inProgress) {
+                    game.move_forward();
+                }
             }
         };
         return game;
