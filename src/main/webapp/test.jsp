@@ -54,7 +54,7 @@
             <div class="row">
                 <sidebar bot_selector="botSelector" user_bots built_in_bots shared_bots></sidebar>
 
-                <section class="col-lg-7 col-md-7 col-sm-10 col-sm-pull-1">
+                <section class="col-lg-7 col-md-10 col-md-pull-0 col-sm-10 col-sm-pull-1">
                     <div id="main_content">
                         <div id="player_one" class="left">
                             <ul>
@@ -86,7 +86,7 @@
                         </div>
                     </div>
                 </section>
-                <section class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-5 col-sm-offset-2 col-xs-3">
+                <section class="col-lg-3 col-lg-offset-0 col-md-4 col-md-offset-1 col-sm-5 col-sm-offset-2">
 
                     <div id="sidebar_right" class="sidebar right">
 
