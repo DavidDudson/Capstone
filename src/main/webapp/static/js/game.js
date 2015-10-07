@@ -113,13 +113,13 @@ function GameService($http, $interval,Ship) {
                     var player = move.wasPlayer1 ? "a" : "b";
                     var coordinate = player + (move.coord.x * 10 + move.coord.y);
                     if (move.wasShip) {
-                        document.getElementById(coordinate).innerHTML = "<img src='static/images/hit.png'/>";
+                        document.getElementById(coordinate).innerHTML = "<img src='static/images/hit.png' height='35em' width='35em'/>";
                     } else {
-                        document.getElementById(coordinate).innerHTML = "<img src='static/images/miss.png'/>";
+                        document.getElementById(coordinate).innerHTML = "<img src='static/images/miss.png' height='35em' width='35em'/>";
                     }
                     move.sunk.forEach(function (move) {
                         coordinate = player + (move.x * 10 + move.y);
-                        document.getElementById(coordinate).innerHTML = "<img src='static/images/sunk.png'/>"
+                        document.getElementById(coordinate).innerHTML = "<img src='static/images/sunk.png' height='35em' width='35em'/>"
                     });
                 } else {
                     $interval.cancel(game.state);
