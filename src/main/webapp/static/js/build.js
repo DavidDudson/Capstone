@@ -27,7 +27,7 @@ function BuildService($http) {
                 buildRequest.success(function (data) {
                     build.checkStatus(bot, data.buildStatusURL);
                 }).error(function () {
-                    console.error("Unable to save Bot");
+                    notificationBar.showError("Unable to save Bot");
                 });
             },
             _saveNewBot: function (botInformation) {
@@ -39,18 +39,13 @@ function BuildService($http) {
             //Updates the progress bar
             update: function (complete, position, pass) {
                 if (!complete) {
-                    notificationBar.postion = position;
-                    notificationBar.type = null;
-                    notificationBar.active = true;
-                    notificationBar.text = 'Position in queue... ' + notificationBar.position;
+                    notificationBar.position = position;
+                    notificationBar.showProgress('Position in queue... ' + position)
                 } else {
-                    notificationBar.active = false;
                     if (pass) {
-                        notificationBar.type = 'success';
-                        notificationBar.text = 'Build Success';
+                        notificationBar.showSuccess('Build Success');
                     } else {
-                        notificationBar.type = 'danger';
-                        notificationBar.text = 'Build Failure';
+                        notificationBar.showWarning('Build Failure');
                     }
                 }
             },
@@ -66,7 +61,6 @@ function BuildService($http) {
                             }
                         } else {
                             build.update(false, data.currentPosition, true);
-                            notificationBar.total = data.queueSize;
                             setTimeout(function () {
                                 build.checkStatus(bot, buildStatusUrl);
                             }, 250);

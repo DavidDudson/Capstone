@@ -39,24 +39,20 @@ function GameService($http, $interval,Ship) {
             },
             create: function (bot1, bot2, testing) {
                 if (notificationBar.active) return;
-                notificationBar.reset();
-                notificationBar.active = true;
-                notificationBar.text = "Creating test game";
+                notificationBar.showProgress("Creating test game");
                 var data = testing ? "" + bot1.id + "\n" + bot1.id + "\n" : "" + bot1.id + "\n" + bot2.id + "\n";
                 $http.post('creategame_b2b', data)
                     .success(function (data, status, headers) {
                         game.getMoves(headers("Location"), testing);
                     })
                     .error(function () {
-                        console.error("Couldnt create bot to bot game");
+                        notificationBar.showError("Couldnt create bot to bot game");
                     });
             },
             getMoves: function (url, testing) {
                 $http.get(url)
                     .success(function (data) {
-                        notificationBar.active = false;
-                        notificationBar.text = "Test game creation success";
-                        notificationBar.type = "success";
+                        notificationBar.showSuccess("Test game creation success");
                         if (testing) {
                             game.moves = data.moves.filter(function (move) {
                                 if (move.wasPlayer1) return move;
@@ -68,7 +64,7 @@ function GameService($http, $interval,Ship) {
                         game.run();
                     })
                     .error(function () {
-                        console.error("Could retrieve game moves");
+                        notificationBar.showError("Game Moves could not be retrieved")
                     })
             },
             run: function () {
@@ -113,13 +109,13 @@ function GameService($http, $interval,Ship) {
                     var player = move.wasPlayer1 ? "a" : "b";
                     var coordinate = player + (move.coord.x * 10 + move.coord.y);
                     if (move.wasShip) {
-                        document.getElementById(coordinate).innerHTML = "<img src='static/images/hit.png'/>";
+                        document.getElementById(coordinate).innerHTML = "<img src='static/images/hit.png' height='35em' width='35em'/>";
                     } else {
-                        document.getElementById(coordinate).innerHTML = "<img src='static/images/miss.png'/>";
+                        document.getElementById(coordinate).innerHTML = "<img src='static/images/miss.png' height='35em' width='35em'/>";
                     }
                     move.sunk.forEach(function (move) {
                         coordinate = player + (move.x * 10 + move.y);
-                        document.getElementById(coordinate).innerHTML = "<img src='static/images/sunk.png'/>"
+                        document.getElementById(coordinate).innerHTML = "<img src='static/images/sunk.png' height='35em' width='35em'/>"
                     });
                 } else {
                     $interval.cancel(game.state);
@@ -143,7 +139,6 @@ function GameService($http, $interval,Ship) {
                 }
             },
             play_pause: function (botSelector, testing) {
-                console.log(botSelector);
                 if (!game.inProgress) {
                     game.inProgress = true;
                     if (testing) {

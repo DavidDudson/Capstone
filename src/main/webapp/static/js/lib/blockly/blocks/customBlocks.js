@@ -276,5 +276,27 @@ Blockly.Blocks['check_neighbours_for_best_attack'] = {
     this.setColour(230);
     this.setTooltip('check the current coordinate and neighbours and select next choosen coordinate based on weather the neighbours have been hit');
     this.setHelpUrl('http://www.example.com/');
-  }
+    }
+};
+Blockly.Blocks['coordinate_state'] = {
+    init: function() {
+        this.appendDummyInput()
+            .appendField(new Blockly.FieldDropdown([["space", "0"], ["hit", "1"], ["miss", "2"], ["sunk", "3"]]), "STATE");
+        this.setOutput(true, "State");
+        this.setColour(230);
+        this.setTooltip('Possible states of a Coordinate');
+        this.setHelpUrl('http://www.example.com/');
+    }
+};
+
+Blockly.Blocks['states_of_neighbours'] = {
+    init: function() {
+        this.appendValueInput("NAME")
+            .setCheck("Coordinate")
+            .appendField("the state of the neighbouring positions of");
+        this.setOutput(true, "Array");
+        this.setColour(230);
+        this.setTooltip('');
+        this.setHelpUrl('http://www.example.com/');
+    }
 };
