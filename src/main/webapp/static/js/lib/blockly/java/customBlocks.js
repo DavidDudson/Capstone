@@ -179,3 +179,11 @@ Blockly.Java['last_move_state'] = function(block) {
     var code = "botGameBoard.getLastMoveState("+ state +")";
     return [code, Blockly.Java.ORDER_ATOMIC];
 };
+
+
+Blockly.Java['check_neighbours_for_best_attack'] = function (block) {
+    var dropdown_position = '';
+    var value_input = Blockly.Java.valueToCode(block, 'INPUT', Blockly.Java.ORDER_ATOMIC);
+    var code = 'botGameBoard.findAndHitNeighbour(' + value_input + ')';
+    return [code, Blockly.Java.ORDER_ATOMIC];
+};

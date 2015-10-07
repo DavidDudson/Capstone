@@ -12,17 +12,9 @@ public class blocklyBot extends StarBattleBot {
 
 public blocklyBot(String id) { super(id); }
 
-@Override
-public Coordinate nextMove(BotGameBoard botGameBoard) {
+    @Override
+    public Coordinate nextMove(BotGameBoard botGameBoard) {
 
-    if(botGameBoard.getHistory().size() == 0){
-        return new Coordinate(0,0);
+        return botGameBoard.findAndHitNeighbour(new Coordinate(0, 0));
     }
-    else {
-        return     botGameBoard.findAndHitNeighbour(botGameBoard.getLastMove());
-
-    }
-
-
-}
 }

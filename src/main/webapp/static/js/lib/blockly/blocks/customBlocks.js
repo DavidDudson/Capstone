@@ -264,3 +264,17 @@ Blockly.Blocks['last_move_state'] = {
         this.setHelpUrl('http://www.example.com/');
     }
 };
+
+
+Blockly.Blocks['check_neighbours_for_best_attack'] = {
+  init: function() {
+    this.appendValueInput("INPUT")
+        .setCheck("Coordinate")
+        .appendField("select best move from current coord");
+    this.setInputsInline(true);
+    this.setOutput(true, "Coordinate");
+    this.setColour(230);
+    this.setTooltip('check the current coordinate and neighbours and select next choosen coordinate based on weather the neighbours have been hit');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
