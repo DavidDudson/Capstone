@@ -185,3 +185,9 @@ Blockly.Java['coordinate_state'] = function(block) {
     var code = '' + dropdown_state + '';
     return [code, Blockly.Java.ORDER_ATOMIC];
 };
+
+Blockly.Java['states_of_neighbours'] = function(block) {
+    var value_name = Blockly.Java.valueToCode(block, 'NAME', Blockly.Java.ORDER_ATOMIC);
+    var code = 'botGameBoard.getStatesOfNeighbours(' + value_name + ')';
+    return [code, Blockly.JavaScript.ORDER_COLLECTION];
+};

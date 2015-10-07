@@ -275,3 +275,15 @@ Blockly.Blocks['coordinate_state'] = {
         this.setHelpUrl('http://www.example.com/');
     }
 };
+
+Blockly.Blocks['states_of_neighbours'] = {
+    init: function() {
+        this.appendValueInput("NAME")
+            .setCheck("Coordinate")
+            .appendField("the state of the neighbouring positions of");
+        this.setOutput(true, "Array");
+        this.setColour(230);
+        this.setTooltip('');
+        this.setHelpUrl('http://www.example.com/');
+    }
+};
