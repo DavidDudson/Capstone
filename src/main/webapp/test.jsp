@@ -73,7 +73,7 @@
 
                         <br/>
                         <br/>
-                        <div class="col-lg-12">
+                        <div class="col-xs-12">
                             <progressbar class="progress-striped"
                                          ng-class="notificationBar.active"
                                          ng-value="notificationBar.progress"
