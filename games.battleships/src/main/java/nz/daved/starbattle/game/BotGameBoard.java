@@ -2,7 +2,9 @@ package nz.daved.starbattle.game;
 
 import com.google.common.primitives.Ints;
 import nz.daved.starbattle.StarBattleGameMove;
+import sun.awt.image.ImageWatched;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -190,7 +192,7 @@ public class BotGameBoard extends GameBoard {
      * @return coordinate of last move played
      */
     public Coordinate getLastMove(){
-        return getHistory().get(getHistory().size());
+        return getHistory().getLast();
 
     }
 
@@ -242,7 +244,7 @@ public class BotGameBoard extends GameBoard {
         switch (position){
             case "up" :   return grid[coord.getX()][coord.getY() - 1];
             case "right": return grid[coord.getX() + 1][coord.getY()];
-            case "down" : return grid[coord.getX()][coord.getY() -1];
+            case "down" : return grid[coord.getX()][coord.getY() +1];
             case "left" : return grid[coord.getX() - 1][coord.getY()];
 
 
@@ -263,33 +265,36 @@ public class BotGameBoard extends GameBoard {
 
 
     public LinkedList<Integer> getNeightbourStates(Coordinate coord){
-        LinkedList<Integer> neightbourStates = new LinkedList<Integer>();
+        LinkedList<Integer> neightbourStates = new LinkedList<Integer>(Arrays.asList(0,1,2,3));
 
+//        System.out.println("x :" + coord.getX() + " " + coord.getY() );
 
-        if(coord.getY() < 0){
-            neightbourStates.add(0, -1);
+//        System.out.println(getNeighbourValidCoordinates(coord));
+        if(coord.getY() <= 0){
+            neightbourStates.set(0, -1);
         }
-        if(coord.getX() > 9){
-            neightbourStates.add(1, -1);
+        if(coord.getX() >= 9){
+            neightbourStates.set(1, -1);
         }
-        if (coord.getY() < 9){
-            neightbourStates.add(2, -1);
+        if (coord.getY() >= 9){
+            neightbourStates.set(2, -1);
         }
-        if(coord.getX() < 0){
-            neightbourStates.add(3, -1);
+        if(coord.getX() <= 0){
+            neightbourStates.set(3, -1);
         }
-
+        System.out.println(Arrays.toString(neightbourStates.toArray()));
         for (int i = 0; i < neightbourStates.size(); i++) {
             if(neightbourStates.get(i) != -1){
+                System.out.println(neightbourStates.get(i));
                 switch (i){
-                    case 0 : neightbourStates.add(i, getStateOfCoordinateAtPosition(coord, "up"));
-                            break;
-                    case 1 : neightbourStates.add(i, getStateOfCoordinateAtPosition(coord, "right"));
-                            break;
-                    case 2 : neightbourStates.add(i, getStateOfCoordinateAtPosition(coord, "down"));
-                            break;
-                    case 3 : neightbourStates.add(i, getStateOfCoordinateAtPosition(coord, "left"));
-                            break;
+                    case 0 : neightbourStates.set(i, getStateOfCoordinateAtPosition(coord, "up"));
+                             break;
+                    case 1 : neightbourStates.set(i, getStateOfCoordinateAtPosition(coord, "right"));
+                             break;
+                    case 2 : neightbourStates.set(i, getStateOfCoordinateAtPosition(coord, "down"));
+                             break;
+                    case 3 : neightbourStates.set(i, getStateOfCoordinateAtPosition(coord, "left"));
+                             break;
 
                 }
 
@@ -340,7 +345,14 @@ public class BotGameBoard extends GameBoard {
                     }
             }
         }
-        return getNeighbourValidCoordinates(coord).getFirst();
+        LinkedList<Coordinate> validNeigbours = getNeighbourValidCoordinates(coord);
+
+        if(validNeigbours.size() == 0){
+            return coord;
+        }else {
+
+            return getNeighbourValidCoordinates(coord).getFirst();
+        }
 
 
 

@@ -15,6 +15,14 @@ public blocklyBot(String id) { super(id); }
 @Override
 public Coordinate nextMove(BotGameBoard botGameBoard) {
 
-return (botGameBoard.getHistory().get((int)0));
+    if(botGameBoard.getHistory().size() == 0){
+        return new Coordinate(0,0);
+    }
+    else {
+        return     botGameBoard.findAndHitNeighbour(botGameBoard.getLastMove());
+
+    }
+
+
 }
 }
