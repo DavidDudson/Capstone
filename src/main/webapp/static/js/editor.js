@@ -1,5 +1,8 @@
 angular
-    .module("app")
+    .module("app", ['ui.bootstrap', 'ui.bootstrap.showErrors'])
+    .config(['showErrorsConfigProvider', function (showErrorsConfigProvider) {
+        showErrorsConfigProvider.showSuccess(true);
+    }])
     //Blockly toolbox
     .directive("toolbox", function () {
         return {
@@ -8,8 +11,23 @@ angular
             replace: true
         };
     })
-    //Basically the Editor "class", it has functions you can call on it etc.
-    .controller("editorCtrl", function (Bots, Game, NotificationBar, BotSelector, $modal, $scope, $rootScope) {
+    .
+    controller("appCtrl", function (User,Bots, Game, NotificationBar, BotSelector, $modal, $scope, $rootScope) {
+
+        //The app object
+        $rootScope.app = {
+            name: "Star Battle"
+        };
+
+        //The user object
+        $rootScope.user = undefined;
+
+        $rootScope.createBuiltInBots = function () {
+            $rootScope.builtInBots = Bots("builtinbots")
+        };
+
+        $rootScope.builtInBots = undefined;
+
 
         $scope.workspace = Blockly.inject('blocklyDiv', {
             toolbox: null,
@@ -28,7 +46,11 @@ angular
             }
         });
 
-        $scope.notificationBar = NotificationBar();
+        $scope.notificationBar = NotificationBar("Welcome to Starbattles editor. Click Save then Test to get started");
+
+        $rootScope.createUser = function (username, profilePictureUrl) {
+            $rootScope.user = User(username, profilePictureUrl, $scope.notificationBar)
+        };
 
         //Create a new bot selector that can select 1 bot at a time
         $scope.botSelector = BotSelector(1);
@@ -37,7 +59,7 @@ angular
 
         $scope.save = function () {
             $scope.syncSource();
-            $rootScope.user.bots.save($scope.botSelector.getBots()[0], $scope.notificationBar)
+            $rootScope.user.bots.save($scope.botSelector.getBots()[0])
 
         };
 

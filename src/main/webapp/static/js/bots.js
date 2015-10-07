@@ -6,7 +6,7 @@ angular.module("app")
 function BotService($http, Build) {
 
     //The name is simply the request name to actually retrieve the bots from the server
-    return function (name) {
+    return function (name,notificationBar) {
         var bots = {
             list: [],
             get: function () {
@@ -30,7 +30,7 @@ function BotService($http, Build) {
                         return bots._removeFromList(bot);
                     })
                     .error(function () {
-                        console.error("Bot Deletion Failure: Server Deletion Failed")
+                        notificationBar.showError("Bot Deletion Failure: Server Deletion Failed")
                     })
             },
             _removeFromList: function (bot) {
@@ -39,7 +39,7 @@ function BotService($http, Build) {
                     bots.list.splice(index, 1);
                     return true;
                 } else {
-                    console.error("Bot Deletion Failure: Bot wasn't in list");
+                    notificationBar.showError("Bot Deletion Failure: Bot wasn't in list");
                     return false;
                 }
             },
@@ -52,7 +52,7 @@ function BotService($http, Build) {
                         });
                     })
                     .error(function () {
-                        console.error("Update user bots Failure");
+                        notificationBar.showError("Update user bots Failure");
                     });
             },
             _addSource: function (bot) {
@@ -62,14 +62,14 @@ function BotService($http, Build) {
                         bot.xml = data.match(/<xml.*>/);
                     })
                     .error(function () {
-                        console.error("Source could not be loaded for: " + bot.id);
+                        notificationBar.showError("Source could not be loaded for: " + bot.id);
                     });
             },
             updateSource: function (bot, src) {
                 bot.src = src;
                 bot.xml = src.match(/<xml.*>/);
             },
-            save: function (bot, notificationBar) {
+            save: function (bot) {
                 var build = Build(notificationBar);
                 build.start(bot);
             },
@@ -79,7 +79,7 @@ function BotService($http, Build) {
                         data: "botId=" + bot.id
                     })
                     .error(function () {
-                        console.error("Bot share fail");
+                        notificationBar.showError("Bot share fail");
                     })
             },
             unshare: function (bot) {
@@ -91,7 +91,7 @@ function BotService($http, Build) {
                         bot.share = false
                     })
                     .error(function () {
-                        console.error("Bot unhsare fail")
+                        notificationBar.showError("Bot unhsare fail")
                     });
             }
         };

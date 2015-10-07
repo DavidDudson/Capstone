@@ -13,48 +13,48 @@
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
     <link rel="stylesheet" type="text/css" href="static/css/editor.css">
 
-    <script type="text/javascript" src="static/js/lib/blockly/blockly_uncompressed.js"></script>
-    <script type="text/javascript" src="static/js/lib/blockly/java.js"></script>
-    <script type="text/javascript" src="static/js/lib/blockly/java/logic.js"></script>
-    <script type="text/javascript" src="static/js/lib/blockly/java/loops.js"></script>
-    <script type="text/javascript" src="static/js/lib/blockly/java/math.js"></script>
-    <script type="text/javascript" src="static/js/lib/blockly/java/text.js"></script>
-    <script type="text/javascript" src="static/js/lib/blockly/java/lists.js"></script>
-    <script type="text/javascript" src="static/js/lib/blockly/java/variables.js"></script>
-    <script type="text/javascript" src="static/js/lib/blockly/java/procedures.js"></script>
-    <script type="text/javascript" src="static/js/lib/blockly/java/customBlocks.js"></script>
-    <script type="text/javascript" src="static/js/lib/blockly/messages.js"></script>
-    <script type="text/javascript" src="static/js/lib/blockly/blocks/logic.js"></script>
-    <script type="text/javascript" src="static/js/lib/blockly/blocks/loops.js"></script>
-    <script type="text/javascript" src="static/js/lib/blockly/blocks/math.js"></script>
-    <script type="text/javascript" src="static/js/lib/blockly/blocks/text.js"></script>
-    <script type="text/javascript" src="static/js/lib/blockly/blocks/lists.js"></script>
-    <script type="text/javascript" src="static/js/lib/blockly/blocks/variables.js"></script>
-    <script type="text/javascript" src="static/js/lib/blockly/blocks/procedures.js"></script>
-    <script type="text/javascript" src="static/js/lib/blockly/blocks/customBlocks.js"></script>
+    <script type="text/javascript" src="./static/js/lib/blockly/blockly_uncompressed.js"></script>
+    <script type="text/javascript" src="./static/js/lib/blockly/java.js"></script>
+    <script type="text/javascript" src="./static/js/lib/blockly/java/logic.js"></script>
+    <script type="text/javascript" src="./static/js/lib/blockly/java/loops.js"></script>
+    <script type="text/javascript" src="./static/js/lib/blockly/java/math.js"></script>
+    <script type="text/javascript" src="./static/js/lib/blockly/java/text.js"></script>
+    <script type="text/javascript" src="./static/js/lib/blockly/java/lists.js"></script>
+    <script type="text/javascript" src="./static/js/lib/blockly/java/variables.js"></script>
+    <script type="text/javascript" src="./static/js/lib/blockly/java/procedures.js"></script>
+    <script type="text/javascript" src="./static/js/lib/blockly/java/customBlocks.js"></script>
+    <script type="text/javascript" src="./static/js/lib/blockly/messages.js"></script>
+    <script type="text/javascript" src="./static/js/lib/blockly/blocks/logic.js"></script>
+    <script type="text/javascript" src="./static/js/lib/blockly/blocks/loops.js"></script>
+    <script type="text/javascript" src="./static/js/lib/blockly/blocks/math.js"></script>
+    <script type="text/javascript" src="./static/js/lib/blockly/blocks/text.js"></script>
+    <script type="text/javascript" src="./static/js/lib/blockly/blocks/lists.js"></script>
+    <script type="text/javascript" src="./static/js/lib/blockly/blocks/variables.js"></script>
+    <script type="text/javascript" src="./static/js/lib/blockly/blocks/procedures.js"></script>
+    <script type="text/javascript" src="./static/js/lib/blockly/blocks/customBlocks.js"></script>
 
-    <script src="static/js/lib/jquery-1.11.3.min.js"></script>
+    <script src="./static/js/lib/jquery-1.11.3.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.4/ui-bootstrap-tpls.min.js"></script>
-    <script src="static/js/app.js"></script>
-    <script src="static/js/bots.js"></script>
-    <script src="static/js/ship.js"></script>
-    <script src="static/js/user.js"></script>
-    <script src="static/js/sidebar.js"></script>
-    <script src="static/js/bot_selector.js"></script>
-    <script src="static/js/notification_bar.js"></script>
-    <script src="static/js/build.js"></script>
-    <script src="static/js/game.js"></script>
-    <script src="static/js/editor.js"></script>
-    <script src="static/js/lib/showErrors.min.js"></script>
+    <script src="./static/js/editor.js"></script>
+    <script src="./static/js/header.js"></script>
+    <script src="./static/js/bots.js"></script>
+    <script src="./static/js/ship.js"></script>
+    <script src="./static/js/user.js"></script>
+    <script src="./static/js/sidebar.js"></script>
+    <script src="./static/js/bot_selector.js"></script>
+    <script src="./static/js/notification_bar.js"></script>
+    <script src="./static/js/build.js"></script>
+    <script src="./static/js/game.js"></script>
+    <script src="./static/js/lib/showErrors.min.js"></script>
 </head>
-<body ng-init="createUser('${screenName}','${profilePicture}'); createBuiltInBots();" ng-app="app">
+<body ng-init="createUser('${screenName}','${profilePicture}'); createBuiltInBots();">
 
 <page-header></page-header>
 
 <toolbox></toolbox>
 
-<div class="container_10" ng-controller="editorCtrl">
+<div class="container_10">
     <div id="content">
         <!--Main container-->
         <div class="container">
@@ -99,8 +99,11 @@
                         <div>
                             <progressbar class="progress-striped"
                                          ng-class="notificationBar.active"
-                                         ng-value="notificationBar.progress" type="{{notificationBar.type}}"
-                                         style="width:100%; height: 40px"><b>{{notificationBar.text}}</b></progressbar>
+                                         ng-value="notificationBar.progress"
+                                         type="{{notificationBar.type}}"
+                                         style="width:100%; height: 40px">
+                                <b>{{notificationBar.text}}</b>
+                            </progressbar>
                         </div>
                     </div>
                 </section>

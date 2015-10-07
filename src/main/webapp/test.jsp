@@ -19,26 +19,24 @@
     <script src="static/js/lib/jquery-1.11.3.min.js"></script>
     <script src="static/js/lib/jquery-ui.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.4/ui-bootstrap-tpls.min.js"></script>
-    <script src="static/js/app.js"></script>
+    <script src="static/js/test.js"></script>
+    <script src="static/js/user.js"></script>
     <script src="static/js/bots.js"></script>
     <script src="static/js/build.js"></script>
-    <script src="static/js/user.js"></script>
+    <script src="static/js/header.js"></script>
     <script src="static/js/sidebar.js"></script>
     <script src="static/js/bot_selector.js"></script>
     <script src="static/js/notification_bar.js"></script>
     <script src="static/js/game.js"></script>
     <script src="static/js/ship.js"></script>
-    <script src="static/js/test.js"></script>
-    <script src="static/js/lib/showErrors.min.js"></script>
 </head>
-<body ng-init="createUser('${screenName}','${profilePicture}'); createBuiltInBots();" ng-app="app">
+<body ng-init="createUser('${screenName}','${profilePicture}'); createBuiltInBots();">
 
 <!--Navigation bar-->
 <page-header></page-header>
 <!--End Navigation bar-->
 
-<div class="container_10" style="color:white" ng-controller="testCtrl">
+<div class="container_10" style="color:white">
     <div id="content">
         <!--Main container-->
         <div class="container-gl-1400 container-md-992 container-sm-768 container-xs-767">
@@ -48,7 +46,7 @@
                 <section class="col-lg-7 col-md-10 col-md-pull-0 col-sm-10 col-sm-pull-0">
                     <div id="main_content">
                         <div id="player_one" class="left">
-                            <h3>{{botSelector.bots[0] ? botSelector.bots[0].name : "Select Bot 1"}} </h3>
+                            <h3 style="{color:red}">{{botSelector.bots[0] ? botSelector.bots[0].name : "Select Bot 1"}} </h3>
                             <ul class="grid_box">
                                 <%for (int i = 0; i < 10; i++) {%>
                                 <%for (int j = 0; j < 10; j++) {%>
@@ -58,9 +56,8 @@
                                 <%}%>
                             </ul>
                         </div>
-
                         <div id="player_two" class="left">
-                            <h3>{{botSelector.bots[1] ? botSelector.bots[1].name : "Select Bot 2"}}</h3>
+                            <h3 style="{color:blue}">{{botSelector.bots[1] ? botSelector.bots[1].name : "Select Bot 2"}}</h3>
                             <ul class="grid_box">
                                 <%for (int i = 0; i < 10; i++) {%>
                                 <%for (int j = 0; j < 10; j++) {%>
@@ -77,7 +74,7 @@
                             <progressbar class="progress-striped"
                                          ng-class="notificationBar.active"
                                          ng-value="notificationBar.progress"
-                                         style="height: 40px">
+                                         style="height: 40px"
                                          type="{{notificationBar.type}}">
                                 <b>{{notificationBar.text}}</b>
                             </progressbar>
@@ -116,11 +113,9 @@
                                                 <i class="fa fa-fast-forward"></i></button>
                                         </div>
                                     </div>
-
-                                    <div id="results">
                                         <div ng-repeat="ship in player1ShipList">
+                                            a
                                             <img ng-repeat="coord in ship.coordinates" src="static/images/layer1-ship1.png"/>
-                                        </div>
                                     </div>
                                 </div>
                             </div>

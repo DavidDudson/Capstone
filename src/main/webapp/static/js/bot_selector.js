@@ -21,9 +21,7 @@ function BotSelectorService() {
                     selector.bots = [bot];
                     selector.bots[0].colour = 'red';
                 } else {
-                    console.log(selector.bots);
                     selector.bots.push(bot);
-                    console.log(selector.bots);
                     if (selector.bots.length > selector.limit) {
                         var oldBot = selector.bots.shift();
                         oldBot.colour = '';

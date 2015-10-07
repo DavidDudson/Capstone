@@ -3,24 +3,52 @@ angular.module("app")
 
 function NotificationBarService() {
 
-    return function () {
+    return function (defaultText) {
         var notificationBar = {
-            //How many bots in queue
-            complete: true,
             //position in queue
-            position: 100,
+            position: 1,
             //Whether or not a build is active
-            active: false,
+            active: '',
             //eg success error etc.
             type: null,
             //The text to show on the bar
-            text: 'Click Save or Test to get started',
+            text: defaultText,
 
             //Rests the build to default,
             reset: function () {
-                notificationBar.position = 100;
+                notificationBar.position = 1;
                 notificationBar.type = null;
-                notificationBar.text = 'Click Save or Test to get started';
+                notificationBar.text = defaultText;
+                notificationBar.active = '';
+            },
+            //Display A Warning
+            showWarning: function(message){
+                notificationBar.reset();
+                notificationBar.position = 1;
+                notificationBar.type = 'warning';
+                notificationBar.text = message;
+                notificationBar.active = '';
+            },
+            showSuccess: function(message){
+                notificationBar.reset();
+                notificationBar.position = 1;
+                notificationBar.type = 'success';
+                notificationBar.text = message;
+                notificationBar.active = '';
+            },
+            showError: function(message){
+                notificationBar.reset();
+                notificationBar.position = 1;
+                notificationBar.type = 'danger';
+                notificationBar.text = message;
+                notificationBar.active = '';
+            },
+            showProgress: function(message){
+                notificationBar.reset();
+                notificationBar.position = 1;
+                notificationBar.type = '';
+                notificationBar.text = message;
+                notificationBar.active = 'active';
             }
         };
         return notificationBar;
