@@ -1,5 +1,3 @@
-<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page import="nz.ac.massey.cs.ig.core.services.Services" %>
 <%
     Services services = (Services) application.getAttribute(Services.NAME);
@@ -8,7 +6,7 @@
 
 
 <!DOCTYPE html>
-<html ng-app="app" ng-controller="appCtrl">
+<html ng-app="app" ng-init="isDebug=${isDebug}" ng-controller="appCtrl">
 <head>
     <title>Star Battle Home</title>
     <link rel="icon" type="image/png" href="static/images/favicon.ico" sizes="32x32">
@@ -69,9 +67,9 @@
                         </div>
                     </div>
                 </div>
-            
-            <c:if test="${isDebug}">
-            <div class="debug-mode">
+            </div>
+
+            <div ng-if="isDebug" class="debug-mode">
                 <form action="login" method="POST">
                     <input type="hidden" name="baseURL" value="" />
                     <input type="hidden" name="username" value="Debug" />
@@ -79,7 +77,6 @@
                     <input type="submit" class="btn btn-block"  value="Debug Login"/>
                 </form>
             </div>
-            </c:if>
         </div>
     </div>
 </body>

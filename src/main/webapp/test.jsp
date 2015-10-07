@@ -1,6 +1,3 @@
-<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
-<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
-
 <%
     pageContext.setAttribute("screenName", session.getAttribute("userName"));
     pageContext.setAttribute("profilePicture", session.getAttribute("userPicture"));
@@ -51,9 +48,7 @@
                 <section class="col-lg-7 col-md-10 col-md-pull-0 col-sm-10 col-sm-pull-0">
                     <div id="main_content">
                         <div id="player_one" class="left">
-                            <ul>
-                                <li><b> {{botSelector.bots[0] ? botSelector.bots[0].name : "Select Bot 1"}} </b></li>
-                            </ul>
+                            <h3>{{botSelector.bots[0] ? botSelector.bots[0].name : "Select Bot 1"}} </h3>
                             <ul class="grid_box">
                                 <%for (int i = 0; i < 10; i++) {%>
                                 <%for (int j = 0; j < 10; j++) {%>
@@ -65,10 +60,7 @@
                         </div>
 
                         <div id="player_two" class="left">
-                            <ul>
-                                <li><b> {{botSelector.bots[1] ? botSelector.bots[1].name : "Select Bot 2"}} </b></li>
-                            </ul>
-
+                            <h3>{{botSelector.bots[1] ? botSelector.bots[1].name : "Select Bot 2"}}</h3>
                             <ul class="grid_box">
                                 <%for (int i = 0; i < 10; i++) {%>
                                 <%for (int j = 0; j < 10; j++) {%>
@@ -78,12 +70,17 @@
                                 <%}%>
                             </ul>
                         </div>
-                        <progressbar class="progress-striped test-progress"
-                                     ng-class="notificationBar.active"
-                                     ng-value="notificationBar.progress" type="{{notificationBar.type}}"
-                                     style="width:100%; height: 40px"><b>{{notificationBar.text}}</b>
-                        </progressbar>
-
+                        <br/>
+                        <br/>
+                        <div class="col-lg-12">
+                            <progressbar class="progress-striped"
+                                         ng-class="notificationBar.active"
+                                         ng-value="notificationBar.progress"
+                                         style="height: 40px">
+                                         type="{{notificationBar.type}}">
+                                <b>{{notificationBar.text}}</b>
+                            </progressbar>
+                        </div>
                     </div>
                     
                 </section>

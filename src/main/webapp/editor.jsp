@@ -1,5 +1,3 @@
-<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
-<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%
     pageContext.setAttribute("screenName", session.getAttribute("userName"));
     pageContext.setAttribute("profilePicture", session.getAttribute("userPicture"));

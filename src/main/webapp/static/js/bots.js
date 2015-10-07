@@ -16,7 +16,7 @@ function BotService($http, Build) {
             add: function (bot) {
                 bots.list.push(bot);
             },
-            //Deletes the bot, returns true if it was a success
+            //Deletes the bot, just removes it if it wasn't ever saved
             delete: function (bot) {
                 if (bot.new) {
                     return bots._removeFromList(bot)
