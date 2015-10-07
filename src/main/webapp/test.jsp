@@ -77,6 +77,7 @@
                                 <%}%>
                             </ul>
                         </div>
+
                         <progressbar class="progress-striped test-progress"
                                      ng-class="notificationBar.active"
                                      ng-value="notificationBar.progress" type="{{notificationBar.type}}"
@@ -86,7 +87,7 @@
                     </div>
                     
                 </section>
-                <section class="col-lg-3 col-lg-offset-0 col-md-4 col-md-offset-1 col-sm-5 col-sm-offset-2">
+                <section class="col-lg-3 col-lg-offset-0 col-md-5 col-md-offset-5 col-sm-5 col-sm-offset-4">
 
                     <div id="sidebar_right" class="sidebar right">
 
