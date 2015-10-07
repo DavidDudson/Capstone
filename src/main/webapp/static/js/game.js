@@ -1,7 +1,7 @@
 angular.module("app")
     .factory("Game", GameService);
 
-function GameService($http, $interval) {
+function GameService($http, $interval,Ship) {
 
     return function (notificationBar) {
 
@@ -13,6 +13,30 @@ function GameService($http, $interval) {
             inProgress: false,
             paused: false,
             speed: 100,
+            player1ShipList: [],
+            player2ShipList: [],
+            player1ShipMap: {},
+            player2ShipMap: {},
+            generateShips: function () {
+                game.moves.forEach(function (move) {
+                    if (move.sunk !== []) {
+                        if (move.wasPlayer1) {
+                            game.player1ShipList.push(Ship(move.sunk))
+                        } else {
+                            game.player2ShipList.push(Ship(move.sunk))
+                        }
+                    }
+                });
+                game.generateShipMap(game.player1ShipList, game.player1ShipMap);
+                game.generateShipMap(game.player2ShipList, game.player2ShipMap);
+            },
+            generateShipMap: function (shipList, shipMap) {
+                shipList.forEach(function (ship) {
+                    ship.coordinateList.forEach(function (coordinate) {
+                        shipMap[coordinate] = ship
+                    })
+                })
+            },
             create: function (bot1, bot2, testing) {
                 if (notificationBar.active) return;
                 notificationBar.reset();
@@ -40,6 +64,7 @@ function GameService($http, $interval) {
                         } else {
                             game.moves = data.moves
                         }
+                        game.generateShips();
                         game.run();
                     })
                     .error(function () {
@@ -79,7 +104,8 @@ function GameService($http, $interval) {
                 game.moves = null;
             },
             step_forward: function () {
-
+                game.pause();
+                game.move_forward();
             },
             move_forward: function () {
                 var move = game.moves[game.position];
@@ -117,6 +143,7 @@ function GameService($http, $interval) {
                 }
             },
             play_pause: function (botSelector, testing) {
+                console.log(botSelector);
                 if (!game.inProgress) {
                     game.inProgress = true;
                     if (testing) {

@@ -11,6 +11,7 @@ angular
 
         $rootScope.select = function (bot) {
             $scope.game.reset();
+            $scope.notificationBar.reset();
             $scope.botSelector.select(bot);
         };
 

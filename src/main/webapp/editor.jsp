@@ -1,5 +1,3 @@
-<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
-<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%
     pageContext.setAttribute("screenName", session.getAttribute("userName"));
     pageContext.setAttribute("profilePicture", session.getAttribute("userPicture"));
@@ -40,6 +38,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.4/ui-bootstrap-tpls.min.js"></script>
     <script src="static/js/app.js"></script>
     <script src="static/js/bots.js"></script>
+    <script src="static/js/ship.js"></script>
     <script src="static/js/user.js"></script>
     <script src="static/js/sidebar.js"></script>
     <script src="static/js/bot_selector.js"></script>
@@ -61,7 +60,7 @@
         <div class="container">
             <div class="row">
                 <!--Left bar-->
-                <sidebar bot_selector="botSelector" user_bots></sidebar>
+                <sidebar user_bots></sidebar>
                 <!--Blockly bar-->
                 <section class="col-lg-6 col-md-8 col-sm-8 col-xs-8">
                     <div id="main_content" style="color:white">
