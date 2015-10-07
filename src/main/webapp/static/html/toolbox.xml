@@ -89,5 +89,6 @@
         <block type="hit_the_neighbours_of_unsunk_ships"></block>
         <block type="coordinate_state"></block>
         <block type="states_of_neighbours"></block>
+        <block type="check_neighbours_for_best_attack"></block>
     </category>
 </xml>

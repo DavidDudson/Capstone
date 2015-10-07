@@ -11,6 +11,7 @@ function BuildService($http) {
                 notificationBar.reset();
             },
             start: function (bot) {
+                console.log(bot.src);
                 var botInformation = {
                     id: bot.id,
                     name: bot.name,
@@ -19,21 +20,21 @@ function BuildService($http) {
                 };
                 var buildRequest;
                 if (bot.new) {
-                    buildRequest = build._saveNewBot(botInformation)
+                    buildRequest = build._saveNewBot(botInformation);
                 } else {
-                    buildRequest = build._saveExistingBot(botInformation)
+                    buildRequest = build._saveExistingBot(botInformation);
                 }
                 buildRequest.success(function (data) {
                     build.checkStatus(bot, data.buildStatusURL);
                 }).error(function () {
-                    notificationBar.showError("Unable to save Bot")
-                })
+                    notificationBar.showError("Unable to save Bot");
+                });
             },
             _saveNewBot: function (botInformation) {
-                return $http.post('bots', botInformation)
+                return $http.post('bots', botInformation);
             },
             _saveExistingBot: function (botInformation) {
-                return $http.put('bots/' + botInformation.id, botInformation)
+                return $http.put('bots/' + botInformation.id, botInformation);
             },
             //Updates the progress bar
             update: function (complete, position, pass) {
