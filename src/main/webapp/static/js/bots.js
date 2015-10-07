@@ -19,9 +19,9 @@ function BotService($http, Build) {
             //Deletes the bot, just removes it if it wasn't ever saved
             delete: function (bot) {
                 if (bot.new) {
-                    return bots._removeFromList(bot)
+                    return bots._removeFromList(bot);
                 } else {
-                    return bots._removeFromServer(bot)
+                    return bots._removeFromServer(bot);
                 }
             },
             _removeFromServer: function (bot) {
@@ -31,7 +31,7 @@ function BotService($http, Build) {
                     })
                     .error(function () {
                         notificationBar.showError("Bot Deletion Failure: Server Deletion Failed")
-                    })
+                    });
             },
             _removeFromList: function (bot) {
                 var index = bots.list.indexOf(bot);
@@ -88,10 +88,11 @@ function BotService($http, Build) {
                         data: "botId=" + bot.id + "&unshare=true"
                     })
                     .success(function () {
-                        bot.share = false
+                        bot.share = false;
                     })
                     .error(function () {
                         notificationBar.showError("Bot unhsare fail")
+
                     });
             }
         };

@@ -59,7 +59,7 @@ angular
 
         $scope.save = function () {
             $scope.syncSource();
-            $rootScope.user.bots.save($scope.botSelector.getBots()[0])
+            $rootScope.user.bots.save($scope.botSelector.getBots()[0], $scope.notificationBar);
 
         };
 
