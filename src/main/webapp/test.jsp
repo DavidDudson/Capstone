@@ -43,11 +43,11 @@
 <div class="container_10" style="color:white" ng-controller="testCtrl">
     <div id="content">
         <!--Main container-->
-        <div class="container">
+        <div class="container-gl-1400 container-md-992 container-sm-768 container-xs-767">
             <div class="row">
                 <sidebar bot_selector="botSelector" user_bots built_in_bots shared_bots></sidebar>
 
-                <section class="col-lg-7 col-md-10 col-md-pull-0 col-sm-10 col-sm-pull-1">
+                <section class="col-lg-7 col-md-10 col-md-pull-0 col-sm-10 col-sm-pull-0">
                     <div id="main_content">
                         <div id="player_one" class="left">
                             <ul>
