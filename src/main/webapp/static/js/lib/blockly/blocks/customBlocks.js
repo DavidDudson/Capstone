@@ -17,11 +17,11 @@ Blockly.Blocks['check_state_of_coordinate'] = {
 Blockly.Blocks['get_coordinate_at_pos'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("get the position")
+        .appendField("the position")
         .appendField(new Blockly.FieldDropdown([["Left", "left"], ["Right", "right"], ["Up", "up"], ["Down", "down"]]), "POSITION");
     this.appendValueInput("INPUT")
         .setCheck("Coordinate")
-        .appendField("of the position");
+        .appendField("of");
     this.setInputsInline(true);
     this.setOutput(true, "Coordinate");
     this.setColour(230);
@@ -132,7 +132,7 @@ Blockly.Blocks['get_all_valid_moves'] = {
 Blockly.Blocks['last_move_state'] = {
     init: function() {
         this.appendDummyInput()
-            .appendField("was the last move a")
+            .appendField("the last move was a")
             .appendField(new Blockly.FieldDropdown([["hit", "1"], ["miss", "2"], ["destroyed", "3"]]), "STATE");
         this.setOutput(true, "Boolean");
         this.setColour(230);
@@ -146,7 +146,7 @@ Blockly.Blocks['the_last_move'] = {
         this.appendDummyInput()
             .appendField("the last move");
         this.setOutput(true, "Coordinate");
-        this.setColour(330);
+        this.setColour(230);
         this.setTooltip('get the last targeted coordinate');
         this.setHelpUrl('http://www.example.com/');
     }
@@ -280,7 +280,7 @@ Blockly.Blocks['states_of_neighbours'] = {
     init: function() {
         this.appendValueInput("NAME")
             .setCheck("Coordinate")
-            .appendField("the state of the neighbouring positions of");
+            .appendField("the states of the neighbouring positions of");
         this.setOutput(true, "Array");
         this.setColour(230);
         this.setTooltip('');
