@@ -1,5 +1,5 @@
 angular
-    .module("app",[])
+    .module("app",["ui.bootstrap"])
     .controller("appCtrl", function (User, Bots, Game, NotificationBar, BotSelector, $scope, $rootScope) {
 
         //The app object
