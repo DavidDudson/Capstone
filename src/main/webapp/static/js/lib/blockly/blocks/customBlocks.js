@@ -264,3 +264,14 @@ Blockly.Blocks['last_move_state'] = {
         this.setHelpUrl('http://www.example.com/');
     }
 };
+
+Blockly.Blocks['coordinate_state'] = {
+    init: function() {
+        this.appendDummyInput()
+            .appendField(new Blockly.FieldDropdown([["space", "0"], ["hit", "1"], ["miss", "2"], ["sunk", "3"]]), "STATE");
+        this.setOutput(true, "State");
+        this.setColour(230);
+        this.setTooltip('Possible states of a Coordinate');
+        this.setHelpUrl('http://www.example.com/');
+    }
+};
