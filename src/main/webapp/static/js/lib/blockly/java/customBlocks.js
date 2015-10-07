@@ -149,7 +149,7 @@ Blockly.Java['return_coordinate'] = function(block) {
         value_return = Blockly.Java.valueToCode(block, 'RETURN', Blockly.Java.ORDER_ATOMIC);
     }
     catch (err){}
-    var code = 'return ' + value_return + '\n';
+    var code = 'return ' + value_return + ';\n';
     return code;
 };
 
