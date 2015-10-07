@@ -179,3 +179,9 @@ Blockly.Java['last_move_state'] = function(block) {
     var code = "botGameBoard.getLastMoveState("+ state +")";
     return [code, Blockly.Java.ORDER_ATOMIC];
 };
+
+Blockly.Java['coordinate_state'] = function(block) {
+    var dropdown_state = block.getFieldValue('STATE');
+    var code = '' + dropdown_state + '';
+    return [code, Blockly.Java.ORDER_ATOMIC];
+};
