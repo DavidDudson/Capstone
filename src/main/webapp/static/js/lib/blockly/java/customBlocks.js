@@ -149,7 +149,7 @@ Blockly.Java['return_coordinate'] = function(block) {
         value_return = Blockly.Java.valueToCode(block, 'RETURN', Blockly.Java.ORDER_ATOMIC);
     }
     catch (err){}
-    var code = 'return ' + value_return + '\n';
+    var code = 'return ' + value_return + ';\n';
     return code;
 };
 
@@ -161,11 +161,6 @@ Blockly.Java['function_next_move'] = function(block) {
                 statements_block + '\n' +
                 'return ' + value_return + ';\n' +
                 '}';
-    return code;
-};
-
-Blockly.Java['hit_the_neighbours_of_unsunk_ships'] = function(block) {
-    var code = '...';
     return code;
 };
 

@@ -1384,7 +1384,7 @@ Blockly.Msg.PROCEDURES_DEFRETURN_DO = Blockly.Msg.PROCEDURES_DEFNORETURN_DO;
 /// (output) of this function.  See
 /// [https://blockly-demo.appspot.com/static/apps/code/index.html?lang=en#6ot5y5 this sample
 /// function that returns a value].
-Blockly.Msg.PROCEDURES_DEFRETURN_RETURN = 'return';
+Blockly.Msg.PROCEDURES_DEFRETURN_RETURN = 'attack';
 /// tooltip
 Blockly.Msg.PROCEDURES_DEFRETURN_TOOLTIP = 'Creates a function with an output.';
 /// dropdown choice - When the user clicks on a variable type block, this is one of the dropdown menu choices.  It is used to define a new variable type

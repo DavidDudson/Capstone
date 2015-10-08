@@ -7,6 +7,7 @@
         <block type="controls_if"></block>
         <block type="logic_compare"></block>
         <block type="logic_operation"></block>
+        <block type="logic_negate"></block>
         <block type="logic_ternary"></block>
     </category>
     <category name="Loops">
@@ -27,17 +28,11 @@
     </category>
     <category name="Lists">
         <block type="lists_create_empty"></block>
-        <block type="lists_repeat">
-            <value name="NUM">
-                <block type="math_number">
-                    <field name="NUM">5</field>
-                </block>
-            </value>
-        </block>
         <block type="get_all_valid_moves"></block>
         <block type="get_neighbour_valid_coordinates"></block>
         <block type="get_gamestate"></block>
         <block type="list_of_played_moves"></block>
+        <block type="states_of_neighbours"></block>
         <block type="lists_length"></block>
         <block type="lists_isEmpty"></block>
         <block type="lists_indexOf">
@@ -68,6 +63,13 @@
                 </block>
             </value>
         </block>
+        <block type="lists_repeat">
+            <value name="NUM">
+                <block type="math_number">
+                    <field name="NUM">5</field>
+                </block>
+            </value>
+        </block>
     </category>
     <sep></sep>
     <category name="Variables" custom="VARIABLE">
@@ -79,12 +81,13 @@
     </category>
     <sep></sep>
     <category name="Coordinates">
+        <block type="define_coordinate"></block>
         <block type="get_first_valid_coordinate"></block>
         <block type="get_last_valid_coordinate"></block>
-        <block type="define_coordinate"></block>
+        <block type="the_last_move"></block>
         <block type="last_hit_move"></block>
         <block type="get_coordinate_at_pos"></block>
-        <block type="hit_the_neighbours_of_unsunk_ships"></block>
+        <block type="coordinate_state"></block>
         <block type="check_neighbours_for_best_attack"></block>
         <block type="states_of_neighbours"></block>
     </category>
