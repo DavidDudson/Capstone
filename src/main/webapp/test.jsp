@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
-    <link rel="stylesheet" type="text/css" href="static/css/editor.css">
+    <link rel="stylesheet" type="text/css" href="static/css/test.css">
 
     <script src="https://apis.google.com/js/api.js"></script>
     <script src="static/js/lib/jquery-1.11.3.min.js"></script>
@@ -38,7 +38,7 @@
 <page-header></page-header>
 <!--End Navigation bar-->
 
-<div class="container_10" style="color:white">
+<div class="main_container">
     <div id="content">
         <!--Main container-->
         <div class="container-gl-1400 container-md-992 container-sm-768 container-xs-767">

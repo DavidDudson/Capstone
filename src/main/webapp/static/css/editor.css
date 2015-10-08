@@ -1,10 +1,12 @@
-
-.container_10 {
-   
+.main_container {  
+    margin-left: auto;
+    margin-right: auto;   
     position: relative;
-    max-width: 1400px;
-    padding: 20px;
+    width: 100%;
+    padding-left: 2.5%;
+    padding-right: 2.5%;
 }
+
 
 #main_content {
     position: relative;
@@ -171,6 +173,7 @@ ul.user-top li {
 }
 
 .main-blockly {
+    width:80%;
     margin-top: 50px;
     background: #1a445b;
     padding: 5px 5px 5px 5px;

@@ -1,4 +1,4 @@
-.container_13 {
+.main_container {
 	max-width: 70em;
 	position: relative; 
 	margin: 0 auto; 
@@ -9,7 +9,7 @@
 	color: #030e12;
 }
 
-div.container_13 {
+div.main_container {
 	font-family: arial;
 	color: #333;
 	width: 80%;
@@ -38,19 +38,19 @@ ul {
 }
 
 @media only screen and (min-width: 768px) and (max-width: 999px) {
-	.container_13 { 
+	.main_container { 
 		width: 768px; 
 	}    
 }
 
 @media only screen and (max-width: 767px) {
-    .container_13{
+    .main_container{
     	width: 300px;
     }    
 }
 
 @media only screen and (min-width: 480px) and (max-width: 767px) {
-    .container_13 { 
+    .main_container { 
     	width: 420px; 
     }
 }
