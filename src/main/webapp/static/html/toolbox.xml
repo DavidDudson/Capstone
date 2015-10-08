@@ -9,6 +9,19 @@
         <block type="logic_negate"></block>
         <block type="logic_ternary"></block>
     </category>
+    <category name="Math">
+        <block type="math_number"></block>
+        <block type="math_arithmetic"></block>
+        <block type="math_change">
+            <value name="DELTA">
+                <block type="math_number">
+                    <field name="NUM">1</field>
+                </block>
+            </value>
+        </block>
+        <block type="math_on_list"></block>
+        <block type="math_modulo"></block>
+    </category>
     <category name="Loops">
         <block type="controls_repeat_ext">
             <value name="TIMES">
@@ -71,7 +84,7 @@
         <block type="last_hit_move"></block>
         <block type="get_coordinate_at_pos"></block>
         <block type="coordinate_state"></block>
-        <block type="check_neighbours_for_best_attack"></block>
-        <block type="states_of_neighbours"></block>
+        <!--<block type="check_neighbours_for_best_attack"></block>-->
+        <!--<block type="states_of_neighbours"></block>-->
     </category>
 </xml>

@@ -1,11 +1,11 @@
 Blockly.Blocks['check_state_of_coordinate'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("is there ")
+        .appendField("there is")
         .appendField(new Blockly.FieldDropdown([["space", 0], ["Ship", 1]]), "state");
     this.appendValueInput("Coordinate")
         .setCheck("Coordinate")
-        .appendField("at position?");
+        .appendField("at position");
     this.setInputsInline(true);
     this.setOutput(true, "Boolean");
     this.setColour(210);

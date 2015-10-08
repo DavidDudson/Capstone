@@ -282,10 +282,8 @@ public class BotGameBoard extends GameBoard {
         if(coord.getX() <= 0){
             neightbourStates.set(3, -1);
         }
-        System.out.println(Arrays.toString(neightbourStates.toArray()));
         for (int i = 0; i < neightbourStates.size(); i++) {
             if(neightbourStates.get(i) != -1){
-                System.out.println(neightbourStates.get(i));
                 switch (i){
                     case 0 : neightbourStates.set(i, getStateOfCoordinateAtPosition(coord, "up"));
                              break;
@@ -351,7 +349,7 @@ public class BotGameBoard extends GameBoard {
             return coord;
         }else {
 
-            return getNeighbourValidCoordinates(coord).getFirst();
+            return validNeigbours.getFirst();
         }
 
 

@@ -18,7 +18,7 @@ public class BotTester {
     public static void main(String[] args) throws IOException {
         StarBattleGame game = new StarBattleGame("test", new blocklyBot("1"), new LastSquareBot("2"));
         game.runTestGame();
-//        game.getHistory().forEach(x -> System.out.println(x.toString()));
+        game.getHistory().forEach(x -> System.out.println(x.toString()));
         StarBattleSerializer serializer = new StarBattleSerializer();
         serializer.encodeGame(game, new PrintWriter(new File("bob.tx")));
 
