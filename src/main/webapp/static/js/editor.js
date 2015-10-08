@@ -100,6 +100,33 @@ angular
             $rootScope.user.bots.delete(bot);
         };
 
+        $scope.displayErrorModal = function(){
+            if($scope.notificationBar.type != 'warning') return;
+            $scope.modal = $modal.open({
+                animation: true,
+                templateUrl: './static/html/BotErrorModal.html',
+                controller: function ($scope, $modalInstance,bot,error) {
+                    $scope.bot = bot;
+                    $scope.error = error;
+
+                    $scope.ok = function () {
+                        $modalInstance.dismiss('Ok');
+                    };
+                    $scope.cancel = function () {
+                        $modalInstance.dismiss('cancel');
+                    };
+                },
+                resolve: {
+                    bot: function () {
+                        return $scope.botSelector.getBots()[0]
+                    },
+                    error: function(){
+                        return $scope.notificationBar.error;
+                    }
+
+                }
+            });
+        };
 
         $scope.createNewBot = function () {
             var allBots = $scope.allBots();

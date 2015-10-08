@@ -5,8 +5,6 @@ function BuildService($http) {
 
     return function (notificationBar) {
         var build = {
-
-            error: '',
             //Rests the build to default,
             reset: function () {
                 notificationBar.reset();
@@ -59,7 +57,7 @@ function BuildService($http) {
                             if (!data.error) {
                                 build.update(bot, true, 100, true);
                             } else {
-                                console.error(data.error);
+                                notificationBar.error = data.error;
                                 build.update(bot, true, 100, false);
                             }
                         } else {

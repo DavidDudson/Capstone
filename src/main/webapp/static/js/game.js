@@ -37,9 +37,9 @@ function GameService($http, $interval,Ship) {
                     })
                 })
             },
-            create: function (bot1, bot2, testing) {
+            create: function (bot1, bot2, testing, botService) {
                 if (notificationBar.active) return;
-                if (testing) $scope.user.bots.save(bot1);
+                if (testing) botService.save(bot1);
                 notificationBar.showProgress("Creating test game");
                 var data = testing ? "" + bot1.id + "\n" + bot1.id + "\n" : "" + bot1.id + "\n" + bot2.id + "\n";
                 $http.post('creategame_b2b', data)

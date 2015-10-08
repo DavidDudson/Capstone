@@ -5,6 +5,7 @@ function NotificationBarService() {
 
     return function (defaultText) {
         var notificationBar = {
+            error: undefined,
             //position in queue
             position: 1,
             //Whether or not a build is active

@@ -92,6 +92,7 @@
                         <div>
                             <progressbar class="progress-striped"
                                          ng-class="notificationBar.active"
+                                         ng-click="displayErrorModal()"
                                          ng-value="notificationBar.progress"
                                          type="{{notificationBar.type}}"
                                          style="width:100%; height: 40px">
@@ -122,7 +123,7 @@
                         </div>
                         <div class="row">
                             <button id="test" class="btn btn-info btn-lg"
-                                    ng-click="game.create(botSelector.bots[0], botSelector.bots[0], true)"
+                                    ng-click="game.create(botSelector.bots[0], botSelector.bots[0], true, user.bots)"
                                     ng-disabled="!botSelector.bots || botSelector.bots[0].new || botSelector.bots[0].position == 0">
                                 Test
                             </button>
