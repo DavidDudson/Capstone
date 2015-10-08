@@ -30,9 +30,6 @@ function BotSelectorService() {
                     selector.bots[1].colour = 'blue';
                 }
 
-            },
-            sourceHasChanged: function (){
-                return bots[0].src !== Blockly
             }
         };
         return selector

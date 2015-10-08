@@ -123,8 +123,8 @@
                         </div>
                         <div class="row">
                             <button id="test" class="btn btn-info btn-lg"
-                                    ng-click="game.create(botSelector.bots[0], botSelector.bots[0], true, user.bots)"
-                                    ng-disabled="!botSelector.bots || botSelector.bots[0].new || botSelector.bots[0].position == 0">
+                                    ng-click="game.create(botSelector.bots[0], botSelector.bots[0], true)"
+                                    ng-disabled="!botSelector.bots || botSelector.bots[0].new">
                                 Test
                             </button>
                             <button id="restart" class="btn btn-info btn-lg" ng-click="game.restart()"

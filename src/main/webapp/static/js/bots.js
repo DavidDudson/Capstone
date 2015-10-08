@@ -71,10 +71,13 @@ function BotService($http, Build) {
                 bot.src = src;
                 bot.xml = src.match(/<xml.*>/);
             },
-            save: function (bot, cb) {
+            save: function (bot) {
                 if (notificationBar.active) return;
                 var build = Build(notificationBar);
-                build.start(bot, cb);
+                build.start(bot);
+            },
+            sourceIsNotTheSameAsWorkspace: function (bot, workspace){
+                return bot.src !== Blockly.Java.workspaceToCode(workspace,["notests"])
             }
         };
 

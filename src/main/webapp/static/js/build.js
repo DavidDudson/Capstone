@@ -44,6 +44,7 @@ function BuildService($http) {
                 } else {
                     if (pass) {
                         notificationBar.showSuccess(text + 'Build Success');
+                        bot.new = false;
                     } else {
                         notificationBar.showWarning(text + 'Build Failure');
                     }
