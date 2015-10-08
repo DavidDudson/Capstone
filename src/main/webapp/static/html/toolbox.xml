@@ -86,5 +86,6 @@
         <block type="get_coordinate_at_pos"></block>
         <block type="hit_the_neighbours_of_unsunk_ships"></block>
         <block type="check_neighbours_for_best_attack"></block>
+        <block type="states_of_neighbours"></block>
     </category>
 </xml>
