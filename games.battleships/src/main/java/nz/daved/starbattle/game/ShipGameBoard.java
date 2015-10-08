@@ -94,7 +94,6 @@ public class ShipGameBoard extends GameBoard {
                 throw new IllegalArgumentException("Couldn't place ship of size: " + shipSize);
             }
         }
-        System.out.println("Ship generated at: " + coord + ":" + shipSize + ":" + direction);
         return new Ship(coord, shipSize, direction);
     }
 

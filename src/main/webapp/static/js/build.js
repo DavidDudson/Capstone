@@ -68,7 +68,7 @@ function BuildService($http) {
                         }
                     })
                     .error(function () {
-                        console.error("Failed to check status");
+                        notificationBar.error("Failed to check status");
                     });
             }
         };

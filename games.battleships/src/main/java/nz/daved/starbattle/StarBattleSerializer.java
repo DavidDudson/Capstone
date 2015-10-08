@@ -36,7 +36,6 @@ public class StarBattleSerializer implements Serializer {
         history.stream().forEach(move -> retJArray.add(new Gson().toJsonTree(move)));
 
         //submit to printwriter
-        System.out.println(retJArray);
         jsonObject.add("moves", retJArray);
         gson.toJson(jsonObject, out);
         if (game.getError() != null) {
