@@ -57,6 +57,7 @@ function BuildService($http) {
                             if (!data.error) {
                                 build.update(true, 100, true);
                             } else {
+                                console.error(data.error);
                                 build.update(true, 100, false);
                             }
                         } else {
