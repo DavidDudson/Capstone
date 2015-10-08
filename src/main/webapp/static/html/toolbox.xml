@@ -1,5 +1,5 @@
 <xml id="toolbox" style="display: none">
-    <category name="Logic">
+    <category name="Code Questions">
         <block type="last_move_sink_bot"></block>
         <block type="last_move_state"></block>
         <block type="check_state_of_coordinate"></block>
@@ -22,15 +22,10 @@
         <block type="controls_forEach"></block>
         <block type="controls_flow_statements"></block>
     </category>
-    <category name="Math">
-        <block type="math_number"></block>
-        <block type="math_arithmetic"></block>
-    </category>
     <category name="Lists">
         <block type="lists_create_empty"></block>
         <block type="get_all_valid_moves"></block>
         <block type="get_neighbour_valid_coordinates"></block>
-        <block type="get_gamestate"></block>
         <block type="list_of_played_moves"></block>
         <block type="states_of_neighbours"></block>
         <block type="lists_length"></block>
@@ -63,24 +58,14 @@
                 </block>
             </value>
         </block>
-        <block type="lists_repeat">
-            <value name="NUM">
-                <block type="math_number">
-                    <field name="NUM">5</field>
-                </block>
-            </value>
-        </block>
+ 
     </category>
     <sep></sep>
     <category name="Variables" custom="VARIABLE">
     </category>
-    <category name="Functions">
+    <category name="Coordinates">
         <block type="procedures_ifreturn"></block>
         <block type="return_coordinate"></block>
-        <block type="comment"></block>
-    </category>
-    <sep></sep>
-    <category name="Coordinates">
         <block type="define_coordinate"></block>
         <block type="get_first_valid_coordinate"></block>
         <block type="get_last_valid_coordinate"></block>

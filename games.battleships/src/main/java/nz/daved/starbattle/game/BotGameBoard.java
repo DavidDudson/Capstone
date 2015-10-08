@@ -202,8 +202,8 @@ public class BotGameBoard extends GameBoard {
      * @param state value to be evaluated against
      * @return weather the coordinate contains the expected coordinate
      */
-    public Boolean checkStateOfCoordinate(Coordinate coords, String state){
-        return grid[coords.getY()][coords.getY()] == Integer.parseInt(state);
+    public Boolean checkStateOfCoordinate(Coordinate coords, Integer state){
+        return grid[coords.getY()][coords.getY()] == state;
 
 
     }

@@ -85,10 +85,6 @@ Blockly.Java['variable_define'] = function (block) {
     return code;
 };
 
-Blockly.Java['get_gamestate'] = function (block) {
-    var code = 'botGameBoard.getGameBoard()';
-    return [code, Blockly.Java.ORDER_ATOMIC];
-};
 
 Blockly.Java['get_all_valid_moves'] = function(block) {
     var code = 'botGameBoard.getAllValidCoordinates()';
@@ -134,8 +130,8 @@ Blockly.Java['define_coordinate'] = function(block) {
     var value_x = 0;
     var value_y = 0;
     try {
-        value_x = Blockly.Java.valueToCode(block, 'X', Blockly.Java.ORDER_ATOMIC);
-        value_y = Blockly.Java.valueToCode(block, 'Y', Blockly.Java.ORDER_ATOMIC);
+        value_x = block.getFieldValue('XCOORD');
+        value_y = block.getFieldValue('YCOORD');
         Blockly.Java.addImport('nz.daved.starbattle.game.Coordinate');
     }
     catch (err){}

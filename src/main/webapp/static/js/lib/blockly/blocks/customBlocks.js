@@ -5,7 +5,7 @@ Blockly.Blocks['check_state_of_coordinate'] = {
         .appendField(new Blockly.FieldDropdown([["space", 0], ["Ship", 1]]), "state");
     this.appendValueInput("Coordinate")
         .setCheck("Coordinate")
-        .appendField("at position");
+        .appendField("at position?");
     this.setInputsInline(true);
     this.setOutput(true, "Boolean");
     this.setColour(210);
@@ -48,7 +48,7 @@ Blockly.Blocks['can_attack_coordinate'] = {
         .setCheck("Coordinate")
         .appendField("can");
     this.appendDummyInput()
-        .appendField("be attacked");
+        .appendField("be attacked?");
     this.setOutput(true, "Boolean");
     this.setColour(210);
     this.setTooltip('can the given coordinate be hit, or has already been hit');
@@ -107,16 +107,6 @@ Blockly.Blocks['variable_define'] = {
   }
 };
 
-Blockly.Blocks['get_gamestate'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("Game Board");
-    this.setOutput(true, "Array");
-    this.setColour(260);
-    this.setTooltip('The StarBattles gamestate');
-    this.setHelpUrl('http://www.example.com/');
-  }
-};
 
 Blockly.Blocks['get_all_valid_moves'] = {
     init: function() {
@@ -133,7 +123,7 @@ Blockly.Blocks['last_move_state'] = {
     init: function() {
         this.appendDummyInput()
             .appendField("the last move was a")
-            .appendField(new Blockly.FieldDropdown([["hit", "1"], ["miss", "2"], ["destroyed", "3"]]), "STATE");
+            .appendField(new Blockly.FieldDropdown([["hit", 1], ["miss", 2], ["destroyed", 3]]), "STATE");
         this.setOutput(true, "Boolean");
         this.setColour(210);
         this.setTooltip('was the last move a hit, miss, or sunk');
@@ -188,13 +178,12 @@ Blockly.Blocks['last_hit_move'] = {
 
 Blockly.Blocks['define_coordinate'] = {
     init: function() {
-        this.appendValueInput("X")
-            .setCheck("Number")
-            .appendField("Coordinate X:");
-        this.appendValueInput("Y")
-            .setCheck("Number")
-            .appendField(" Y:");
-        this.setInputsInline(true);
+        this.appendDummyInput()
+            .appendField("get coord X:")
+            .appendField(new Blockly.FieldDropdown([["1", 0], ["2", 1], ["3", 2], ["4", 3], ["5", 4], ["6", 5], ["7", 6], ["8", 7], ["9", 8], ["10", 9]]), "XCOORD");
+        this.appendDummyInput()
+            .appendField("Y:")
+            .appendField(new Blockly.FieldDropdown([["1", 0], ["2", 1], ["3", 2], ["4", 3], ["5", 4], ["6", 5], ["7", 6], ["8", 7], ["9", 8], ["10", 9]]), "YCOORD");
         this.setOutput(true, "Coordinate");
         this.setColour(330);
         this.setTooltip('get the coordinate at position x, y');
@@ -209,7 +198,7 @@ Blockly.Blocks['return_coordinate'] = {
             .appendField("attack");
         this.setPreviousStatement(true, null);
         this.setColour(290);
-        this.setTooltip('attack the given position');
+        this.setTooltip('attack the given coord:');
         this.setHelpUrl('http://www.example.com/');
     }
 };
@@ -233,7 +222,7 @@ Blockly.Blocks['function_next_move'] = {
 Blockly.Blocks['last_move_sink_bot'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("did the last move sink a ship");
+        .appendField("the last move sunk a ship?");
     this.setOutput(true, "Boolean");
     this.setColour(210);
     this.setTooltip('did the last move sink a ship');
@@ -244,7 +233,7 @@ Blockly.Blocks['last_move_sink_bot'] = {
 Blockly.Blocks['last_move_state'] = {
     init: function() {
         this.appendDummyInput()
-            .appendField("was the last move a")
+            .appendField("was the last move either")
             .appendField(new Blockly.FieldDropdown([["hit", "1"], ["miss", "2"], ["destroyed", "3"]]), "STATE");
         this.setOutput(true, "Boolean");
         this.setColour(210);
@@ -279,9 +268,10 @@ Blockly.Blocks['coordinate_state'] = {
 
 Blockly.Blocks['states_of_neighbours'] = {
     init: function() {
-        this.appendValueInput("NAME")
+        this.appendValueInput("Coordinate")
             .setCheck("Coordinate")
-            .appendField("the states of the neighbouring positions of");
+            .appendField("get status of neigbours for coord :");
+        this.setInputsInline(true);
         this.setOutput(true, "Array");
         this.setColour(260);
         this.setTooltip('get a list of the neighbours if they are hit, miss, sunk or space (up, right, down, left)');
