@@ -134,7 +134,7 @@ Blockly.Blocks['last_move_state'] = {
 Blockly.Blocks['the_last_move'] = {
     init: function() {
         this.appendDummyInput()
-            .appendField("the last move");
+            .appendField("your last move");
         this.setOutput(true, "Coordinate");
         this.setColour(230);
         this.setTooltip('get the last targeted coordinate');
@@ -168,7 +168,7 @@ Blockly.Blocks['list_of_played_moves'] = {
 Blockly.Blocks['last_hit_move'] = {
     init: function() {
         this.appendDummyInput()
-            .appendField("the last move that was a hit");
+            .appendField("your last move that hit a ship");
         this.setOutput(true, "Coordinate");
         this.setColour(230);
         this.setTooltip('the last targeted coordinate');
@@ -246,11 +246,11 @@ Blockly.Blocks['check_neighbours_for_best_attack'] = {
   init: function() {
     this.appendValueInput("INPUT")
         .setCheck("Coordinate")
-        .appendField("select best move from current coord");
+        .appendField("select best move from coord");
     this.setInputsInline(true);
     this.setOutput(true, "Coordinate");
     this.setColour(230);
-    this.setTooltip('check the current coordinate and neighbours and select next choosen coordinate based on weather the neighbours have been hit');
+    this.setTooltip('check the coordinate and neighbours and select next choosen coordinate based on weather the neighbours have been hit');
     this.setHelpUrl('http://www.example.com/');
     }
 };
@@ -270,7 +270,7 @@ Blockly.Blocks['states_of_neighbours'] = {
     init: function() {
         this.appendValueInput("Coordinate")
             .setCheck("Coordinate")
-            .appendField("get status of neigbours for coord :");
+            .appendField("get status of neigbouring coords ");
         this.setInputsInline(true);
         this.setOutput(true, "Array");
         this.setColour(260);

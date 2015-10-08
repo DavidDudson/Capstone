@@ -5,7 +5,6 @@
         <block type="check_state_of_coordinate"></block>
         <block type="can_attack_coordinate"></block>
         <block type="controls_if"></block>
-        <block type="logic_compare"></block>
         <block type="logic_operation"></block>
         <block type="logic_negate"></block>
         <block type="logic_ternary"></block>
@@ -58,7 +57,6 @@
                 </block>
             </value>
         </block>
- 
     </category>
     <sep></sep>
     <category name="Variables" custom="VARIABLE">
