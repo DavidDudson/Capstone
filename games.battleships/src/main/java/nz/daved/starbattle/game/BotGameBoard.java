@@ -320,25 +320,25 @@ public class BotGameBoard extends GameBoard {
                     switch (i){
                         case 0 :
                             nextMove = new Coordinate(coord.getX(), coord.getY() - 1);
-                            if(checkStateOfCoordinate(nextMove, "0")){
+                            if(checkStateOfCoordinate(nextMove, 0)){
                                 return nextMove;
                             }
                             break;
                         case 1 :
                             nextMove = new Coordinate(coord.getX() + 1, coord.getY());
-                            if(checkStateOfCoordinate(nextMove, "1")){
+                            if(checkStateOfCoordinate(nextMove, 1)){
                                 return nextMove;
                             }
                             break;
                         case 2 :
                             nextMove = new Coordinate(coord.getX(), coord.getY() + 1);
-                            if(checkStateOfCoordinate(nextMove, "2")){
+                            if(checkStateOfCoordinate(nextMove, 2)){
                                 return nextMove;
                             }
                             break;
                         case 3 :
                             nextMove = new Coordinate(coord.getX() - 1, coord.getY());
-                            if(checkStateOfCoordinate(nextMove, "3")){
+                            if(checkStateOfCoordinate(nextMove, 3)){
                                 return nextMove;
                             }
                             break;
