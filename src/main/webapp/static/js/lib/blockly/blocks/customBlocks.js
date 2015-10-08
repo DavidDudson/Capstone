@@ -8,7 +8,7 @@ Blockly.Blocks['check_state_of_coordinate'] = {
         .appendField("at position");
     this.setInputsInline(true);
     this.setOutput(true, "Boolean");
-    this.setColour(230);
+    this.setColour(210);
     this.setTooltip('ask if the position is water or a known ship position');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -37,7 +37,7 @@ Blockly.Blocks['if_last_move_hit_aim_direction'] = {
             .appendField(new Blockly.FieldDropdown([["up", "up"], ["down", "down"], ["left", "left"], ["right", "right"]]), "direction");
         this.setOutput(true, "Coordinate");
         this.setColour(230);
-        this.setTooltip('');
+        this.setTooltip('if the last move was a hit, then get the coordinate next to that target');
         this.setHelpUrl('http://www.example.com/');
     }
 };
@@ -50,7 +50,7 @@ Blockly.Blocks['can_attack_coordinate'] = {
     this.appendDummyInput()
         .appendField("be attacked");
     this.setOutput(true, "Boolean");
-    this.setColour(230);
+    this.setColour(210);
     this.setTooltip('can the given coordinate be hit, or has already been hit');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -62,7 +62,7 @@ Blockly.Blocks['get_first_valid_coordinate'] = {
         .appendField("the first valid move");
     this.setOutput(true, "Coordinate");
 	this.setColour(230);
-    this.setTooltip('returns the first valid coordinate');
+    this.setTooltip('gets the first valid coordinate');
     this.setHelpUrl('http://www.example.com/');
   }
 };
@@ -73,7 +73,7 @@ Blockly.Blocks['get_last_valid_coordinate'] = {
             .appendField("the last valid move");
         this.setOutput(true, "Coordinate");
         this.setColour(230);
-        this.setTooltip('returns the last valid coordinate');
+        this.setTooltip('gets the last valid coordinate');
         this.setHelpUrl('http://www.example.com/');
     }
 };
@@ -84,7 +84,7 @@ Blockly.Blocks['get_neighbour_valid_coordinates'] = {
         .setCheck("Coordinate")
         .appendField("the valid neighbors of");
     this.setOutput(true, "Array");
-    this.setColour(230);
+    this.setColour(260);
     this.setTooltip('the neighbouring coordinates of the given position that can be hit');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -112,7 +112,7 @@ Blockly.Blocks['get_gamestate'] = {
     this.appendDummyInput()
         .appendField("Game Board");
     this.setOutput(true, "Array");
-    this.setColour(330);
+    this.setColour(260);
     this.setTooltip('The StarBattles gamestate');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -123,7 +123,7 @@ Blockly.Blocks['get_all_valid_moves'] = {
         this.appendDummyInput()
             .appendField("list of all valid moves");
         this.setOutput(true, "Array");
-        this.setColour(230);
+        this.setColour(260);
         this.setTooltip('get all the valid moves available on the game board');
         this.setHelpUrl('http://www.example.com/');
     }
@@ -135,7 +135,7 @@ Blockly.Blocks['last_move_state'] = {
             .appendField("the last move was a")
             .appendField(new Blockly.FieldDropdown([["hit", "1"], ["miss", "2"], ["destroyed", "3"]]), "STATE");
         this.setOutput(true, "Boolean");
-        this.setColour(230);
+        this.setColour(210);
         this.setTooltip('was the last move a hit, miss, or sunk');
         this.setHelpUrl('http://www.example.com/');
     }
@@ -159,7 +159,7 @@ Blockly.Blocks['comment'] = {
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(65);
-        this.setTooltip('');
+        this.setTooltip('Comment block, does not create any code');
         this.setHelpUrl('http://www.example.com/');
     }
 };
@@ -169,8 +169,8 @@ Blockly.Blocks['list_of_played_moves'] = {
         this.appendDummyInput()
             .appendField("list of all moves played");
         this.setOutput(true, "Array");
-        this.setColour(230);
-        this.setTooltip('');
+        this.setColour(260);
+        this.setTooltip('a list of the previously played moves');
         this.setHelpUrl('http://www.example.com/');
     }
 };
@@ -181,7 +181,7 @@ Blockly.Blocks['last_hit_move'] = {
             .appendField("the last move that was a hit");
         this.setOutput(true, "Coordinate");
         this.setColour(230);
-        this.setTooltip('');
+        this.setTooltip('the last targeted coordinate');
         this.setHelpUrl('http://www.example.com/');
     }
 };
@@ -197,7 +197,7 @@ Blockly.Blocks['define_coordinate'] = {
         this.setInputsInline(true);
         this.setOutput(true, "Coordinate");
         this.setColour(330);
-        this.setTooltip('');
+        this.setTooltip('get the coordinate at position x, y');
         this.setHelpUrl('http://www.example.com/');
     }
 };
@@ -209,7 +209,7 @@ Blockly.Blocks['return_coordinate'] = {
             .appendField("attack");
         this.setPreviousStatement(true, null);
         this.setColour(290);
-        this.setTooltip('');
+        this.setTooltip('attack the given position');
         this.setHelpUrl('http://www.example.com/');
     }
 };
@@ -225,19 +225,7 @@ Blockly.Blocks['function_next_move'] = {
             .setAlign(Blockly.ALIGN_RIGHT)
             .appendField("attack");
         this.setColour(290);
-        this.setTooltip('');
-        this.setHelpUrl('http://www.example.com/');
-    }
-};
-
-Blockly.Blocks['hit_the_neighbours_of_unsunk_ships'] = {
-    init: function() {
-        this.appendDummyInput()
-            .appendField("strike all neighbours of ships not sunk");
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(230);
-        this.setTooltip('');
+        this.setTooltip('The main function block');
         this.setHelpUrl('http://www.example.com/');
     }
 };
@@ -245,10 +233,10 @@ Blockly.Blocks['hit_the_neighbours_of_unsunk_ships'] = {
 Blockly.Blocks['last_move_sink_bot'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("last Move Sink SpaceShip");
-    this.setOutput(true);
-    this.setColour(230);
-    this.setTooltip('');
+        .appendField("did the last move sink a ship");
+    this.setOutput(true, "Boolean");
+    this.setColour(210);
+    this.setTooltip('did the last move sink a ship');
     this.setHelpUrl('http://www.example.com/');
   }
 };
@@ -259,7 +247,7 @@ Blockly.Blocks['last_move_state'] = {
             .appendField("was the last move a")
             .appendField(new Blockly.FieldDropdown([["hit", "1"], ["miss", "2"], ["destroyed", "3"]]), "STATE");
         this.setOutput(true, "Boolean");
-        this.setColour(230);
+        this.setColour(210);
         this.setTooltip('was the last move a hit, miss, or sunk');
         this.setHelpUrl('http://www.example.com/');
     }
@@ -295,8 +283,8 @@ Blockly.Blocks['states_of_neighbours'] = {
             .setCheck("Coordinate")
             .appendField("the states of the neighbouring positions of");
         this.setOutput(true, "Array");
-        this.setColour(230);
-        this.setTooltip('');
+        this.setColour(260);
+        this.setTooltip('get a list of the neighbours if they are hit, miss, sunk or space (up, right, down, left)');
         this.setHelpUrl('http://www.example.com/');
     }
 };

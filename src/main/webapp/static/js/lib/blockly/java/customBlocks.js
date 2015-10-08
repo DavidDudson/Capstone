@@ -164,11 +164,6 @@ Blockly.Java['function_next_move'] = function(block) {
     return code;
 };
 
-Blockly.Java['hit_the_neighbours_of_unsunk_ships'] = function(block) {
-    var code = '...';
-    return code;
-};
-
 Blockly.Java['last_move_sink_bot'] = function(block) {
   var code = 'botGameBoard.lastMoveSinkBot()';
   return [code, Blockly.Java.ORDER_ATOMIC];
