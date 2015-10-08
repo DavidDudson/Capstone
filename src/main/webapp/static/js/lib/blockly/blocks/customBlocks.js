@@ -206,7 +206,7 @@ Blockly.Blocks['return_coordinate'] = {
     init: function() {
         this.appendValueInput("RETURN")
             .setCheck('Coordinate')
-            .appendField("return");
+            .appendField("attack");
         this.setPreviousStatement(true, null);
         this.setColour(290);
         this.setTooltip('');
@@ -223,7 +223,7 @@ Blockly.Blocks['function_next_move'] = {
         this.appendValueInput("RETURN")
             .setCheck("Coordinate")
             .setAlign(Blockly.ALIGN_RIGHT)
-            .appendField("return");
+            .appendField("attack");
         this.setColour(290);
         this.setTooltip('');
         this.setHelpUrl('http://www.example.com/');
