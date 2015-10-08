@@ -43,7 +43,7 @@
         <!--Main container-->
         <div class="container-gl-1400 container-md-992 container-sm-768 container-xs-767">
             <div class="row">
-                <sidebar user_bots built_in_bots shared_bots></sidebar>
+                <sidebar user_bots built_in_bots></sidebar>
 
                 <section class="col-lg-7 col-md-10 col-md-pull-0 col-sm-10 col-sm-pull-0">
                     <div id="main_content">

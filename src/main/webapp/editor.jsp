@@ -48,7 +48,7 @@
     <script src="./static/js/game.js"></script>
     <script src="./static/js/lib/showErrors.min.js"></script>
 </head>
-<body ng-init="createUser('${screenName}','${profilePicture}'); createBuiltInBots();">
+<body ng-init=" createBuiltInBots();createUser('${screenName}','${profilePicture}');">
 
 <page-header></page-header>
 
@@ -80,13 +80,6 @@
                                 <li>
                                     <button id="save" class="btn btn-info btn-lg" ng-click="save()"
                                             ng-disabled="!botSelector.bots"> Save
-                                    </button>
-                                </li>
-                                <li>
-                                    <button id="share" class="btn btn-info btn-lg"
-                                            ng-click="user.bots.share(botSelector.bots[0])"
-                                            ng-disabled="!botSelector.bots || botSelector.bots[0].new">
-                                        {{botSelector.bots[0].share === true ? "Unshare" : "Share"}}
                                     </button>
                                 </li>
                             </ul>

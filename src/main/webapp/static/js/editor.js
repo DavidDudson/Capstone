@@ -28,7 +28,6 @@ angular
 
         $rootScope.builtInBots = undefined;
 
-
         $scope.workspace = Blockly.inject('blocklyDiv', {
             toolbox: null,
             rtl: false,
@@ -46,10 +45,20 @@ angular
             }
         });
 
-        $scope.notificationBar = NotificationBar("Welcome to Starbattles editor. Click Save then Test to get started");
+        $scope.notificationBar = NotificationBar("Click Save or Test");
+
 
         $rootScope.createUser = function (username, profilePictureUrl) {
-            $rootScope.user = User(username, profilePictureUrl, $scope.notificationBar)
+            var unregister = $scope.$watchGroup(["user.bots.loaded","builtInBots.loaded"],function(){
+                if($rootScope.user.loaded && $rootScope.builtInBots.loaded){
+                    if(!$rootScope.user.bots.get() == []){
+                        $scope.createNewBot();
+                        unregister();
+                    }
+                }
+            });
+            $rootScope.user = User(username, profilePictureUrl, $scope.notificationBar);
+            //Wait for user to be created than load new bot modal if the user has no bots
         };
 
         //Create a new bot selector that can select 1 bot at a time
@@ -119,6 +128,7 @@ angular
             // Wait for the modal to be closed then return the bot that's selected
             $scope.modal.result.then(function (bot) {
                 $scope.user.bots.add(bot);
+                $scope.user.bots.save(bot);
                 $rootScope.select(bot);
             })
         };

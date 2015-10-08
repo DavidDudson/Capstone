@@ -8,6 +8,7 @@ function BotService($http, Build) {
     //The name is simply the request name to actually retrieve the bots from the server
     return function (name,notificationBar) {
         var bots = {
+            loaded : false,
             list: [],
             get: function () {
                 return bots.list;
@@ -30,7 +31,7 @@ function BotService($http, Build) {
                         return bots._removeFromList(bot);
                     })
                     .error(function () {
-                        notificationBar.showError("Bot Deletion Failure: Server Deletion Failed")
+                        notificationBar.showError(bot.name + " deletion Failure: Server Deletion Failed")
                     });
             },
             _removeFromList: function (bot) {
@@ -39,7 +40,7 @@ function BotService($http, Build) {
                     bots.list.splice(index, 1);
                     return true;
                 } else {
-                    notificationBar.showError("Bot Deletion Failure: Bot wasn't in list");
+                    notificationBar.showError(bot.name + " deletion Failure: Bot wasn't in list");
                     return false;
                 }
             },
@@ -49,6 +50,7 @@ function BotService($http, Build) {
                         data.collection.items.forEach(function (bot) {
                             bots.add(bot);
                             bots._addSource(bot);
+                            bots.loaded = true;
                         });
                     })
                     .error(function () {
@@ -69,31 +71,10 @@ function BotService($http, Build) {
                 bot.src = src;
                 bot.xml = src.match(/<xml.*>/);
             },
-            save: function (bot) {
+            save: function (bot, cb) {
+                if (notificationBar.active) return;
                 var build = Build(notificationBar);
-                build.start(bot);
-            },
-            share: function (bot) {
-                $http.post("shareBot", {
-                        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                        data: "botId=" + bot.id
-                    })
-                    .error(function () {
-                        notificationBar.showError("Bot share fail");
-                    })
-            },
-            unshare: function (bot) {
-                $http.post("shareBot", {
-                        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                        data: "botId=" + bot.id + "&unshare=true"
-                    })
-                    .success(function () {
-                        bot.share = false;
-                    })
-                    .error(function () {
-                        notificationBar.showError("Bot unhsare fail")
-
-                    });
+                build.start(bot, cb);
             }
         };
 

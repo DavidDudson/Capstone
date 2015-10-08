@@ -6,12 +6,12 @@ function BuildService($http) {
     return function (notificationBar) {
         var build = {
 
+            error: '',
             //Rests the build to default,
             reset: function () {
                 notificationBar.reset();
             },
             start: function (bot) {
-                console.log(bot.src);
                 var botInformation = {
                     id: bot.id,
                     name: bot.name,
@@ -37,15 +37,17 @@ function BuildService($http) {
                 return $http.put('bots/' + botInformation.id, botInformation);
             },
             //Updates the progress bar
-            update: function (complete, position, pass) {
+            update: function (bot,complete, position, pass) {
+
+                var text = "Saving " + bot.name + ": ";
                 if (!complete) {
                     notificationBar.position = position;
-                    notificationBar.showProgress('Position in queue... ' + position)
+                    notificationBar.showProgress(text + 'Position in queue... ' + position)
                 } else {
                     if (pass) {
-                        notificationBar.showSuccess('Build Success');
+                        notificationBar.showSuccess(text + 'Build Success');
                     } else {
-                        notificationBar.showWarning('Build Failure');
+                        notificationBar.showWarning(text + 'Build Failure');
                     }
                 }
             },
@@ -55,20 +57,20 @@ function BuildService($http) {
                     .success(function (data) {
                         if (data.done) {
                             if (!data.error) {
-                                build.update(true, 100, true);
+                                build.update(bot, true, 100, true);
                             } else {
                                 console.error(data.error);
-                                build.update(true, 100, false);
+                                build.update(bot, true, 100, false);
                             }
                         } else {
-                            build.update(false, data.currentPosition, true);
+                            build.update(bot, false, data.currentPosition, true);
                             setTimeout(function () {
                                 build.checkStatus(bot, buildStatusUrl);
                             }, 250);
                         }
                     })
                     .error(function () {
-                        notificationBar.error("Failed to check status");
+                        notificationBar.error("Saving " + bot.name + ": Failed to check status");
                     });
             }
         };

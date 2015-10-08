@@ -2,7 +2,6 @@ package nz.daved.starbattle.game;
 
 import com.google.common.primitives.Ints;
 import nz.daved.starbattle.StarBattleGameMove;
-import sun.awt.image.ImageWatched;
 
 import java.util.Arrays;
 import java.util.LinkedList;
