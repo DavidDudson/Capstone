@@ -4,13 +4,13 @@
 <div class="modal-body">
     <form name="modalForm">
         <div show-errors="{trigger: 'keypress', skipFormGroupCheck: true}">
-            <h4>Name: </h4>
+            <h4 style="color:black;">Name: </h4>
             <input name="name" type="text" class="form-control" ng-model="name" ng-required
                    ng-pattern="/^(?!\s*$)[-a-zA-Z0-9_\s]{3,13}$/"
                    placeholder="StarbattleBot">
         </div>
         <div>
-            <h4>Template: </h4>
+            <h4 style="color:black;">Template: </h4>
 
             <div class="btn-group" dropdown is-open="status.isopen">
                 <button id="single-button" type="button" class="btn btn-primary" dropdown-toggle>
