@@ -58,8 +58,8 @@ ul.test_grid li {
     display: block;
     float: left;
     border: 1px solid #00ccff;
-    height: 25px;
-    width: 25px;
+    height: 2.5em;
+    width: 2.5em;
     overflow: hidden;
 }
 
