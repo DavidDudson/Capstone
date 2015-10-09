@@ -36,6 +36,8 @@
     <script src="./static/js/lib/jquery-1.11.3.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.4/ui-bootstrap-tpls.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/zeroclipboard/2.1.6/ZeroClipboard.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-clip/0.2.6/ng-clip.min.js"></script>
     <script src="./static/js/editor.js"></script>
     <script src="./static/js/header.js"></script>
     <script src="./static/js/bots.js"></script>
@@ -81,6 +83,14 @@
                         <li>
                             <button id="save" class="btn btn-info btn-lg" ng-click="save()"
                                     ng-disabled="!botSelector.bots"> Save
+                            </button>
+                        </li>
+                        <li>
+                            <button  class="btn btn-info btn-lg"
+                                     clip-copy="copy(botSelector.bots[0])"
+                                    clip-click="notificationBar.showSuccess('Copy Successful')"
+                                    ng-disabled="notificationBar.type !== 'warning'">
+                                Copy Bot Data
                             </button>
                         </li>
                     </ul>

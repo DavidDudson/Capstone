@@ -1,7 +1,10 @@
 angular
-    .module("app", ['ui.bootstrap', 'ui.bootstrap.showErrors'])
+    .module("app", ['ui.bootstrap', 'ui.bootstrap.showErrors', 'ngClipboard'])
     .config(['showErrorsConfigProvider', function (showErrorsConfigProvider) {
         showErrorsConfigProvider.showSuccess(true);
+    }])
+    .config(['ngClipProvider', function (ngClipProvider) {
+        ngClipProvider.setPath("//cdnjs.cloudflare.com/ajax/libs/zeroclipboard/2.1.6/ZeroClipboard.swf");
     }])
     //Blockly toolbox
     .directive("toolbox", function () {
@@ -12,7 +15,7 @@ angular
         };
     })
     .
-    controller("appCtrl", function (User,Bots, Game, NotificationBar, BotSelector, $modal, $scope, $rootScope) {
+    controller("appCtrl", function (User, Bots, Game, NotificationBar, BotSelector, $modal, $scope, $rootScope) {
 
         //The app object
         $rootScope.app = {
@@ -49,9 +52,9 @@ angular
 
 
         $rootScope.createUser = function (username, profilePictureUrl) {
-            var unregister = $scope.$watchGroup(["user.bots.loaded","builtInBots.loaded"],function(){
-                if($rootScope.user.loaded && $rootScope.builtInBots.loaded){
-                    if(!$rootScope.user.bots.get() == []){
+            var unregister = $scope.$watchGroup(["user.bots.loaded", "builtInBots.loaded"], function () {
+                if ($rootScope.user.loaded && $rootScope.builtInBots.loaded) {
+                    if (!$rootScope.user.bots.get() == []) {
                         $scope.createNewBot();
                         unregister();
                     }
@@ -65,6 +68,20 @@ angular
         $scope.botSelector = BotSelector(1);
 
         $scope.game = Game($scope.notificationBar);
+
+        $scope.copy = function () {
+            var bot = $scope.botSelector.bots[0];
+            return JSON.stringify({
+                "name": bot.name,
+                "src": bot.src,
+                "xml": bot.xml,
+                "error": $scope.notificationBar.error
+            })
+        };
+
+        $scope.fallback = function() {
+            window.prompt('Press cmd+c to copy the text below.', $scope.copy());
+        };
 
         $scope.save = function () {
             $scope.syncSource();
@@ -100,12 +117,12 @@ angular
             $rootScope.user.bots.delete(bot);
         };
 
-        $scope.displayErrorModal = function(){
-            if($scope.notificationBar.type != 'warning') return;
+        $scope.displayErrorModal = function () {
+            if ($scope.notificationBar.type != 'warning') return;
             $scope.modal = $modal.open({
                 animation: true,
                 templateUrl: './static/html/BotErrorModal.html',
-                controller: function ($scope, $modalInstance,bot,error) {
+                controller: function ($scope, $modalInstance, bot, error) {
                     $scope.bot = bot;
                     $scope.error = error;
 
@@ -120,8 +137,8 @@ angular
                     bot: function () {
                         return $scope.botSelector.getBots()[0]
                     },
-                    error: function(){
-                        return $scope.notificationBar.error;
+                    error: function () {
+                        return $scope.copy();
                     }
 
                 }

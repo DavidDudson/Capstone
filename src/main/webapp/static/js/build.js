@@ -46,7 +46,7 @@ function BuildService($http) {
                         notificationBar.showSuccess(text + 'Build Success');
                         bot.new = false;
                     } else {
-                        notificationBar.showWarning(text + 'Build Failure');
+                        notificationBar.showWarning(text + 'Build Failure, Click this bar to show why.');
                     }
                 }
             },

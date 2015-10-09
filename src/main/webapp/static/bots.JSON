@@ -1,0 +1,5 @@
+{
+  "bots": [
+    {"name":"dsad","src":"import java.util.LinkedList;\nimport nz.daved.starbattle.StarBattleBot;\nimport nz.daved.starbattle.game.BotGameBoard;\nimport nz.daved.starbattle.game.Coordinate;\n\n// <xml xmlns=\"http://www.w3.org/1999/xhtml\"><block type=\"function_next_move\" deletable=\"false\" editable=\"false\" x=\"63\" y=\"63\"></block></xml>\n\npublic class CustomStarBattleBot extends StarBattleBot {\n\npublic CustomStarBattleBot(String id) { super(id); }\n\n@Override\npublic Coordinate nextMove(BotGameBoard botGameBoard) {\n\nreturn ;\n}\n}\n\n","xml":["<xml xmlns=\"http://www.w3.org/1999/xhtml\"><block type=\"function_next_move\" deletable=\"false\" editable=\"false\" x=\"63\" y=\"63\"></block></xml>"],"error":[{"linenumber":15,"kind":"ERROR","message":"incompatible types: missing return value"}]}
+  ]
+}
