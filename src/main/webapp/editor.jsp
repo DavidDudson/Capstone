@@ -50,7 +50,9 @@
 </head>
 <body ng-init=" createBuiltInBots();createUser('${screenName}','${profilePicture}');">
 
+<!--Navigation bar-->
 <page-header></page-header>
+<!--End Navigation bar-->
 
 <toolbox></toolbox>
     <!--Main container-->
@@ -59,7 +61,6 @@
         <sidebar user_bots></sidebar>
         <!--Blockly bar-->
         <section class="col-lg-6 col-md-8 col-sm-8 col-xs-8">
-            <div id="main_content" style="color:white">
                 <div class="main-cont-menu">
                     <ul>
                         <li>
@@ -95,41 +96,35 @@
                         <b>{{notificationBar.text}}</b>
                     </progressbar>
                 </div>
-            </div>
         </section>
 
         <!--Test bar-->
         <section class="col-lg-4 col-lg-offset-0 col-md-6 col-md-offset-2 col-sm-6 col-sm-offset-2 col-xs-6">
-            <div class="test_grid_box">
-
-                <div class="row">
-                    <div class="sidebar_head">
-                        {{!editor.selectedBot ? "Select a bot first" : editor.selectedBot.name}}
-                    </div>
-                </div>
-                <div class="row">
-                    <ul class="test_grid">
-                        <%for (int i = 0; i < 10; i++) {%>
-                        <%for (int j = 0; j < 10; j++) {%>
-                        <li id="a<%=i * 10 + j%>"></li>
-                        <%}%>
-                        <br/>
-                        <%}%>
-                    </ul>
-                </div>
-                <div class="row">
-                    <button id="test" class="btn btn-info btn-lg"
-                            ng-click="game.create(botSelector.bots[0], botSelector.bots[0], true)"
-                            ng-disabled="!botSelector.bots || botSelector.bots[0].new">
-                        Test
-                    </button>
-                    <button id="restart" class="btn btn-info btn-lg" ng-click="game.restart()"
-                            ng-disabled="!botSelector.bots || botSelector.bots[0].new || !game.moves"> Restart
-                    </button>
-                    <button id="reset" class="btn btn-info btn-lg" ng-click="game.reset()"
-                            ng-disabled="!botSelector.bots || botSelector.bots[0].new || !game.moves"> Reset
-                    </button>
-                </div>
+            <div class="sidebar_head">
+                {{!editor.selectedBot ? "Select a bot first" : editor.selectedBot.name}}
+            </div>
+            <div class="test-grid-content">
+                <ul class="test_grid">
+                    <%for (int i = 0; i < 10; i++) {%>
+                    <%for (int j = 0; j < 10; j++) {%>
+                    <li id="a<%=i * 10 + j%>"></li>
+                    <%}%>
+                    <br/>
+                    <%}%>
+                </ul>
+            </div>
+            <div class="test-grid-buttons">
+                <button id="test" class="btn btn-info btn-lg"
+                        ng-click="game.create(botSelector.bots[0], botSelector.bots[0], true)"
+                        ng-disabled="!botSelector.bots || botSelector.bots[0].new">
+                    Test
+                </button>
+                <button id="restart" class="btn btn-info btn-lg" ng-click="game.restart()"
+                        ng-disabled="!botSelector.bots || botSelector.bots[0].new || !game.moves"> Restart
+                </button>
+                <button id="reset" class="btn btn-info btn-lg" ng-click="game.reset()"
+                        ng-disabled="!botSelector.bots || botSelector.bots[0].new || !game.moves"> Reset
+                </button>
             </div>
         </section>
     </div>

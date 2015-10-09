@@ -42,7 +42,7 @@
             <h3>Special thanks to:</h3>
             <ul> 
                 <li>Massey University&#39;s <a href="http://sogaco.massey.ac.nz">SoGaCo platform</a></li>
-                <li>John Toebe&#39;s <a href="https://github.com/toebes-extreme/blockly">Blockly Library</a></li>
+                <li>John Toebes&#39; <a href="https://github.com/toebes-extreme/blockly">Blockly Library</a></li>
                 <li>Google <a href="https://developers.google.com/blockly">Blockly</a></li>
             </ul>
            

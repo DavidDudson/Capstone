@@ -247,13 +247,8 @@ img.img-responsive.img-rounded.center-block {
 }
 
 #sidebar_right {
-	width: 250px;
-	
-}
-
-.sidebar_box {
-	margin: 15px 0;
-	
+	width: 100%;
+	font-size:13px;
 }
 
 .sidebar_head {
@@ -823,11 +818,6 @@ player_two .ng-binding h3 {
 #key .key-inner ul.grid_box li.ship2
 	{
 	background:url(../images/layer2-ship2.png) center right no-repeat;
-	}
-#sidebar_right
-	{
-	width:100%;
-	font-size:13px;
 	}
 
 #sidebar_right .sidebar_head

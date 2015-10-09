@@ -6,3 +6,12 @@
     padding-left: 2.5%;
     padding-right: 2.5%;
 }
+
+h3.ng-binding {
+	margin-top: 10px;
+}
+
+.col-xs-12 {
+	padding-left: 0px;
+	width: 85.5%;
+}
