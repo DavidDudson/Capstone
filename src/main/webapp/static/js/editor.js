@@ -79,7 +79,7 @@ angular
             })
         };
 
-        $scope.fallback = function() {
+        $scope.fallback = function () {
             window.prompt('Press cmd+c to copy the text below.', $scope.copy());
         };
 
@@ -203,6 +203,12 @@ angular
                 }
             });
         };
+
+        $scope.myUpdateFunction = function () {
+            $rootScope.user.bots.updateSource(botSelector.bots[0], Blockly.Java.workspaceToCode($scope.workspace, ["notests"]));
+        };
+
+        $scope.workspace.addChangeListener($scope.myUpdateFunction);
 
         $scope.switchWorkspace = function () {
             Blockly.Xml.domToWorkspace($scope.workspace, Blockly.Xml.textToDom($scope.botSelector.getBots()[0].xml));
