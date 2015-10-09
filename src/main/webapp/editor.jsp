@@ -55,6 +55,8 @@
 <!--End Navigation bar-->
 
 <toolbox></toolbox>
+    <div class="container-xs-1400">
+        <div class="row">
     <!--Main container-->
     <div class="main_container">
         <!--Left bar-->
@@ -128,5 +130,7 @@
             </div>
         </section>
     </div>
+</div>
+</div>
 </body>
 </html>
