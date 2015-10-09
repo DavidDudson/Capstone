@@ -109,7 +109,7 @@
                                                     class="btn btn-primary">
                                                 <i class="fa fa-step-backward"></i></button>
                                             <button type="button" ng-click="game.play_pause(botSelector,false)"
-                                                    ng-disabled="!botSelector.bots.length !== 2"
+                                                    ng-disabled="botSelector.bots.length !== 2"
                                                     class="btn btn-primary">
                                                 <i class="fa"
                                                    ng-class="game.inProgress && !game.paused ?  'fa-pause' : 'fa-play'"></i>

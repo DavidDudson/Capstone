@@ -80,7 +80,9 @@ function GameService($http, $interval, Ship) {
 
             restart: function () {
                 game.reset();
-                game.run();
+                if(!game.paused){
+                    game.start()
+                }
             },
             reset: function () {
                 $interval.cancel(game.state);
