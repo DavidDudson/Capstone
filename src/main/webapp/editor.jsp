@@ -60,9 +60,11 @@
     <!--Main container-->
     <div class="main_container">
         <!--Left bar-->
+        <section class="col-lg-2 col-md-3 col-sm-3">
         <sidebar user_bots></sidebar>
+    </section>
         <!--Blockly bar-->
-        <section class="col-lg-6 col-md-10 col-sm-10 col-xs-10">
+        <section class="col-lg-6 col-md-9 col-sm-9 col-xs-9">
                 <div class="main-cont-menu">
                     <ul>
                         <li>
@@ -101,7 +103,7 @@
         </section>
 
         <!--Test bar-->
-        <section class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+        <section class="col-lg-4 col-md-5 col-sm-5 col-xs-5">
             <div class="sidebar_head">
                 {{!editor.selectedBot ? "Select a bot first" : editor.selectedBot.name}}
             </div>
