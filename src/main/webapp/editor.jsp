@@ -103,7 +103,7 @@
         </section>
 
         <!--Test bar-->
-        <section class="col-lg-4 col-md-5 col-sm-5 col-xs-5">
+        <section class="col-lg-4 col-lg-offset-0 col-md-5 col-md-offset-3 col-sm-5 col-sm-offset-3 col-xs-5 col-xs-offset-3">
             <div class="sidebar_head">
                 {{!editor.selectedBot ? "Select a bot first" : editor.selectedBot.name}}
             </div>

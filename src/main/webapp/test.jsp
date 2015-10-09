@@ -43,7 +43,9 @@
         <!--Main container-->
         <div class="container-gl-1400 container-md-992 container-sm-768 container-xs-767">
             <div class="row">
+                <section class="col-lg-2 col-md-2 col-sm-2">
                 <sidebar user_bots built_in_bots></sidebar>
+            </section>
 
                 <section class="col-lg-7 col-md-10 col-md-pull-0 col-sm-10 col-sm-pull-0">
                     <div id="main_content">
