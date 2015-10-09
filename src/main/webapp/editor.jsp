@@ -104,7 +104,7 @@
         <!--Test bar-->
         <section class="col-lg-4 col-lg-offset-0 col-md-5 col-md-offset-3 col-sm-5 col-sm-offset-3 col-xs-5 col-xs-offset-3">
             <div class="sidebar_head">
-                {{botSelector.getBots[0] ? "Select a bot first" : botSelector.getBots[0].name}}
+                {{!botSelector.bots[0] ? "Select a bot first" : botSelector.bots[0].name}}
             </div>
             <div class="test-grid-content">
                 <ul class="test_grid">

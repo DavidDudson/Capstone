@@ -101,20 +101,25 @@
                                 <div class="sidebar_content">
                                     <div id="controls">
                                         <div class="btn-group">
-                                            <button type="button" ng-click="game.restart()" class="btn btn-primary">
+                                            <button type="button" ng-click="game.restart()" class="btn btn-primary"
+                                                    ng-disabled="!game.moves">
                                                 <i class="fa fa-fast-backward"></i></button>
                                             <button type="button" ng-click="game.step_backward()"
+                                                    ng-disabled="!game.moves"
                                                     class="btn btn-primary">
                                                 <i class="fa fa-step-backward"></i></button>
                                             <button type="button" ng-click="game.play_pause(botSelector,false)"
+                                                    ng-disabled="!botSelector.bots.length !== 2"
                                                     class="btn btn-primary">
                                                 <i class="fa"
                                                    ng-class="game.inProgress && !game.paused ?  'fa-pause' : 'fa-play'"></i>
                                             </button>
                                             <button type="button" ng-click="game.step_forward()"
+                                                    ng-disabled="!game.moves"
                                                     class="btn btn-primary">
                                                 <i class="fa fa-step-forward"></i></button>
-                                            <button type="button" ng-click="game.end()" class="btn btn-primary">
+                                            <button type="button" ng-click="game.end()" ng-disabled="!game.moves"
+                                                    class="btn btn-primary">
                                                 <i class="fa fa-fast-forward"></i></button>
                                         </div>
                                     </div>
