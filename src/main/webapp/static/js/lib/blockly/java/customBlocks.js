@@ -6,7 +6,7 @@ Blockly.Java['check_state_of_coordinate'] = function (block) {
         value_coordinate = Blockly.Java.valueToCode(block, 'Coordinate', Blockly.Java.ORDER_ATOMIC);
     }
     catch (err){}
-    var code = 'botGameBoard.getStateOfCoordinate(' + value_coordinate + ', "' + dropdown_state + '")';
+    var code = 'botGameBoard.getStateOfCoordinate(' + value_coordinate + ', ' + dropdown_state + ')';
     return [code, Blockly.Java.ORDER_ATOMIC];
 };
 
@@ -22,15 +22,15 @@ Blockly.Java['get_coordinate_at_pos'] = function (block) {
     return [code, Blockly.Java.ORDER_ATOMIC];
 };
 
-Blockly.Java['if_last_move_hit_aim_direction'] = function (block) {
-    var dropdown_direction = 'up';
-    try {
-        dropdown_direction = block.getFieldValue('direction');
-    }
-    catch (err){}
-    var code = 'botGameBoard.ifLastMoveHitAimDirection("' + dropdown_direction + '")';
-    return code;
-};
+//Blockly.Java['if_last_move_hit_aim_direction'] = function (block) {
+//    var dropdown_direction = 'up';
+//    try {
+//        dropdown_direction = block.getFieldValue('direction');
+//    }
+//    catch (err){}
+//    var code = 'botGameBoard.ifLastMoveHitAimDirection("' + dropdown_direction + '")';
+//    return code;
+//};
 
 Blockly.Java['can_attack_coordinate'] = function (block) {
     var value_coordinate = '';
@@ -62,29 +62,28 @@ Blockly.Java['get_neighbour_valid_coordinates'] = function (block) {
     return [code, Blockly.Java.ORDER_COLLECTION];
 };
 
-Blockly.Java['variable_define'] = function (block) {
-    var text_name = block.getFieldValue('NAME');
-    var dropdown_type = block.getFieldValue('TYPE');
-    var dropdown_options = {
-        INT: ['int ', '0'],
-        LIST: ['List ', 'new LinkedList<Object>'],
-        COORD: ['String ', '"A1"'],
-        BOOL: ['boolean ', 'true']
-    };
-    var code = dropdown_options[dropdown_type][0];
-
-    if (dropdown_type == "LIST") {
-        Blockly.Java.addImport("java.util.List");
-        Blockly.Java.addImport("java.util.ArrayList");
-    }
-
-    code += text_name;
-    code += ' = ';
-    code += dropdown_options[dropdown_type][1];
-    code += ';\n';
-    return code;
-};
-
+//Blockly.Java['variable_define'] = function (block) {
+//    var text_name = block.getFieldValue('NAME');
+//    var dropdown_type = block.getFieldValue('TYPE');
+//    var dropdown_options = {
+//        INT: ['int ', '0'],
+//        LIST: ['List ', 'new LinkedList<Object>'],
+//        COORD: ['String ', '"A1"'],
+//        BOOL: ['boolean ', 'true']
+//    };
+//    var code = dropdown_options[dropdown_type][0];
+//
+//    if (dropdown_type == "LIST") {
+//        Blockly.Java.addImport("java.util.List");
+//        Blockly.Java.addImport("java.util.ArrayList");
+//    }
+//
+//    code += text_name;
+//    code += ' = ';
+//    code += dropdown_options[dropdown_type][1];
+//    code += ';\n';
+//    return code;
+//};
 
 Blockly.Java['get_all_valid_moves'] = function(block) {
     var code = 'botGameBoard.getAllValidCoordinates()';
@@ -97,7 +96,7 @@ Blockly.Java['last_move_state'] = function(block) {
         state = block.getFieldValue('STATE');
     }
     catch (err){}
-    var code = 'botGameBoard.lastMove(' + state + ')';
+    var code = 'botGameBoard.getLastMoveState(' + state + ')';
     return [code, Blockly.Java.ORDER_ATOMIC];
 };
 
@@ -111,7 +110,7 @@ Blockly.Java['comment'] = function(block) {
     try {
         text_comment = block.getFieldValue('comment');
     }
-    catch(err){}
+    catch (err){}
     var code = '';
     return code;
 };
@@ -150,12 +149,14 @@ Blockly.Java['return_coordinate'] = function(block) {
 };
 
 Blockly.Java['function_next_move'] = function(block) {
-    var statements_block = Blockly.Java.statementToCode(block, 'BLOCK');
-    var value_return = Blockly.Java.valueToCode(block, 'RETURN', Blockly.Java.ORDER_ATOMIC);
-    var return_code = 'return ' + value_return + ';\n';
-        if (value_return === ''){
-            return_code = '\n';
+    var statements_block = '';
+    var value_return = '';
+    try {
+        statements_block = Blockly.Java.statementToCode(block, 'BLOCK');
+        value_return = Blockly.Java.valueToCode(block, 'RETURN', Blockly.Java.ORDER_ATOMIC);
     }
+    catch (err){}
+    var return_code = 'return ' + value_return + ';\n';
     
     var code = '@Override\n' +
                 'public Coordinate nextMove(BotGameBoard botGameBoard) {\n' +
@@ -170,27 +171,32 @@ Blockly.Java['last_move_sink_bot'] = function(block) {
   return [code, Blockly.Java.ORDER_ATOMIC];
 };
 
-Blockly.Java['last_move_state'] = function(block) {
-    var state = block.getFieldValue('STATE');
-    var code = "botGameBoard.getLastMoveState("+ state +")";
-    return [code, Blockly.Java.ORDER_ATOMIC];
-};
-
-
 Blockly.Java['check_neighbours_for_best_attack'] = function (block) {
-    var dropdown_position = '';
-    var value_input = Blockly.Java.valueToCode(block, 'INPUT', Blockly.Java.ORDER_ATOMIC);
+    var value_input = '';
+    try {
+        value_input = Blockly.Java.valueToCode(block, 'INPUT', Blockly.Java.ORDER_ATOMIC);
+    }
+    catch (err){}
     var code = 'botGameBoard.findAndHitNeighbour(' + value_input + ')';
     return [code, Blockly.Java.ORDER_ATOMIC];
 };
+
 Blockly.Java['coordinate_state'] = function(block) {
-    var dropdown_state = block.getFieldValue('STATE');
-    var code = '' + dropdown_state + '';
+    var dropdown_state = '0';
+    try {
+        dropdown_state = block.getFieldValue('STATE');
+    }
+    catch (err){}
+    var code = dropdown_state;
     return [code, Blockly.Java.ORDER_ATOMIC];
 };
 
 Blockly.Java['states_of_neighbours'] = function(block) {
-    var value_name = Blockly.Java.valueToCode(block, 'NAME', Blockly.Java.ORDER_ATOMIC);
+    var value_name = '';
+    try {
+        value_name = Blockly.Java.valueToCode(block, 'NAME', Blockly.Java.ORDER_ATOMIC);
+    }
+    catch (err){}
     var code = 'botGameBoard.getStatesOfNeighbours(' + value_name + ')';
-    return [code, Blockly.JavaScript.ORDER_COLLECTION];
+    return [code, Blockly.Java.ORDER_COLLECTION];
 };

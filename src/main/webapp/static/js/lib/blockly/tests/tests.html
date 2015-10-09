@@ -31,7 +31,7 @@
             var test = block_tests[i];
             var output = Blockly.Java[test.block]();
 
-            assert.deepEqual(output, test.expected);
+            assert.deepEqual(output, test.generated);
         }
     });
 
@@ -54,8 +54,9 @@
         Blockly.Xml.domToWorkspace(workspace, xml);
 
         var blocks = workspace.getTopBlocks();
-        for (var i = 0; i < output_connection_tests.length; i++) {
-            var test = output_connection_tests[i];
+        for (var i = 0; i < block_tests.length; i++) {
+            var test = block_tests[i];
+            if (!test.output) {continue;}
 
             var block;
             for (var j = 0; j < blocks.length; j++) {
@@ -67,14 +68,15 @@
             var block_type = block.type;
             var output_connection = block.outputConnection.check_[0];
 
-            assert.deepEqual({block:block_type, expected:output_connection}, test);
+            assert.deepEqual({block:block_type, output:output_connection}, {block:test.block, output:test.output});
         }
     });
 
     QUnit.test('Input Connection Tests', function (assert) {
         var blocks = workspace.getTopBlocks();
-        for (var i = 0; i < input_connection_tests.length; i++) {
-            var test = input_connection_tests[i];
+        for (var i = 0; i < block_tests.length; i++) {
+            var test = block_tests[i];
+            if (!test.input) {continue;}
 
             var block;
             for (var j = 0; j < blocks.length; j++) {
@@ -93,7 +95,7 @@
                 }
             }
 
-            assert.deepEqual({block:block_type, expected:input_connections}, test);
+            assert.deepEqual({block:block_type, input:input_connections}, {block:test.block, input:test.input});
         }
     });
 </script>
