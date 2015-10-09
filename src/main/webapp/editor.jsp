@@ -55,14 +55,14 @@
 <!--End Navigation bar-->
 
 <toolbox></toolbox>
-    <div class="container-xs-1400">
+    <div class="container-lg-1400 container-md-992 container-sm-768 container-xs-767">
         <div class="row">
     <!--Main container-->
     <div class="main_container">
         <!--Left bar-->
         <sidebar user_bots></sidebar>
         <!--Blockly bar-->
-        <section class="col-xs-6">
+        <section class="col-lg-6 col-md-10 col-sm-10 col-xs-10">
                 <div class="main-cont-menu">
                     <ul>
                         <li>
@@ -101,7 +101,7 @@
         </section>
 
         <!--Test bar-->
-        <section class="col-xs-4">
+        <section class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
             <div class="sidebar_head">
                 {{!editor.selectedBot ? "Select a bot first" : editor.selectedBot.name}}
             </div>
