@@ -1,6 +1,6 @@
-.main_container {  
+.main_container {
     margin-left: auto;
-    margin-right: auto;   
+    margin-right: auto;
     position: relative;
     width: 100%;
     padding-left: 2.5%;
@@ -179,10 +179,6 @@ ul.user-top li {
     position: relative;
 }
 
-
-
-
-
 .blocklySvg {
     background-color: rgba(0, 0, 0, 0.1) !important;
     width: 100%;
@@ -205,12 +201,12 @@ ul.user-top li {
 
 .test-grid-buttons {
     float: left;
-    display:inline;
+    display: inline;
 
 }
 
 .test-grid-content {
-    display:inline-block;
+    display: inline-block;
     margin-left: auto;
     margin-right: auto;
 }

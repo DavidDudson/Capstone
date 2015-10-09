@@ -9,11 +9,11 @@
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
-            <li class="username"> <a href="logout">{{user.name}}</a> </li>
+            <li class="username navbar-text"> {{user.name}}</a> </li>
             <li> <a class="logout" href="logout">Logout</a> </li>
             <li class="profilePictureContent" ng-if="user.profilePictureUrl != ''">
-                <img ng-src="{{user.profilePictureUrl}}" class="img-responsive img-rounded center-block"
-                     style="width: 40px;" alt="Profile Picture"/>
+                <img id="dp" ng-src="{{user.profilePictureUrl}}" class="img-responsive img-rounded center-block"
+                      alt="Profile Picture"/>
             </li>
         </ul>
     </div>

@@ -7,7 +7,7 @@
         <div class="sidebar_content">
             <ul class="list_block">
                 <li ng-style="{'background-color': bot.colour}" ng-repeat="bot in group_bots" class="bot" ng-click="$root.select(bot);">{{bot.name}}</li>
-                <li class="bot" style="color:darkgoldenrod" ng-if="group_bots.length === 0"> No Bots</li>
+                <li id="nobots" ng-if="group_bots.length === 0"> No Bots</li>
             </ul>
         </div>
     </div>

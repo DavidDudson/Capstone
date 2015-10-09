@@ -86,17 +86,16 @@
                     </ul>
                 </div>
                 <div class="main-blockly">
-                    <div id="blocklyDiv" style="height:450px"></div>
+                    <div id="blocklyDiv"></div>
                 </div>
                 <br/>
 
                 <div>
-                    <progressbar class="progress-striped"
+                    <progressbar id="notificationBar" class="progress-striped"
                                  ng-class="notificationBar.active"
                                  ng-click="displayErrorModal()"
                                  ng-value="notificationBar.progress"
-                                 type="{{notificationBar.type}}"
-                                 style="width:100%; height: 40px">
+                                 type="{{notificationBar.type}}">
                         <b>{{notificationBar.text}}</b>
                     </progressbar>
                 </div>
