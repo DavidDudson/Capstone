@@ -50,7 +50,7 @@
                 <section class="col-lg-7 col-md-10 col-md-pull-0 col-sm-10 col-sm-pull-0">
                     <div id="main_content">
                         <div id="player_one" class="left">
-                            <h3 style="{color:red}">{{botSelector.bots[0] ? botSelector.bots[0].name : "Select Bot 1"}} </h3>
+                            <h3 id="p1Text">{{botSelector.bots[0] ? botSelector.bots[0].name : "Select Bot 1"}} </h3>
                             <ul class="grid_box">
                                 <%for (int i = 0; i < 10; i++) {%>
                                 <%for (int j = 0; j < 10; j++) {%>
@@ -61,7 +61,7 @@
                             </ul>
                         </div>
                         <div id="player_two" class="left">
-                            <h3 style="{color:blue}">{{botSelector.bots[1] ? botSelector.bots[1].name : "Select Bot 2"}}</h3>
+                            <h3 id="p2Text">{{botSelector.bots[1] ? botSelector.bots[1].name : "Select Bot 2"}}</h3>
                             <ul class="grid_box">
                                 <%for (int i = 0; i < 10; i++) {%>
                                 <%for (int j = 0; j < 10; j++) {%>
@@ -76,10 +76,9 @@
                         <br/>
                         <div class="col-xs-12">
                             <div>
-                                <progressbar class="progress-striped"
+                                <progressbar id="notificationBar" class="progress-striped"
                                              ng-class="notificationBar.active"
                                              ng-value="notificationBar.progress"
-                                             style="height: 40px"
                                              type="{{notificationBar.type}}">
                                     <b>{{notificationBar.text}}</b>
                                 </progressbar>
