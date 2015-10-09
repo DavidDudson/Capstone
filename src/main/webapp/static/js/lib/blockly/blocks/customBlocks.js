@@ -30,17 +30,17 @@ Blockly.Blocks['get_coordinate_at_pos'] = {
   }
 };
 
-Blockly.Blocks['if_last_move_hit_aim_direction'] = {
-    init: function() {
-        this.appendDummyInput()
-            .appendField("if the last move was a hit, aim")
-            .appendField(new Blockly.FieldDropdown([["up", "up"], ["down", "down"], ["left", "left"], ["right", "right"]]), "direction");
-        this.setOutput(true, "Coordinate");
-        this.setColour(230);
-        this.setTooltip('if the last move was a hit, then get the coordinate next to that target');
-        this.setHelpUrl('http://www.example.com/');
-    }
-};
+//Blockly.Blocks['if_last_move_hit_aim_direction'] = {
+//    init: function() {
+//        this.appendDummyInput()
+//            .appendField("if the last move was a hit, aim")
+//            .appendField(new Blockly.FieldDropdown([["up", "up"], ["down", "down"], ["left", "left"], ["right", "right"]]), "direction");
+//        this.setOutput(true, "Coordinate");
+//        this.setColour(230);
+//        this.setTooltip('if the last move was a hit, then get the coordinate next to that target');
+//        this.setHelpUrl('http://www.example.com/');
+//    }
+//};
 
 Blockly.Blocks['can_attack_coordinate'] = {
   init: function() {
@@ -90,23 +90,22 @@ Blockly.Blocks['get_neighbour_valid_coordinates'] = {
   }
 };
 
-Blockly.Blocks['variable_define'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("define")
-        .appendField(new Blockly.FieldTextInput("name"), "NAME");
-    this.appendDummyInput()
-        .appendField("of type")
-        .appendField(new Blockly.FieldDropdown([["integer", "INT"], ["list", "LIST"], ["coord", "COORD"], ["boolean", "BOOL"]]), "TYPE");
-    this.setInputsInline(true);
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(330);
-    this.setTooltip('create a new variable of a certain type');
-    this.setHelpUrl('http://www.example.com/');
-  }
-};
-
+//Blockly.Blocks['variable_define'] = {
+//  init: function() {
+//    this.appendDummyInput()
+//        .appendField("define")
+//        .appendField(new Blockly.FieldTextInput("name"), "NAME");
+//    this.appendDummyInput()
+//        .appendField("of type")
+//        .appendField(new Blockly.FieldDropdown([["integer", "INT"], ["list", "LIST"], ["coord", "COORD"], ["boolean", "BOOL"]]), "TYPE");
+//    this.setInputsInline(true);
+//    this.setPreviousStatement(true, null);
+//    this.setNextStatement(true, null);
+//    this.setColour(330);
+//    this.setTooltip('create a new variable of a certain type');
+//    this.setHelpUrl('http://www.example.com/');
+//  }
+//};
 
 Blockly.Blocks['get_all_valid_moves'] = {
     init: function() {
@@ -122,8 +121,8 @@ Blockly.Blocks['get_all_valid_moves'] = {
 Blockly.Blocks['last_move_state'] = {
     init: function() {
         this.appendDummyInput()
-            .appendField("the last move was a")
-            .appendField(new Blockly.FieldDropdown([["hit", 1], ["miss", 2], ["destroyed", 3]]), "STATE");
+            .appendField("was the last move a")
+            .appendField(new Blockly.FieldDropdown([["hit", "1"], ["miss", "2"], ["destroy", "3"]]), "STATE");
         this.setOutput(true, "Boolean");
         this.setColour(210);
         this.setTooltip('was the last move a hit, miss, or sunk');
@@ -228,18 +227,6 @@ Blockly.Blocks['last_move_sink_bot'] = {
     this.setTooltip('did the last move sink a ship');
     this.setHelpUrl('http://www.example.com/');
   }
-};
-
-Blockly.Blocks['last_move_state'] = {
-    init: function() {
-        this.appendDummyInput()
-            .appendField("was the last move either")
-            .appendField(new Blockly.FieldDropdown([["hit", "1"], ["miss", "2"], ["destroyed", "3"]]), "STATE");
-        this.setOutput(true, "Boolean");
-        this.setColour(210);
-        this.setTooltip('was the last move a hit, miss, or sunk');
-        this.setHelpUrl('http://www.example.com/');
-    }
 };
 
 Blockly.Blocks['check_neighbours_for_best_attack'] = {
