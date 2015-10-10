@@ -18,7 +18,7 @@ Blockly.Blocks['get_all_cells_of_type'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("get a list of all")
-        .appendField(new Blockly.FieldDropdown([["space", 0], ["miss", 1],  ["hit", 2], ["sunk", 3]]), "state")
+        .appendField(new Blockly.FieldDropdown([["space", "0"], ["miss", "1"],  ["hit", "2"], ["sunk", "3"]]), "state")
         .appendField("coordinates");
     this.setInputsInline(true);
     this.setOutput(true, "Array");
@@ -136,7 +136,7 @@ Blockly.Blocks['last_move_state'] = {
     init: function() {
         this.appendDummyInput()
             .appendField("was the last move a")
-            .appendField(new Blockly.FieldDropdown([["space", 0], ["miss", 1],  ["hit", 2], ["sunk", 3]]), "STATE");
+            .appendField(new Blockly.FieldDropdown([["space", "0"], ["miss", "1"],  ["hit", "2"], ["sunk", "3"]]), "STATE");
         this.setOutput(true, "Boolean");
         this.setColour(210);
         this.setTooltip('was the last move a hit, miss, or sunk');
@@ -260,8 +260,8 @@ Blockly.Blocks['check_neighbours_for_best_attack'] = {
 Blockly.Blocks['coordinate_state'] = {
     init: function() {
         this.appendDummyInput()
-            .appendField(new Blockly.FieldDropdown([["space", 0], ["miss", 1],  ["hit", 2], ["sunk", 3]]), "STATE");
-        this.setOutput(true, "State");
+            .appendField(new Blockly.FieldDropdown([["space", "0"], ["miss", "1"],  ["hit", "2"], ["sunk", "3"]]), "STATE");
+        this.setOutput(true, "Number");
         this.setColour(230);
         this.setTooltip('Possible states of a Coordinate');
         this.setHelpUrl('http://www.example.com/');
