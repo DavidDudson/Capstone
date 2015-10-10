@@ -75,8 +75,8 @@ dependencies {
 //Configure Server plugin
 gretty {
     servletContainer = 'tomcat8'
-    managedClassReload=false
-    fastReload=false
+    //managedClassReload=false
+    //fastReload=false
 }
 
 war {
