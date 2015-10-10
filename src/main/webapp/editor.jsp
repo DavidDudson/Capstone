@@ -113,6 +113,7 @@
 
         <!--Test bar-->
         <section class="col-lg-4 col-lg-offset-0 col-md-5 col-md-offset-3 col-sm-5 col-sm-offset-3 col-xs-5 col-xs-offset-3">
+            <div class="row">
             <div class="test-grid-content">
                 <div class="sidebar_head">
                 {{!botSelector.bots[0] ? "Select a bot first" : botSelector.bots[0].name}}
@@ -127,6 +128,8 @@
                     <%}%>
                 </ul>
             </div>
+        </div>
+        <div class="row">
             <div class="test-grid-buttons">
                 <button id="test" class="btn btn-info btn-lg"
                         ng-click="game.create(botSelector.bots[0], botSelector.bots[0], true)"
@@ -140,6 +143,7 @@
                         ng-disabled="!botSelector.bots || botSelector.bots[0].new || !game.moves"> Reset
                 </button>
             </div>
+        </div>
         </section>
     </div>
 </div>
