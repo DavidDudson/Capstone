@@ -388,4 +388,6 @@ public class BotGameBoard extends GameBoard {
     public int getYCoord(Coordinate coordinate){
         return coordinate.getY();
     }
+
+
 }

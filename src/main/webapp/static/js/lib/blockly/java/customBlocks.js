@@ -1,16 +1,17 @@
 Blockly.Java['check_state_of_coordinate'] = function (block) {
-    var dropdown_state = 0;
-    var value_coordinate = '';
-    try {
-        dropdown_state = block.getFieldValue('state');
-        value_coordinate = Blockly.Java.valueToCode(block, 'Coordinate', Blockly.Java.ORDER_ATOMIC);
+    var dropdown_state = dropdown_state = block.getFieldValue('state');;
+    
+    if(dropdown_state == null || dropdown_state == ''){
+        
+        dropdown_state = 0;
     }
-    catch (err){}
-    var code = 'botGameBoard.getStateOfCoordinate(' + value_coordinate + ', ' + dropdown_state + ')';
+    var value_coordinate = value_coordinate = Blockly.Java.valueToCode(block, 'Coordinate', Blockly.Java.ORDER_ATOMIC);
+
+    var code = 'botGameBoard.checkStateOfCoordinate(' + value_coordinate + "," + dropdown_state + ')';
     return [code, Blockly.Java.ORDER_ATOMIC];
 };
 
-Blockly.Java['get_coordinate_at_pos'] = function (block) {
+Blockly.Java['get_state_coordinate_at_pos'] = function (block) {
     var dropdown_position = '';
     var value_input = '';
     try {
@@ -18,7 +19,7 @@ Blockly.Java['get_coordinate_at_pos'] = function (block) {
         value_input = Blockly.Java.valueToCode(block, 'INPUT', Blockly.Java.ORDER_ATOMIC);
     }
     catch (err){}
-    var code = 'botGameBoard.getCoordinateAtPosition(' + value_input + ', "' + dropdown_position + '")';
+    var code = 'botGameBoard.getStateOfCoordinateAtPosition(' + value_input + ', "' + dropdown_position + '")';
     return [code, Blockly.Java.ORDER_ATOMIC];
 };
 
@@ -167,7 +168,7 @@ Blockly.Java['function_next_move'] = function(block) {
 };
 
 Blockly.Java['last_move_sink_bot'] = function(block) {
-  var code = 'botGameBoard.lastMoveSinkBot()';
+  var code = 'botGameBoard.lastMoveSunkBot()';
   return [code, Blockly.Java.ORDER_ATOMIC];
 };
 
@@ -189,16 +190,6 @@ Blockly.Java['coordinate_state'] = function(block) {
     catch (err){}
     var code = dropdown_state;
     return [code, Blockly.Java.ORDER_ATOMIC];
-};
-
-Blockly.Java['states_of_neighbours'] = function(block) {
-    var value_name = '';
-    try {
-        value_name = Blockly.Java.valueToCode(block, 'NAME', Blockly.Java.ORDER_ATOMIC);
-    }
-    catch (err){}
-    var code = 'botGameBoard.getStatesOfNeighbours(' + value_name + ')';
-    return [code, Blockly.Java.ORDER_COLLECTION];
 };
 
 Blockly.Java['get_X_coord'] = function (block) {

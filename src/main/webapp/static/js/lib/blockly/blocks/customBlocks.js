@@ -2,7 +2,7 @@ Blockly.Blocks['check_state_of_coordinate'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("there is")
-        .appendField(new Blockly.FieldDropdown([["space", 0], ["Ship", 1]]), "state");
+        .appendField(new Blockly.FieldDropdown([["space", 0], ["miss", 1],  ["hit", 2], ["sunk", 3]]), "state");
     this.appendValueInput("Coordinate")
         .setCheck("Coordinate")
         .appendField("at position");
@@ -14,13 +14,13 @@ Blockly.Blocks['check_state_of_coordinate'] = {
   }
 };
 
-Blockly.Blocks['get_coordinate_at_pos'] = {
+Blockly.Blocks['get_state_coordinate_at_pos'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("the position")
+        .appendField("the state of position")
         .appendField(new Blockly.FieldDropdown([["Left", "left"], ["Right", "right"], ["Up", "up"], ["Down", "down"]]), "POSITION");
     this.appendValueInput("INPUT")
-        .setCheck("Coordinate")
+        .setCheck("Number")
         .appendField("of");
     this.setInputsInline(true);
     this.setOutput(true, "Coordinate");
@@ -122,7 +122,7 @@ Blockly.Blocks['last_move_state'] = {
     init: function() {
         this.appendDummyInput()
             .appendField("was the last move a")
-            .appendField(new Blockly.FieldDropdown([["hit", "1"], ["miss", "2"], ["destroy", "3"]]), "STATE");
+            .appendField(new Blockly.FieldDropdown([["space", 0], ["miss", 1],  ["hit", 2], ["sunk", 3]]), "STATE");
         this.setOutput(true, "Boolean");
         this.setColour(210);
         this.setTooltip('was the last move a hit, miss, or sunk');
@@ -246,7 +246,7 @@ Blockly.Blocks['check_neighbours_for_best_attack'] = {
 Blockly.Blocks['coordinate_state'] = {
     init: function() {
         this.appendDummyInput()
-            .appendField(new Blockly.FieldDropdown([["space", "0"], ["hit", "1"], ["miss", "2"], ["sunk", "3"]]), "STATE");
+            .appendField(new Blockly.FieldDropdown([["space", 0], ["miss", 1],  ["hit", 2], ["sunk", 3]]), "STATE");
         this.setOutput(true, "State");
         this.setColour(230);
         this.setTooltip('Possible states of a Coordinate');
@@ -254,18 +254,6 @@ Blockly.Blocks['coordinate_state'] = {
     }
 };
 
-Blockly.Blocks['states_of_neighbours'] = {
-    init: function() {
-        this.appendValueInput("Coordinate")
-            .setCheck("Coordinate")
-            .appendField("get status of neigbouring coords ");
-        this.setInputsInline(true);
-        this.setOutput(true, "Array");
-        this.setColour(260);
-        this.setTooltip('get a list of the neighbours if they are hit, miss, sunk or space (up, right, down, left)');
-        this.setHelpUrl('http://www.example.com/');
-    }
-};
 
 Blockly.Blocks['get_X_coord']= {
   init: function() {

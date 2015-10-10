@@ -81,7 +81,7 @@
         <block type="get_last_valid_coordinate"></block>
         <block type="the_last_move"></block>
         <block type="last_hit_move"></block>
-        <block type="get_coordinate_at_pos"></block>
+        <block type="get_state_coordinate_at_pos"></block>
         <block type="coordinate_state"></block>
         <!--<block type="check_neighbours_for_best_attack"></block>-->
         <!--<block type="states_of_neighbours"></block>-->
