@@ -38,10 +38,10 @@
 <page-header></page-header>
 <!--End Navigation bar-->
 
-<div class="main_container">
-    <div id="content">
+ 
         <!--Main container-->
-        <div class="container-gl-1400 container-md-992 container-sm-768 container-xs-767">
+        <div class="container-fluid">
+
             <div class="row">
                 <section class="col-lg-2 col-md-2 col-sm-2">
                 <sidebar user_bots built_in_bots></sidebar>
