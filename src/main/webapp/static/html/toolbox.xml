@@ -34,11 +34,13 @@
         <block type="controls_flow_statements"></block>
     </category>
     <category name="Lists">
+        
         <block type="lists_create_empty"></block>
+        <block type="get_all_cells_of_type"></block>
         <block type="get_all_valid_moves"></block>
+        <block type="check_state_of_coordinate"></block>
         <block type="get_neighbour_valid_coordinates"></block>
         <block type="list_of_played_moves"></block>
-        <block type="states_of_neighbours"></block>
         <block type="lists_length"></block>
         <block type="lists_isEmpty"></block>
         <block type="lists_indexOf">

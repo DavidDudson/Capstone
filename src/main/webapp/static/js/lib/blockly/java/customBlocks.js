@@ -11,6 +11,17 @@ Blockly.Java['check_state_of_coordinate'] = function (block) {
     return [code, Blockly.Java.ORDER_ATOMIC];
 };
 
+Blockly.Java['get_all_cells_of_type'] = function (block) {
+    var dropdown_state = dropdown_state = block.getFieldValue('state');
+    if(dropdown_state == null || dropdown_state == ''){
+        
+        dropdown_state = 0;
+    }
+    var code = 'botGameBoard.getCoordinatesWithState('+ dropdown_state +')';
+    return [code, Blockly.Java.ORDER_ATOMIC];
+};
+
+
 Blockly.Java['get_state_coordinate_at_pos'] = function (block) {
     var dropdown_position = '';
     var value_input = '';

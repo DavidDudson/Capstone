@@ -14,6 +14,20 @@ Blockly.Blocks['check_state_of_coordinate'] = {
   }
 };
 
+Blockly.Blocks['get_all_cells_of_type'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("get a list of all")
+        .appendField(new Blockly.FieldDropdown([["space", 0], ["miss", 1],  ["hit", 2], ["sunk", 3]]), "state")
+        .appendField("coordinates");
+    this.setInputsInline(true);
+    this.setOutput(true, "Array");
+    this.setColour(210);
+    this.setTooltip('ask if the position is water or a known ship position');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
 Blockly.Blocks['get_state_coordinate_at_pos'] = {
   init: function() {
     this.appendDummyInput()

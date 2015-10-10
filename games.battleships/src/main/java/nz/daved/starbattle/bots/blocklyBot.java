@@ -10,12 +10,19 @@ import nz.daved.starbattle.game.Coordinate;
 
 public class blocklyBot extends StarBattleBot {
 
-    protected Coordinate item;
+    public blocklyBot(String id) { super(id); }
+
+    protected Boolean dfdfg = false;
+    protected Boolean werwer = false;
+    protected Boolean fgh = false;
+    protected Object fgfh;
 
 
     @Override
     public Coordinate nextMove(BotGameBoard botGameBoard) {
-        item = botGameBoard.getStateOfCoordinateAtPosition(new Coordinate(0, 0), "left");
+        dfdfg = botGameBoard.lastMoveSunkBot();
+        werwer = botGameBoard.getLastMoveState(1);
+        fgfh = 0;
 
         return botGameBoard.getFirstValidCoordinate();
     }
