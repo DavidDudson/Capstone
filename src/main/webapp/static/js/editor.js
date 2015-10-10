@@ -16,7 +16,7 @@ angular
     })
     .
     controller("appCtrl", function (User, Bots, Game, NotificationBar, BotSelector, $modal, $scope, $rootScope) {
-
+        window.MY_SCOPE = $scope;
         //The app object
         $rootScope.app = {
             name: "Star Battle"

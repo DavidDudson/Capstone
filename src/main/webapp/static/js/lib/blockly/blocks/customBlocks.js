@@ -230,6 +230,11 @@ Blockly.Blocks['function_next_move'] = {
         this.setColour(290);
         this.setTooltip('The main function block');
         this.setHelpUrl('http://www.example.com/');
+        this.hasReturnValue_ = true;
+        this.arguments_ = [];
+    },
+    getProcedureDef: function() {
+        return [Object.create(null), this.arguments_, this.hasReturnValue_];
     }
 };
 
