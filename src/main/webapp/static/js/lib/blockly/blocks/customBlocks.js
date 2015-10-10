@@ -2,7 +2,7 @@ Blockly.Blocks['check_state_of_coordinate'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("there is")
-        .appendField(new Blockly.FieldDropdown([["space", 0], ["miss", 1],  ["hit", 2], ["sunk", 3]]), "state");
+        .appendField(new Blockly.FieldDropdown([["space", "0"], ["miss", "1"],  ["hit", "2"], ["sunk", "3"]]), "state");
     this.appendValueInput("Coordinate")
         .setCheck("Coordinate")
         .appendField("at position");
