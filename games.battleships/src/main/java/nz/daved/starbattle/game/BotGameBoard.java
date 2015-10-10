@@ -79,6 +79,7 @@ public class BotGameBoard extends GameBoard {
 
     /**
      * ge the first coordinate not already chosen
+     *
      * @return first coodinate that is valid
      */
     public Coordinate getFirstValidCoordinate() {
@@ -86,7 +87,8 @@ public class BotGameBoard extends GameBoard {
     }
 
     /**
-     *  get the last valid coordinate not already chosen
+     * get the last valid coordinate not already chosen
+     *
      * @return last coordinate that is valid
      */
     public Coordinate getLastValidCoordinate() {
@@ -96,13 +98,14 @@ public class BotGameBoard extends GameBoard {
 
     /**
      * get a list of all the coordinate not already chosen
+     *
      * @return list of all possible coordinates
      */
     public LinkedList<Coordinate> getAllValidCoordinates() {
         LinkedList<Coordinate> coords = new LinkedList<>();
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
-                if (grid[i][j] == 0) {
+                if (getStateOfCoordinate(i,j) == 0) {
                     coords.add(new Coordinate(i, j));
                 }
             }
@@ -112,13 +115,14 @@ public class BotGameBoard extends GameBoard {
 
     /**
      * get the all positions and states of the gameBoard
+     *
      * @return list of all current states and positions of the board
      */
-    public LinkedList<Integer> getGameBoard(){
+    public LinkedList<Integer> getGameBoard() {
         LinkedList<Integer> coords = new LinkedList<>();
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
-                    coords.add(grid[i][j]);
+                coords.add(getStateOfCoordinate(i, j));
             }
         }
         return coords;
@@ -126,15 +130,16 @@ public class BotGameBoard extends GameBoard {
 
     /**
      * get the state of a specified coordinate
+     *
      * @param state the bot selected coordinate to be evaluated
      * @return state of coordinate
      */
-    public LinkedList<Coordinate> getCoordinatesWithState(int state){
+    public LinkedList<Coordinate> getCoordinatesWithState(int state) {
         LinkedList<Coordinate> stateCoordinates = new LinkedList<>();
-        for(int y = 0; y < height; y++){
-            for(int x = 0 ;x < width; x++){
-                if(grid[x][y] == state){
-                    stateCoordinates.add(new Coordinate(x,y));
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                if (getStateOfCoordinate(x, y) == state) {
+                    stateCoordinates.add(new Coordinate(x, y));
                 }
             }
         }
@@ -143,18 +148,20 @@ public class BotGameBoard extends GameBoard {
 
     /**
      * return a list of all neighbours that havn't been hit
+     *
      * @param coordinate coordinate to be evaluated
      * @return list of avaliable coordinates
      */
     public LinkedList<Coordinate> getNeighbourValidCoordinates(Coordinate coordinate) {
-       return coordinate.getNeighbours().stream()
-               .filter(this::canAttackCoordinate)
-               .collect(Collectors.toCollection(LinkedList::new));
+        return coordinate.getNeighbours().stream()
+                .filter(this::canAttackCoordinate)
+                .collect(Collectors.toCollection(LinkedList::new));
     }
 
 
     /**
      * check wheather coordinate can be attacked
+     *
      * @param coordinate coordinate to be evaluated
      * @return weather coordinate is free to be attacked
      */
@@ -164,64 +171,66 @@ public class BotGameBoard extends GameBoard {
 
     /**
      * get bot history of hit moves
+     *
      * @return list of coordinates containing already hit moves
      */
     public LinkedList<Coordinate> getHistory() {
         LinkedList<Coordinate> historyCoords = new LinkedList<>();
 
-        for(StarBattleGameMove move: history){
-            if((player == 1) && (move.isPlayer1())) {
+        for (StarBattleGameMove move : history) {
+            if ((player == 1) && (move.isPlayer1())) {
                 historyCoords.add(move.getCoord());
-            }else {
-                if((player == 2)&& (!move.isPlayer1()) ){
+            } else {
+                if ((player == 2) && (!move.isPlayer1())) {
                     historyCoords.add(move.getCoord());
 
-                    }
                 }
             }
-        return  historyCoords;
+        }
+        return historyCoords;
 
     }
 
     /**
      * get the last move played by the bot
+     *
      * @return coordinate of last move played
      */
-    public Coordinate getLastMove(){
+    public Coordinate getLastMove() {
         return getHistory().getLast();
 
     }
 
     /**
-     * check to see if coordinate containes defined state
-     * @param coords coordinate to be evaluated
+     * check to see if coordinate contains defined state
+     *
+     * @param coord coordinate to be evaluated
      * @param state value to be evaluated against
      * @return weather the coordinate contains the expected coordinate
      */
-    public Boolean checkStateOfCoordinate(Coordinate coords, Integer state){
-        return grid[coords.getY()][coords.getY()] == state;
-
-
+    public Boolean checkStateOfCoordinate(Coordinate coord, Integer state) {
+        return getStateOfCoordinate(coord) == state;
     }
 
     /**
      * get the state of the last movr
+     *
      * @param state value to be evaluated against
      * @return weather the last coordinate contains the expected state
      */
-    public Boolean getLastMoveState(int state){
-        return grid[getLastMove().getY()][getLastMove().getY()] == state;
+    public Boolean getLastMoveState(int state) {
+        return getStateOfCoordinate(getLastMove()) == state;
 
     }
 
     /**
      * get the last move of bot history that was a hit
+     *
      * @return coordinate of the last hit move
      */
-    public Coordinate getLastHitMove(){
-        for(int i = getHistory().size(); i > 0; i--){
-            Coordinate historyCoord = getHistory().get(i);
-            if(grid[historyCoord.getX()][historyCoord.getY()] == 1){
+    public Coordinate getLastHitMove() {
+        for (Coordinate historyCoord : getHistory()) {
+            if (getCoordinatesWithState(2).contains(historyCoord)) {
                 return historyCoord;
             }
 
@@ -232,117 +241,143 @@ public class BotGameBoard extends GameBoard {
 
     /**
      * get the state of a coordinate at a defined by the position
-     * @param coord coordinate to be evaluated
+     *
+     * @param coord    coordinate to be evaluated
      * @param position position relative to the coordinate
      * @return state of coordinate with the position
      */
-    public Integer getStateOfCoordinateAtPosition(Coordinate coord, String position){
-        switch (position){
-            case "up" :   return grid[coord.getX()][coord.getY() - 1];
-            case "right": return grid[coord.getX() + 1][coord.getY()];
-            case "down" : return grid[coord.getX()][coord.getY() +1];
-            case "left" : return grid[coord.getX() - 1][coord.getY()];
+    public int getStateOfCoordinateAtPosition(Coordinate coord, String position) {
+        switch (position) {
+            case "up":
+                return getStateOfCoordinate(coord.addToY(-1));
+            case "right":
+                return getStateOfCoordinate(coord.addToX(1));
+            case "down":
+                return getStateOfCoordinate(coord.addToY(1));
+            case "left":
+                return getStateOfCoordinate(coord.addToX(-1));
         }
-        return  -1;
-
-
+        return -1;
     }
 
     /**
-     *  check if the last move sunk a bot
+     * @return Either the state, or else -1 if it cant be accessed
+     */
+    public int getStateOfCoordinate(int x, int y) {
+        if (x > -1 && 10 > x && y > -1 && 10 > y) {
+            return grid[x][y];
+        } else {
+            return -1;
+        }
+    }
+
+    /**
+     * @return Either the state, or else -1 if it cant be accessed
+     */
+    public int getStateOfCoordinate(Coordinate coord) {
+        return getStateOfCoordinate(coord.getX(), coord.getY());
+    }
+
+    /**
+     * check if the last move sunk a bot
+     *
      * @return boolean value is last his sunk a bot
      */
-    public Boolean lastMoveSunkBot(){
+    public Boolean lastMoveSunkBot() {
         Coordinate lastMove = getLastMove();
         return grid[lastMove.getX()][lastMove.getY()] == 3;
     }
 
 
-    public LinkedList<Integer> getNeighbourStates(Coordinate coord){
-        LinkedList<Integer> neighbourStates = new LinkedList<>(Arrays.asList(0,1,2,3));
+    public LinkedList<Integer> getNeighbourStates(Coordinate coord) {
+        LinkedList<Integer> neighbourStates = new LinkedList<>(Arrays.asList(0, 1, 2, 3));
 
-        if(coord.getY() <= 0){
+        if (coord.getY() <= 0) {
             neighbourStates.set(0, -1);
         }
-        if(coord.getX() >= 9){
+        if (coord.getX() >= 9) {
             neighbourStates.set(1, -1);
         }
-        if (coord.getY() >= 9){
+        if (coord.getY() >= 9) {
             neighbourStates.set(2, -1);
         }
-        if(coord.getX() <= 0){
+        if (coord.getX() <= 0) {
             neighbourStates.set(3, -1);
         }
         for (int i = 0; i < neighbourStates.size(); i++) {
-            if(neighbourStates.get(i) != -1){
-                switch (i){
-                    case 0 : neighbourStates.set(i, getStateOfCoordinateAtPosition(coord, "up"));
-                             break;
-                    case 1 : neighbourStates.set(i, getStateOfCoordinateAtPosition(coord, "right"));
-                             break;
-                    case 2 : neighbourStates.set(i, getStateOfCoordinateAtPosition(coord, "down"));
-                             break;
-                    case 3 : neighbourStates.set(i, getStateOfCoordinateAtPosition(coord, "left"));
-                             break;
+            if (neighbourStates.get(i) != -1) {
+                switch (i) {
+                    case 0:
+                        neighbourStates.set(i, getStateOfCoordinateAtPosition(coord, "up"));
+                        break;
+                    case 1:
+                        neighbourStates.set(i, getStateOfCoordinateAtPosition(coord, "right"));
+                        break;
+                    case 2:
+                        neighbourStates.set(i, getStateOfCoordinateAtPosition(coord, "down"));
+                        break;
+                    case 3:
+                        neighbourStates.set(i, getStateOfCoordinateAtPosition(coord, "left"));
+                        break;
 
                 }
 
             }
         }
 
-    return neighbourStates;
+        return neighbourStates;
 
     }
 
     /**
      * provide hit coordinate and hit appropriate neighbour based on other neighbours if none found hit first available
+     *
      * @param coord coordinate to attempt to strike
      * @return computed selected coordinate
      */
-    public Coordinate findAndHitNeighbour(Coordinate coord){
+    public Coordinate findAndHitNeighbour(Coordinate coord) {
 
         LinkedList<Integer> neighbourCoords = getNeighbourStates(coord);
 
         Coordinate nextMove;
         for (int i = 0; i < neighbourCoords.size(); i++) {
-            if(neighbourCoords.get(i) != -1 & neighbourCoords.get(i) == 1){
-                    switch (i){
-                        case 0 :
-                            nextMove = new Coordinate(coord.getX(), coord.getY() - 1);
-                            if(checkStateOfCoordinate(nextMove, 0)){
-                                return nextMove;
-                            }
-                            break;
-                        case 1 :
-                            nextMove = new Coordinate(coord.getX() + 1, coord.getY());
-                            if(checkStateOfCoordinate(nextMove, 1)){
-                                return nextMove;
-                            }
-                            break;
-                        case 2 :
-                            nextMove = new Coordinate(coord.getX(), coord.getY() + 1);
-                            if(checkStateOfCoordinate(nextMove, 2)){
-                                return nextMove;
-                            }
-                            break;
-                        case 3 :
-                            nextMove = new Coordinate(coord.getX() - 1, coord.getY());
-                            if(checkStateOfCoordinate(nextMove, 3)){
-                                return nextMove;
-                            }
-                            break;
-                    }
+            if (neighbourCoords.get(i) != -1 & neighbourCoords.get(i) == 1) {
+                switch (i) {
+                    case 0:
+                        nextMove = new Coordinate(coord.getX(), coord.getY() - 1);
+                        if (checkStateOfCoordinate(nextMove, 0)) {
+                            return nextMove;
+                        }
+                        break;
+                    case 1:
+                        nextMove = new Coordinate(coord.getX() + 1, coord.getY());
+                        if (checkStateOfCoordinate(nextMove, 1)) {
+                            return nextMove;
+                        }
+                        break;
+                    case 2:
+                        nextMove = new Coordinate(coord.getX(), coord.getY() + 1);
+                        if (checkStateOfCoordinate(nextMove, 2)) {
+                            return nextMove;
+                        }
+                        break;
+                    case 3:
+                        nextMove = new Coordinate(coord.getX() - 1, coord.getY());
+                        if (checkStateOfCoordinate(nextMove, 3)) {
+                            return nextMove;
+                        }
+                        break;
+                }
             }
         }
         LinkedList<Coordinate> validNeigbours = getNeighbourValidCoordinates(coord);
 
-        if(validNeigbours.size() == 0){
+        if (validNeigbours.size() == 0) {
             return coord;
-        }else {
+        } else {
 
             return validNeigbours.getFirst();
         }
-
 
 
     }
