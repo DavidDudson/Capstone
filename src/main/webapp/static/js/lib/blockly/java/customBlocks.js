@@ -129,8 +129,8 @@ Blockly.Java['define_coordinate'] = function(block) {
     var value_x = 0;
     var value_y = 0;
     try {
-        value_x = block.getFieldValue('XCOORD');
-        value_y = block.getFieldValue('YCOORD');
+        value_x = Blockly.Java.valueToCode(block, 'X', Blockly.Java.ORDER_ATOMIC);
+        value_y = Blockly.Java.valueToCode(block, 'Y', Blockly.Java.ORDER_ATOMIC);
         Blockly.Java.addImport('nz.daved.starbattle.game.Coordinate');
     }
     catch (err){}
@@ -199,4 +199,24 @@ Blockly.Java['states_of_neighbours'] = function(block) {
     catch (err){}
     var code = 'botGameBoard.getStatesOfNeighbours(' + value_name + ')';
     return [code, Blockly.Java.ORDER_COLLECTION];
+};
+
+Blockly.Java['get_X_coord'] = function (block) {
+    var value_coordinate = '';
+    try {
+        value_coordinate = Blockly.Java.valueToCode(block, 'Coordinate', Blockly.Java.ORDER_ATOMIC);
+    }
+    catch (err){}
+    var code = 'botGameBoard.getXCoord('+ value_coordinate + ')';
+    return [code, Blockly.Java.ORDER_ATOMIC];
+};
+
+Blockly.Java['get_Y_coord'] = function (block) {
+    var value_coordinate = '';
+    try {
+        value_coordinate = Blockly.Java.valueToCode(block, 'Coordinate', Blockly.Java.ORDER_ATOMIC);
+    }
+    catch (err){}
+    var code = 'botGameBoard.getYCoord('+ value_coordinate + ')';
+    return [code, Blockly.Java.ORDER_ATOMIC];
 };

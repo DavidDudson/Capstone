@@ -113,10 +113,11 @@
 
         <!--Test bar-->
         <section class="col-lg-4 col-lg-offset-0 col-md-5 col-md-offset-3 col-sm-5 col-sm-offset-3 col-xs-5 col-xs-offset-3">
-            <div class="sidebar_head">
-                {{!botSelector.bots[0] ? "Select a bot first" : botSelector.bots[0].name}}
-            </div>
             <div class="test-grid-content">
+                <div class="sidebar_head">
+                {{!botSelector.bots[0] ? "Select a bot first" : botSelector.bots[0].name}}
+                </div>
+                
                 <ul class="test_grid">
                     <%for (int i = 0; i < 10; i++) {%>
                     <%for (int j = 0; j < 10; j++) {%>

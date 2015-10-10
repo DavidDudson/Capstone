@@ -177,15 +177,16 @@ Blockly.Blocks['last_hit_move'] = {
 
 Blockly.Blocks['define_coordinate'] = {
     init: function() {
-        this.appendDummyInput()
-            .appendField("get coord X:")
-            .appendField(new Blockly.FieldDropdown([["1", 0], ["2", 1], ["3", 2], ["4", 3], ["5", 4], ["6", 5], ["7", 6], ["8", 7], ["9", 8], ["10", 9]]), "XCOORD");
-        this.appendDummyInput()
-            .appendField("Y:")
-            .appendField(new Blockly.FieldDropdown([["1", 0], ["2", 1], ["3", 2], ["4", 3], ["5", 4], ["6", 5], ["7", 6], ["8", 7], ["9", 8], ["10", 9]]), "YCOORD");
+        this.appendValueInput("X")
+            .setCheck("Number")
+            .appendField("Coordinate X:");
+        this.appendValueInput("Y")
+            .setCheck("Number")
+            .appendField(" Y:");
+        this.setInputsInline(true);
         this.setOutput(true, "Coordinate");
         this.setColour(330);
-        this.setTooltip('get the coordinate at position x, y');
+        this.setTooltip('');
         this.setHelpUrl('http://www.example.com/');
     }
 };
@@ -264,4 +265,28 @@ Blockly.Blocks['states_of_neighbours'] = {
         this.setTooltip('get a list of the neighbours if they are hit, miss, sunk or space (up, right, down, left)');
         this.setHelpUrl('http://www.example.com/');
     }
+};
+
+Blockly.Blocks['get_X_coord']= {
+  init: function() {
+    this.appendValueInput("Coordinate")
+        .setCheck("Coordinate")
+        .appendField("get X position from :");
+    this.setOutput(true, "Number");
+    this.setColour(210);
+    this.setTooltip('can the given coordinate be hit, or has already been hit');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.Blocks['get_Y_coord']= {
+  init: function() {
+    this.appendValueInput("Coordinate")
+        .setCheck("Coordinate")
+        .appendField("get Y position from :");
+    this.setOutput(true, "Number");
+    this.setColour(210);
+    this.setTooltip('can the given coordinate be hit, or has already been hit');
+    this.setHelpUrl('http://www.example.com/');
+  }
 };

@@ -20,7 +20,6 @@
             </value>
         </block>
         <block type="math_on_list"></block>
-        <block type="math_modulo"></block>
     </category>
     <category name="Loops">
         <block type="controls_repeat_ext">

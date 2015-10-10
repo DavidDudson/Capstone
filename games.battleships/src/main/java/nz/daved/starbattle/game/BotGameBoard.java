@@ -346,4 +346,11 @@ public class BotGameBoard extends GameBoard {
 
 
     }
+
+    public int getXCoord(Coordinate coordinate){
+        return coordinate.getX();
+    }
+    public int getYCoord(Coordinate coordinate){
+        return coordinate.getY();
+    }
 }

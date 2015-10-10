@@ -10,6 +10,7 @@ function BuildService($http) {
                 notificationBar.reset();
             },
             start: function (bot) {
+                console.log(bot.src);
                 var botInformation = {
                     id: bot.id,
                     name: bot.name,
