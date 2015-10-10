@@ -113,7 +113,6 @@ public abstract class GameBoard {
 
     protected List<Ship> getShips() {
         return ships.stream()
-                .map(Ship::new)
                 .collect(Collectors.toList());
     }
 

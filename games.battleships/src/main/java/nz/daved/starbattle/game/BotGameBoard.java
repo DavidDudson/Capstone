@@ -120,7 +120,6 @@ public class BotGameBoard extends GameBoard {
             for (int j = 0; j < grid[i].length; j++) {
                     coords.add(grid[i][j]);
             }
-        
         }
         return coords;
     }
@@ -138,8 +137,6 @@ public class BotGameBoard extends GameBoard {
                     stateCoordinates.add(new Coordinate(x,y));
                 }
             }
-
-
         }
         return stateCoordinates;
     }
@@ -147,7 +144,7 @@ public class BotGameBoard extends GameBoard {
     /**
      * return a list of all neighbours that havn't been hit
      * @param coordinate coordinate to be evaluated
-     * @return list of avaliable coordiantes
+     * @return list of avaliable coordinates
      */
     public LinkedList<Coordinate> getNeighbourValidCoordinates(Coordinate coordinate) {
        return coordinate.getNeighbours().stream()
@@ -229,7 +226,7 @@ public class BotGameBoard extends GameBoard {
             }
 
         }
-        return null;
+        return getLastValidCoordinate();
 
     }
 
@@ -245,8 +242,6 @@ public class BotGameBoard extends GameBoard {
             case "right": return grid[coord.getX() + 1][coord.getY()];
             case "down" : return grid[coord.getX()][coord.getY() +1];
             case "left" : return grid[coord.getX() - 1][coord.getY()];
-
-
         }
         return  -1;
 
@@ -257,40 +252,37 @@ public class BotGameBoard extends GameBoard {
      *  check if the last move sunk a bot
      * @return boolean value is last his sunk a bot
      */
-    public Boolean lastMoveSinkBot(){
+    public Boolean lastMoveSunkBot(){
         Coordinate lastMove = getLastMove();
         return grid[lastMove.getX()][lastMove.getY()] == 3;
     }
 
 
-    public LinkedList<Integer> getNeightbourStates(Coordinate coord){
-        LinkedList<Integer> neightbourStates = new LinkedList<Integer>(Arrays.asList(0,1,2,3));
+    public LinkedList<Integer> getNeighbourStates(Coordinate coord){
+        LinkedList<Integer> neighbourStates = new LinkedList<>(Arrays.asList(0,1,2,3));
 
-//        System.out.println("x :" + coord.getX() + " " + coord.getY() );
-
-//        System.out.println(getNeighbourValidCoordinates(coord));
         if(coord.getY() <= 0){
-            neightbourStates.set(0, -1);
+            neighbourStates.set(0, -1);
         }
         if(coord.getX() >= 9){
-            neightbourStates.set(1, -1);
+            neighbourStates.set(1, -1);
         }
         if (coord.getY() >= 9){
-            neightbourStates.set(2, -1);
+            neighbourStates.set(2, -1);
         }
         if(coord.getX() <= 0){
-            neightbourStates.set(3, -1);
+            neighbourStates.set(3, -1);
         }
-        for (int i = 0; i < neightbourStates.size(); i++) {
-            if(neightbourStates.get(i) != -1){
+        for (int i = 0; i < neighbourStates.size(); i++) {
+            if(neighbourStates.get(i) != -1){
                 switch (i){
-                    case 0 : neightbourStates.set(i, getStateOfCoordinateAtPosition(coord, "up"));
+                    case 0 : neighbourStates.set(i, getStateOfCoordinateAtPosition(coord, "up"));
                              break;
-                    case 1 : neightbourStates.set(i, getStateOfCoordinateAtPosition(coord, "right"));
+                    case 1 : neighbourStates.set(i, getStateOfCoordinateAtPosition(coord, "right"));
                              break;
-                    case 2 : neightbourStates.set(i, getStateOfCoordinateAtPosition(coord, "down"));
+                    case 2 : neighbourStates.set(i, getStateOfCoordinateAtPosition(coord, "down"));
                              break;
-                    case 3 : neightbourStates.set(i, getStateOfCoordinateAtPosition(coord, "left"));
+                    case 3 : neighbourStates.set(i, getStateOfCoordinateAtPosition(coord, "left"));
                              break;
 
                 }
@@ -298,7 +290,7 @@ public class BotGameBoard extends GameBoard {
             }
         }
 
-    return neightbourStates;
+    return neighbourStates;
 
     }
 
@@ -309,7 +301,7 @@ public class BotGameBoard extends GameBoard {
      */
     public Coordinate findAndHitNeighbour(Coordinate coord){
 
-        LinkedList<Integer> neighbourCoords = getNeightbourStates(coord);
+        LinkedList<Integer> neighbourCoords = getNeighbourStates(coord);
 
         Coordinate nextMove;
         for (int i = 0; i < neighbourCoords.size(); i++) {

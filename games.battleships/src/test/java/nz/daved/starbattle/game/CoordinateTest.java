@@ -69,4 +69,15 @@ public class CoordinateTest {
         assertFalse(new Coordinate(3,2).hashCode() == new Coordinate(1,2).hashCode());
         assertFalse(new Coordinate(1,221).hashCode() == new Coordinate(1,2).hashCode());
     }
+
+    @Test
+    public void testGetNeighbours() throws Exception {
+        assertTrue(new Coordinate(1,2).getNeighbours().contains(new Coordinate(1,1)));
+        assertTrue(new Coordinate(1,2).getNeighbours().contains(new Coordinate(2,2)));
+        assertTrue(new Coordinate(1,2).getNeighbours().contains(new Coordinate(0,2)));
+        assertTrue(new Coordinate(1,2).getNeighbours().contains(new Coordinate(1,3)));
+        assertTrue(new Coordinate(1,2).getNeighbours().size() == 4);
+    }
+
+
 }
