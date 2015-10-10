@@ -24,6 +24,10 @@ function BuildService($http) {
                     buildRequest = build._saveExistingBot(botInformation);
                 }
                 buildRequest.success(function (data) {
+                    if(bot.new){
+                        bot.id = data.botId;
+                        bot.new = false;
+                    }
                     build.checkStatus(bot, data.buildStatusURL);
                 }).error(function () {
                     notificationBar.showError("Unable to save Bot");
@@ -45,7 +49,6 @@ function BuildService($http) {
                 } else {
                     if (pass) {
                         notificationBar.showSuccess(text + 'Build Success');
-                        bot.new = false;
                     } else {
                         notificationBar.showWarning(text + 'Build Failure, Click this bar to show why.');
                     }
