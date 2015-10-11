@@ -1,26 +1,25 @@
 Blockly.Java['check_state_of_coordinate'] = function (block) {
-    var dropdown_state = dropdown_state = block.getFieldValue('state');;
-    
-    if(dropdown_state == null || dropdown_state == ''){
-        
-        dropdown_state = 0;
+    var dropdown_state = 0;
+    var value_coordinate = '';
+    try {
+        dropdown_state = block.getFieldValue('state');
+        value_coordinate = Blockly.Java.valueToCode(block, 'Coordinate', Blockly.Java.ORDER_ATOMIC);
     }
-    var value_coordinate = value_coordinate = Blockly.Java.valueToCode(block, 'Coordinate', Blockly.Java.ORDER_ATOMIC);
+    catch (err){}
 
-    var code = 'botGameBoard.checkStateOfCoordinate(' + value_coordinate + "," + dropdown_state + ')';
+    var code = 'botGameBoard.checkStateOfCoordinate(' + value_coordinate + ", " + dropdown_state + ')';
     return [code, Blockly.Java.ORDER_ATOMIC];
 };
 
 Blockly.Java['get_all_cells_of_type'] = function (block) {
-    var dropdown_state = dropdown_state = block.getFieldValue('state');
-    if(dropdown_state == null || dropdown_state == ''){
-        
-        dropdown_state = 0;
+    var dropdown_state = 0;
+    try {
+        dropdown_state = block.getFieldValue('state');
     }
+    catch (err){}
     var code = 'botGameBoard.getCoordinatesWithState('+ dropdown_state +')';
-    return [code, Blockly.Java.ORDER_ATOMIC];
+    return [code, Blockly.Java.ORDER_COLLECTION];
 };
-
 
 Blockly.Java['get_state_coordinate_at_pos'] = function (block) {
     var dropdown_position = '';
@@ -224,8 +223,14 @@ Blockly.Java['get_Y_coord'] = function (block) {
 };
 
 Blockly.Java['list_is_empty'] = function(block) {
-    var value_name = Blockly.Java.valueToCode(block, 'NAME', Blockly.Java.ORDER_ATOMIC);
-    var dropdown_name = block.getFieldValue('NAME');
+    var value_name = '';
+    var dropdown_name = '==';
+    try {
+        value_name = Blockly.Java.valueToCode(block, 'NAME', Blockly.Java.ORDER_ATOMIC);
+        dropdown_name = block.getFieldValue('NAME');
+    }
+    catch (err){}
+
     var code = value_name + '.size() ' + dropdown_name + ' 0';
     return [code, Blockly.Java.ORDER_LOGICAL_NOT];
 };
