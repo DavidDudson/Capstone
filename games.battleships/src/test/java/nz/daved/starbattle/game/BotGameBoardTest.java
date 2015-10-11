@@ -50,7 +50,7 @@ public class BotGameBoardTest {
         Ship ship = bgb.getShips().get(0);
         List<Coordinate> coords = ship.getCoordinates();
         bgb.killShip(ship);
-        assertTrue(coords.stream().allMatch(coord -> bgb.getState(coord) == 3));
+        assertTrue(coords.stream().allMatch(coord -> bgb.getStateOfCoordinate(coord) == 3));
     }
 
     @Test
@@ -59,18 +59,18 @@ public class BotGameBoardTest {
         BotGameBoard bgb = new ShipGameBoard().generateBotMap(1, sbg.getHistory());
         Ship ship = bgb.getShips().get(0);
         Coordinate coord = ship.getCoordinates().get(0);
-        assertTrue(bgb.getState(coord) == 0);
+        assertTrue(bgb.getStateOfCoordinate(coord) == 0);
         bgb.attackCoordinate(coord, false);
-        assertTrue(bgb.getState(coord) == 1);
+        assertTrue(bgb.getStateOfCoordinate(coord) == 1);
         bgb.attackCoordinate(coord, true);
-        assertTrue(bgb.getState(coord) == 2);
+        assertTrue(bgb.getStateOfCoordinate(coord) == 2);
     }
 
     @Test
     public void testAttackCoordinateTillSunk() throws Exception {
         StarBattleGame sbg = new StarBattleGame("1", new FirstSquareBot("1"), new LastSquareBot("2"));
         BotGameBoard bgb = new ShipGameBoard().generateBotMap(1, sbg.getHistory());
-        Ship ship = bgb.getShips().get(0);
+        Ship ship = bgb.ships.get(0);
         ship.getCoordinates().forEach(x -> {
             assertTrue(bgb.getShipAtCoordinate(x).equals(ship));
             bgb.attackCoordinate(x, true);

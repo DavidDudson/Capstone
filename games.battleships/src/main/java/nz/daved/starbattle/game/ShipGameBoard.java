@@ -126,16 +126,16 @@ public class ShipGameBoard extends GameBoard {
         boolean valid = false;
         switch (direction) {
             case 0:
-                valid = IntStream.range(0, shipSize).allMatch(x -> getState(coord.addToX(x)) == 0);
+                valid = IntStream.range(0, shipSize).allMatch(x -> getStateOfCoordinate(coord.addToX(x)) == 0);
                 break;
             case 1:
-                valid = IntStream.range(0, shipSize).allMatch(x -> getState(coord.takeFromX(x)) == 0);
+                valid = IntStream.range(0, shipSize).allMatch(x -> getStateOfCoordinate(coord.takeFromX(x)) == 0);
                 break;
             case 2:
-                valid = IntStream.range(0, shipSize).allMatch(x -> getState(coord.addToY(x)) == 0);
+                valid = IntStream.range(0, shipSize).allMatch(x -> getStateOfCoordinate(coord.addToY(x)) == 0);
                 break;
             case 3:
-                valid = IntStream.range(0, shipSize).allMatch(x -> getState(coord.takeFromY(x)) == 0);
+                valid = IntStream.range(0, shipSize).allMatch(x -> getStateOfCoordinate(coord.takeFromY(x)) == 0);
         }
         return valid;
     }
