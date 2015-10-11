@@ -10,12 +10,11 @@ function BuildService($http) {
                 notificationBar.reset();
             },
             start: function (bot) {
-                console.log(bot.src);
                 var botInformation = {
                     id: bot.id,
                     name: bot.name,
                     language: 'JAVA',
-                    src: bot.src
+                    src: bot.blocklySrc
                 };
                 var buildRequest;
                 if (bot.new) {
@@ -61,6 +60,8 @@ function BuildService($http) {
                         if (data.done) {
                             if (!data.error) {
                                 build.update(bot, true, 100, true);
+                                bot.dirty = false;
+                                bot.src = bot.blocklySrc
                             } else {
                                 notificationBar.error = data.error;
                                 build.update(bot, true, 100, false);
