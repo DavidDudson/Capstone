@@ -222,3 +222,10 @@ Blockly.Java['get_Y_coord'] = function (block) {
     var code = 'botGameBoard.getYCoord('+ value_coordinate + ')';
     return [code, Blockly.Java.ORDER_ATOMIC];
 };
+
+Blockly.Java['list_is_empty'] = function(block) {
+    var value_name = Blockly.Java.valueToCode(block, 'NAME', Blockly.Java.ORDER_ATOMIC);
+    var dropdown_name = block.getFieldValue('NAME');
+    var code = value_name + '.size() ' + dropdown_name + ' 0';
+    return [code, Blockly.Java.ORDER_LOGICAL_NOT];
+};

@@ -297,3 +297,18 @@ Blockly.Blocks['get_Y_coord']= {
     this.setHelpUrl('http://www.example.com/');
   }
 };
+
+Blockly.Blocks['list_is_empty'] = {
+    init: function() {
+        this.appendValueInput("NAME")
+            .setCheck("Array");
+        this.appendDummyInput()
+            .appendField(new Blockly.FieldDropdown([["is", "=="], ["is not", "!="]]), "NAME")
+            .appendField("empty");
+        this.setInputsInline(true);
+        this.setOutput(true, "Boolean");
+        this.setColour(290);
+        this.setTooltip(Blockly.Msg.LISTS_ISEMPTY_TOOLTIP);
+        this.setHelpUrl(Blockly.Msg.LISTS_ISEMPTY_HELPURL);
+    }
+};
