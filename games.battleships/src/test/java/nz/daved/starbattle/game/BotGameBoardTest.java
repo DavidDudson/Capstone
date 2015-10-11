@@ -1,6 +1,7 @@
 package nz.daved.starbattle.game;
 
 import nz.daved.starbattle.StarBattleGame;
+import nz.daved.starbattle.StarBattleGameMove;
 import nz.daved.starbattle.bots.FirstSquareBot;
 import nz.daved.starbattle.bots.LastSquareBot;
 import org.apache.commons.lang.ArrayUtils;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -162,5 +164,89 @@ public class BotGameBoardTest {
         assertTrue(bgb.isValidMove(new Coordinate(0, 0)));
         bgb.fillGrid(1);
         assertFalse(bgb.isValidMove(new Coordinate(0, 0)));
+    }
+
+    @Test
+    public void testCanAttackCoordinate(){
+        StarBattleGame sbg = new StarBattleGame("1", new FirstSquareBot("1"), new LastSquareBot("2"));
+        BotGameBoard bgb = new ShipGameBoard().generateBotMap(1, sbg.getHistory());
+        bgb.fillGrid(0);
+        assertTrue(bgb.canAttackCoordinate(new Coordinate(0, 0)));
+        bgb.fillGrid(1);
+        assertFalse(bgb.canAttackCoordinate(new Coordinate(0, 0)));
+
+    }
+
+    @Test
+    public void testGetLastMove(){
+        StarBattleGame sbg = new StarBattleGame("1", new FirstSquareBot("1"), new LastSquareBot("2"));
+        Coordinate rootCoord = new Coordinate(0,0);
+        sbg.testDoMove(rootCoord, sbg.getPlayer1());
+        StarBattleGameMove historyMove = sbg.getHistory().get(0);
+        assertTrue((rootCoord.getX() == historyMove.getCoord().getX()) && (rootCoord.getY() == historyMove.getCoord().getY()));
+    }
+
+    @Test
+    public void testCheckStateOfCoordinate(){
+        StarBattleGame sbg = new StarBattleGame("1", new FirstSquareBot("1"), new LastSquareBot("2"));
+        BotGameBoard bgb = new ShipGameBoard().generateBotMap(1, sbg.getHistory());
+        bgb.grid[0][0] = 0;
+        assertTrue(bgb.checkStateOfCoordinate(new Coordinate(0, 0), 0));
+        bgb.grid[0][0] = 1;
+        assertTrue(bgb.checkStateOfCoordinate(new Coordinate(0, 0), 1));
+
+    }
+    @Test
+    public void testGetLastHitMove(){
+        assertTrue(true);
+    }
+    @Test
+    public void testLastMoveSunkBot(){
+        assertTrue(true);
+
+    }
+
+    @Test
+    public void testGetStateOfCoordinateAtPosition(){
+        StarBattleGame sbg = new StarBattleGame("1", new FirstSquareBot("1"), new LastSquareBot("2"));
+        BotGameBoard bgb = new ShipGameBoard().generateBotMap(1, sbg.getHistory());
+        bgb.fillGrid(0);
+        bgb.grid[1][1] = 1;
+        Coordinate bottomCoord = new Coordinate(1,2);
+        assertTrue(bgb.getStateOfCoordinateAtPosition(bottomCoord,"up") == 1);
+        Coordinate leftCoord = new Coordinate(0,1);
+        assertTrue(bgb.getStateOfCoordinateAtPosition(leftCoord,"right") == 1);
+        Coordinate rightCoord = new Coordinate(2,1);
+        assertTrue(bgb.getStateOfCoordinateAtPosition(rightCoord,"left") == 1);
+        Coordinate topCoord = new Coordinate(1,0);
+        assertTrue(bgb.getStateOfCoordinateAtPosition(topCoord, "down") == 1);
+    }
+
+    @Test
+    public void testGetNeighbourStates(){
+        StarBattleGame sbg = new StarBattleGame("1", new FirstSquareBot("1"), new LastSquareBot("2"));
+        BotGameBoard bgb = new ShipGameBoard().generateBotMap(1, sbg.getHistory());
+        bgb.fillGrid(0);
+        LinkedList<Integer> neigbourArray = new LinkedList<>();
+        neigbourArray.addAll(Arrays.asList(0, 1, 2, 3));
+        bgb.grid[1][0] = 0;
+        bgb.grid[2][1] = 1;
+        bgb.grid[1][2] = 2;
+        bgb.grid[0][1] = 3;
+        LinkedList<Integer> coordNeigbourStates = bgb.getNeighbourStates(new Coordinate(1, 1));
+        assertArrayEquals(neigbourArray.toArray(), coordNeigbourStates.toArray());
+    }
+
+    @Test
+    public void testFindAndHitNeighbour(){
+        StarBattleGame sbg = new StarBattleGame("1", new FirstSquareBot("1"), new LastSquareBot("2"));
+        BotGameBoard bgb = new ShipGameBoard().generateBotMap(1, sbg.getHistory());
+        bgb.fillGrid(0);
+        bgb.grid[1][0] = 2;
+        bgb.grid[2][1] = 0;
+        bgb.grid[1][2] = 0;
+        bgb.grid[0][1] = 0;
+        Coordinate selectedCoord = bgb.findAndHitNeighbour(new Coordinate(1,1));
+        assertTrue(selectedCoord.getX() == 1 && selectedCoord.getY() == 2);
     }
 }
