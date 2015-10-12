@@ -17,7 +17,7 @@ Blockly.Blocks['check_state_of_coordinate'] = {
 Blockly.Blocks['get_all_cells_of_type'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("get a list of all")
+        .appendField("a list of all")
         .appendField(new Blockly.FieldDropdown([["space", "0"], ["miss", "1"],  ["hit", "2"], ["sunk", "3"]]), "state")
         .appendField("coordinates");
     this.setInputsInline(true);
