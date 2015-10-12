@@ -249,5 +249,18 @@ public class BotGameBoardTest {
         Coordinate selectedCoord = bgb.findAndHitNeighbour(new Coordinate(1, 1));
         assertTrue(selectedCoord.getX() == 1 && selectedCoord.getY() == 2);
     }
+    @Test
 
+    public void testFindNeigbourErrorPrevention(){
+        StarBattleGame sbg = new StarBattleGame("1", new FirstSquareBot("1"), new LastSquareBot("2"));
+        BotGameBoard bgb = new ShipGameBoard().generateBotMap(1, sbg.getHistory());
+        bgb.fillGrid(0);
+        bgb.grid[1][0] = 2;
+        bgb.grid[2][1] = 2;
+        bgb.grid[1][2] = 2;
+        bgb.grid[0][1] = 2;
+        Coordinate selectedCoord = bgb.findAndHitNeighbour(new Coordinate(1, 1));
+        assertTrue(selectedCoord.getX() == 0 && selectedCoord.getY() == 0);
+
+    }
 }
