@@ -102,8 +102,8 @@ function GameService($http, $interval, Ship) {
             stop: function(){
                 $interval.cancel(game.state);
                 game.inProgress = false;
-                var winninPlayerName = game.moves[game.position - 1].wasPlayer1 ? game.player1.name : game.player2.name;
-                notificationBar.showSuccessProgress("Game won by: " + winninPlayerName);
+                var winningPlayerName = game.moves[game.position - 1].wasPlayer1 ? game.player1.name : game.player2.name;
+                notificationBar.showSuccessProgress("Game won by: " + winningPlayerName);
             },
             restart: function () {
                 game.reset();
