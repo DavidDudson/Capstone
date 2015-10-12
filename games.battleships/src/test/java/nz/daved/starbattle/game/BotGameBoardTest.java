@@ -246,7 +246,8 @@ public class BotGameBoardTest {
         bgb.grid[2][1] = 0;
         bgb.grid[1][2] = 0;
         bgb.grid[0][1] = 0;
-        Coordinate selectedCoord = bgb.findAndHitNeighbour(new Coordinate(1,1));
+        Coordinate selectedCoord = bgb.findAndHitNeighbour(new Coordinate(1, 1));
         assertTrue(selectedCoord.getX() == 1 && selectedCoord.getY() == 2);
     }
+
 }
