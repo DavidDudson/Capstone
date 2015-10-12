@@ -114,7 +114,7 @@
 
             <!--Test bar-->
             <section
-                    class="col-lg-4 col-lg-offset-0 col-md-5 col-md-offset-3 col-sm-5 col-sm-offset-3 col-xs-5 col-xs-offset-3">
+                    class="col-lg-4 col-lg-offset-0 col-md-5 col-md-offset-5 col-sm-5 col-sm-offset-5 col-xs-5 col-xs-offset-5">
                 <div class="row">
                     <div class="test-grid-content">
                         <div class="sidebar_head">
