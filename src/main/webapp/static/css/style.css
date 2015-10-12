@@ -525,7 +525,7 @@ a {
 
 #notificationBar {
     height: 40px;
-    width:52.6em;
+    width:100%;
 }
 
 h3 #p1Text {

@@ -49,7 +49,7 @@
                 </section>
 
                 <section class="col-lg-7 col-md-10 col-md-pull-0 col-sm-10 col-sm-pull-0">
-                    <div id="main_content">
+                    <div id="main_content"><!---main content ends-->
 
                         <div class="row"> <!---Row for the two grids starts-->
 
@@ -81,9 +81,8 @@
                         </div>
                     </section><!---Player2 grid emds-->
                 </div> <!---Row for the two grids ends-->
-                
-                        <br/>
-                        <br/>
+
+                    <div class="row"><!---Row for status bar starts-->
                         <div class="col-xs-12">
                             <div>
                                 <progressbar id="notificationBar" class="progress-striped"
@@ -94,7 +93,8 @@
                                 </progressbar>
                             </div>
                         </div>
-                    </div>
+                    </div><!---Row for status bar starts-->
+                    </div><!---main content ends-->
                     
                 </section>
                 <section class="col-lg-3 col-lg-offset-0 col-md-5 col-md-offset-5 col-sm-5 col-sm-offset-4">
