@@ -23,7 +23,6 @@
     <script src="static/js/test.js"></script>
     <script src="static/js/header.js"></script>
     <script src="static/js/bots.js"></script>
-    <script src="static/js/ship.js"></script>
     <script src="static/js/user.js"></script>
     <script src="static/js/sidebar.js"></script>
     <script src="static/js/bot_selector.js"></script>
@@ -146,6 +145,14 @@
                                             <img ng-repeat="coord in ship.coordinates" src="static/images/layer1-ship1.png"/>
                                     </div>
                                 </div>
+                            </div>
+                            <h4>{{botSelector.bots[0] ? botSelector.bots[0].name : "Select Bot 1"}}</h4>
+                            <div ng-repeat="ship in game.player1ShipList">
+                                <img ng-repeat="coord in ship track by $index" ng-src="{{!coord[2] ? 'static/images/layer2-ship2.png' : coord[2]}}"/>
+                            </div>
+                            <h4>{{botSelector.bots[1] ? botSelector.bots[1].name : "Select Bot 2"}}</h4>
+                            <div ng-repeat="ship in game.player2ShipList">
+                                <img ng-repeat="coord in ship track by $index" ng-src="{{!coord[2] ? 'static/images/layer1-ship1.png' : coord[2]}}"/>
                             </div>
                         </div>
                     </div>

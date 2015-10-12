@@ -1,7 +1,7 @@
 angular.module("app")
     .factory("Game", GameService);
 
-function GameService($http, $interval){
+function GameService($http, $interval) {
 
     return function (notificationBar) {
 
@@ -17,31 +17,58 @@ function GameService($http, $interval){
             player2: undefined,
             player1ShipList: [],
             player2ShipList: [],
-            player1ShipMap: {},
-            player2ShipMap: {},
+
+            genEmptyCell: function () {
+                return [-1, -1, 0];
+            },
+            genShipList: function () {
+                var shipList = [];
+                [5, 4, 4, 3, 3, 2, 2].forEach(function (length) {
+                    var cells = [];
+                    for (var i = 0; i < length; i++) {
+                        cells.push(game.genEmptyCell())
+                    }
+                    shipList.push(cells);
+                });
+                return shipList;
+            },
             getShip: function (coords) {
                 var cells = [];
                 coords.forEach(function (coord) {
-                    cells.push([coord.x, coord.y, 0])
-                })
+                    cells.push([coord.x, coord.y])
+                });
+                return cells;
+            },
+            spawnShipInShipList: function (coords) {
+                var validIndex = [];
+                for (var i = 0; i < game.player1ShipList.length; i++) {
+                    if (game.player1ShipList[i].length == coords.length && game.player1ShipList[i][0][0] == -1) {
+                        validIndex.push(i);
+                    }
+                }
+
+                game.player1ShipList[validIndex[0]] = game.getShip(coords);
+                game.player2ShipList[validIndex[0]] = game.getShip(coords);
             },
             generateShips: function () {
+                game.player1ShipList = game.genShipList();
+                game.player2ShipList = game.genShipList();
+                var winnerP1 = game.moves[game.moves.length - 1].wasPlayer1;
                 game.moves.forEach(function (move) {
-                    if (move.sunk.length > 0) {
-                        console.log(move.sunk);
-                        if (move.wasPlayer1) {
-                            game.player1ShipList.push(game.getShip(move.sunk))
-                        } else {
-                            game.player2ShipList.push(game.getShip(move.sunk))
-                        }
+                    if (winnerP1 && move.wasPlayer1 && move.sunk.length > 0) {
+                        game.spawnShipInShipList(move.sunk);
+                    } else if (!winnerP1 && !move.wasPlayer1 && move.sunk.length > 0) {
+                        game.spawnShipInShipList(move.sunk);
                     }
                 });
-                game.generateShipMap(game.player1ShipList, game.player1ShipMap);
-                game.generateShipMap(game.player2ShipList, game.player2ShipMap);
             },
-            generateShipMap: function (shipList, shipMap) {
+            updateShip: function (coord, shipList, state) {
                 shipList.forEach(function (ship) {
-                    shipMap[{"x": ship[0], "y": ship[1]}] = ship
+                    ship.forEach(function (cell) {
+                        if (cell[0] == coord[0] && cell[1] == coord[1]) {
+                            cell[2] = state;
+                        }
+                    })
                 })
             },
             create: function (bot1, bot2, testing) {
@@ -77,7 +104,7 @@ function GameService($http, $interval){
                     })
             },
             run: function () {
-                if(game.state) game.reset();
+                if (game.state) game.reset();
                 game.start();
             },
             start: function () {
@@ -87,7 +114,7 @@ function GameService($http, $interval){
                 }, game.speed, game.moves.length);
                 game.move_forward();
             },
-            stop: function(){
+            stop: function () {
                 $interval.cancel(game.state);
                 game.inProgress = false;
                 var winningPlayerName = game.moves[game.position - 1].wasPlayer1 ? game.player1.name : game.player2.name;
@@ -113,6 +140,10 @@ function GameService($http, $interval){
             hardReset: function () {
                 game.reset();
                 game.moves = null;
+                game.player1 = undefined;
+                game.player2 = undefined;
+                game.player1ShipList = [];
+                game.player2ShipList = [];
             },
             step_forward: function () {
                 game.pause();
@@ -125,15 +156,25 @@ function GameService($http, $interval){
                     var coordinate = player + (move.coord.x * 10 + move.coord.y);
                     if (move.wasShip) {
                         document.getElementById(coordinate).innerHTML = "<img src='static/images/hit.png' height='100%' width='100%'; top:0; left:0/>";
+                        if (move.wasPlayer1) {
+                            game.updateShip([move.coord.x, move.coord.y], game.player1ShipList, 'static/images/hit.png')
+                        } else {
+                            game.updateShip([move.coord.x, move.coord.y], game.player2ShipList, 'static/images/hit.png')
+                        }
                     } else {
                         document.getElementById(coordinate).innerHTML = "<img src='static/images/miss.png' height='100%' width='100%' ;top:0; left:0/>";
                     }
-                    move.sunk.forEach(function (move) {
-                        coordinate = player + (move.x * 10 + move.y);
-                        document.getElementById(coordinate).innerHTML = "<img src='static/images/sunk.png' height='100%' width='100%';top:0; left:0/>"
+                    move.sunk.forEach(function (coord) {
+                        if (move.wasPlayer1) {
+                            game.updateShip([coord.x, coord.y], game.player1ShipList, 'static/images/sunk.png')
+                        } else {
+                            game.updateShip([coord.x, coord.y], game.player2ShipList, 'static/images/sunk.png')
+                        }
+                        coordinate = player + (coord.x * 10 + coord.y);
+                        document.getElementById(coordinate).innerHTML = "<img src='static/images/sunk.png'  height='100%' width='100%';top:0; left:0/>"
                     });
                 } else {
-                 game.stop()
+                    game.stop()
                 }
                 game.position++;
             },
@@ -178,6 +219,8 @@ function GameService($http, $interval){
                 }
             }
         };
+        game.player1ShipList = game.genShipList();
+        game.player2ShipList = game.genShipList();
         return game;
     }
 }
