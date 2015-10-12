@@ -35,7 +35,6 @@
         <block type="controls_flow_statements"></block>
     </category>
     <category name="Lists">
-        
         <block type="lists_create_empty"></block>
         <block type="get_all_cells_of_type"></block>
         <block type="get_all_valid_moves"></block>

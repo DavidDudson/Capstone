@@ -31,7 +31,7 @@
             var test = block_tests[i];
             var output = Blockly.Java[test.block]();
 
-            assert.deepEqual(output, test.generated);
+            assert.deepEqual(output, test.generated, test.block);
         }
     });
 
@@ -40,7 +40,7 @@
 
         var output = Blockly.Java.workspaceToCode(workspace);
 
-        assert.equal(output, test.expected);
+        assert.equal(output, test.expected, test.block);
     });
 
     QUnit.test('Test nextMove Output', function (assert) {
@@ -68,7 +68,7 @@
             var block_type = block.type;
             var output_connection = block.outputConnection.check_[0];
 
-            assert.deepEqual({block:block_type, output:output_connection}, {block:test.block, output:test.output});
+            assert.deepEqual({block:block_type, output:output_connection}, {block:test.block, output:test.output}, test.block);
         }
     });
 
@@ -95,7 +95,7 @@
                 }
             }
 
-            assert.deepEqual({block:block_type, input:input_connections}, {block:test.block, input:test.input});
+            assert.deepEqual({block:block_type, input:input_connections}, {block:test.block, input:test.input}, test.block);
         }
     });
 </script>

@@ -19,7 +19,6 @@
     <script type="text/javascript" src="./static/js/lib/blockly/java/logic.js"></script>
     <script type="text/javascript" src="./static/js/lib/blockly/java/loops.js"></script>
     <script type="text/javascript" src="./static/js/lib/blockly/java/math.js"></script>
-    <script type="text/javascript" src="./static/js/lib/blockly/java/text.js"></script>
     <script type="text/javascript" src="./static/js/lib/blockly/java/lists.js"></script>
     <script type="text/javascript" src="./static/js/lib/blockly/java/variables.js"></script>
     <script type="text/javascript" src="./static/js/lib/blockly/java/procedures.js"></script>
@@ -28,7 +27,6 @@
     <script type="text/javascript" src="./static/js/lib/blockly/blocks/logic.js"></script>
     <script type="text/javascript" src="./static/js/lib/blockly/blocks/loops.js"></script>
     <script type="text/javascript" src="./static/js/lib/blockly/blocks/math.js"></script>
-    <script type="text/javascript" src="./static/js/lib/blockly/blocks/text.js"></script>
     <script type="text/javascript" src="./static/js/lib/blockly/blocks/lists.js"></script>
     <script type="text/javascript" src="./static/js/lib/blockly/blocks/variables.js"></script>
     <script type="text/javascript" src="./static/js/lib/blockly/blocks/procedures.js"></script>

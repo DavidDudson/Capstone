@@ -429,7 +429,7 @@ Blockly.Blocks['logic_compare'] = {
   init: function() {
     var OPERATORS = [
           ['is equal to', 'EQ'],
-          ['is not equal to', 'NEQ'],
+          ['is not equal to', 'NEQ']
         ];
     this.setHelpUrl(Blockly.Msg.LOGIC_COMPARE_HELPURL);
     this.setColour(Blockly.Blocks.logic.HUE);
