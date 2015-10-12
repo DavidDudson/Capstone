@@ -31,20 +31,20 @@
         <div class="form-signin mg-btm">
             <h3 class="heading-desc">Sign in to Star Battle:</h3>
             <div class="social-box">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="facebookButton">
-                        <form action="SocialLogin" method="POST">
-                            <input type="hidden" name="loginType" value="facebook" />
-                            <input type="hidden" name="callbackurl" value="http://localhost:8080/Capstone" />
-                            <input type="hidden" name="baseURL" value="" />
-                            <button type="submit" class="btn btn-block btn-social btn-facebook">
-                                <i class="fa fa-facebook"></i> Sign in with Facebook
-                            </button>
-                        </form>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="facebookButton">
+                            <form action="SocialLogin" method="POST">
+                                <input type="hidden" name="loginType" value="facebook" />
+                                <input type="hidden" name="callbackurl" value="http://localhost:8080/Capstone" />
+                                <input type="hidden" name="baseURL" value="" />
+                                <button type="submit" class="btn btn-block btn-social btn-facebook">
+                                    <i class="fa fa-facebook"></i> Sign in with Facebook
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
 
                 <h4 class="or"> or </h4>
 
@@ -63,7 +63,7 @@
                     </div>
                 </div>
             </div>
-
+            
             <div ng-if="isDebug" class="debug-mode">
                 <form action="login" method="POST">
                     <input type="hidden" name="baseURL" value="" />
