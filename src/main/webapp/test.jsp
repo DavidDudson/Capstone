@@ -44,11 +44,11 @@
 
             <div class="row">
 
-                <section class="col-lg-2 col-md-2 col-sm-2">
+                <section class="col-lg-2 col-md-3 col-sm-3">
                     <sidebar user_bots built_in_bots></sidebar>
                 </section>
 
-                <section class="col-lg-7 col-md-10 col-md-pull-0 col-sm-10 col-sm-pull-0">
+                <section class="col-lg-6 col-md-9 col-md-pull-0 col-sm-9 col-sm-pull-0">
                     <div id="main_content"><!---main content ends-->
 
                         <div class="row"> <!---Row for the two grids starts-->
@@ -105,7 +105,7 @@
                     </div><!---main content ends-->
                     
                 </section>
-                <section class="col-lg-3 col-lg-offset-0 col-md-5 col-md-offset-5 col-sm-5 col-sm-offset-4">
+                <section class="col-lg-2 col-lg-offset-1 col-md-5 col-md-offset-5 col-sm-5 col-sm-offset-4">
 
                     <div id="sidebar_right" class="sidebar right">
 
