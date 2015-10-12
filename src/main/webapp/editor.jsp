@@ -42,7 +42,6 @@
     <script src="./static/js/editor.js"></script>
     <script src="./static/js/header.js"></script>
     <script src="./static/js/bots.js"></script>
-    <script src="./static/js/ship.js"></script>
     <script src="./static/js/user.js"></script>
     <script src="./static/js/sidebar.js"></script>
     <script src="./static/js/bot_selector.js"></script>

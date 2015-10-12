@@ -1,24 +1,7 @@
 angular.module("app")
     .factory("Game", GameService);
 
-function adjustHeight() {
-    var myWidth = jQuery('.square-element').width();
-    var myString = myWidth + 'px';
-    jQuery('.square-element').css('height', myString);
-    return myHeight;
-}
-
-// calls adjustHeight on window load
-jQuery(window).load(function() {
-    adjustHeight();
-});
-
-// calls adjustHeight anytime the browser window is resized
-jQuery(window).resize(function() {
-    adjustHeight();
-});
-
-function GameService($http, $interval, Ship) {
+function GameService($http, $interval){
 
     return function (notificationBar) {
 
@@ -36,13 +19,20 @@ function GameService($http, $interval, Ship) {
             player2ShipList: [],
             player1ShipMap: {},
             player2ShipMap: {},
+            getShip: function (coords) {
+                var cells = [];
+                coords.forEach(function (coord) {
+                    cells.push([coord.x, coord.y, 0])
+                })
+            },
             generateShips: function () {
                 game.moves.forEach(function (move) {
-                    if (move.sunk !== []) {
+                    if (move.sunk.length > 0) {
+                        console.log(move.sunk);
                         if (move.wasPlayer1) {
-                            game.player1ShipList.push(Ship(move.sunk))
+                            game.player1ShipList.push(game.getShip(move.sunk))
                         } else {
-                            game.player2ShipList.push(Ship(move.sunk))
+                            game.player2ShipList.push(game.getShip(move.sunk))
                         }
                     }
                 });
@@ -51,9 +41,7 @@ function GameService($http, $interval, Ship) {
             },
             generateShipMap: function (shipList, shipMap) {
                 shipList.forEach(function (ship) {
-                    ship.coordinateList.forEach(function (coordinate) {
-                        shipMap[coordinate] = ship
-                    })
+                    shipMap[{"x": ship[0], "y": ship[1]}] = ship
                 })
             },
             create: function (bot1, bot2, testing) {
@@ -107,7 +95,7 @@ function GameService($http, $interval, Ship) {
             },
             restart: function () {
                 game.reset();
-                if(!game.paused){
+                if (!game.paused) {
                     game.start()
                 }
             },
