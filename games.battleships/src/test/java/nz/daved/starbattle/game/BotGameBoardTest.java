@@ -263,4 +263,3 @@ public class BotGameBoardTest {
         assertTrue(selectedCoord.getX() == 0 && selectedCoord.getY() == 0);
 
     }
-}
