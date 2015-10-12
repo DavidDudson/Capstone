@@ -54,6 +54,7 @@ public class StarBattleGameSupport extends DefaultGameSupport {
         clazzes.add(Coordinate.class);
         clazzes.add(GameBoard.class);
         clazzes.add(Ship.class);
+        clazzes.add(Var.class);
 
         return clazzes;
     }
