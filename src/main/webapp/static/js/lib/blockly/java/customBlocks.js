@@ -7,7 +7,7 @@ Blockly.Java['check_state_of_coordinate'] = function (block) {
     }
     catch (err){}
 
-    var code = 'botGameBoard.checkStateOfCoordinate(' + value_coordinate + ", " + dropdown_state + ')';
+    var code = 'botGameBoard.checkStateOfCoordinate((Coordinate)' + value_coordinate + ", " + dropdown_state + ')';
     return [code, Blockly.Java.ORDER_ATOMIC];
 };
 
@@ -49,7 +49,7 @@ Blockly.Java['can_attack_coordinate'] = function (block) {
         value_coordinate = Blockly.Java.valueToCode(block, 'Coordinate', Blockly.Java.ORDER_ATOMIC);
     }
     catch (err){}
-    var code = 'botGameBoard.canAttackCoordinate(' + value_coordinate + ')';
+    var code = 'botGameBoard.canAttackCoordinate((Coordinate)' + value_coordinate + ')';
     return [code, Blockly.Java.ORDER_ATOMIC];
 };
 
@@ -69,7 +69,7 @@ Blockly.Java['get_neighbour_valid_coordinates'] = function (block) {
         value_coordinate = Blockly.Java.valueToCode(block, 'Coordinate', Blockly.Java.ORDER_ATOMIC);
     }
     catch (err){}
-    var code = 'botGameBoard.getNeighbourValidCoordinates(' + value_coordinate + ")";
+    var code = 'botGameBoard.getNeighbourValidCoordinates((Coordinate)' + value_coordinate + ")";
     return [code, Blockly.Java.ORDER_COLLECTION];
 };
 
@@ -142,7 +142,6 @@ Blockly.Java['define_coordinate'] = function(block) {
     try {
         value_x = Blockly.Java.valueToCode(block, 'X', Blockly.Java.ORDER_ATOMIC);
         value_y = Blockly.Java.valueToCode(block, 'Y', Blockly.Java.ORDER_ATOMIC);
-        Blockly.Java.addImport('nz.daved.starbattle.game.Coordinate');
     }
     catch (err){}
     var code = 'new Coordinate(' + value_x + ', ' + value_y + ')';
@@ -155,7 +154,7 @@ Blockly.Java['return_coordinate'] = function(block) {
         value_return = Blockly.Java.valueToCode(block, 'RETURN', Blockly.Java.ORDER_ATOMIC);
     }
     catch (err){}
-    var code = 'return ' + value_return + ';\n';
+    var code = 'return (Coordinate)' + value_return + ';\n';
     return code;
 };
 
@@ -167,7 +166,7 @@ Blockly.Java['function_next_move'] = function(block) {
         value_return = Blockly.Java.valueToCode(block, 'RETURN', Blockly.Java.ORDER_ATOMIC);
     }
     catch (err){}
-    var return_code = 'return ' + value_return + ';\n';
+    var return_code = 'return (Coordinate)' + value_return + ';\n';
     
     var code = '@Override\n' +
                 'public Coordinate nextMove(BotGameBoard botGameBoard) {\n' +
@@ -188,7 +187,7 @@ Blockly.Java['check_neighbours_for_best_attack'] = function (block) {
         value_input = Blockly.Java.valueToCode(block, 'INPUT', Blockly.Java.ORDER_ATOMIC);
     }
     catch (err){}
-    var code = 'botGameBoard.findAndHitNeighbour(' + value_input + ')';
+    var code = 'botGameBoard.findAndHitNeighbour((Coordinate)' + value_input + ')';
     return [code, Blockly.Java.ORDER_ATOMIC];
 };
 
@@ -208,7 +207,7 @@ Blockly.Java['get_X_coord'] = function (block) {
         value_coordinate = Blockly.Java.valueToCode(block, 'Coordinate', Blockly.Java.ORDER_ATOMIC);
     }
     catch (err){}
-    var code = 'botGameBoard.getXCoord('+ value_coordinate + ')';
+    var code = 'botGameBoard.getXCoord((Coordinate)'+ value_coordinate + ')';
     return [code, Blockly.Java.ORDER_ATOMIC];
 };
 
@@ -218,7 +217,7 @@ Blockly.Java['get_Y_coord'] = function (block) {
         value_coordinate = Blockly.Java.valueToCode(block, 'Coordinate', Blockly.Java.ORDER_ATOMIC);
     }
     catch (err){}
-    var code = 'botGameBoard.getYCoord('+ value_coordinate + ')';
+    var code = 'botGameBoard.getYCoord((Coordinate)'+ value_coordinate + ')';
     return [code, Blockly.Java.ORDER_ATOMIC];
 };
 
