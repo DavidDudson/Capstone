@@ -16,7 +16,9 @@ angular
     })
     .
     controller("appCtrl", function (User, Bots, Game, NotificationBar, BotSelector, $modal, $scope, $rootScope) {
+        // Allows debuggint in JS console by going MY_SCOPE.somefunctionOrVariable
         window.MY_SCOPE = $scope;
+
         //The app object
         $rootScope.app = {
             name: "Star Battle"
@@ -47,6 +49,12 @@ angular
                 enabled: true
             }
         });
+
+        $scope.addChangeListener = function () {
+            $scope.workspace.addChangeListener(function () {
+                $rootScope.user.bots.updateSource($scope.botSelector.bots[0], Blockly.Java.workspaceToCode($scope.workspace, ["notests"]));
+            });
+        };
 
         $scope.notificationBar = NotificationBar("Click Save or Test");
 
@@ -79,44 +87,49 @@ angular
             })
         };
 
+        //Fallback if your browser doesnt have flash to copy
         $scope.fallback = function () {
             window.prompt('Press cmd+c to copy the text below.', $scope.copy());
         };
 
+        //Save the bot
         $scope.save = function () {
             $scope.syncSource();
-            $rootScope.user.bots.save($scope.botSelector.getBots()[0], $scope.notificationBar);
-
+            $rootScope.user.bots.save($scope.botSelector.bots[0], $scope.notificationBar);
         };
 
+        //Returns a list of all bots
         $scope.allBots = function () {
             var builtIn = $scope.builtInBots.get();
             var user = $scope.user.bots.get();
             return builtIn.concat(user);
         };
 
+        //Syncs the souce of blockly bot in the editor, with the js object
         $scope.syncSource = function () {
-            if ($scope.botSelector.getBots()) {
-                $scope.user.bots.updateSource($scope.botSelector.getBots()[0],
+            if ($scope.botSelector.bots) {
+                $scope.user.bots.updateSource($scope.botSelector.bots[0],
                     Blockly.Java.workspaceToCode($scope.workspace, ["notests"]));
             }
         };
 
-        // in rootscope so it can be accessed from anywhere
+        //In rootscope so it can be accessed from anywhere
+        //Select a bot
         $rootScope.select = function (bot) {
             $scope.syncSource();
-
-            $scope.botSelector.select(bot);
             $scope.reset();
+            $scope.botSelector.select(bot);
             $scope.loadBlocklyDiv(document.getElementById('toolbox'));
             $scope.switchWorkspace();
         };
 
+        //Delete a bot
         $scope.delete = function (bot) {
             $scope.reset();
             $rootScope.user.bots.delete(bot);
         };
 
+        //Show the error modal
         $scope.displayErrorModal = function () {
             if ($scope.notificationBar.type != 'warning') return;
             $scope.modal = $modal.open({
@@ -135,10 +148,10 @@ angular
                 },
                 resolve: {
                     bot: function () {
-                        return $scope.botSelector.getBots()[0]
+                        return $scope.botSelector.bots[0]
                     },
                     error: function () {
-                        return $scope.copy();
+                        return $scope.botSelector.bots[0].src + "\n\n" + $scope.notificationBar.error;
                     }
 
                 }
@@ -172,8 +185,8 @@ angular
             // Wait for the modal to be closed then return the bot that's selected
             $scope.modal.result.then(function (bot) {
                 $scope.user.bots.add(bot);
-                $scope.user.bots.save(bot);
                 $rootScope.select(bot);
+                $scope.user.bots.save(bot);
             })
         };
 
@@ -202,15 +215,10 @@ angular
                     enabled: true
                 }
             });
+            $scope.addChangeListener();
         };
-
-        $scope.myUpdateFunction = function () {
-            $rootScope.user.bots.updateSource(botSelector.bots[0], Blockly.Java.workspaceToCode($scope.workspace, ["notests"]));
-        };
-
-        $scope.workspace.addChangeListener($scope.myUpdateFunction);
 
         $scope.switchWorkspace = function () {
-            Blockly.Xml.domToWorkspace($scope.workspace, Blockly.Xml.textToDom($scope.botSelector.getBots()[0].xml));
+            Blockly.Xml.domToWorkspace($scope.workspace, Blockly.Xml.textToDom($scope.botSelector.bots[0].xml));
         };
     });

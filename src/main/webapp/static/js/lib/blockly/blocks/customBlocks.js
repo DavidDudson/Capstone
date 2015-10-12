@@ -17,12 +17,12 @@ Blockly.Blocks['check_state_of_coordinate'] = {
 Blockly.Blocks['get_all_cells_of_type'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("get a list of all")
+        .appendField("a list of all")
         .appendField(new Blockly.FieldDropdown([["space", "0"], ["miss", "1"],  ["hit", "2"], ["sunk", "3"]]), "state")
         .appendField("coordinates");
     this.setInputsInline(true);
     this.setOutput(true, "Array");
-    this.setColour(210);
+    this.setColour(260);
     this.setTooltip('ask if the position is water or a known ship position');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -31,7 +31,7 @@ Blockly.Blocks['get_all_cells_of_type'] = {
 Blockly.Blocks['get_state_coordinate_at_pos'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("the state of position")
+        .appendField("the state of the position")
         .appendField(new Blockly.FieldDropdown([["Left", "left"], ["Right", "right"], ["Up", "up"], ["Down", "down"]]), "POSITION");
     this.appendValueInput("INPUT")
         .setCheck("Number")
@@ -273,6 +273,17 @@ Blockly.Blocks['coordinate_state'] = {
     }
 };
 
+Blockly.Blocks['states_of_neighbours'] = {
+    init: function() {
+        this.appendValueInput("NAME")
+            .setCheck("Coordinate")
+            .appendField("the state of the neighbouring positions of");
+        this.setOutput(true, "Array");
+        this.setColour(230);
+        this.setTooltip('');
+        this.setHelpUrl('http://www.example.com/');
+    }
+};
 
 Blockly.Blocks['get_X_coord']= {
   init: function() {
@@ -280,7 +291,7 @@ Blockly.Blocks['get_X_coord']= {
         .setCheck("Coordinate")
         .appendField("get X position from :");
     this.setOutput(true, "Number");
-    this.setColour(210);
+    this.setColour(230);
     this.setTooltip('can the given coordinate be hit, or has already been hit');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -292,8 +303,23 @@ Blockly.Blocks['get_Y_coord']= {
         .setCheck("Coordinate")
         .appendField("get Y position from :");
     this.setOutput(true, "Number");
-    this.setColour(210);
+    this.setColour(230);
     this.setTooltip('can the given coordinate be hit, or has already been hit');
     this.setHelpUrl('http://www.example.com/');
   }
+};
+
+Blockly.Blocks['list_is_empty'] = {
+    init: function() {
+        this.appendValueInput("NAME")
+            .setCheck("Array");
+        this.appendDummyInput()
+            .appendField(new Blockly.FieldDropdown([["is", "=="], ["is not", "!="]]), "NAME")
+            .appendField("empty");
+        this.setInputsInline(true);
+        this.setOutput(true, "Boolean");
+        this.setColour(260);
+        this.setTooltip(Blockly.Msg.LISTS_ISEMPTY_TOOLTIP);
+        this.setHelpUrl(Blockly.Msg.LISTS_ISEMPTY_HELPURL);
+    }
 };

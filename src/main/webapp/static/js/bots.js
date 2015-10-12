@@ -68,16 +68,16 @@ function BotService($http, Build) {
                     });
             },
             updateSource: function (bot, src) {
-                bot.src = src;
+                bot.blocklySrc = src;
+                if(bot.src != bot.blocklySrc){
+                    bot.dirty = true;
+                }
                 bot.xml = src.match(/<xml.*>/);
             },
             save: function (bot) {
                 if (notificationBar.active) return;
                 var build = Build(notificationBar);
                 build.start(bot);
-            },
-            sourceIsNotTheSameAsWorkspace: function (bot, workspace){
-                return bot.src !== Blockly.Java.workspaceToCode(workspace,["notests"])
             }
         };
 

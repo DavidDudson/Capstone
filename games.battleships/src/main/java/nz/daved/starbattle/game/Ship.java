@@ -68,7 +68,7 @@ public class Ship {
      * Tell the Ship that part of it has been hit
      */
     public Ship reduceHealth() {
-        health = health - 1;
+        this.health--;
         return this;
     }
 

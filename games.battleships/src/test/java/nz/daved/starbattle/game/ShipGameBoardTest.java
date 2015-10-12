@@ -50,7 +50,7 @@ public class ShipGameBoardTest {
         ShipGameBoard sgb = new ShipGameBoard();
         sgb.fillGrid(0);
         assertTrue(sgb.getShips().size() == 7);
-        assertTrue(sgb.getState(new Coordinate(1,2)) == 0);
+        assertTrue(sgb.getStateOfCoordinate(new Coordinate(1,2)) == 0);
         //TODO get this test working somehow
 //        Integer squareTotal = ships.stream().reduce(0, (a, b) -> a + b);
 //        Long gridTotal = Stream.of(sgb.getGrid()).flatMapToInt(IntStream::of).filter(x -> x == 1).count();

@@ -58,7 +58,7 @@ public class StarBattleGame extends SimpleGame<BotGameBoard, Coordinate> {
         boolean isPlayer1 = (bot == player1);
         BotGameBoard botMap = isPlayer1 ? bot1map : bot2map;
         //Add 1 due to compensating for the fact that bot map has 3 states (Including unknown) and shipMap has 2
-        boolean wasShip = shipGameBoard.getState(coord) == 1;
+        boolean wasShip = shipGameBoard.getStateOfCoordinate(coord) == 1;
         List<Coordinate> coordList  = botMap.attackCoordinate(coord,wasShip);
         history.add(new StarBattleGameMove(isPlayer1,bot.getId(), coord, wasShip,coordList));
         updateGameState(coord, (StarBattleBot) bot);
@@ -68,6 +68,7 @@ public class StarBattleGame extends SimpleGame<BotGameBoard, Coordinate> {
         boolean completed = false;
         Coordinate move = new Coordinate(0,0);
         StarBattleBot player = (StarBattleBot)player1;
+        System.out.println(this.bot1map.getShipSizes());
         while(!completed){
             if(state == GameState.NEW){
                 state = GameState.WAITING_FOR_PLAYER_1;
@@ -124,7 +125,7 @@ public class StarBattleGame extends SimpleGame<BotGameBoard, Coordinate> {
     @Override
     protected void checkValidityOfMove(Coordinate coordinate, Bot<BotGameBoard, Coordinate> bot) throws IllegalMoveException {
         BotGameBoard botmap = (bot == player1) ? bot1map : bot2map;
-        if (botmap.getState(coordinate) != 0) {
+        if (botmap.getStateOfCoordinate(coordinate) != 0) {
             throw new IllegalMoveException("Coordinate not Water: " + coordinate.toString());
         }
     }

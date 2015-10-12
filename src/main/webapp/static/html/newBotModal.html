@@ -27,7 +27,7 @@
     </form>
 </div>
 <div class="modal-footer">
-    <span id="newBotError">{{modalForm.$valid ? "" : "Name must not contain symbols and must be 5-15 characters long"}}</span>
+    <span id="newBotError">{{modalForm.$valid ? "" : "Name must not contain symbols and must be 3-15 characters long"}}</span>
     <button class="btn btn-primary" type="button" ng-click="ok(name, modal.selected)" ng-disabled="!modalForm.$valid || name ===''">OK</button>
     <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
 </div>

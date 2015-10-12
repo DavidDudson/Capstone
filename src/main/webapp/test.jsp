@@ -43,13 +43,18 @@
         <div class="container-fluid">
 
             <div class="row">
+
                 <section class="col-lg-2 col-md-2 col-sm-2">
-                <sidebar user_bots built_in_bots></sidebar>
-            </section>
+                    <sidebar user_bots built_in_bots></sidebar>
+                </section>
 
                 <section class="col-lg-7 col-md-10 col-md-pull-0 col-sm-10 col-sm-pull-0">
                     <div id="main_content">
-                        <div id="player_one" class="left">
+
+                        <div class="row"> <!---Row for the two grids starts-->
+
+                        <section class="col-xs-6"><!---Player1 grid starts-->
+                        <div id="player_one" class="">
                             <h3 id="p1Text">{{botSelector.bots[0] ? botSelector.bots[0].name : "Select Bot 1"}} </h3>
                             <ul class="grid_box">
                                 <%for (int i = 0; i < 10; i++) {%>
@@ -60,7 +65,10 @@
                                 <%}%>
                             </ul>
                         </div>
-                        <div id="player_two" class="left">
+                    </section><!---Player1 grid ends-->
+
+                        <section class="col-xs-6"><!---Player2 grid starts-->
+                        <div id="player_two" class="">
                             <h3 id="p2Text">{{botSelector.bots[1] ? botSelector.bots[1].name : "Select Bot 2"}}</h3>
                             <ul class="grid_box">
                                 <%for (int i = 0; i < 10; i++) {%>
@@ -71,7 +79,9 @@
                                 <%}%>
                             </ul>
                         </div>
-
+                    </section><!---Player2 grid emds-->
+                </div> <!---Row for the two grids ends-->
+                
                         <br/>
                         <br/>
                         <div class="col-xs-12">

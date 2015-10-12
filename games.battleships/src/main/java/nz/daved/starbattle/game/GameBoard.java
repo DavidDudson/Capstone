@@ -1,5 +1,6 @@
 package nz.daved.starbattle.game;
 
+import com.google.common.annotations.VisibleForTesting;
 import nz.daved.starbattle.StarBattleGameSchematic;
 
 import java.util.ArrayList;
@@ -20,7 +21,8 @@ public abstract class GameBoard {
     protected int height;
     protected int remainingShips;
 
-    protected List<Ship> ships;
+    @VisibleForTesting
+    List<Ship> ships;
 
     /**
      * Creates a map initally set to all 0's
@@ -64,21 +66,25 @@ public abstract class GameBoard {
                 .toArray(int[][]::new);
     }
 
+
     /**
-     * Returns the value inside the array
-     *
-     * @param coord The Coordinate to get
-     * @return The Value
+     * @return Either the state, or else -1 if it cant be accessed
      */
-    public int getState(Coordinate coord) {
-        int state = -1;
-        try {
-            state = grid[coord.getX()][coord.getY()];
-        } catch (Exception e) {
-            //Do nothing as if index goes out of bound we just dont care
+    public int getStateOfCoordinate(int x, int y) {
+        if (x > -1 && 10 > x && y > -1 && 10 > y) {
+            return grid[x][y];
+        } else {
+            return -1;
         }
-        return state;
     }
+
+    /**
+     * @return Either the state, or else -1 if it cant be accessed
+     */
+    public int getStateOfCoordinate(Coordinate coord) {
+        return getStateOfCoordinate(coord.getX(), coord.getY());
+    }
+
 
     /**
      * Sets a grid square to a specific value
@@ -113,6 +119,7 @@ public abstract class GameBoard {
 
     protected List<Ship> getShips() {
         return ships.stream()
+                .map(Ship::new)
                 .collect(Collectors.toList());
     }
 

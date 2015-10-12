@@ -13,7 +13,8 @@ angular
             scope: {
                 showBuiltInBots: "=?",
                 showUserBots: "=?",
-                showSharedBots: "=?"
+                showSharedBots: "=?",
+                showSave: "=?"
             },
             // Declare Variables on directive load
             // The eval simply says to evaluate the expression inside the attribute,
@@ -24,6 +25,8 @@ angular
                     scope.showUserBots = 'userBots' in attrs;
                     scope.showBuiltInBots = 'builtInBots' in attrs;
                     scope.showSharedBots = 'sharedBots' in attrs;
+                    scope.showSave = 'showSave' in attrs;
+
                 }
             }
         };
@@ -37,9 +40,11 @@ angular
             scope: {
                 group_bots : "=",
                 group_name : "=",
+                showSave : "=",
                 selector : "="
             },
             link: function(scope, element, attrs) {
+                scope.showSave = scope.$parent.showSave;
                 if('user' in attrs){
                     scope.group_bots = scope.$root.user.bots.list;
                     scope.group_name = "User Bots"

@@ -8,6 +8,7 @@
         <block type="logic_operation"></block>
         <block type="logic_negate"></block>
         <block type="logic_ternary"></block>
+        <block type="logic_compare"></block>
     </category>
     <category name="Math">
         <block type="math_number"></block>
@@ -38,11 +39,10 @@
         <block type="lists_create_empty"></block>
         <block type="get_all_cells_of_type"></block>
         <block type="get_all_valid_moves"></block>
-        <block type="check_state_of_coordinate"></block>
         <block type="get_neighbour_valid_coordinates"></block>
         <block type="list_of_played_moves"></block>
         <block type="lists_length"></block>
-        <block type="lists_isEmpty"></block>
+        <block type="list_is_empty"></block>
         <block type="lists_indexOf">
             <value name="VALUE">
                 <block type="variables_get">
@@ -85,7 +85,9 @@
         <block type="last_hit_move"></block>
         <block type="get_state_coordinate_at_pos"></block>
         <block type="coordinate_state"></block>
-        <!--<block type="check_neighbours_for_best_attack"></block>-->
-        <!--<block type="states_of_neighbours"></block>-->
+        <block type="get_X_coord"></block>
+        <block type="get_Y_coord"></block>
+        <block type="check_neighbours_for_best_attack"></block>
+        <block type="states_of_neighbours"></block>
     </category>
 </xml>

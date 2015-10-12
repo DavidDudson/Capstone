@@ -10,6 +10,7 @@
     <title>Star Battle Editor</title>
     <link rel="icon" type="image/png" href="static/images/favicon.ico" sizes="32x32">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
     <link rel="stylesheet" type="text/css" href="static/css/editor.css">
 
@@ -57,16 +58,16 @@
 <!--End Navigation bar-->
 
 <toolbox></toolbox>
-    <div class="container-lg-1400 container-md-992 container-sm-768 container-xs-767">
-        <div class="row">
-    <!--Main container-->
-    <div class="main_container">
-        <!--Left bar-->
-        <section class="col-lg-2 col-md-3 col-sm-3">
-        <sidebar user_bots></sidebar>
-    </section>
-        <!--Blockly bar-->
-        <section class="col-lg-6 col-md-9 col-sm-9 col-xs-9">
+<div class="container-lg-1400 container-md-992 container-sm-768 container-xs-767">
+    <div class="row">
+        <!--Main container-->
+        <div class="main_container">
+            <!--Left bar-->
+            <section class="col-lg-2 col-md-3 col-sm-3">
+                <sidebar show_save user_bots></sidebar>
+            </section>
+            <!--Blockly bar-->
+            <section class="col-lg-6 col-md-9 col-sm-9 col-xs-9">
                 <div class="main-cont-menu">
                     <ul>
                         <li>
@@ -86,8 +87,8 @@
                             </button>
                         </li>
                         <li>
-                            <button  class="btn btn-info btn-lg"
-                                     clip-copy="copy(botSelector.bots[0])"
+                            <button class="btn btn-info btn-lg"
+                                    clip-copy="copy(botSelector.bots[0])"
                                     clip-click="notificationBar.showSuccess('Copy Successful')"
                                     ng-disabled="notificationBar.type !== 'warning'">
                                 Copy Bot Data
@@ -109,44 +110,45 @@
                         <b>{{notificationBar.text}}</b>
                     </progressbar>
                 </div>
-        </section>
+            </section>
 
-        <!--Test bar-->
-        <section class="col-lg-4 col-lg-offset-0 col-md-5 col-md-offset-3 col-sm-5 col-sm-offset-3 col-xs-5 col-xs-offset-3">
-            <div class="row">
-            <div class="test-grid-content">
-                <div class="sidebar_head">
-                {{!botSelector.bots[0] ? "Select a bot first" : botSelector.bots[0].name}}
+            <!--Test bar-->
+            <section
+                    class="col-lg-4 col-lg-offset-0 col-md-5 col-md-offset-3 col-sm-5 col-sm-offset-3 col-xs-5 col-xs-offset-3">
+                <div class="row">
+                    <div class="test-grid-content">
+                        <div class="sidebar_head">
+                            {{!botSelector.bots[0] ? "Select a bot first" : botSelector.bots[0].name}}
+                        </div>
+
+                        <ul class="test_grid">
+                            <%for (int i = 0; i < 10; i++) {%>
+                            <%for (int j = 0; j < 10; j++) {%>
+                            <li id="a<%=i * 10 + j%>"></li>
+                            <%}%>
+                            <br/>
+                            <%}%>
+                        </ul>
+                    </div>
                 </div>
-                
-                <ul class="test_grid">
-                    <%for (int i = 0; i < 10; i++) {%>
-                    <%for (int j = 0; j < 10; j++) {%>
-                    <li id="a<%=i * 10 + j%>"></li>
-                    <%}%>
-                    <br/>
-                    <%}%>
-                </ul>
-            </div>
+                <div class="row">
+                    <div class="test-grid-buttons">
+                        <button id="test" class="btn btn-info btn-lg"
+                                ng-click="game.create(botSelector.bots[0], botSelector.bots[0], true)"
+                                ng-disabled="!botSelector.bots || botSelector.bots[0].new">
+                            Test
+                        </button>
+                        <button id="restart" class="btn btn-info btn-lg" ng-click="game.restart()"
+                                ng-disabled="!botSelector.bots || botSelector.bots[0].new || !game.moves"> Restart
+                        </button>
+                        <button id="reset" class="btn btn-info btn-lg" ng-click="game.reset()"
+                                ng-disabled="!botSelector.bots || botSelector.bots[0].new || !game.moves"> Reset
+                        </button>
+                    </div>
+                </div>
+            </section>
         </div>
-        <div class="row">
-            <div class="test-grid-buttons">
-                <button id="test" class="btn btn-info btn-lg"
-                        ng-click="game.create(botSelector.bots[0], botSelector.bots[0], true)"
-                        ng-disabled="!botSelector.bots || botSelector.bots[0].new">
-                    Test
-                </button>
-                <button id="restart" class="btn btn-info btn-lg" ng-click="game.restart()"
-                        ng-disabled="!botSelector.bots || botSelector.bots[0].new || !game.moves"> Restart
-                </button>
-                <button id="reset" class="btn btn-info btn-lg" ng-click="game.reset()"
-                        ng-disabled="!botSelector.bots || botSelector.bots[0].new || !game.moves"> Reset
-                </button>
-            </div>
-        </div>
-        </section>
     </div>
-</div>
 </div>
 </body>
 </html>

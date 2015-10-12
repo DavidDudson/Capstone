@@ -45,7 +45,7 @@ public class BotGameBoard extends GameBoard {
     }
 
     public boolean isValidMove(Coordinate coord) {
-        return getState(coord) == 0;
+        return getStateOfCoordinate(coord) == 0;
     }
 
     /**
@@ -65,6 +65,9 @@ public class BotGameBoard extends GameBoard {
      * @return whether or not a ship was sunK
      */
     public List<Coordinate> attackCoordinate(Coordinate coord, boolean wasShip) {
+        if(getStateOfCoordinate(coord) == 2){
+            throw new IllegalArgumentException("Arrgh");
+        }
         setCellTo(coord, wasShip ? 2 : 1);
         if (wasShip) {
             Ship ship = getShipAtCoordinate(coord);
@@ -197,8 +200,11 @@ public class BotGameBoard extends GameBoard {
      * @return coordinate of last move played
      */
     public Coordinate getLastMove() {
-        return getHistory().getLast();
-
+        if(getHistory().isEmpty()){
+           return getFirstValidCoordinate();
+        } else{
+            return getHistory().getLast();
+        }
     }
 
     /**
@@ -235,7 +241,7 @@ public class BotGameBoard extends GameBoard {
             }
 
         }
-        return getLastValidCoordinate();
+        return getFirstValidCoordinate();
 
     }
 
@@ -261,31 +267,13 @@ public class BotGameBoard extends GameBoard {
     }
 
     /**
-     * @return Either the state, or else -1 if it cant be accessed
-     */
-    public int getStateOfCoordinate(int x, int y) {
-        if (x > -1 && 10 > x && y > -1 && 10 > y) {
-            return grid[x][y];
-        } else {
-            return -1;
-        }
-    }
-
-    /**
-     * @return Either the state, or else -1 if it cant be accessed
-     */
-    public int getStateOfCoordinate(Coordinate coord) {
-        return getStateOfCoordinate(coord.getX(), coord.getY());
-    }
-
-    /**
      * check if the last move sunk a bot
      *
      * @return boolean value is last his sunk a bot
      */
     public Boolean lastMoveSunkBot() {
         Coordinate lastMove = getLastMove();
-        return grid[lastMove.getX()][lastMove.getY()] == 3;
+        return getStateOfCoordinate(lastMove) == 3;
     }
 
 
@@ -372,8 +360,8 @@ public class BotGameBoard extends GameBoard {
         }
         LinkedList<Coordinate> validNeigbours = getNeighbourValidCoordinates(coord);
 
-        if (validNeigbours.size() == 0) {
-            return coord;
+        if (validNeigbours.isEmpty()) {
+            return getFirstValidCoordinate();
         } else {
 
             return validNeigbours.getFirst();
