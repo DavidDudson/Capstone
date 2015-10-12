@@ -44,18 +44,6 @@ Blockly.Blocks['get_state_coordinate_at_pos'] = {
   }
 };
 
-//Blockly.Blocks['if_last_move_hit_aim_direction'] = {
-//    init: function() {
-//        this.appendDummyInput()
-//            .appendField("if the last move was a hit, aim")
-//            .appendField(new Blockly.FieldDropdown([["up", "up"], ["down", "down"], ["left", "left"], ["right", "right"]]), "direction");
-//        this.setOutput(true, "Coordinate");
-//        this.setColour(230);
-//        this.setTooltip('if the last move was a hit, then get the coordinate next to that target');
-//        this.setHelpUrl('http://www.example.com/');
-//    }
-//};
-
 Blockly.Blocks['can_attack_coordinate'] = {
   init: function() {
     this.appendValueInput("Coordinate")
@@ -97,29 +85,13 @@ Blockly.Blocks['get_neighbour_valid_coordinates'] = {
     this.appendValueInput("Coordinate")
         .setCheck("Coordinate")
         .appendField("the valid neighbors of");
+    this.setInputsInline(true);
     this.setOutput(true, "Array");
     this.setColour(260);
     this.setTooltip('the neighbouring coordinates of the given position that can be hit');
     this.setHelpUrl('http://www.example.com/');
   }
 };
-
-//Blockly.Blocks['variable_define'] = {
-//  init: function() {
-//    this.appendDummyInput()
-//        .appendField("define")
-//        .appendField(new Blockly.FieldTextInput("name"), "NAME");
-//    this.appendDummyInput()
-//        .appendField("of type")
-//        .appendField(new Blockly.FieldDropdown([["integer", "INT"], ["list", "LIST"], ["coord", "COORD"], ["boolean", "BOOL"]]), "TYPE");
-//    this.setInputsInline(true);
-//    this.setPreviousStatement(true, null);
-//    this.setNextStatement(true, null);
-//    this.setColour(330);
-//    this.setTooltip('create a new variable of a certain type');
-//    this.setHelpUrl('http://www.example.com/');
-//  }
-//};
 
 Blockly.Blocks['get_all_valid_moves'] = {
     init: function() {
@@ -278,6 +250,7 @@ Blockly.Blocks['states_of_neighbours'] = {
         this.appendValueInput("NAME")
             .setCheck("Coordinate")
             .appendField("the state of the neighbouring positions of");
+        this.setInputsInline(true);
         this.setOutput(true, "Array");
         this.setColour(230);
         this.setTooltip('');
