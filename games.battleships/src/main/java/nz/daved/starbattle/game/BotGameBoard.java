@@ -360,8 +360,8 @@ public class BotGameBoard extends GameBoard {
         }
         LinkedList<Coordinate> validNeigbours = getNeighbourValidCoordinates(coord);
 
-        if (validNeigbours.size() == 0) {
-            return coord;
+        if (validNeigbours.isEmpty()) {
+            return getFirstValidCoordinate();
         } else {
 
             return validNeigbours.getFirst();
