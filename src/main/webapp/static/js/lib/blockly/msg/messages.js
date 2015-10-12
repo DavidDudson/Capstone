@@ -371,9 +371,9 @@ Blockly.Msg.MATH_ADDITION_SYMBOL = '+';
 Blockly.Msg.MATH_SUBTRACTION_SYMBOL = '-';
 /// {{optional}}\nmath - The binary operation indicating that the left operand should be divided by
 /// the right operand.
-Blockly.Msg.MATH_DIVISION_SYMBOL = '÷';
+Blockly.Msg.MATH_DIVISION_SYMBOL = '/';
 /// {{optional}}\nmath - The symbol for the binary operation multiplication.
-Blockly.Msg.MATH_MULTIPLICATION_SYMBOL = '×';
+Blockly.Msg.MATH_MULTIPLICATION_SYMBOL = '*';
 /// {{optional}}\nmath - The symbol for the binary operation exponentiation.  Specifically, if the
 /// value of the left operand is L and the value of the right operand (the exponent) is
 /// R, multiply L by itself R times.  (Fractional and negative exponents are also legal.)
