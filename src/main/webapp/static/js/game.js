@@ -1,7 +1,7 @@
 angular.module("app")
     .factory("Game", GameService);
 
-function GameService($http, $interval, Ship) {
+function GameService($http, $interval) {
 
     return function (notificationBar) {
 
