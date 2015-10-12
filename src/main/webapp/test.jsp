@@ -58,7 +58,7 @@
                             <h3 id="p1Text">{{botSelector.bots[0] ? botSelector.bots[0].name : "Select Bot 1"}} </h3>
                             <ul class="grid_box">
                                 <%for (int i = 0; i < 10; i++) {%>
-                                <div class="row"> <!--start new grid row-->
+                                <div class="row" style="margin-right:0px; margin-left:0px"> <!--start new grid row-->
                                 <%for (int j = 0; j < 10; j++) {%>
                                 <section class="col-xs-1 square-element" style="width:10%;padding-right:0px; padding-left:0px">
                                     <!--<div id="a<%=i * 10 + j%>" style="width:100%;padding-top:3em">&nbsp;</div>-->
@@ -76,7 +76,7 @@
                             <h3 id="p2Text">{{botSelector.bots[1] ? botSelector.bots[1].name : "Select Bot 2"}}</h3>
                             <ul class="grid_box">
                                 <%for (int i = 0; i < 10; i++) {%>
-                                <div class="row"> <!--start new grid row-->
+                                <div class="row" style="margin-right:0px; margin-left:0px"> <!--start new grid row-->
                                 <%for (int j = 0; j < 10; j++) {%>
                                 <section class="col-xs-1 square-element" style="width:10%;padding-right:0px; padding-left:0px">
                                     <!--<div id="a<%=i * 10 + j%>" style="width:100%;padding-top:3em">&nbsp;</div>-->
