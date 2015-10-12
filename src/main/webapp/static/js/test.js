@@ -1,3 +1,21 @@
+function adjustHeight() {
+    var myWidth = jQuery('.square-element').width();
+    var myString = myWidth + 'px';
+    jQuery('.square-element').css('height', myString);
+    return myHeight;
+}
+
+// calls adjustHeight on window load
+jQuery(window).load(function() {
+    adjustHeight();
+});
+
+// calls adjustHeight anytime the browser window is resized
+jQuery(window).resize(function() {
+    adjustHeight();
+});
+
+
 angular
     .module("app",["ui.bootstrap"])
     .controller("appCtrl", function (User, Bots, Game, NotificationBar, BotSelector, $scope, $rootScope) {

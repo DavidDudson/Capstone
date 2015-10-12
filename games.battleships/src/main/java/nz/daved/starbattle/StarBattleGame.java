@@ -1,5 +1,6 @@
 package nz.daved.starbattle;
 
+import com.google.common.annotations.VisibleForTesting;
 import nz.ac.massey.cs.ig.core.game.Bot;
 import nz.ac.massey.cs.ig.core.game.GameState;
 import nz.ac.massey.cs.ig.core.game.IllegalMoveException;
@@ -39,6 +40,11 @@ public class StarBattleGame extends SimpleGame<BotGameBoard, Coordinate> {
         this.shipGameBoard = new ShipGameBoard();
         this.bot1map = shipGameBoard.generateBotMap(BOT1,history);
         this.bot2map = shipGameBoard.generateBotMap(BOT2,history);
+    }
+
+    @VisibleForTesting
+    public void testDoMove(Coordinate coord, Bot<BotGameBoard,Coordinate> bot){
+        doMove(coord,bot);
     }
 
     /**

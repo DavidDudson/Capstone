@@ -85,6 +85,7 @@ Blockly.Blocks['get_neighbour_valid_coordinates'] = {
     this.appendValueInput("Coordinate")
         .setCheck("Coordinate")
         .appendField("the valid neighbors of");
+    this.setInputsInline(true);
     this.setOutput(true, "Array");
     this.setColour(260);
     this.setTooltip('the neighbouring coordinates of the given position that can be hit');
@@ -249,6 +250,7 @@ Blockly.Blocks['states_of_neighbours'] = {
         this.appendValueInput("NAME")
             .setCheck("Coordinate")
             .appendField("the state of the neighbouring positions of");
+        this.setInputsInline(true);
         this.setOutput(true, "Array");
         this.setColour(230);
         this.setTooltip('');

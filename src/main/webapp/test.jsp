@@ -23,7 +23,6 @@
     <script src="static/js/test.js"></script>
     <script src="static/js/header.js"></script>
     <script src="static/js/bots.js"></script>
-    <script src="static/js/ship.js"></script>
     <script src="static/js/user.js"></script>
     <script src="static/js/sidebar.js"></script>
     <script src="static/js/bot_selector.js"></script>
@@ -38,111 +37,123 @@
 <page-header></page-header>
 <!--End Navigation bar-->
 
- 
-        <!--Main container-->
-        <div class="container-fluid">
 
-            <div class="row">
+<!--Main container-->
+<div class="container-fluid">
 
-                <section class="col-lg-2 col-md-2 col-sm-2">
-                    <sidebar user_bots built_in_bots></sidebar>
-                </section>
+    <div class="row">
 
-                <section class="col-lg-7 col-md-10 col-md-pull-0 col-sm-10 col-sm-pull-0">
-                    <div id="main_content">
+        <section class="col-lg-2 col-md-3 col-sm-3">
+            <sidebar user_bots built_in_bots></sidebar>
+        </section>
 
-                        <div class="row"> <!---Row for the two grids starts-->
+        <section class="col-lg-6 col-md-9 col-md-pull-0 col-sm-9 col-sm-pull-0">
+            <div id="main_content"><!---main content ends-->
 
-                        <section class="col-xs-6"><!---Player1 grid starts-->
+                <div class="row"> <!---Row for the two grids starts-->
+
+                    <section class="col-xs-6"><!---Player1 grid starts-->
                         <div id="player_one" class="">
                             <h3 id="p1Text">{{botSelector.bots[0] ? botSelector.bots[0].name : "Select Bot 1"}} </h3>
                             <ul class="grid_box">
                                 <%for (int i = 0; i < 10; i++) {%>
-                                <%for (int j = 0; j < 10; j++) {%>
-                                <li id="a<%=i * 10 + j%>"></li>
-                                <%}%>
-                                </br>
+                                <div class="row" style="margin-right:0px; margin-left:0px"> <!--start new grid row-->
+                                    <%for (int j = 0; j < 10; j++) {%>
+                                    <section class="col-xs-1 square-element" style="width:10%;padding-right:0px; padding-left:0px">
+                                        <!--<div id="a<%=i * 10 + j%>" style="width:100%;padding-top:3em">&nbsp;</div>-->
+                                        <li class="square-element" id="a<%=i * 10 + j%>" style="width:100%;padding-top:0% ;list-style-type: none;"></li>
+                                    </section>
+                                    <%}%>
+                                </div><!--end new grid row-->
                                 <%}%>
                             </ul>
                         </div>
                     </section><!---Player1 grid ends-->
 
-                        <section class="col-xs-6"><!---Player2 grid starts-->
+                    <section class="col-xs-6"><!---Player2 grid starts-->
                         <div id="player_two" class="">
                             <h3 id="p2Text">{{botSelector.bots[1] ? botSelector.bots[1].name : "Select Bot 2"}}</h3>
                             <ul class="grid_box">
                                 <%for (int i = 0; i < 10; i++) {%>
-                                <%for (int j = 0; j < 10; j++) {%>
-                                <li id="b<%=i * 10 + j%>"></li>
-                                <%}%>
-                                </br>
+                                <div class="row" style="margin-right:0px; margin-left:0px"> <!--start new grid row-->
+                                    <%for (int j = 0; j < 10; j++) {%>
+                                    <section class="col-xs-1 square-element" style="width:10%;padding-right:0px; padding-left:0px">
+                                        <!--<div id="a<%=i * 10 + j%>" style="width:100%;padding-top:3em">&nbsp;</div>-->
+                                        <li class="square-element" id="b<%=i * 10 + j%>" style="width:100%;padding-top:0% ;list-style-type: none;"></li>
+                                    </section>
+                                    <%}%>
+                                </div><!--end new grid row-->
                                 <%}%>
                             </ul>
                         </div>
                     </section><!---Player2 grid emds-->
                 </div> <!---Row for the two grids ends-->
-                
-                        <br/>
-                        <br/>
-                        <div class="col-xs-12">
-                            <div>
-                                <progressbar id="notificationBar" class="progress-striped"
-                                             ng-class="notificationBar.active"
-                                             ng-value="notificationBar.progress"
-                                             type="{{notificationBar.type}}">
-                                    <b>{{notificationBar.text}}</b>
-                                </progressbar>
+
+                <div class="row"><!---Row for status bar starts-->
+                    <div class="col-xs-12">
+                        <div>
+                            <progressbar id="notificationBar" class="progress-striped"
+                                         ng-class="notificationBar.active"
+                                         ng-value="notificationBar.progress"
+                                         type="{{notificationBar.type}}">
+                                <b>{{notificationBar.text}}</b>
+                            </progressbar>
+                        </div>
+                    </div>
+                </div><!---Row for status bar starts-->
+            </div><!---main content ends-->
+
+        </section>
+        <section class="col-lg-2 col-lg-offset-1 col-md-5 col-md-offset-5 col-sm-5 col-sm-offset-4">
+
+            <div id="sidebar_right" class="sidebar right">
+
+                <div id="game_controls" class="sidebar_box">
+                    <div class="right-inner">
+
+                        <div class="sidebar_head">
+                            Game Controls
+                        </div>
+
+                        <div class="sidebar_content">
+                            <div id="controls">
+                                <div class="btn-group">
+                                    <button type="button" ng-click="game.restart()" class="btn btn-primary"
+                                            ng-disabled="!game.moves">
+                                        <i class="fa fa-fast-backward"></i></button>
+                                    <button type="button" ng-click="game.step_backward()"
+                                            ng-disabled="!game.moves"
+                                            class="btn btn-primary">
+                                        <i class="fa fa-step-backward"></i></button>
+                                    <button type="button" ng-click="game.play_pause(botSelector,false)"
+                                            ng-disabled="botSelector.bots.length !== 2"
+                                            class="btn btn-primary">
+                                        <i class="fa"
+                                           ng-class="game.inProgress && !game.paused ?  'fa-pause' : 'fa-play'"></i>
+                                    </button>
+                                    <button type="button" ng-click="game.step_forward()"
+                                            ng-disabled="!game.moves"
+                                            class="btn btn-primary">
+                                        <i class="fa fa-step-forward"></i></button>
+                                    <button type="button" ng-click="game.end()" ng-disabled="!game.moves"
+                                            class="btn btn-primary">
+                                        <i class="fa fa-fast-forward"></i></button>
+                                </div>
+                            </div>
+                            <h4>{{botSelector.bots[0] ? botSelector.bots[0].name : "Select Bot 1"}}</h4>
+                            <div ng-repeat="ship in game.player1ShipList">
+                                <img ng-repeat="coord in ship track by $index" ng-src="{{!coord[2] ? 'static/images/layer2-ship2.png' : coord[2]}}"/>
+                            </div>
+                            <h4>{{botSelector.bots[1] ? botSelector.bots[1].name : "Select Bot 2"}}</h4>
+                            <div ng-repeat="ship in game.player2ShipList">
+                                <img ng-repeat="coord in ship track by $index" ng-src="{{!coord[2] ? 'static/images/layer1-ship1.png' : coord[2]}}"/>
                             </div>
                         </div>
                     </div>
-                    
-                </section>
-                <section class="col-lg-3 col-lg-offset-0 col-md-5 col-md-offset-5 col-sm-5 col-sm-offset-4">
-
-                    <div id="sidebar_right" class="sidebar right">
-
-                        <div id="game_controls" class="sidebar_box">
-                            <div class="right-inner">
-
-                                <div class="sidebar_head">
-                                    Game Controls
-                                </div>
-
-                                <div class="sidebar_content">
-                                    <div id="controls">
-                                        <div class="btn-group">
-                                            <button type="button" ng-click="game.restart()" class="btn btn-primary"
-                                                    ng-disabled="!game.moves">
-                                                <i class="fa fa-fast-backward"></i></button>
-                                            <button type="button" ng-click="game.step_backward()"
-                                                    ng-disabled="!game.moves"
-                                                    class="btn btn-primary">
-                                                <i class="fa fa-step-backward"></i></button>
-                                            <button type="button" ng-click="game.play_pause(botSelector,false)"
-                                                    ng-disabled="botSelector.bots.length !== 2"
-                                                    class="btn btn-primary">
-                                                <i class="fa"
-                                                   ng-class="game.inProgress && !game.paused ?  'fa-pause' : 'fa-play'"></i>
-                                            </button>
-                                            <button type="button" ng-click="game.step_forward()"
-                                                    ng-disabled="!game.moves"
-                                                    class="btn btn-primary">
-                                                <i class="fa fa-step-forward"></i></button>
-                                            <button type="button" ng-click="game.end()" ng-disabled="!game.moves"
-                                                    class="btn btn-primary">
-                                                <i class="fa fa-fast-forward"></i></button>
-                                        </div>
-                                    </div>
-                                        <div ng-repeat="ship in player1ShipList">
-                                            a
-                                            <img ng-repeat="coord in ship.coordinates" src="static/images/layer1-ship1.png"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                </div>
             </div>
-        </div>
+        </section>
+    </div>
+</div>
 </body>
 </html>

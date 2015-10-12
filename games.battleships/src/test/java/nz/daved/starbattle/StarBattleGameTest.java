@@ -3,7 +3,9 @@ package nz.daved.starbattle;
 import nz.ac.massey.cs.ig.core.game.IllegalMoveException;
 import nz.daved.starbattle.bots.FirstSquareBot;
 import nz.daved.starbattle.bots.LastSquareBot;
+import nz.daved.starbattle.game.BotGameBoard;
 import nz.daved.starbattle.game.Coordinate;
+import nz.daved.starbattle.game.ShipGameBoard;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -20,7 +22,7 @@ public class StarBattleGameTest {
     @Test(expected = IllegalMoveException.class)
     public void testInvalidMoveException()throws Exception {
         StarBattleGame sbg = new StarBattleGame("ghj",new FirstSquareBot("21312"), new LastSquareBot("2112"));
-        sbg.checkValidityOfMove(new Coordinate(20130,213),sbg.getCurrentPlayer());
+        sbg.checkValidityOfMove(new Coordinate(20130, 213), sbg.getCurrentPlayer());
     }
 
     @Test
