@@ -185,10 +185,20 @@ function GameService($http, $interval, Ship) {
                 if (move) {
                     var player = move.wasPlayer1 ? "a" : "b";
                     var coordinate = player + (move.coord.x * 10 + move.coord.y);
-                    move.sunk.forEach(function (move) {
-                        var sunkCoordinate = player + (move.x * 10 + move.y);
-                        document.getElementById(sunkCoordinate).innerHTML = "<img src='static/images/hit.png'/>"
+                    move.sunk.forEach(function (coord) {
+                        var sunkCoordinate = player + (coord.x * 10 + coord.y);
+                        if (move.wasPlayer1) {
+                            game.updateShip([coord.x, coord.y], game.player1ShipList, 'static/images/hit.png')
+                        } else {
+                            game.updateShip([coord.x, coord.y], game.player2ShipList, 'static/images/hit.png')
+                        }
+                        document.getElementById(sunkCoordinate).innerHTML = "<img src='static/images/hit.png' height='100%' width='100%'; top:0; left:0/>"
                     });
+                    if (move.wasPlayer1) {
+                        game.updateShip([move.coord.x, move.coord.y], game.player1ShipList, undefined)
+                    } else {
+                        game.updateShip([move.coord.x, move.coord.y], game.player2ShipList, undefined)
+                    }
                     document.getElementById(coordinate).innerHTML = "";
                     game.inProgress = true;
                 }

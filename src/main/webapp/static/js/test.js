@@ -2,7 +2,6 @@ function adjustHeight() {
     var myWidth = jQuery('.square-element').width();
     var myString = myWidth + 'px';
     jQuery('.square-element').css('height', myString);
-    return myHeight;
 }
 
 // calls adjustHeight on window load
