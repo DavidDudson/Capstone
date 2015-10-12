@@ -200,8 +200,11 @@ public class BotGameBoard extends GameBoard {
      * @return coordinate of last move played
      */
     public Coordinate getLastMove() {
-        return getHistory().getLast();
-
+        if(getHistory().isEmpty()){
+           return getFirstValidCoordinate();
+        } else{
+            return getHistory().getLast();
+        }
     }
 
     /**
