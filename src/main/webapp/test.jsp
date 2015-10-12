@@ -58,10 +58,14 @@
                             <h3 id="p1Text">{{botSelector.bots[0] ? botSelector.bots[0].name : "Select Bot 1"}} </h3>
                             <ul class="grid_box">
                                 <%for (int i = 0; i < 10; i++) {%>
+                                <div class="row"> <!--start new grid row-->
                                 <%for (int j = 0; j < 10; j++) {%>
-                                <li id="a<%=i * 10 + j%>"></li>
+                                <section class="col-xs-1 square-element" style="width:10%;padding-right:0px; padding-left:0px">
+                                    <!--<div id="a<%=i * 10 + j%>" style="width:100%;padding-top:3em">&nbsp;</div>-->
+                                <li class="square-element" id="a<%=i * 10 + j%>" style="width:100%;padding-top:0% ;list-style-type: none;"></li>
+                            </section>
                                 <%}%>
-                                </br>
+                                </div><!--end new grid row-->
                                 <%}%>
                             </ul>
                         </div>
@@ -72,10 +76,14 @@
                             <h3 id="p2Text">{{botSelector.bots[1] ? botSelector.bots[1].name : "Select Bot 2"}}</h3>
                             <ul class="grid_box">
                                 <%for (int i = 0; i < 10; i++) {%>
+                                <div class="row"> <!--start new grid row-->
                                 <%for (int j = 0; j < 10; j++) {%>
-                                <li id="b<%=i * 10 + j%>"></li>
+                                <section class="col-xs-1 square-element" style="width:10%;padding-right:0px; padding-left:0px">
+                                    <!--<div id="a<%=i * 10 + j%>" style="width:100%;padding-top:3em">&nbsp;</div>-->
+                                <li class="square-element" id="b<%=i * 10 + j%>" style="width:100%;padding-top:0% ;list-style-type: none;"></li>
+                            </section>
                                 <%}%>
-                                </br>
+                                </div><!--end new grid row-->
                                 <%}%>
                             </ul>
                         </div>

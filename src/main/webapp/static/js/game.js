@@ -1,6 +1,23 @@
 angular.module("app")
     .factory("Game", GameService);
 
+function adjustHeight() {
+    var myWidth = jQuery('.square-element').width();
+    var myString = myWidth + 'px';
+    jQuery('.square-element').css('height', myString);
+    return myHeight;
+}
+
+// calls adjustHeight on window load
+jQuery(window).load(function() {
+    adjustHeight();
+});
+
+// calls adjustHeight anytime the browser window is resized
+jQuery(window).resize(function() {
+    adjustHeight();
+});
+
 function GameService($http, $interval, Ship) {
 
     return function (notificationBar) {
@@ -119,13 +136,13 @@ function GameService($http, $interval, Ship) {
                     var player = move.wasPlayer1 ? "a" : "b";
                     var coordinate = player + (move.coord.x * 10 + move.coord.y);
                     if (move.wasShip) {
-                        document.getElementById(coordinate).innerHTML = "<img src='static/images/hit.png' height='35em' width='35em'/>";
+                        document.getElementById(coordinate).innerHTML = "<img src='static/images/hit.png' height='100%' width='100%'; top:0; left:0/>";
                     } else {
-                        document.getElementById(coordinate).innerHTML = "<img src='static/images/miss.png' height='35em' width='35em'/>";
+                        document.getElementById(coordinate).innerHTML = "<img src='static/images/miss.png' height='100%' width='100%' ;top:0; left:0/>";
                     }
                     move.sunk.forEach(function (move) {
                         coordinate = player + (move.x * 10 + move.y);
-                        document.getElementById(coordinate).innerHTML = "<img src='static/images/sunk.png' height='35em' width='35em'/>"
+                        document.getElementById(coordinate).innerHTML = "<img src='static/images/sunk.png' height='100%' width='100%';top:0; left:0/>"
                     });
                 } else {
                  game.stop()
