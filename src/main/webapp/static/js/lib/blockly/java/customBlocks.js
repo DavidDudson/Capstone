@@ -201,6 +201,16 @@ Blockly.Java['coordinate_state'] = function(block) {
     return [code, Blockly.Java.ORDER_ATOMIC];
 };
 
+Blockly.Java['states_of_neighbours'] = function(block) {
+    var value_name = '';
+    try {
+        value_name = Blockly.Java.valueToCode(block, 'NAME', Blockly.Java.ORDER_ATOMIC);
+    }
+    catch (err){}
+    var code = 'botGameBoard.getStatesOfNeighbours(' + value_name + ')';
+    return [code, Blockly.Java.ORDER_COLLECTION];
+};
+
 Blockly.Java['get_X_coord'] = function (block) {
     var value_coordinate = '';
     try {

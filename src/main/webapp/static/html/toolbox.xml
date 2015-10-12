@@ -87,7 +87,7 @@
         <block type="coordinate_state"></block>
         <block type="get_X_coord"></block>
         <block type="get_Y_coord"></block>
-        <!--<block type="check_neighbours_for_best_attack"></block>-->
-        <!--<block type="states_of_neighbours"></block>-->
+        <block type="check_neighbours_for_best_attack"></block>
+        <block type="states_of_neighbours"></block>
     </category>
 </xml>

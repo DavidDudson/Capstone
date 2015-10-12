@@ -1,6 +1,6 @@
 var block_tests = [
     {block:'check_state_of_coordinate',
-        generated:['botGameBoard.checkStateOfCoordinate(, 0)', Blockly.Java.ORDER_ATOMIC],
+        generated:['botGameBoard.checkStateOfCoordinate((Coordinate), 0)', Blockly.Java.ORDER_ATOMIC],
         output:'Boolean',
         input:['Coordinate']},
     {block:'get_all_cells_of_type',
@@ -11,7 +11,7 @@ var block_tests = [
         output:'Coordinate',
         input:['Number']},
     {block:'can_attack_coordinate',
-        generated:['botGameBoard.canAttackCoordinate()',Blockly.Java.ORDER_ATOMIC],
+        generated:['botGameBoard.canAttackCoordinate((Coordinate))',Blockly.Java.ORDER_ATOMIC],
         output:'Boolean',
         input:['Coordinate']},
     {block:'get_first_valid_coordinate',
@@ -23,7 +23,7 @@ var block_tests = [
         output:'Coordinate',
         input:[]},
     {block:'get_neighbour_valid_coordinates',
-        generated:['botGameBoard.getNeighbourValidCoordinates()',Blockly.Java.ORDER_COLLECTION],
+        generated:['botGameBoard.getNeighbourValidCoordinates((Coordinate))',Blockly.Java.ORDER_COLLECTION],
         output:'Array',
         input:['Coordinate']},
     //{block:'get_gamestate', generated:['botGameBoard.getGameBoard()',Blockly.Java.ORDER_ATOMIC]},
@@ -52,28 +52,32 @@ var block_tests = [
         output:'Coordinate',
         input:['Number','Number']},
     {block:'return_coordinate',
-        generated:'return ;\n',
+        generated:'return (Coordinate);\n',
         input:['Coordinate']},
     {block:'function_next_move',
-        generated:'@Override\npublic Coordinate nextMove(BotGameBoard botGameBoard) {\n\nreturn ;\n}'},
+        generated:'@Override\npublic Coordinate nextMove(BotGameBoard botGameBoard) {\n\nreturn (Coordinate);\n}'},
     {block:'last_move_sink_bot',
         generated:['botGameBoard.lastMoveSunkBot()',Blockly.Java.ORDER_ATOMIC],
         output:'Boolean',
         input:[]},
     {block:'check_neighbours_for_best_attack',
-        generated:['botGameBoard.findAndHitNeighbour()',Blockly.Java.ORDER_ATOMIC],
+        generated:['botGameBoard.findAndHitNeighbour((Coordinate))',Blockly.Java.ORDER_ATOMIC],
         output:'Coordinate',
         input:['Coordinate']},
     {block:'coordinate_state',
         generated:['0',Blockly.Java.ORDER_ATOMIC],
         output:'Number',
         input:[]},
+    {block:'states_of_neighbours',
+        generated:['botGameBoard.getStatesOfNeighbours()',Blockly.Java.ORDER_COLLECTION],
+        output:'Array',
+        input:['Coordinate']},
     {block:'get_X_coord',
-        generated:['botGameBoard.getXCoord()',Blockly.Java.ORDER_ATOMIC],
+        generated:['botGameBoard.getXCoord((Coordinate))',Blockly.Java.ORDER_ATOMIC],
         output:'Number',
         input:['Coordinate']},
     {block:'get_Y_coord',
-        generated:['botGameBoard.getYCoord()',Blockly.Java.ORDER_ATOMIC],
+        generated:['botGameBoard.getYCoord((Coordinate))',Blockly.Java.ORDER_ATOMIC],
         output:'Number',
         input:['Coordinate']},
     {block:'list_is_empty',
@@ -91,7 +95,7 @@ var default_blocks = '<xml id="mitch-startBlocks" style="display:none">' +
     '</block>' +
     '</xml>';
 
-var default_output = 'import java.util.LinkedList;\nimport nz.daved.starbattle.StarBattleBot;\nimport nz.daved.starbattle.Var;\nimport nz.daved.starbattle.game.BotGameBoard;\nimport nz.daved.starbattle.game.Coordinate;\n\n// <xml xmlns=\"http://www.w3.org/1999/xhtml\"><block type="function_next_move" deletable=\"false\" editable=\"false\" x=\"63\" y=\"63\"><value name="RETURN"><block type="get_first_valid_coordinate"></block></value></block></xml>\n\npublic class CustomStarBattleBot extends StarBattleBot {\n\npublic CustomStarBattleBot(String id) { super(id); }\n\n@Override\npublic Coordinate nextMove(BotGameBoard botGameBoard) {\n\nreturn botGameBoard.getFirstValidCoordinate();\n}\n}\n\n';
+var default_output = 'import java.util.LinkedList;\nimport nz.daved.starbattle.StarBattleBot;\nimport nz.daved.starbattle.Var;\nimport nz.daved.starbattle.game.BotGameBoard;\nimport nz.daved.starbattle.game.Coordinate;\n\n// <xml xmlns=\"http://www.w3.org/1999/xhtml\"><block type="function_next_move" deletable=\"false\" editable=\"false\" x=\"63\" y=\"63\"><value name="RETURN"><block type="get_first_valid_coordinate"></block></value></block></xml>\n\npublic class CustomStarBattleBot extends StarBattleBot {\n\npublic CustomStarBattleBot(String id) { super(id); }\n\n@Override\npublic Coordinate nextMove(BotGameBoard botGameBoard) {\n\nreturn (Coordinate)botGameBoard.getFirstValidCoordinate();\n}\n}\n\n';
 
 var default_test = {blocks: default_blocks, expected: default_output};
 
@@ -119,6 +123,7 @@ var connection_blocks = '<xml xmlns="http://www.w3.org/1999/xhtml">' +
     '<block type="last_move_sink_bot"></block>' +
     '<block type="check_neighbours_for_best_attack"></block>' +
     '<block type="coordinate_state"></block>' +
+    '<block type="states_of_neighbours"></block>' +
     '<block type="get_X_coord"></block>' +
     '<block type="get_Y_coord"></block>' +
     '<block type="list_is_empty"></block>' +
