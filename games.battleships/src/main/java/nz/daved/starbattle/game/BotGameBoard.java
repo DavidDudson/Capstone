@@ -241,7 +241,7 @@ public class BotGameBoard extends GameBoard {
             }
 
         }
-        return getLastValidCoordinate();
+        return getFirstValidCoordinate();
 
     }
 
@@ -273,7 +273,7 @@ public class BotGameBoard extends GameBoard {
      */
     public Boolean lastMoveSunkBot() {
         Coordinate lastMove = getLastMove();
-        return grid[lastMove.getX()][lastMove.getY()] == 3;
+        return getStateOfCoordinate(lastMove) == 3;
     }
 
 
