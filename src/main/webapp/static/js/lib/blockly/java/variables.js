@@ -67,7 +67,11 @@ Blockly.Java['variables_set'] = function(block) {
       block.getFieldValue('VAR')) === 'Var') {
     code += '.setObject(' + argument0 + ');\n';
   } else {
-    code += ' = ' + argument0 + ';\n';
+    var cast = '';
+    if (destType === 'Coordinate') {
+      cast = '(Coordinate)';
+    }
+    code += ' = ' + cast + argument0 + ';\n';
   }
   return code;
 };
