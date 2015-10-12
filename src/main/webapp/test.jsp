@@ -94,6 +94,7 @@
                         <div>
                             <progressbar id="notificationBar" class="progress-striped"
                                          ng-class="notificationBar.active"
+                                         ng-click="showErrorModal()"
                                          ng-value="notificationBar.progress"
                                          type="{{notificationBar.type}}">
                                 <b>{{notificationBar.text}}</b>

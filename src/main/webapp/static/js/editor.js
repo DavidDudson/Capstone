@@ -174,7 +174,7 @@ angular
                         return $scope.botSelector.bots[0]
                     },
                     error: function () {
-                        return $scope.botSelector.bots[0].src + "\n\n" + $scope.notificationBar.error;
+                        return $scope.notificationBar.error;
                     }
 
                 }

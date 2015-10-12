@@ -82,13 +82,13 @@ function GameService($http, $interval) {
                         game.getMoves(headers("Location"), testing);
                     })
                     .error(function () {
-                        notificationBar.showError("Couldnt create bot to bot game");
+                        notificationBar.showError("Server Failure: Couldn't create bot to bot game");
                     });
             },
             getMoves: function (url, testing) {
                 $http.get(url)
                     .success(function (data) {
-                        notificationBar.showSuccess("Test game creation success");
+                        notificationBar.showSuccess("Game creation success");
                         if (testing) {
                             game.moves = data.moves.filter(function (move) {
                                 if (move.wasPlayer1) return move;
@@ -99,8 +99,9 @@ function GameService($http, $interval) {
                         game.generateShips();
                         game.run();
                     })
-                    .error(function () {
-                        notificationBar.showError("Game Moves could not be retrieved")
+                    .error(function (data) {
+                        notificationBar.error = data;
+                        notificationBar.showWarning("Game could not be run retrieved, Click to find out why")
                     })
             },
             run: function () {

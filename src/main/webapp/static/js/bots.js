@@ -31,7 +31,7 @@ function BotService($http, Build) {
                         return bots._removeFromList(bot);
                     })
                     .error(function () {
-                        notificationBar.showError(bot.name + " deletion Failure: Server Deletion Failed")
+                        notificationBar.showError("Server Failure: " + bot.name + " Deletion Failed")
                     });
             },
             _removeFromList: function (bot) {
@@ -40,7 +40,7 @@ function BotService($http, Build) {
                     bots.list.splice(index, 1);
                     return true;
                 } else {
-                    notificationBar.showError(bot.name + " deletion Failure: Bot wasn't in list");
+                    notificationBar.showError("Server Failure: " + bot.name + " deletion Failure: Bot wasn't in list");
                     return false;
                 }
             },
@@ -54,7 +54,7 @@ function BotService($http, Build) {
                         });
                     })
                     .error(function () {
-                        notificationBar.showError("Update user bots Failure");
+                        notificationBar.showError("Server Failure: Update user bots Failure");
                     });
             },
             _addSource: function (bot) {
@@ -64,7 +64,7 @@ function BotService($http, Build) {
                         bot.xml = data.match(/<xml.*>/);
                     })
                     .error(function () {
-                        notificationBar.showError("Source could not be loaded for: " + bot.id);
+                        notificationBar.showError("Server Failure: Source could not be loaded for: " + bot.id);
                     });
             },
             updateSource: function (bot, src) {
