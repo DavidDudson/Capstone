@@ -7,12 +7,14 @@ function GameService($http, $interval, Ship) {
 
         //The modal for selecting create new bot options,
         var game = {
-            moves: null,
-            state: null,
+            moves: undefined,
+            state: undefined,
             position: 0,
             inProgress: false,
             paused: false,
             speed: 100,
+            player1: undefined,
+            player2: undefined,
             player1ShipList: [],
             player2ShipList: [],
             player1ShipMap: {},
@@ -38,7 +40,9 @@ function GameService($http, $interval, Ship) {
                 })
             },
             create: function (bot1, bot2, testing) {
-                if (notificationBar.active) return;
+                if (notificationBar.active && notificationBar.type == '') return;
+                game.player1 = bot1;
+                game.player2 = bot2;
                 notificationBar.showProgress("Creating test game");
                 var data = testing ? "" + bot1.id + "\n" + bot1.id + "\n" : "" + bot1.id + "\n" + bot2.id + "\n";
                 $http.post('creategame_b2b', data)
@@ -68,7 +72,7 @@ function GameService($http, $interval, Ship) {
                     })
             },
             run: function () {
-                game.reset();
+                if(game.state) game.reset();
                 game.start();
             },
             start: function () {
@@ -76,8 +80,14 @@ function GameService($http, $interval, Ship) {
                 game.state = $interval(function () {
                     game.move_forward();
                 }, game.speed, game.moves.length);
+                game.move_forward();
             },
-
+            stop: function(){
+                $interval.cancel(game.state);
+                game.inProgress = false;
+                var winninPlayerName = game.moves[game.position - 1].wasPlayer1 ? game.player1.name : game.player2.name;
+                notificationBar.showSuccessProgress("Game won by: " + winninPlayerName);
+            },
             restart: function () {
                 game.reset();
                 if(!game.paused){
@@ -85,9 +95,7 @@ function GameService($http, $interval, Ship) {
                 }
             },
             reset: function () {
-                $interval.cancel(game.state);
                 game.state = null;
-                game.inProgress = false;
                 game.paused = false;
 
                 for (var i = 0; i < 100; i++) {
@@ -120,8 +128,7 @@ function GameService($http, $interval, Ship) {
                         document.getElementById(coordinate).innerHTML = "<img src='static/images/sunk.png' height='35em' width='35em'/>"
                     });
                 } else {
-                    $interval.cancel(game.state);
-                    game.inProgress = false;
+                 game.stop()
                 }
                 game.position++;
             },

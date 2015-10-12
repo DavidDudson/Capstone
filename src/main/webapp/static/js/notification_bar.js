@@ -50,6 +50,13 @@ function NotificationBarService() {
                 notificationBar.type = '';
                 notificationBar.text = message;
                 notificationBar.active = 'active';
+            },
+            showSuccessProgress: function(message){
+                notificationBar.reset();
+                notificationBar.position = 1;
+                notificationBar.type = 'success';
+                notificationBar.text = message;
+                notificationBar.active = 'active';
             }
         };
         return notificationBar;

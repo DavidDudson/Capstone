@@ -96,7 +96,6 @@ angular
         $scope.save = function () {
             $scope.syncSource();
             $rootScope.user.bots.save($scope.botSelector.bots[0], $scope.notificationBar);
-
         };
 
         //Returns a list of all bots
@@ -118,9 +117,8 @@ angular
         //Select a bot
         $rootScope.select = function (bot) {
             $scope.syncSource();
-
-            $scope.botSelector.select(bot);
             $scope.reset();
+            $scope.botSelector.select(bot);
             $scope.loadBlocklyDiv(document.getElementById('toolbox'));
             $scope.switchWorkspace();
         };
@@ -187,8 +185,8 @@ angular
             // Wait for the modal to be closed then return the bot that's selected
             $scope.modal.result.then(function (bot) {
                 $scope.user.bots.add(bot);
-                $scope.user.bots.save(bot);
                 $rootScope.select(bot);
+                $scope.user.bots.save(bot);
             })
         };
 
