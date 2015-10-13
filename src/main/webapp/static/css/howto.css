@@ -1,0 +1,56 @@
+.main_container {
+	max-width: 70em;
+	position: relative; 
+	margin: 0 auto; 
+	margin-top: 30px;
+	padding: 20px;
+	background-color: #F0F8FF;
+	box-shadow:10px 10px 5px black;
+	color: #030e12;
+}
+
+div.main_container {
+	font-family: arial;
+	color: #333;
+	width: 80%;
+}
+
+h1 {
+	font-size: 3em;
+	margin-top: 0px;
+}
+
+h3 {
+	font-size: 2em;
+}
+
+p {
+	font-size: 1.1em;
+}
+
+a {
+	color: #2A6496;
+}
+
+ul {
+	list-style-type: none;
+	list-style: none; 
+}
+
+@media only screen and (min-width: 768px) and (max-width: 999px) {
+	.main_container { 
+		width: 768px; 
+	}    
+}
+
+@media only screen and (max-width: 767px) {
+    .main_container{
+    	width: 300px;
+    }    
+}
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+    .main_container { 
+    	width: 420px; 
+    }
+}
