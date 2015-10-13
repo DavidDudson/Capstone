@@ -157,7 +157,13 @@ a.ng-binding {
     display: inline;
 }
 
+.container-fluid {
+    width: 80%;
+}
 
+.navbar-inverse .navbar-nav > li > a {
+    font-size: 1.2em;
+}
 
 #nav_container {
     background: #030e12;
