@@ -37,6 +37,7 @@
     <category name="Lists">
         <block type="lists_create_empty"></block>
         <block type="get_all_cells_of_type"></block>
+        <block type="get_all_coordinates"></block>
         <block type="get_all_valid_moves"></block>
         <block type="get_neighbour_valid_coordinates"></block>
         <block type="list_of_played_moves"></block>

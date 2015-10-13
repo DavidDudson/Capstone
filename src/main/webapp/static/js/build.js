@@ -64,6 +64,7 @@ function BuildService($http, $rootScope) {
                                 $rootScope.user.unsavedBots--;
                                 bot.src = bot.blocklySrc
                             } else {
+                                console.log(bot.src);
                                 notificationBar.error = data.error;
                                 build.update(bot, true, 100, false);
                             }

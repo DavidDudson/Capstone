@@ -100,6 +100,21 @@ public class BotGameBoard extends GameBoard {
     }
 
     /**
+     * get a list of all the coordinates
+     *
+     * @return list of all possible coordinates
+     */
+    public LinkedList<Coordinate> getAllCoordinates() {
+        LinkedList<Coordinate> coords = new LinkedList<>();
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                    coords.add(new Coordinate(i, j));
+            }
+        }
+        return coords;
+    }
+
+    /**
      * get a list of all the coordinate not already chosen
      *
      * @return list of all possible coordinates

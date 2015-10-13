@@ -30,14 +30,10 @@ angular
             name: "Star Battle"
         };
 
-        //The user object
-        $rootScope.user = undefined;
-
+        //Create the build it bots
         $rootScope.createBuiltInBots = function () {
             $rootScope.builtInBots = Bots("builtinbots")
         };
-
-        $rootScope.builtInBots = undefined;
 
         $scope.workspace = Blockly.inject('blocklyDiv', {
             toolbox: null,
@@ -69,6 +65,7 @@ angular
             var unregister = $scope.$watchGroup(["user.bots.loaded", "builtInBots.loaded"], function () {
                 if ($rootScope.user.loaded && $rootScope.builtInBots.loaded) {
                     if (!$rootScope.user.bots.list.length > 0) {
+                        console.log("Showing Modal");
                         $scope.createNewBot();
                         unregister();
                     }

@@ -56,6 +56,14 @@ public class BotGameBoardTest {
     }
 
     @Test
+    public void testGetAllCoordinates() throws Exception {
+        StarBattleGame sbg = new StarBattleGame("1", new FirstSquareBot("1"), new LastSquareBot("2"));
+        BotGameBoard bgb = new ShipGameBoard().generateBotMap(1, sbg.getHistory());
+
+        assertTrue(bgb.getAllCoordinates().size() == 100);
+    }
+
+    @Test
     public void testAttackCoordinate() throws Exception {
         StarBattleGame sbg = new StarBattleGame("1", new FirstSquareBot("1"), new LastSquareBot("2"));
         BotGameBoard bgb = new ShipGameBoard().generateBotMap(1, sbg.getHistory());

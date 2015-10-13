@@ -93,6 +93,17 @@ Blockly.Blocks['get_neighbour_valid_coordinates'] = {
   }
 };
 
+Blockly.Blocks['get_all_coordinates'] = {
+    init: function() {
+        this.appendDummyInput()
+            .appendField("list of all coordinates");
+        this.setOutput(true, "Array");
+        this.setColour(260);
+        this.setTooltip('get all the coordinates on the game board');
+        this.setHelpUrl('http://www.example.com/');
+    }
+};
+
 Blockly.Blocks['get_all_valid_moves'] = {
     init: function() {
         this.appendDummyInput()

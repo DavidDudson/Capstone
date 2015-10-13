@@ -68,6 +68,11 @@ Blockly.Java['get_all_valid_moves'] = function(block) {
     return [code, Blockly.Java.ORDER_COLLECTION];
 };
 
+Blockly.Java['get_all_coordinates'] = function(block) {
+    var code = 'botGameBoard.getAllCoordinates()';
+    return [code, Blockly.Java.ORDER_COLLECTION];
+};
+
 Blockly.Java['last_move_state'] = function(block) {
     var state = 1;
     try {
