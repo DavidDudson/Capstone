@@ -47,8 +47,8 @@ ul.test_grid {
     box-shadow: 0px 10px 35px 6px #000000;
     list-style-type: none;
     display: block;
-    -webkit-margin-before: 1em;
-    -webkit-margin-after: 1em;
+/*    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;*/
     -webkit-margin-start: 0px;
     -webkit-margin-end: 0px;
 }
@@ -200,8 +200,9 @@ ul.user-top li {
 }
 
 .test-grid-buttons {
-    float: left;
+    /*float: left;*/
     display: inline;
+    margin:0 15%;
 
 }
 

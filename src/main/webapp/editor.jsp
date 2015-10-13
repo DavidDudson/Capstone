@@ -112,12 +112,17 @@
             <!--Test bar-->
             <section
                     class="col-lg-3 col-lg-offset-1 col-md-5 col-md-offset-5 col-sm-5 col-sm-offset-5 col-xs-5 col-xs-offset-5">
-                <div class="row">
-                    <div class="test-grid-content">
+                
+                    <div class="test-grid-content"> <!--test-grid-content starts-->
+                        
+
+                        <div class="row" style="margin-bottom:15px">
                         <div class="sidebar_head">
                             {{!botSelector.bots[0] ? "Select a bot first" : botSelector.bots[0].name}}
                         </div>
+                        </div>
 
+                        <div class="row">
                         <ul class="test_grid">
                             <%for (int i = 0; i < 10; i++) {%>
                             <%for (int j = 0; j < 10; j++) {%>
@@ -127,8 +132,9 @@
                             <%}%>
                         </ul>
                     </div>
-                </div>
-                <div class="row">
+                    
+                
+                <div class="row" style="margin-top:15px">
                     <div class="test-grid-buttons">
                         <button id="test" class="btn btn-info btn-lg"
                                 ng-click="game.create(botSelector.bots[0], botSelector.bots[0], true)"
@@ -143,6 +149,7 @@
                         </button>
                     </div>
                 </div>
+                </div> <!--test-grid-content ends-->
             </section>
         </div>
     </div>
