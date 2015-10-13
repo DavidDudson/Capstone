@@ -1,5 +1,5 @@
 angular
-    .module("app",[])
+    .module("app", [])
 
     .controller("appCtrl", function ($http, $rootScope) {
 
@@ -8,6 +8,14 @@ angular
             name: "Star Battle"
         };
 
-        $rootScope.location = window.location.href.slice(0, - 1);
+        $rootScope.getLocation = function(){
+            if(window.location.href.indexOf("index.jsp") > -1){
+                return window.location.href.slice(0, -10)
+            } else{
+                return window.location.href.slice(0, -1);
+            }
+        };
+
+        $rootScope.location = $rootScope.getLocation();
 
     });
