@@ -79,6 +79,10 @@ gretty {
     //fastReload=false
 }
 
+product{
+    webapp project
+}
+
 war {
 
     baseName = 'starbattle'
