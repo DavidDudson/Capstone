@@ -225,3 +225,20 @@ Blockly.Java['get_all_coordinates'] = function(block) {
     var code = 'botGameBoard.getAllCoordinates()';
     return [code, Blockly.Java.ORDER_COLLECTION];
 };
+
+Blockly.Java['lists_concat_with'] = function(block) {
+    // Create a list with any number of elements of any type.
+    var code = [];
+    try {
+        code = new Array(block.itemCount_);
+        for (var n = 0; n < block.itemCount_; n++) {
+            code[n] = Blockly.Java.valueToCode(block, 'ADD' + n,
+                    Blockly.Java.ORDER_NONE) || 'None';
+        }
+        Blockly.Java.addImport('java.util.Arrays');
+    }
+    catch (err){}
+
+    code = 'botGameBoard.concatLists(Arrays.asList(' + code.join(', ') + '))';
+    return [code, Blockly.Java.ORDER_COLLECTION];
+};

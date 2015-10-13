@@ -91,6 +91,9 @@ var block_tests = [
         output:'Array'},
     {block:'get_all_coordinates',
         generated:['botGameBoard.getAllCoordinates()',Blockly.Java.ORDER_COLLECTION],
+        output:'Array'},
+    {block:'lists_concat_with',
+        generated:['botGameBoard.concatLists(Arrays.asList())',Blockly.Java.ORDER_COLLECTION],
         output:'Array'}];
 
 
@@ -138,4 +141,5 @@ var connection_blocks = '<xml xmlns="http://www.w3.org/1999/xhtml">' +
     '<block type="get_all_ship_sizes"></block>' +
     '<block type="get_remaining_ship_sizes"></block>' +
     '<block type="get_all_coordinates"></block>' +
+    '<block type="lists_concat_with"></block>' +
     '</xml>';
