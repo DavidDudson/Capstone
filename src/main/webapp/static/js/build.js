@@ -62,9 +62,9 @@ function BuildService($http, $rootScope) {
                                 build.update(bot, true, 100, true);
                                 bot.dirty = false;
                                 $rootScope.user.unsavedBots--;
-                                bot.src = bot.blocklySrc
+                                bot.src = bot.blocklySrc;
+                               
                             } else {
-                                console.log(bot.src);
                                 notificationBar.error = data.error;
                                 build.update(bot, true, 100, false);
                             }

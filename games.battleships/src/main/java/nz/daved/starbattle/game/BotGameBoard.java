@@ -1,6 +1,7 @@
 package nz.daved.starbattle.game;
 
 import com.google.common.primitives.Ints;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import nz.daved.starbattle.StarBattleGameMove;
 
 import java.util.Arrays;
@@ -393,6 +394,33 @@ public class BotGameBoard extends GameBoard {
 
 
     }
+
+    public Coordinate getXthCoord(Coordinate baseCoord, Integer step) {
+        if (baseCoord.getX() + step < 9) {
+            Coordinate stepCoord = new Coordinate(baseCoord.getX() + step, baseCoord.getY());
+            if (getStateOfCoordinate(stepCoord) == 0) {
+                return stepCoord;
+            } else {
+                LinkedList<Coordinate> allCoords = getAllCoordinates();
+                int i = stepCoord.getY() * 10 + stepCoord.getX();
+                while (true) {
+                    Coordinate curCoord = allCoords.get(i);
+                    if (getStateOfCoordinate(curCoord) == 0) {
+                        return stepCoord;
+                    }
+                    if (i > allCoords.size()) {
+                        i = i - allCoords.size();
+                        continue;
+                    }
+                    i++;
+
+                }
+            }
+        }
+        return getFirstValidCoordinate();
+    }
+
+
 
     public int getXCoord(Coordinate coordinate){
         return coordinate.getX();

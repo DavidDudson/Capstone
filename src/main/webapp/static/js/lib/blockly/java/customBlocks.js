@@ -225,3 +225,16 @@ Blockly.Java['list_is_empty'] = function(block) {
     var code = value_name + '.size() ' + dropdown_name + ' 0';
     return [code, Blockly.Java.ORDER_LOGICAL_NOT];
 };
+
+Blockly.Java['get_step_coord'] = function (block) {
+    
+    var value_coordinate = '';
+    var step_amount = 0;
+    try {
+        value_coordinate = Blockly.Java.valueToCode(block, 'Coordinate', Blockly.Java.ORDER_ATOMIC);
+        step_amount = Blockly.Java.valueToCode(block, 'STEP', Blockly.Java.ORDER_ATOMIC);
+    }
+    catch (err){}
+    var code = 'botGameBoard.getXthCoord((Coordinate)'+ value_coordinate + ',' + step_amount + ')';
+    return [code, Blockly.Java.ORDER_ATOMIC];
+};

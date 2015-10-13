@@ -81,6 +81,7 @@
         <block type="procedures_ifreturn"></block>
         <block type="return_coordinate"></block>
         <block type="define_coordinate"></block>
+        <block type="get_step_coord"></block>
         <block type="get_first_valid_coordinate"></block>
         <block type="get_last_valid_coordinate"></block>
         <block type="the_last_move"></block>

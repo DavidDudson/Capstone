@@ -19,6 +19,7 @@ function BotService($http, Build, $rootScope) {
             },
             //Deletes the bot, just removes it if it wasn't ever saved
             delete: function (bot) {
+
                 if (bot.new) {
                     return bots._removeFromList(bot);
                 } else {
@@ -28,6 +29,9 @@ function BotService($http, Build, $rootScope) {
             _removeFromServer: function (bot) {
                 $http.delete('delete/' + bot.id)
                     .success(function () {
+                        if (bot.dirty){
+                            $rootScope.user.unsavedBots--;
+                        }
                         return bots._removeFromList(bot);
                     })
                     .error(function () {
@@ -38,6 +42,9 @@ function BotService($http, Build, $rootScope) {
                 var index = bots.list.indexOf(bot);
                 if (index > -1) {
                     bots.list.splice(index, 1);
+                    if (bot.dirty){
+                        $rootScope.user.unsavedBots--;
+                    }
                     return true;
                 } else {
                     notificationBar.showError("Server Failure: " + bot.name + " deletion Failure: Bot wasn't in list");

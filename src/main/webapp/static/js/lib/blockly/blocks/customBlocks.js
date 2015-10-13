@@ -315,6 +315,21 @@ Blockly.Blocks['get_Y_coord']= {
   }
 };
 
+Blockly.Blocks['get_step_coord']= {
+  init: function() {
+    this.appendValueInput("STEP")
+        .setCheck("Number");
+    this.appendValueInput("Coordinate")
+        .appendField("positions away from ")
+        .setCheck("Coordinate");
+    this.setInputsInline(true);
+    this.setOutput(true, "Coordinate");
+    this.setColour(230);
+    this.setTooltip('can the given coordinate be hit, or has already been hit');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
 Blockly.Blocks['list_is_empty'] = {
     init: function() {
         this.appendValueInput("NAME")
