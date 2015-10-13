@@ -14,7 +14,7 @@ angular
             replace: true
         };
     })
-    .run(function ($rootScope) {
+    .run(function ($rootScope, $location) {
         window.onbeforeunload = function () {
             if ($rootScope.user.unsavedBots > 0) {
                 return "You have unsaved bots, are you sure you want to leave this page?";

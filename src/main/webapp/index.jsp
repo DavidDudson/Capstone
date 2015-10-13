@@ -36,7 +36,7 @@
                         <div class="facebookButton">
                             <form action="SocialLogin" method="POST">
                                 <input type="hidden" name="loginType" value="facebook" />
-                                <input type="hidden" name="callbackurl" value="http://localhost:8080/Capstone" />
+                                <input type="hidden" name="callbackurl" ng-value="location" />
                                 <input type="hidden" name="baseURL" value="" />
                                 <button type="submit" class="btn btn-block btn-social btn-facebook">
                                     <i class="fa fa-facebook"></i> Sign in with Facebook
@@ -53,7 +53,7 @@
                         <div class="googlePlusButton">
                             <form action="SocialLogin" method="POST">
                                 <input type="hidden" name="loginType" value="google" />
-                                <input type="hidden" name="callbackurl" value="http://localhost:8080/Capstone" />
+                                <input type="hidden" name="callbackurl"  ng-value="location" />
                                 <input type="hidden" name="baseURL" value="" />
                                 <button type="submit" class="btn btn-block btn-social btn-google-plus">
                                     <i class="fa fa-google"></i> Sign in with Google

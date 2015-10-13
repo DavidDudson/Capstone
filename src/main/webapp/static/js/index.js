@@ -8,4 +8,6 @@ angular
             name: "Star Battle"
         };
 
+        $rootScope.location = window.location.href.slice(0, - 1);
+
     });
