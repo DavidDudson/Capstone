@@ -256,6 +256,28 @@ Blockly.Blocks['coordinate_state'] = {
     }
 };
 
+Blockly.Blocks['get_all_ship_sizes'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("all spaceship sizes");
+    this.setOutput(true, "Array");
+    this.setColour(260);
+    this.setTooltip('returns a list of all spaceship sizes');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.Blocks['get_remaining_ship_sizes'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("all remaining spaceship sizes");
+    this.setOutput(true, "Array");
+    this.setColour(260);
+    this.setTooltip('returns a list of all remaining spaceship sizes');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
 Blockly.Blocks['states_of_neighbours'] = {
     init: function() {
         this.appendValueInput("NAME")

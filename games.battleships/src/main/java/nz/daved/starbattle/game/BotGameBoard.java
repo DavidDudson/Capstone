@@ -17,6 +17,7 @@ public class BotGameBoard extends GameBoard {
 
     private final int player;
     private final List<StarBattleGameMove> history;
+    private final List<Integer> remainingShipSizes;
 
     /**
      * Generate a botMap
@@ -30,6 +31,7 @@ public class BotGameBoard extends GameBoard {
         this.player = player;
         this.history = history;
         this.ships = shipGameBoard.getShips();
+        this.remainingShipSizes = shipGameBoard.getShipSizes();
     }
 
     /**
@@ -55,6 +57,7 @@ public class BotGameBoard extends GameBoard {
      */
     protected void killShip(Ship ship) {
         ship.getCoordinates().forEach(x -> setCellTo(x, 3));
+        remainingShipSizes.remove(ship.getSize());
         decrementRemainingShips();
     }
 
@@ -245,6 +248,13 @@ public class BotGameBoard extends GameBoard {
     }
 
     /**
+     * @return the remaining ship sizes
+     */
+    public List<Integer> getRemainingShipSizes() {
+        return getShipSizes();
+    }
+
+    /**
      * get the last move of bot history that was a hit
      *
      * @return coordinate of the last hit move
@@ -254,7 +264,6 @@ public class BotGameBoard extends GameBoard {
             if (getCoordinatesWithState(2).contains(historyCoord)) {
                 return historyCoord;
             }
-
         }
         return getFirstValidCoordinate();
 

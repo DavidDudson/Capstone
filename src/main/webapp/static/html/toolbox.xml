@@ -40,6 +40,8 @@
         <block type="get_all_coordinates"></block>
         <block type="get_all_valid_moves"></block>
         <block type="get_neighbour_valid_coordinates"></block>
+        <block type="get_all_ship_sizes"></block>
+        <block type="get_remaining_ship_sizes"></block>
         <block type="list_of_played_moves"></block>
         <block type="lists_length"></block>
         <block type="list_is_empty"></block>
