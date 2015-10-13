@@ -350,6 +350,9 @@ public class BotGameBoard extends GameBoard {
      */
     public Coordinate findAndHitNeighbour(Coordinate coord) {
 
+        if(getStateOfCoordinate(coord) == 0){
+            return coord;
+        }
         LinkedList<Integer> neighbourCoords = getNeighbourStates(coord);
 
         Coordinate nextMove;
@@ -396,28 +399,33 @@ public class BotGameBoard extends GameBoard {
     }
 
     public Coordinate getXthCoord(Coordinate baseCoord, Integer step) {
-        if (baseCoord.getX() + step < 9) {
-            Coordinate stepCoord = new Coordinate(baseCoord.getX() + step, baseCoord.getY());
-            if (getStateOfCoordinate(stepCoord) == 0) {
-                return stepCoord;
+        int curCoorPos =  (baseCoord.getY())*10 + baseCoord.getX();
+        int futurePosition = curCoorPos + step;
+        int futureRemain = futurePosition % 99;
+        int furureLoops = futurePosition / 99;
+        LinkedList<Coordinate> allCoords = getAllCoordinates();
+        if(furureLoops > 0) {
+            if (getStateOfCoordinate(allCoords.get(futureRemain)) == 0) {
+                return allCoords.get(futureRemain);
             } else {
-                LinkedList<Coordinate> allCoords = getAllCoordinates();
-                int i = stepCoord.getY() * 10 + stepCoord.getX();
-                while (true) {
-                    Coordinate curCoord = allCoords.get(i);
-                    if (getStateOfCoordinate(curCoord) == 0) {
-                        return stepCoord;
-                    }
-                    if (i > allCoords.size()) {
-                        i = i - allCoords.size();
-                        continue;
-                    }
-                    i++;
-
-                }
+                futurePosition = futureRemain;
             }
         }
-        return getFirstValidCoordinate();
+
+        int i = futurePosition;
+        while (true) {
+            if (i >= allCoords.size()) {
+                i = 0;
+                continue;
+            }
+            if (getStateOfCoordinate(allCoords.get(i)) == 0) {
+                return allCoords.get(i);
+
+            }
+            i++;
+
+        }
+
     }
 
 

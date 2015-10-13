@@ -27,8 +27,10 @@ public class blocklyBot extends StarBattleBot {
 
     @Override
     public Coordinate nextMove(BotGameBoard botGameBoard) {
+        if(botGameBoard.getHistory().isEmpty()){
+            return botGameBoard.getFirstValidCoordinate();
+        }
 
-
-        return botGameBoard.getFirstValidCoordinate();
+        return botGameBoard.getXthCoord(botGameBoard.getLastMove(), 9);
     }
 }
