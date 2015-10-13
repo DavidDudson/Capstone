@@ -134,8 +134,8 @@ angular
                 templateUrl: './static/html/deleteBotModal.html',
                 controller: function ($scope, $modalInstance, bot) {
                     $scope.bot = bot;
-                    $scope.ok = function (name, bot) {
-                        $modalInstance.close({name: name, src: bot.src, xml: bot.xml, new: true});
+                    $scope.ok = function () {
+                        $modalInstance.close();
                     };
                     $scope.cancel = function () {
                         $modalInstance.dismiss('cancel');
