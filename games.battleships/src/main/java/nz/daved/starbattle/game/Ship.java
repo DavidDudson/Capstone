@@ -90,7 +90,7 @@ public class Ship {
                 .collect(Collectors.toList());
     }
 
-    public int getSize() {
+    public Integer getSize() {
         return size;
     }
 }

@@ -26,7 +26,6 @@ var block_tests = [
         generated:['botGameBoard.getNeighbourValidCoordinates((Coordinate))',Blockly.Java.ORDER_COLLECTION],
         output:'Array',
         input:['Coordinate']},
-    //{block:'get_gamestate', generated:['botGameBoard.getGameBoard()',Blockly.Java.ORDER_ATOMIC]},
     {block:'get_all_valid_moves',
         generated:['botGameBoard.getAllValidCoordinates()',Blockly.Java.ORDER_COLLECTION],
         output:'Array',
@@ -83,7 +82,19 @@ var block_tests = [
     {block:'list_is_empty',
         generated:['.size() == 0',Blockly.Java.ORDER_LOGICAL_NOT],
         output:'Boolean',
-        input:['Array']}];
+        input:['Array']},
+    {block:'get_all_ship_sizes',
+        generated:['botGameBoard.getShipSizes()',Blockly.Java.ORDER_COLLECTION],
+        output:'Array'},
+    {block:'get_remaining_ship_sizes',
+        generated:['botGameBoard.getRemainingShipSizes()',Blockly.Java.ORDER_COLLECTION],
+        output:'Array'},
+    {block:'get_all_coordinates',
+        generated:['botGameBoard.getAllCoordinates()',Blockly.Java.ORDER_COLLECTION],
+        output:'Array'},
+    {block:'lists_concat_with',
+        generated:['botGameBoard.concatLists(Arrays.asList())',Blockly.Java.ORDER_COLLECTION],
+        output:'Array'}];
 
 
 var default_blocks = '<xml id="mitch-startBlocks" style="display:none">' +
@@ -127,4 +138,8 @@ var connection_blocks = '<xml xmlns="http://www.w3.org/1999/xhtml">' +
     '<block type="get_X_coord"></block>' +
     '<block type="get_Y_coord"></block>' +
     '<block type="list_is_empty"></block>' +
+    '<block type="get_all_ship_sizes"></block>' +
+    '<block type="get_remaining_ship_sizes"></block>' +
+    '<block type="get_all_coordinates"></block>' +
+    '<block type="lists_concat_with"></block>' +
     '</xml>';
