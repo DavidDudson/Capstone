@@ -331,7 +331,7 @@ Blockly.Msg.LOGIC_BOOLEAN_FALSE_TYPEBLOCK = 'False';
 /// url - Provide a link to the translation of [https://en.wikipedia.org/wiki/Nullable_type https://en.wikipedia.org/wiki/Nullable_type], if it exists in your language; otherwise, do not worry about translating this advanced concept.
 Blockly.Msg.LOGIC_NULL_HELPURL = 'https://en.wikipedia.org/wiki/Nullable_type';
 /// block text - In computer languages, ''null'' is a special value that indicates that no value has been set.  You may use your language's word for "nothing" or "invalid".
-Blockly.Msg.LOGIC_NULL = 'null';
+Blockly.Msg.LOGIC_NULL = 'empty';
 /// tooltip - This should use the word from the previous message.
 Blockly.Msg.LOGIC_NULL_TOOLTIP = 'Returns null.';
 /// typeblock - Typing to add the block

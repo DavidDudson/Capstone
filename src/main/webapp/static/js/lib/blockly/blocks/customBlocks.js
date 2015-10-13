@@ -93,17 +93,6 @@ Blockly.Blocks['get_neighbour_valid_coordinates'] = {
   }
 };
 
-Blockly.Blocks['get_all_coordinates'] = {
-    init: function() {
-        this.appendDummyInput()
-            .appendField("list of all coordinates");
-        this.setOutput(true, "Array");
-        this.setColour(260);
-        this.setTooltip('get all the coordinates on the game board');
-        this.setHelpUrl('http://www.example.com/');
-    }
-};
-
 Blockly.Blocks['get_all_valid_moves'] = {
     init: function() {
         this.appendDummyInput()
@@ -256,28 +245,6 @@ Blockly.Blocks['coordinate_state'] = {
     }
 };
 
-Blockly.Blocks['get_all_ship_sizes'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("all spaceship sizes");
-    this.setOutput(true, "Array");
-    this.setColour(260);
-    this.setTooltip('returns a list of all spaceship sizes');
-    this.setHelpUrl('http://www.example.com/');
-  }
-};
-
-Blockly.Blocks['get_remaining_ship_sizes'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("all remaining spaceship sizes");
-    this.setOutput(true, "Array");
-    this.setColour(260);
-    this.setTooltip('returns a list of all remaining spaceship sizes');
-    this.setHelpUrl('http://www.example.com/');
-  }
-};
-
 Blockly.Blocks['states_of_neighbours'] = {
     init: function() {
         this.appendValueInput("NAME")
@@ -327,5 +294,38 @@ Blockly.Blocks['list_is_empty'] = {
         this.setColour(260);
         this.setTooltip(Blockly.Msg.LISTS_ISEMPTY_TOOLTIP);
         this.setHelpUrl(Blockly.Msg.LISTS_ISEMPTY_HELPURL);
+    }
+};
+
+Blockly.Blocks['get_all_ship_sizes'] = {
+    init: function() {
+        this.appendDummyInput()
+            .appendField("all spaceship sizes");
+        this.setOutput(true, "Array");
+        this.setColour(260);
+        this.setTooltip('returns a list of all spaceship sizes');
+        this.setHelpUrl('http://www.example.com/');
+    }
+};
+
+Blockly.Blocks['get_remaining_ship_sizes'] = {
+    init: function() {
+        this.appendDummyInput()
+            .appendField("all remaining spaceship sizes");
+        this.setOutput(true, "Array");
+        this.setColour(260);
+        this.setTooltip('returns a list of all remaining spaceship sizes');
+        this.setHelpUrl('http://www.example.com/');
+    }
+};
+
+Blockly.Blocks['get_all_coordinates'] = {
+    init: function() {
+        this.appendDummyInput()
+            .appendField("list of all coordinates");
+        this.setOutput(true, "Array");
+        this.setColour(260);
+        this.setTooltip('get all the coordinates on the game board');
+        this.setHelpUrl('http://www.example.com/');
     }
 };

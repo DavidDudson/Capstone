@@ -68,21 +68,6 @@ Blockly.Java['get_all_valid_moves'] = function(block) {
     return [code, Blockly.Java.ORDER_COLLECTION];
 };
 
-Blockly.Java['get_all_ship_sizes'] = function(block) {
-    var code = 'botGameBoard.getShipSizes()';
-    return [code, Blockly.Java.ORDER_COLLECTION];
-};
-
-Blockly.Java['get_remaining_ship_sizes'] = function(block) {
-    var code = 'botGameBoard.getRemainingShipSizes()';
-    return [code, Blockly.Java.ORDER_COLLECTION];
-};
-
-Blockly.Java['get_all_coordinates'] = function(block) {
-    var code = 'botGameBoard.getAllCoordinates()';
-    return [code, Blockly.Java.ORDER_COLLECTION];
-};
-
 Blockly.Java['last_move_state'] = function(block) {
     var state = 1;
     try {
@@ -224,4 +209,19 @@ Blockly.Java['list_is_empty'] = function(block) {
 
     var code = value_name + '.size() ' + dropdown_name + ' 0';
     return [code, Blockly.Java.ORDER_LOGICAL_NOT];
+};
+
+Blockly.Java['get_all_ship_sizes'] = function(block) {
+    var code = 'botGameBoard.getShipSizes()';
+    return [code, Blockly.Java.ORDER_COLLECTION];
+};
+
+Blockly.Java['get_remaining_ship_sizes'] = function(block) {
+    var code = 'botGameBoard.getRemainingShipSizes()';
+    return [code, Blockly.Java.ORDER_COLLECTION];
+};
+
+Blockly.Java['get_all_coordinates'] = function(block) {
+    var code = 'botGameBoard.getAllCoordinates()';
+    return [code, Blockly.Java.ORDER_COLLECTION];
 };
