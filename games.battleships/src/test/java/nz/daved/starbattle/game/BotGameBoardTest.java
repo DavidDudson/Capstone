@@ -4,16 +4,11 @@ import nz.daved.starbattle.StarBattleGame;
 import nz.daved.starbattle.StarBattleGameMove;
 import nz.daved.starbattle.bots.FirstSquareBot;
 import nz.daved.starbattle.bots.LastSquareBot;
-import org.apache.commons.lang.ArrayUtils;
 import org.junit.Test;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertFalse;

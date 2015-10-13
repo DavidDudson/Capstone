@@ -74,13 +74,15 @@ dependencies {
 
 //Configure Server plugin
 gretty {
-    servletContainer = 'tomcat8'
+    port = 80
+    contextPath = '/'
     //managedClassReload=false
     //fastReload=false
 }
 
 product{
     webapp project
+    servletContainer = 'jetty9'
 }
 
 war {
