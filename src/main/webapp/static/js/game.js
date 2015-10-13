@@ -117,9 +117,11 @@ function GameService($http, $interval) {
             },
             stop: function () {
                 $interval.cancel(game.state);
-                game.inProgress = false;
-                var winningPlayerName = game.moves[game.position - 1].wasPlayer1 ? game.player1.name : game.player2.name;
-                notificationBar.showSuccessProgress("Game won by: " + winningPlayerName);
+                if(game.inProgress){
+                    game.inProgress = false;
+                    var winningPlayerName = game.moves[game.position - 1].wasPlayer1 ? game.player1.name : game.player2.name;
+                    notificationBar.showSuccessProgress("Game won by: " + winningPlayerName);
+                }
             },
             restart: function () {
                 game.reset();

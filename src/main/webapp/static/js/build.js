@@ -1,7 +1,7 @@
 angular.module("app")
     .factory("Build", BuildService);
 
-function BuildService($http) {
+function BuildService($http, $rootScope) {
 
     return function (notificationBar) {
         var build = {
@@ -61,6 +61,7 @@ function BuildService($http) {
                             if (!data.error) {
                                 build.update(bot, true, 100, true);
                                 bot.dirty = false;
+                                $rootScope.user.unsavedBots--;
                                 bot.src = bot.blocklySrc
                             } else {
                                 notificationBar.error = data.error;

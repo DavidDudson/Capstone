@@ -14,9 +14,15 @@ angular
             replace: true
         };
     })
-    .
-    controller("appCtrl", function (User, Bots, Game, NotificationBar, BotSelector, $modal, $scope, $rootScope) {
-        // Allows debuggint in JS console by going MY_SCOPE.somefunctionOrVariable
+    .run(function ($rootScope) {
+        window.onbeforeunload = function () {
+            if ($rootScope.user.unsavedBots > 0) {
+                return "You have unsaved bots, are you sure you want to leave this page?";
+            }
+        };
+    })
+    .controller("appCtrl", function (User, Bots, Game, NotificationBar, BotSelector, $modal, $scope, $rootScope) {
+        // Allows debugging in JS console by going MY_SCOPE.somefunctionOrVariable
         window.MY_SCOPE = $scope;
 
         //The app object
@@ -52,7 +58,7 @@ angular
 
         $scope.addChangeListener = function () {
             $scope.workspace.addChangeListener(function () {
-                $rootScope.user.bots.updateSource($scope.botSelector.bots[0], Blockly.Java.workspaceToCode($scope.workspace, ["notests"]));
+                $scope.syncSource();
             });
         };
 
@@ -62,7 +68,7 @@ angular
         $rootScope.createUser = function (username, profilePictureUrl) {
             var unregister = $scope.$watchGroup(["user.bots.loaded", "builtInBots.loaded"], function () {
                 if ($rootScope.user.loaded && $rootScope.builtInBots.loaded) {
-                    if (!$rootScope.user.bots.get() == []) {
+                    if (!$rootScope.user.bots.list.length > 0) {
                         $scope.createNewBot();
                         unregister();
                     }

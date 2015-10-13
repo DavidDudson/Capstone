@@ -3,7 +3,7 @@ angular.module("app")
 
 // Makes a user, Requires the BotService
 // Methods with an _ in front should be considered private.
-function BotService($http, Build) {
+function BotService($http, Build, $rootScope) {
 
     //The name is simply the request name to actually retrieve the bots from the server
     return function (name,notificationBar) {
@@ -70,12 +70,15 @@ function BotService($http, Build) {
             updateSource: function (bot, src) {
                 bot.blocklySrc = src;
                 if(bot.src != bot.blocklySrc){
-                    bot.dirty = true;
+                    if(!bot.dirty){
+                        bot.dirty = true;
+                        $rootScope.user.unsavedBots++;
+                    }
                 }
                 bot.xml = src.match(/<xml.*>/);
             },
             save: function (bot) {
-                if (notificationBar.active) return;
+                if (notificationBar.active && notificationBar.type == '') return;
                 var build = Build(notificationBar);
                 build.start(bot);
             }
