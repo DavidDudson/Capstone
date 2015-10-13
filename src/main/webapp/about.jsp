@@ -31,8 +31,8 @@
     <div class="main_container">
         <h1>StarBattle - Learn Coding Through Gaming</h1>
         <p>
-            Starbattle is an online educational platform developed by five software engineering students at <a href="http://www.massey.ac.nz">Massey University</a> for their final year capstone project. The idea is that children ranging in ages 10 year and above can use a web based development environment to learn coding.
-            They can use this platform to code bots to play a version of the popular Milton Bradley game &#39;battleships&#39;. They can battle their bots against built in bots or bots created by their friends.
+            Starbattle is an online educational platform developed by five software engineering students at <a href="http://www.massey.ac.nz">Massey University</a> for their final year capstone project. The idea is that children ages 10 years and above can use a web based development environment to learn coding.
+            They can use this platform to code bots to play a space version of the popular Milton Bradley game &#39;battleships&#39;. They can battle their bots against built in bots or bots created by their friends.
             We hope that using starbattle will engage children in learning coding and further their understanding of computer science as a whole.
         </p>
         <p>
