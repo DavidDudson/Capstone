@@ -8,8 +8,8 @@ var block_tests = [
         output:'Array'},
     {block:'get_state_coordinate_at_pos',
         generated:['botGameBoard.getStateOfCoordinateAtPosition(, "")',Blockly.Java.ORDER_ATOMIC],
-        output:'Coordinate',
-        input:['Number']},
+        output:'Number',
+        input:['Coordinate']},
     {block:'can_attack_coordinate',
         generated:['botGameBoard.canAttackCoordinate((Coordinate))',Blockly.Java.ORDER_ATOMIC],
         output:'Boolean',
@@ -94,14 +94,17 @@ var block_tests = [
         output:'Array'},
     {block:'lists_concat_with',
         generated:['botGameBoard.concatLists(Arrays.asList())',Blockly.Java.ORDER_COLLECTION],
-        output:'Array'}];
+        output:'Array'},
+    {block:'get_step_coord',
+        generated:['botGameBoard.getXthCoord((Coordinate),0)',Blockly.Java.ORDER_ATOMIC],
+        output:'Coordinate',
+        input:['Number','Coordinate']}];
 
 
 var default_blocks = '<xml id="mitch-startBlocks" style="display:none">' +
     '<block type="function_next_move" id="1" x="63" y="63" deletable="false" editable="false">' +
     '<value name="RETURN">' +
-    '<block type="get_first_valid_coordinate">' +
-    '</block>' +
+    '<block type="get_first_valid_coordinate"></block>' +
     '</value>' +
     '</block>' +
     '</xml>';
@@ -120,7 +123,6 @@ var connection_blocks = '<xml xmlns="http://www.w3.org/1999/xhtml">' +
     '<block type="get_first_valid_coordinate"></block>' +
     '<block type="get_last_valid_coordinate"></block>' +
     '<block type="get_neighbour_valid_coordinates"></block>' +
-    //'<block type="get_gamestate" id="10" x="13" y="363"></block>' +
     '<block type="get_all_valid_moves"></block>' +
     '<block type="last_move_state">' +
         '<field name="state">1</field>' +
@@ -142,4 +144,19 @@ var connection_blocks = '<xml xmlns="http://www.w3.org/1999/xhtml">' +
     '<block type="get_remaining_ship_sizes"></block>' +
     '<block type="get_all_coordinates"></block>' +
     '<block type="lists_concat_with"></block>' +
+    '<block type="get_step_coord"></block>' +
     '</xml>';
+
+goog.provide('Blockly.Blocks.lists');
+goog.provide('Blockly.Blocks.math');
+goog.provide('Blockly.Blocks.variables');
+goog.provide('Blockly.Blocks.procedures');
+goog.provide('Blockly.Blocks.logic');
+
+goog.require('Blockly.Blocks');
+
+Blockly.Blocks.lists.HUE = 260;
+Blockly.Blocks.math.HUE = 230;
+Blockly.Blocks.variables.HUE = 330;
+Blockly.Blocks.procedures.HUE = 290;
+Blockly.Blocks.logic.HUE = 210;
