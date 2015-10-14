@@ -20,6 +20,7 @@
     <script src="static/js/lib/jquery-ui.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.4/ui-bootstrap-tpls.min.js"></script>
+    <script src="static/js/lib/slider.js"></script>
     <script src="static/js/test.js"></script>
     <script src="static/js/header.js"></script>
     <script src="static/js/bots.js"></script>
@@ -148,6 +149,10 @@
                                         <i class="fa fa-fast-forward"></i></button>
                                 </div>
                             </div>
+                            <div>
+                                <div ui-slider min="0" max="500" ng-model="game.speed"></div>
+                            </div>
+
                             <h4 class="sidebar_head">{{botSelector.bots[0] ? botSelector.bots[0].name : "Select Bot 1"}}</h4>
                             <div ng-repeat="ship in game.player1ShipList" class="ship_section">
                                 <img ng-repeat="coord in ship track by $index" ng-src="{{!coord[2] ? 'static/images/layer2-ship2.png' : coord[2]}}"/>

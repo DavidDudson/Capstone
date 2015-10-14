@@ -16,7 +16,7 @@ jQuery(window).resize(function() {
 
 
 angular
-    .module("app",["ui.bootstrap"])
+    .module("app",["ui.bootstrap",'ui.slider'])
     .controller("appCtrl", function (User, Bots, Game, NotificationBar, BotSelector, $scope, $rootScope) {
 
         //The app object
