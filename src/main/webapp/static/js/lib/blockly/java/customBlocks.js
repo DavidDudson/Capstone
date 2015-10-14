@@ -211,18 +211,6 @@ Blockly.Java['list_is_empty'] = function(block) {
     return [code, Blockly.Java.ORDER_LOGICAL_NOT];
 };
 
-Blockly.Java['get_step_coord'] = function (block) {
-    
-    var value_coordinate = '';
-    var step_amount = 0;
-    try {
-        value_coordinate = Blockly.Java.valueToCode(block, 'Coordinate', Blockly.Java.ORDER_ATOMIC);
-        step_amount = Blockly.Java.valueToCode(block, 'STEP', Blockly.Java.ORDER_ATOMIC);
-    }
-    catch (err){}
-    var code = 'botGameBoard.getXthCoord((Coordinate)'+ value_coordinate + ',' + step_amount + ')';
-    return [code, Blockly.Java.ORDER_ATOMIC];
-};
 Blockly.Java['get_all_ship_sizes'] = function(block) {
     var code = 'botGameBoard.getShipSizes()';
     return [code, Blockly.Java.ORDER_COLLECTION];
@@ -253,4 +241,17 @@ Blockly.Java['lists_concat_with'] = function(block) {
 
     code = 'botGameBoard.concatLists(Arrays.asList(' + code.join(', ') + '))';
     return [code, Blockly.Java.ORDER_COLLECTION];
+};
+
+Blockly.Java['get_step_coord'] = function (block) {
+
+    var value_coordinate = '';
+    var step_amount = 0;
+    try {
+        value_coordinate = Blockly.Java.valueToCode(block, 'Coordinate', Blockly.Java.ORDER_ATOMIC);
+        step_amount = Blockly.Java.valueToCode(block, 'STEP', Blockly.Java.ORDER_ATOMIC);
+    }
+    catch (err){}
+    var code = 'botGameBoard.getXthCoord((Coordinate)'+ value_coordinate + ',' + step_amount + ')';
+    return [code, Blockly.Java.ORDER_ATOMIC];
 };
