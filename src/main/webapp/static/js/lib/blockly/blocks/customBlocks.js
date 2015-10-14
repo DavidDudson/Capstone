@@ -34,7 +34,7 @@ Blockly.Blocks['get_state_coordinate_at_pos'] = {
         .appendField("the state of the position")
         .appendField(new Blockly.FieldDropdown([["Left", "left"], ["Right", "right"], ["Up", "up"], ["Down", "down"]]), "POSITION");
     this.appendValueInput("INPUT")
-        .setCheck("Number")
+        .setCheck("Coordinate")
         .appendField("of");
     this.setInputsInline(true);
     this.setOutput(true, "Coordinate");
