@@ -37,7 +37,7 @@ Blockly.Blocks['get_state_coordinate_at_pos'] = {
         .setCheck("Coordinate")
         .appendField("of");
     this.setInputsInline(true);
-    this.setOutput(true, "Coordinate");
+    this.setOutput(true, "Number");
     this.setColour(230);
     this.setTooltip('get the coordinate neighbouring the given position');
     this.setHelpUrl('http://www.example.com/');
