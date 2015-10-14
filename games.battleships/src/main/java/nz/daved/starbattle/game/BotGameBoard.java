@@ -350,7 +350,7 @@ public class BotGameBoard extends GameBoard {
      */
     public Coordinate findAndHitNeighbour(Coordinate coord) {
 
-        if(getStateOfCoordinate(coord) == 0){
+        if(getStateOfCoordinate(coord) == 0 ){
             return coord;
         }
         LinkedList<Integer> neighbourCoords = getNeighbourStates(coord);

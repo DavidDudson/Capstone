@@ -148,12 +148,12 @@
                                         <i class="fa fa-fast-forward"></i></button>
                                 </div>
                             </div>
-                            <h4>{{botSelector.bots[0] ? botSelector.bots[0].name : "Select Bot 1"}}</h4>
-                            <div ng-repeat="ship in game.player1ShipList">
+                            <h4 class="sidebar_head">{{botSelector.bots[0] ? botSelector.bots[0].name : "Select Bot 1"}}</h4>
+                            <div ng-repeat="ship in game.player1ShipList" class="ship_section">
                                 <img ng-repeat="coord in ship track by $index" ng-src="{{!coord[2] ? 'static/images/layer2-ship2.png' : coord[2]}}"/>
                             </div>
-                            <h4>{{botSelector.bots[1] ? botSelector.bots[1].name : "Select Bot 2"}}</h4>
-                            <div ng-repeat="ship in game.player2ShipList">
+                            <h4 class="sidebar_head">{{botSelector.bots[1] ? botSelector.bots[1].name : "Select Bot 2"}}</h4>
+                            <div ng-repeat="ship in game.player2ShipList" class="ship_section">
                                 <img ng-repeat="coord in ship track by $index" ng-src="{{!coord[2] ? 'static/images/layer1-ship1.png' : coord[2]}}"/>
                             </div>
                         </div>
