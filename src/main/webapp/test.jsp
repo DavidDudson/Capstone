@@ -55,7 +55,7 @@
         </section>
 
         <section class="col-lg-6 col-md-9 col-md-pull-0 col-sm-9 col-sm-pull-0">
-            <div id="main_content"><!---main content ends-->
+            <div id="main_content" ><!---main content ends-->
 
                 <div class="row"> <!---Row for the two grids starts-->
 
@@ -96,7 +96,7 @@
                     </section><!---Player2 grid emds-->
                 </div> <!---Row for the two grids ends-->
 
-                <div class="row"><!---Row for status bar starts-->
+                <div class="row status_bar"><!---Row for status bar starts-->
                     <div class="col-xs-12">
                         <div>
                             <progressbar id="notificationBar" class="progress-striped"
