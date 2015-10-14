@@ -115,7 +115,7 @@
         </section>
         <section class="col-lg-2 col-lg-offset-1 col-md-5 col-md-offset-5 col-sm-5 col-sm-offset-4">
 
-            <div id="sidebar_right" class="sidebar right">
+            <div id="sidebar_right" class="sidebar">
 
                 <div id="game_controls" class="sidebar_box">
                     <div class="right-inner">
