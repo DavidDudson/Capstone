@@ -13,6 +13,6 @@ angular
         $scope.notificationBar = NotificationBar("Welcome to about");
 
         $rootScope.createUser = function (username, profilePictureUrl) {
-            $rootScope.user = User(username, profilePictureUrl, notificationBar)
+            $rootScope.user = User(username, profilePictureUrl, $scope.notificationBar)
         };
     });
