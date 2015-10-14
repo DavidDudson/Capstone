@@ -218,14 +218,6 @@ Blockly.Msg.CONTROLS_FOREACH_TOOLTIP = 'For each item in a list, set the variabl
 /// typeblock - Typing to add the block
 Blockly.Msg.CONTROLS_FOREACH_TYPEBLOCK = 'For Each Item In List';
 
-/// url - Describes 'for-each loops' in computer programs.  Consider using your language's translation of [https://en.wikipedia.org/wiki/Foreach https://en.wikipedia.org/wiki/Foreach] if present.
-Blockly.Msg.CONTROLS_FOREACH_KEY_HELPURL = 'https://github.com/google/blockly/wiki/Loops#for-each';
-/// block text - Title of [https://github.com/google/blockly/wiki/Loops#for-each for each block].
-/// Sequentially assigns every item in array %2 to the valiable %1.
-Blockly.Msg.CONTROLS_FOREACH_KEY_TITLE = 'for each key %1 in map %2';
-/// typeblock - Typing to add the block
-Blockly.Msg.CONTROLS_FOREACH_KEY_TYPEBLOCK = 'For Each Key In Map';
-
 /// url - Describes control flow in computer programs.  Consider using your language's translation of [https://en.wikipedia.org/wiki/Control_flow https://en.wikipedia.org/wiki/Control_flow], if it exists.
 Blockly.Msg.CONTROLS_FLOW_STATEMENTS_HELPURL = 'https://github.com/google/blockly/wiki/Loops#loop-termination-blocks';
 /// dropdown - The current loop should be exited.  See [https://github.com/google/blockly/wiki/Loops#break https://github.com/google/blockly/wiki/Loops#break].
@@ -339,7 +331,7 @@ Blockly.Msg.LOGIC_BOOLEAN_FALSE_TYPEBLOCK = 'False';
 /// url - Provide a link to the translation of [https://en.wikipedia.org/wiki/Nullable_type https://en.wikipedia.org/wiki/Nullable_type], if it exists in your language; otherwise, do not worry about translating this advanced concept.
 Blockly.Msg.LOGIC_NULL_HELPURL = 'https://en.wikipedia.org/wiki/Nullable_type';
 /// block text - In computer languages, ''null'' is a special value that indicates that no value has been set.  You may use your language's word for "nothing" or "invalid".
-Blockly.Msg.LOGIC_NULL = 'null';
+Blockly.Msg.LOGIC_NULL = 'empty';
 /// tooltip - This should use the word from the previous message.
 Blockly.Msg.LOGIC_NULL_TOOLTIP = 'Returns null.';
 /// typeblock - Typing to add the block
@@ -348,11 +340,11 @@ Blockly.Msg.LOGIC_NULL_TYPEBLOCK = 'Null';
 /// url - Describes the programming language operator known as the ''ternary'' or ''conditional'' operator.  It is recommended that you use the translation of [https://en.wikipedia.org/wiki/%3F: https://en.wikipedia.org/wiki/%3F:] if it exists.
 Blockly.Msg.LOGIC_TERNARY_HELPURL = 'https://en.wikipedia.org/wiki/%3F:';
 /// block input text - Label for the input whose value determines which of the other two inputs is returned.  In some programming languages, this is called a ''''predicate''''.
-Blockly.Msg.LOGIC_TERNARY_CONDITION = 'test';
+Blockly.Msg.LOGIC_TERNARY_CONDITION = 'if';
 /// block input text - Indicates that the following input should be returned (used as output) if the test input is true.  Remember to try to keep block text terse (short).
-Blockly.Msg.LOGIC_TERNARY_IF_TRUE = 'if true';
+Blockly.Msg.LOGIC_TERNARY_IF_TRUE = 'then';
 /// block input text - Indicates that the following input should be returned (used as output) if the test input is false.
-Blockly.Msg.LOGIC_TERNARY_IF_FALSE = 'if false';
+Blockly.Msg.LOGIC_TERNARY_IF_FALSE = 'else';
 /// tooltip - See [https://en.wikipedia.org/wiki/%3F: https://en.wikipedia.org/wiki/%3F:].
 Blockly.Msg.LOGIC_TERNARY_TOOLTIP = 'Check the condition in "test". If the condition is true, returns the "if true" value; otherwise returns the "if false" value.';
 /// typeblock - Typing to add the block
@@ -672,7 +664,7 @@ Blockly.Msg.TEXT_JOIN_TOOLTIP = 'Create a piece of text by joining together any 
 /// Typeblock - Autocomplete for typeblocking
 Blockly.Msg.TEXT_JOIN_TYPEBLOCK = 'Create Text With';
 
-/// block text - This is shown when the programmer wants to change the number of pieces of text being joined together.  See [https://github.com/google/blockly/wiki/Text#text-creation https://github.com/google/blockly/wiki/Text#text-creation], specifically the last picture in the 'Text creation' section.\n{{Identical|Join}}
+/// block text - This is shown when the programmer wants to change the number of pieces of text being joined together.  See [https://github.com/google/blockly/wiki/Text#text-creation https://github.com/google/blockly/wiki/Text#text-creation], specifically the last picture in the 'Text creation' section.
 Blockly.Msg.TEXT_CREATE_JOIN_TITLE_JOIN = 'join';
 /// tooltip - See [https://github.com/google/blockly/wiki/Text#text-creation https://github.com/google/blockly/wiki/Text#text-creation], specifically the last picture in the 'Text creation' section.
 Blockly.Msg.TEXT_CREATE_JOIN_TOOLTIP = 'Add, remove, or reorder sections to reconfigure this text block.';
@@ -718,7 +710,7 @@ Blockly.Msg.TEXT_ISEMPTY_TYPEBLOCK = 'Text is Empty';
 /// url - Information about finding a character in a piece of text.
 Blockly.Msg.TEXT_INDEXOF_HELPURL = 'https://github.com/google/blockly/wiki/Text#finding-text';
 /// tooltip - See [https://github.com/google/blockly/wiki/Text#finding-text https://github.com/google/blockly/wiki/Text#finding-text].
-Blockly.Msg.TEXT_INDEXOF_TOOLTIP = 'Returns the index of the first/last occurrence of the first text in the second text. Returns 0 if text is not found.';
+Blockly.Msg.TEXT_INDEXOF_TOOLTIP = 'Returns the index of the first/last occurrence of first text in the second text. Returns 0 if text is not found.';
 /// block text - Title of blocks allowing users to find text.  See
 /// [https://github.com/google/blockly/wiki/Text#finding-text
 /// https://github.com/google/blockly/wiki/Text#finding-text].
@@ -1026,7 +1018,7 @@ Blockly.Msg.LISTS_CREATE_WITH_TOOLTIP = 'Create a list with any number of items.
 Blockly.Msg.LISTS_CREATE_WITH_INPUT_WITH = 'create list with';
 /// typeblock - Typing to add the block
 Blockly.Msg.LISTS_CREATE_WITH_TYPEBLOCK = 'Create List With';
-/// block text - This appears in a sub-block when [https://github.com/google/blockly/wiki/Lists#changing-number-of-inputs changing the number of inputs in a ''''create list with'''' block].\n{{Identical|List}}
+/// block text - This appears in a sub-block when [https://github.com/google/blockly/wiki/Lists#changing-number-of-inputs changing the number of inputs in a ''''create list with'''' block].
 Blockly.Msg.LISTS_CREATE_WITH_CONTAINER_TITLE_ADD = 'list';
 /// tooltip - See [https://github.com/google/blockly/wiki/Lists#changing-number-of-inputs https://github.com/google/blockly/wiki/Lists#changing-number-of-inputs].
 Blockly.Msg.LISTS_CREATE_WITH_CONTAINER_TOOLTIP = 'Add, remove, or reorder sections to reconfigure this list block.';
@@ -1085,7 +1077,7 @@ Blockly.Msg.LISTS_INDEX_OF_LAST = 'find last occurrence of item';
 /// dropdown - See [https://github.com/google/blockly/wiki/Lists#finding-items-in-a-list
 /// https://github.com/google/blockly/wiki/Lists#finding-items-in-a-list].
 /// [[File:Blockly-list-find.png]]
-Blockly.Msg.LISTS_INDEX_OF_TOOLTIP = 'Returns the index of the first/last occurrence of the item in the list. Returns 0 if item is not found.';
+Blockly.Msg.LISTS_INDEX_OF_TOOLTIP = 'Returns the index of the first/last occurrence of the item in the list. Returns 0 if text is not found.';
 /// typeblock - Typing to add the block
 Blockly.Msg.LISTS_INDEX_OF_FIRST_TYPEBLOCK = 'Find First Occurrence Of Item';
 /// typeblock - Typing to add the block
@@ -1525,7 +1517,7 @@ Blockly.Msg.PROCEDURES_DEFNORETURN_HELPURL = 'https://en.wikipedia.org/wiki/Proc
 /// block text - This precedes the name of the function when defining it.  See
 /// [https://blockly-demo.appspot.com/static/apps/code/index.html?lang=en#c84aoc this sample
 /// function definition].
-Blockly.Msg.PROCEDURES_DEFNORETURN_TITLE = 'to';
+Blockly.Msg.PROCEDURES_DEFNORETURN_TITLE = 'for';
 /// default name - This acts as a placeholder for the name of a function on a
 /// function definition block, as shown on
 /// [https://blockly-demo.appspot.com/static/apps/code/index.html?lang=en#w7cfju this block].
@@ -1555,7 +1547,7 @@ Blockly.Msg.PROCEDURES_DEFRETURN_DO = Blockly.Msg.PROCEDURES_DEFNORETURN_DO;
 /// (output) of this function.  See
 /// [https://blockly-demo.appspot.com/static/apps/code/index.html?lang=en#6ot5y5 this sample
 /// function that returns a value].
-Blockly.Msg.PROCEDURES_DEFRETURN_RETURN = 'return';
+Blockly.Msg.PROCEDURES_DEFRETURN_RETURN = 'attack';
 /// tooltip
 Blockly.Msg.PROCEDURES_DEFRETURN_TOOLTIP = 'Creates a function with an output.';
 /// dropdown choice - When the user clicks on a variable type block, this is one of the dropdown menu choices.  It is used to define a new variable type
@@ -1616,7 +1608,7 @@ Blockly.Msg.PROCEDURES_PARAM_WITH_TYPE = 'with %1 as %2%3%4';
 /// [[Translating:Blockly#context_menus]].
 Blockly.Msg.PROCEDURES_HIGHLIGHT_DEF = 'Highlight function definition';
 /// context menu - This appears on the context menu for function definitions.
-/// Selecting it creates a block to call the function.\n\nParameters:\n* %1 - the name of the function.\n{{Identical|Create}}
+/// Selecting it creates a block to call the function.\n\nParameters:\n* %1 - the name of the function.
 Blockly.Msg.PROCEDURES_CREATE_DO = 'Create "%1"';
 
 /// tooltip - If the first value is true, this causes the second value to be returned

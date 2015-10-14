@@ -32,6 +32,12 @@
     <script type="text/javascript" src="./static/js/lib/blockly/blocks/procedures.js"></script>
     <script type="text/javascript" src="./static/js/lib/blockly/blocks/customBlocks.js"></script>
 
+    <%--Compressed files--%>
+    <%--<script type="text/javascript" src="./static/js/lib/blockly/blockly_compressed.js"></script>--%>
+    <%--<script type="text/javascript" src="./static/js/lib/blockly/blocks_compressed.js"></script>--%>
+    <%--<script type="text/javascript" src="./static/js/lib/blockly/java_compressed.js"></script>--%>
+    <%--<script type="text/javascript" src="./static/js/lib/blockly/msg/js/en.js"></script>--%>
+
     <script src="./static/js/lib/jquery-1.11.3.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.4/ui-bootstrap-tpls.min.js"></script>
