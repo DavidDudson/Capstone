@@ -14,7 +14,7 @@ function BuildService($http, $rootScope) {
                     id: bot.id,
                     name: bot.name,
                     language: 'JAVA',
-                    src: bot.blocklySrc
+                    src: !bot.blocklySrc ? bot.src : bot.blocklySrc
                 };
                 var buildRequest;
                 if (bot.new) {
@@ -54,8 +54,7 @@ function BuildService($http, $rootScope) {
                 }
             },
             checkStatus: function (bot, buildStatusUrl) {
-                var url = buildStatusUrl.replace("/Capstone/", "");
-                $http.get(url)
+                $http.get(buildStatusUrl)
                     .success(function (data) {
                         if (data.done) {
                             if (!data.error) {
