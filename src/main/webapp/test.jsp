@@ -44,7 +44,14 @@
     <div class="row">
 
         <section class="col-lg-2 col-md-3 col-sm-3">
-            <sidebar user_bots built_in_bots></sidebar>
+            
+            <div class="row" style="margin-bottom: 15px;">
+            <sidebar user_bots></sidebar>
+            </div>
+            
+            <div class="row">
+            <sidebar built_in_bots></sidebar>
+            </div>
         </section>
 
         <section class="col-lg-6 col-md-9 col-md-pull-0 col-sm-9 col-sm-pull-0">
