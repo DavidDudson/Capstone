@@ -23,3 +23,7 @@ hs_err_pid7566.log
 bruyere
 null/.SoGaCo/Capstone/database
 null/.SoGaCo/Capstone/logs
+null/database
+null/logs
+null/.SoGaCo/database
+null/.SoGaCo/logs
