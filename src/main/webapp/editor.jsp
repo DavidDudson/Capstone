@@ -74,23 +74,23 @@
                 <div class="main-cont-menu">
                     <ul>
                         <li>
-                            <button class="btn btn-info btn-lg" ng-click="createNewBot()">
+                            <button class="btn btn-info btn-lg" ng-click="createNewBot()" name="create_new_bot">
                                 New
                             </button>
                         </li>
                         <li>
-                            <button id="del" class="btn btn-info btn-lg"
+                            <button id="del" class="btn btn-info btn-lg" name="delete_bot"
                                     ng-click="delete(botSelector.bots[0])"
                                     ng-disabled="!botSelector.bots"> Delete
                             </button>
                         </li>
                         <li>
-                            <button id="save" class="btn btn-info btn-lg" ng-click="save()"
+                            <button id="save" class="btn btn-info btn-lg" ng-click="save()" name="save_bot"
                                     ng-disabled="!botSelector.bots"> Save
                             </button>
                         </li>
                         <li>
-                            <button class="btn btn-info btn-lg"
+                            <button class="btn btn-info btn-lg" name = "copy_bot"
                                     clip-copy="copy(botSelector.bots[0])"
                                     clip-click="notificationBar.showSuccess('Copy Successful')"
                                     ng-disabled="notificationBar.type !== 'warning'">
@@ -105,7 +105,7 @@
                 <br/>
 
                 <div>
-                    <progressbar id="notificationBar" class="progress-striped"
+                    <progressbar id="notificationBar" class="progress-striped" name="notification_bar"
                                  ng-class="notificationBar.active"
                                  ng-click="displayErrorModal()"
                                  ng-value="notificationBar.progress"
@@ -142,15 +142,15 @@
                 
                 <div class="row" style="margin-top:15px; margin-left:15px">
                     <div class="test-grid-buttons">
-                        <button id="test" class="btn btn-info btn-lg"
+                        <button id="test" class="btn btn-info btn-lg" name="test_bot"
                                 ng-click="game.create(botSelector.bots[0], botSelector.bots[0], true)"
                                 ng-disabled="!botSelector.bots || botSelector.bots[0].new">
                             Test
                         </button>
-                        <button id="restart" class="btn btn-info btn-lg" ng-click="game.restart()"
+                        <button id="restart" class="btn btn-info btn-lg" ng-click="game.restart()" name="restart_bot"
                                 ng-disabled="!botSelector.bots || botSelector.bots[0].new || !game.moves"> Restart
                         </button>
-                        <button id="reset" class="btn btn-info btn-lg" ng-click="game.reset()"
+                        <button id="reset" class="btn btn-info btn-lg" ng-click="game.reset()" name = "reset_bot"
                                 ng-disabled="!botSelector.bots || botSelector.bots[0].new || !game.moves"> Reset
                         </button>
                     </div>

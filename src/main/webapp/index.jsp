@@ -38,7 +38,7 @@
                                 <input type="hidden" name="loginType" value="facebook" />
                                 <input type="hidden" name="callbackurl" ng-value="location" />
                                 <input type="hidden" name="baseURL" value="" />
-                                <button type="submit" class="btn btn-block btn-social btn-facebook">
+                                <button type="submit" class="btn btn-block btn-social btn-facebook" id="facebook_button">
                                     <i class="fa fa-facebook"></i> Sign in with Facebook
                                 </button>
                             </form>
@@ -55,7 +55,7 @@
                                 <input type="hidden" name="loginType" value="google" />
                                 <input type="hidden" name="callbackurl"  ng-value="location" />
                                 <input type="hidden" name="baseURL" value="" />
-                                <button type="submit" class="btn btn-block btn-social btn-google-plus">
+                                <button type="submit" class="btn btn-block btn-social btn-google-plus" id="google_button">
                                     <i class="fa fa-google"></i> Sign in with Google
                                 </button>
                             </form>
@@ -69,7 +69,7 @@
                     <input type="hidden" name="baseURL" value="" />
                     <input type="hidden" name="username" value="Debug" />
                     <input type="hidden" name="password" value="Debug" />
-                    <input type="submit" class="btn btn-block"  value="Debug Login"/>
+                    <input type="submit" class="btn btn-block debug_login" id="debug_login"  value="Debug Login"/>
                 </form>
             </div>
         </div>
