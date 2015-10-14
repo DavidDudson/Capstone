@@ -711,9 +711,9 @@ input.search_btn[type="submit"] {
     background-size: cover;
 }
 
-#player_two h3 {
+/*#player_two h3 {
     margin-left: 25px;
-}
+}*/
 
 player_two .ng-binding h3 {
     margin-left: 25px;
