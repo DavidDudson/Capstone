@@ -126,23 +126,23 @@
 
                     <div class="row"style="margin-right:0px; margin-left:0px">
                             <div id="controls">
-                                <div class="btn-group" style="padding-left:15px; padding-right:15px;">
+                                <div class="btn-group" style="padding-left:15px; padding-right:15px; width:100%">
 
                                     <section class="col-xs-2" style="padding-left: 0px; padding-right: 1px;">
-                                    <button type="button" ng-click="game.restart()" class="btn btn-primary" style="width:100%"
+                                    <button type="button" ng-click="game.restart()" class="btn btn-primary" style="width:100%;padding-left: 0px;padding-right: 0px;"
                                             ng-disabled="!game.moves">
                                         <i class="fa fa-fast-backward"></i></button>
                                     </section>
 
                                     <section class="col-xs-2" style="padding-left: 0px; padding-right: 1px;">
-                                    <button type="button" ng-click="game.step_backward()" style="width:100%"
+                                    <button type="button" ng-click="game.step_backward()" style="width:100%;padding-left: 0px;padding-right: 0px;"
                                             ng-disabled="!game.moves"
                                             class="btn btn-primary">
                                         <i class="fa fa-step-backward"></i></button>
                                     </section>
 
                                     <section class="col-xs-4" style="padding-left: 0px; padding-right: 1px;">
-                                    <button type="button" ng-click="game.play_pause(botSelector,false)" style="width:100%"
+                                    <button type="button" ng-click="game.play_pause(botSelector,false)" style="width:100%;padding-left: 0px;padding-right: 0px;"
                                             ng-disabled="botSelector.bots.length !== 2"
                                             class="btn btn-primary">
                                         <i class="fa"
@@ -151,14 +151,14 @@
                                     </section>
 
                                     <section class="col-xs-2" style="padding-left: 0px; padding-right: 1px;">
-                                    <button type="button" ng-click="game.step_forward()" style="width:100%"
+                                    <button type="button" ng-click="game.step_forward()" style="width:100%;padding-left: 0px;padding-right: 0px;"
                                             ng-disabled="!game.moves"
                                             class="btn btn-primary">
                                         <i class="fa fa-step-forward"></i></button>
                                     </section>
 
                                     <section class="col-xs-2" style="padding-left: 0px; padding-right: 1px;">
-                                    <button type="button" ng-click="game.end()" ng-disabled="!game.moves" style="width:100%"
+                                    <button type="button" ng-click="game.end()" ng-disabled="!game.moves" style="width:100%;padding-left: 0px;padding-right: 0px;"
                                             class="btn btn-primary">
                                         <i class="fa fa-fast-forward"></i></button>
                                     </section>
