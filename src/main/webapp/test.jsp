@@ -55,7 +55,7 @@
             </div>
         </section>
 
-        <section class="col-lg-7 col-lg-offset-0 col-md-9 col-md-pull-0 col-sm-9 col-sm-pull-0">
+        <section class="col-lg-8 col-lg-offset-0 col-md-9 col-md-pull-0 col-sm-9 col-sm-pull-0">
             <div id="main_content" ><!---main content ends-->
 
                 <div class="row"> <!---Row for the two grids starts-->
@@ -113,58 +113,87 @@
             </div><!---main content ends-->
 
         </section>
-        <section class="col-lg-3 col-lg-offset-0 col-md-5 col-md-offset-5 col-sm-5 col-sm-offset-5 col-xs-5 col-xs-offset-5>
+        <section class="col-lg-2 col-lg-offset-0 col-md-5 col-md-offset-5 col-sm-5 col-sm-offset-5 col-xs-5 col-xs-offset-5">
 
-            <div id="sidebar_right" class="sidebar">
-
+                <div class="row" style="margin-right:0px; margin-left:0px">
                 <div id="game_controls" class="sidebar_box">
-                    <div class="right-inner">
-
+                   
+                    <div class="row" style="margin-right:0px; margin-left:0px">
                         <div class="sidebar_head">
                             Game Controls
                         </div>
+                    </div>
 
-                        <div class="sidebar_content">
+                    <div class="row"style="margin-right:0px; margin-left:0px">
                             <div id="controls">
-                                <div class="btn-group">
-                                    <button type="button" ng-click="game.restart()" class="btn btn-primary"
+                                <div class="btn-group" style="padding-left:15px; padding-right:15px;">
+
+                                    <section class="col-xs-2" style="padding-left: 0px; padding-right: 1px;">
+                                    <button type="button" ng-click="game.restart()" class="btn btn-primary" style="width:100%"
                                             ng-disabled="!game.moves">
                                         <i class="fa fa-fast-backward"></i></button>
-                                    <button type="button" ng-click="game.step_backward()"
+                                    </section>
+
+                                    <section class="col-xs-2" style="padding-left: 0px; padding-right: 1px;">
+                                    <button type="button" ng-click="game.step_backward()" style="width:100%"
                                             ng-disabled="!game.moves"
                                             class="btn btn-primary">
                                         <i class="fa fa-step-backward"></i></button>
-                                    <button type="button" ng-click="game.play_pause(botSelector,false)"
+                                    </section>
+
+                                    <section class="col-xs-4" style="padding-left: 0px; padding-right: 1px;">
+                                    <button type="button" ng-click="game.play_pause(botSelector,false)" style="width:100%"
                                             ng-disabled="botSelector.bots.length !== 2"
                                             class="btn btn-primary">
                                         <i class="fa"
                                            ng-class="game.inProgress && !game.paused ?  'fa-pause' : 'fa-play'"></i>
                                     </button>
-                                    <button type="button" ng-click="game.step_forward()"
+                                    </section>
+
+                                    <section class="col-xs-2" style="padding-left: 0px; padding-right: 1px;">
+                                    <button type="button" ng-click="game.step_forward()" style="width:100%"
                                             ng-disabled="!game.moves"
                                             class="btn btn-primary">
                                         <i class="fa fa-step-forward"></i></button>
-                                    <button type="button" ng-click="game.end()" ng-disabled="!game.moves"
+                                    </section>
+
+                                    <section class="col-xs-2" style="padding-left: 0px; padding-right: 1px;">
+                                    <button type="button" ng-click="game.end()" ng-disabled="!game.moves" style="width:100%"
                                             class="btn btn-primary">
                                         <i class="fa fa-fast-forward"></i></button>
-                                </div>
-                            </div>
-                            <div>
-                                <div ui-slider min="0" max="500" ng-model="game.speed"></div>
-                            </div>
+                                    </section>
 
+                                </div>
+
+                            </div>
+                    </div>
+
+
+<!--                             <div>
+                                <div ui-slider min="0" max="500" ng-model="game.speed"></div>
+                            </div> -->
+                    <div class="row"style="margin-right:0px; margin-left:0px">
                             <h4 class="sidebar_head">{{botSelector.bots[0] ? botSelector.bots[0].name : "Select Bot 1"}}</h4>
+                    </div>
+                    <div class = "row"style="margin-right:0px; margin-left:0px">
                             <div ng-repeat="ship in game.player1ShipList" class="ship_section">
                                 <img ng-repeat="coord in ship track by $index" ng-src="{{!coord[2] ? 'static/images/layer2-ship2.png' : coord[2]}}"/>
                             </div>
+                    </div>
+
+                    <div class="row"style="margin-right:0px; margin-left:0px">
                             <h4 class="sidebar_head">{{botSelector.bots[1] ? botSelector.bots[1].name : "Select Bot 2"}}</h4>
+                    </div>
+
+                    <div class="row"style="margin-right:0px; margin-left:0px">
                             <div ng-repeat="ship in game.player2ShipList" class="ship_section">
                                 <img ng-repeat="coord in ship track by $index" ng-src="{{!coord[2] ? 'static/images/layer1-ship1.png' : coord[2]}}"/>
                             </div>
-                        </div>
                     </div>
+                       
+                   </div>
                 </div>
-            </div>
+
         </section>
     </div>
 </div>
