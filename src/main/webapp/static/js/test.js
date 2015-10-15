@@ -50,34 +50,4 @@ angular
             $scope.notificationBar.reset();
             $scope.botSelector.select(bot);
         };
-
-        //Show the error modal
-        $scope.displayErrorModal = function () {
-            if ($scope.notificationBar.type != 'warning') return;
-            $scope.modal = $modal.open({
-                animation: true,
-                templateUrl: './static/html/GameRunErrorModal.html',
-                controller: function ($scope, $modalInstance, bot, error) {
-                    $scope.bot = bot;
-                    $scope.error = error;
-
-                    $scope.ok = function () {
-                        $modalInstance.dismiss('Ok');
-                    };
-                    $scope.cancel = function () {
-                        $modalInstance.dismiss('cancel');
-                    };
-                },
-                resolve: {
-                    bot: function () {
-                        return $scope.botSelector.bots[0]
-                    },
-                    error: function () {
-                        return $scope.notificationBar.error;
-                    }
-
-                }
-            });
-        };
-
     });

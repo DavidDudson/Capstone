@@ -158,30 +158,58 @@ angular
         //Show the error modal
         $scope.displayErrorModal = function () {
             if ($scope.notificationBar.type != 'warning') return;
-            $scope.modal = $modal.open({
-                animation: true,
-                templateUrl: './static/html/BotErrorModal.html',
-                controller: function ($scope, $modalInstance, bot, error) {
-                    $scope.bot = bot;
-                    $scope.error = error;
 
-                    $scope.ok = function () {
-                        $modalInstance.dismiss('Ok');
-                    };
-                    $scope.cancel = function () {
-                        $modalInstance.dismiss('cancel');
-                    };
-                },
-                resolve: {
-                    bot: function () {
-                        return $scope.botSelector.bots[0]
+            if ($scope.notificationBar.text.indexOf('Build Failure, Click this bar to show why.') > -1) {
+                $scope.modal = $modal.open({
+                    animation: true,
+                    templateUrl: './static/html/BotErrorModal.html',
+                    controller: function ($scope, $modalInstance, bot, error) {
+                        $scope.bot = bot;
+                        $scope.error = error;
+
+                        $scope.ok = function () {
+                            $modalInstance.dismiss('Ok');
+                        };
+                        $scope.cancel = function () {
+                            $modalInstance.dismiss('cancel');
+                        };
                     },
-                    error: function () {
-                        return $scope.notificationBar.error;
-                    }
+                    resolve: {
+                        bot: function () {
+                            return $scope.botSelector.bots[0]
+                        },
+                        error: function () {
+                            return $scope.notificationBar.error;
+                        }
 
-                }
-            });
+                    }
+                });
+            } else {
+                $scope.modal = $modal.open({
+                    animation: true,
+                    templateUrl: './static/html/GameRunErrorModal.html',
+                    controller: function ($scope, $modalInstance, bot, error) {
+                        $scope.bot = bot;
+                        $scope.error = error;
+
+                        $scope.ok = function () {
+                            $modalInstance.dismiss('Ok');
+                        };
+                        $scope.cancel = function () {
+                            $modalInstance.dismiss('cancel');
+                        };
+                    },
+                    resolve: {
+                        bot: function () {
+                            return $scope.botSelector.bots[0]
+                        },
+                        error: function () {
+                            return $scope.notificationBar.error;
+                        }
+
+                    }
+                });
+            }
         };
 
         $scope.createNewBot = function () {
