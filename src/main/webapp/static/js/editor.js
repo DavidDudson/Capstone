@@ -73,7 +73,7 @@ angular
         $rootScope.createUser = function (username, profilePictureUrl) {
             var unregister = $scope.$watchGroup(["user.bots.loaded", "builtInBots.loaded"], function () {
                 if ($rootScope.user.loaded && $rootScope.builtInBots.loaded) {
-                    if (!$rootScope.user.bots.list.length > 0) {
+                    if (!$rootScope.user.bots || $rootScope.user.bots.list.length === 0) {
                         console.log("Showing Modal");
                         $scope.createNewBot();
                         unregister();
@@ -247,6 +247,7 @@ angular
 
             // Wait for the modal to be closed then return the bot that's selected
             $scope.modal.result.then(function (bot) {
+                bot.shared = false;
                 $scope.user.bots.add(bot);
                 $rootScope.select(bot);
                 $scope.user.bots.save(bot);

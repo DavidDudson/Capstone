@@ -130,6 +130,7 @@ function GameService($http, $interval) {
                 }
             },
             reset: function () {
+                game.stop();
                 game.state = null;
                 game.paused = false;
 
