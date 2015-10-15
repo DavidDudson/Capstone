@@ -113,7 +113,7 @@
             </div><!---main content ends-->
 
         </section>
-        <section class="col-lg-2 col-lg-offset-0 col-md-5 col-md-offset-5 col-sm-5 col-sm-offset-5 col-xs-5 col-xs-offset-5">
+        <section class="col-lg-2 col-lg-offset-0 col-md-3 col-md-offset-6 col-sm-3 col-sm-offset-6 col-xs-3 col-xs-offset-6">
 
                 <div class="row" style="margin-right:0px; margin-left:0px">
                 <div id="game_controls" class="sidebar_box">
