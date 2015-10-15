@@ -14,29 +14,29 @@
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
     <link rel="stylesheet" type="text/css" href="static/css/editor.css">
 
-    <script type="text/javascript" src="./static/js/lib/blockly/blockly_uncompressed.js"></script>
-    <script type="text/javascript" src="./static/js/lib/blockly/java.js"></script>
-    <script type="text/javascript" src="./static/js/lib/blockly/java/logic.js"></script>
-    <script type="text/javascript" src="./static/js/lib/blockly/java/loops.js"></script>
-    <script type="text/javascript" src="./static/js/lib/blockly/java/math.js"></script>
-    <script type="text/javascript" src="./static/js/lib/blockly/java/lists.js"></script>
-    <script type="text/javascript" src="./static/js/lib/blockly/java/variables.js"></script>
-    <script type="text/javascript" src="./static/js/lib/blockly/java/procedures.js"></script>
-    <script type="text/javascript" src="./static/js/lib/blockly/java/customBlocks.js"></script>
-    <script type="text/javascript" src="./static/js/lib/blockly/messages.js"></script>
-    <script type="text/javascript" src="./static/js/lib/blockly/blocks/logic.js"></script>
-    <script type="text/javascript" src="./static/js/lib/blockly/blocks/loops.js"></script>
-    <script type="text/javascript" src="./static/js/lib/blockly/blocks/math.js"></script>
-    <script type="text/javascript" src="./static/js/lib/blockly/blocks/lists.js"></script>
-    <script type="text/javascript" src="./static/js/lib/blockly/blocks/variables.js"></script>
-    <script type="text/javascript" src="./static/js/lib/blockly/blocks/procedures.js"></script>
-    <script type="text/javascript" src="./static/js/lib/blockly/blocks/customBlocks.js"></script>
+    <%--<script type="text/javascript" src="./static/js/lib/blockly/blockly_uncompressed.js"></script>--%>
+    <%--<script type="text/javascript" src="./static/js/lib/blockly/java.js"></script>--%>
+    <%--<script type="text/javascript" src="./static/js/lib/blockly/java/logic.js"></script>--%>
+    <%--<script type="text/javascript" src="./static/js/lib/blockly/java/loops.js"></script>--%>
+    <%--<script type="text/javascript" src="./static/js/lib/blockly/java/math.js"></script>--%>
+    <%--<script type="text/javascript" src="./static/js/lib/blockly/java/lists.js"></script>--%>
+    <%--<script type="text/javascript" src="./static/js/lib/blockly/java/variables.js"></script>--%>
+    <%--<script type="text/javascript" src="./static/js/lib/blockly/java/procedures.js"></script>--%>
+    <%--<script type="text/javascript" src="./static/js/lib/blockly/java/customBlocks.js"></script>--%>
+    <%--<script type="text/javascript" src="./static/js/lib/blockly/messages.js"></script>--%>
+    <%--<script type="text/javascript" src="./static/js/lib/blockly/blocks/logic.js"></script>--%>
+    <%--<script type="text/javascript" src="./static/js/lib/blockly/blocks/loops.js"></script>--%>
+    <%--<script type="text/javascript" src="./static/js/lib/blockly/blocks/math.js"></script>--%>
+    <%--<script type="text/javascript" src="./static/js/lib/blockly/blocks/lists.js"></script>--%>
+    <%--<script type="text/javascript" src="./static/js/lib/blockly/blocks/variables.js"></script>--%>
+    <%--<script type="text/javascript" src="./static/js/lib/blockly/blocks/procedures.js"></script>--%>
+    <%--<script type="text/javascript" src="./static/js/lib/blockly/blocks/customBlocks.js"></script>--%>
 
     <%--Compressed files--%>
-    <%--<script type="text/javascript" src="./static/js/lib/blockly/blockly_compressed.js"></script>--%>
-    <%--<script type="text/javascript" src="./static/js/lib/blockly/blocks_compressed.js"></script>--%>
-    <%--<script type="text/javascript" src="./static/js/lib/blockly/java_compressed.js"></script>--%>
-    <%--<script type="text/javascript" src="./static/js/lib/blockly/msg/js/en.js"></script>--%>
+    <script type="text/javascript" src="./static/js/lib/blockly/blockly_compressed.js"></script>
+    <script type="text/javascript" src="./static/js/lib/blockly/blocks_compressed.js"></script>
+    <script type="text/javascript" src="./static/js/lib/blockly/java_compressed.js"></script>
+    <script type="text/javascript" src="./static/js/lib/blockly/msg/js/en.js"></script>
 
     <script src="./static/js/lib/jquery-1.11.3.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
@@ -90,11 +90,15 @@
                             </button>
                         </li>
                         <li>
-                            <button class="btn btn-info btn-lg" name = "copy_bot"
-                                    clip-copy="copy(botSelector.bots[0])"
-                                    clip-click="notificationBar.showSuccess('Copy Successful')"
-                                    ng-disabled="notificationBar.type !== 'warning'">
-                                Copy Bot Data
+                            <button ng-if="!botSelector.bots[0].shared" class="btn btn-info btn-lg" name = "share_bot"
+                                    clip-copy="user.bots.share(botSelector.bots[0])"
+                                    clip-click="notificationBar.showSuccess('Share link copied to clipboard')"
+                                    ng-disabled="!botSelector.bots">
+                                Share
+                            </button>
+                            <button ng-if="botSelector.bots[0].shared" class="btn btn-info btn-lg"
+                                    ng-click="user.bots.unshare(botSelector.bots[0])" name="unshare_bot">
+                                Unshare
                             </button>
                         </li>
                     </ul>

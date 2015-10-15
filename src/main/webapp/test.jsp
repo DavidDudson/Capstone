@@ -45,14 +45,7 @@
     <div class="row">
 
         <section class="col-lg-2 col-md-3 col-sm-3">
-            
-            <div class="row" style="margin-bottom: 25px;">
-            <sidebar user_bots></sidebar>
-            </div>
-            
-            <div class="row">
-            <sidebar built_in_bots></sidebar>
-            </div>
+                <sidebar user_bots built_in_bots shared_bots></sidebar>
         </section>
 
         <section class="col-lg-8 col-lg-offset-0 col-md-9 col-md-pull-0 col-sm-9 col-sm-pull-0">
@@ -167,11 +160,6 @@
 
                             </div>
                     </div>
-
-
-<!--                             <div>
-                                <div ui-slider min="0" max="500" ng-model="game.speed"></div>
-                            </div> -->
                     <div class="row"style="margin-right:0px; margin-left:0px">
                             <h4 class="sidebar_head">{{botSelector.bots[0] ? botSelector.bots[0].name : "Select Bot 1"}}</h4>
                     </div>

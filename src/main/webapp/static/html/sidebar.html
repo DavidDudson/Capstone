@@ -1,4 +1,24 @@
 <section id = "User_Bots" class="col-xs-12">
-    <bot_group ng-if="showUserBots" user></bot_group>
-    <bot_group ng-if="showBuiltInBots" builtIn></bot_group>
+    <bot_group style="margin-bottom: 25px;" ng-if="showUserBots" user></bot_group>
+    <bot_group style="margin-bottom: 25px;" ng-if="showBuiltInBots" builtIn></bot_group>
+
+    <div  style="margin-bottom: 25px;" ng-if="showSharedBots" class="sidebar_box_inner">
+        <div class="sidebar_head">
+            Shared Bots
+        </div>
+
+        <div class="sidebar_content">
+            <ul class="list_block">
+                <li>
+                    <input type="text" id="searchBox" placeholder="Search ..." ng-model="search_bot_name"/>
+                    <button class="btn btn-primary" type="submit" ng-click="$root.search.find(search_bot_name)">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </li>
+                <li ng-style="{'background-color': bot.colour}" ng-repeat="bot in $root.search.bots" class="bot" ng-click="$root.select(bot);">
+                    {{bot.name}}
+                </li>
+            </ul>
+        </div>
+    </div>
 </section>

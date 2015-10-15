@@ -14,7 +14,7 @@ angular
             replace: true
         };
     })
-    .run(function ($rootScope, $location) {
+    .run(function ($rootScope) {
         window.onbeforeunload = function () {
             if ($rootScope.user.unsavedBots > 0) {
                 return "You have unsaved bots, are you sure you want to leave this page?";
@@ -33,6 +33,15 @@ angular
         //Create the build it bots
         $rootScope.createBuiltInBots = function () {
             $rootScope.builtInBots = Bots("builtinbots")
+        };
+
+
+        $rootScope.getLocation = function(){
+            if(window.location.href.indexOf("editor.jsp") > -1){
+                return window.location.href.slice(0, -11)
+            } else{
+                return window.location.href.slice(0, -1);
+            }
         };
 
         $scope.workspace = Blockly.inject('blocklyDiv', {

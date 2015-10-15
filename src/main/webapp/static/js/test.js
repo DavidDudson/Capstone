@@ -17,7 +17,7 @@ jQuery(window).resize(function() {
 
 angular
     .module("app",["ui.bootstrap",'ui.slider'])
-    .controller("appCtrl", function (User, Bots, Game, NotificationBar, BotSelector, $scope, $rootScope) {
+    .controller("appCtrl", function (Search, User, Bots, Game, NotificationBar, BotSelector, $scope, $rootScope) {
 
         //The app object
         $rootScope.app = {
@@ -44,10 +44,12 @@ angular
         $scope.botSelector = BotSelector(2);
 
         $scope.game = Game($scope.notificationBar);
+        $rootScope.search = Search($scope.notificationBar);
 
         $rootScope.select = function (bot) {
             $scope.game.reset();
             $scope.notificationBar.reset();
             $scope.botSelector.select(bot);
         };
+
     });

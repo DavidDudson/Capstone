@@ -6,9 +6,9 @@ angular.module("app")
 function BotService($http, Build, $rootScope) {
 
     //The name is simply the request name to actually retrieve the bots from the server
-    return function (name,notificationBar) {
+    return function (name, notificationBar) {
         var bots = {
-            loaded : false,
+            loaded: false,
             list: [],
             get: function () {
                 return bots.list;
@@ -29,7 +29,7 @@ function BotService($http, Build, $rootScope) {
             _removeFromServer: function (bot) {
                 $http.delete('delete/' + bot.id)
                     .success(function () {
-                        if (bot.dirty){
+                        if (bot.dirty) {
                             $rootScope.user.unsavedBots--;
                         }
                         return bots._removeFromList(bot);
@@ -42,7 +42,7 @@ function BotService($http, Build, $rootScope) {
                 var index = bots.list.indexOf(bot);
                 if (index > -1) {
                     bots.list.splice(index, 1);
-                    if (bot.dirty){
+                    if (bot.dirty) {
                         $rootScope.user.unsavedBots--;
                     }
                     return true;
@@ -59,6 +59,7 @@ function BotService($http, Build, $rootScope) {
                             bots._addSource(bot);
                             bots.loaded = true;
                         });
+                        console.log(data.collection.items);
                     })
                     .error(function () {
                         notificationBar.showError("Server Failure: Update user bots Failure");
@@ -76,8 +77,8 @@ function BotService($http, Build, $rootScope) {
             },
             updateSource: function (bot, src) {
                 bot.blocklySrc = src;
-                if(bot.src != bot.blocklySrc){
-                    if(!bot.dirty){
+                if (bot.src != bot.blocklySrc) {
+                    if (!bot.dirty) {
                         bot.dirty = true;
                         $rootScope.user.unsavedBots++;
                     }
@@ -88,6 +89,18 @@ function BotService($http, Build, $rootScope) {
                 if (notificationBar.active && notificationBar.type == '') return;
                 var build = Build(notificationBar);
                 build.start(bot);
+            },
+            unshare: function (bot) {
+                $.post("shareBot", {botId: bot.id, unshare: true});
+
+                bot.shared = false;
+            },
+            share: function (bot) {
+                $.post("shareBot", {botId: bot.id});
+
+                bot.shared = true;
+
+                return bot.name + "," + bot.id;
             }
         };
 
