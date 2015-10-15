@@ -58,10 +58,13 @@ public class StarBattleGameSchematic {
         return seed;
     }
 
-    public List<Integer> getShips() {
-        return ships.stream()
+    public LinkedList<Integer> getShips() {
+        LinkedList<Integer> allShips = new LinkedList<>();
+        allShips.addAll(ships.stream()
                 .map(Integer::new)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
+
+        return allShips;
     }
 
     public int getWidth() {

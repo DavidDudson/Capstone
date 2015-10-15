@@ -18,7 +18,7 @@ public class BotGameBoard extends GameBoard {
 
     private final int player;
     private final List<StarBattleGameMove> history;
-    private final List<Integer> remainingShipSizes;
+    private final LinkedList<Integer> remainingShipSizes;
 
     /**
      * Generate a botMap
@@ -133,6 +133,15 @@ public class BotGameBoard extends GameBoard {
             }
         }
         return coords;
+    }
+
+    /**
+     * Combine a set of lists
+     */
+    public LinkedList<Coordinate> concatLists(List<LinkedList<Coordinate>> lists){
+        LinkedList<Coordinate> concatenatedList = new LinkedList<>();
+        lists.forEach(concatenatedList::addAll);
+        return concatenatedList;
     }
 
     /**
@@ -251,7 +260,7 @@ public class BotGameBoard extends GameBoard {
     /**
      * @return the remaining ship sizes
      */
-    public List<Integer> getRemainingShipSizes() {
+    public LinkedList<Integer> getRemainingShipSizes() {
         return getShipSizes();
     }
 

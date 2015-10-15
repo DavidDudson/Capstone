@@ -3,8 +3,8 @@ package nz.daved.starbattle.game;
 import com.google.common.annotations.VisibleForTesting;
 import nz.daved.starbattle.StarBattleGameSchematic;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  */
 public abstract class GameBoard {
 
-    private final List<Integer> shipSizes;
+    private final LinkedList<Integer> shipSizes;
     protected int[][] grid;
     protected int width;
     protected int height;
@@ -31,7 +31,7 @@ public abstract class GameBoard {
      * @param _height The height of the grid
      * @param _ships  The List of ships
      */
-    public GameBoard(List<Integer> _ships, int _width, int _height) {
+    public GameBoard(LinkedList<Integer> _ships, int _width, int _height) {
         this.shipSizes = _ships;
         this.width = _width;
         this.height = _height;
@@ -127,9 +127,12 @@ public abstract class GameBoard {
         return remainingShips;
     }
 
-    public List<Integer> getShipSizes() {
-        return shipSizes.stream()
+    public LinkedList<Integer> getShipSizes() {
+        LinkedList<Integer> allShipSizes = new LinkedList<>();
+
+        allShipSizes.addAll(shipSizes.stream()
                 .map(Integer::new)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
+        return allShipSizes;
     }
 }
