@@ -25,6 +25,7 @@ function BuildService($http, $rootScope) {
                 buildRequest.success(function (data) {
                     if(bot.new){
                         bot.id = data.botId;
+                        bot.shared = 'false';
                         bot.new = false;
                     }
                     build.checkStatus(bot, data.buildStatusURL);

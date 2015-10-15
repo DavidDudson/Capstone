@@ -247,7 +247,6 @@ angular
 
             // Wait for the modal to be closed then return the bot that's selected
             $scope.modal.result.then(function (bot) {
-                bot.shared = false;
                 $scope.user.bots.add(bot);
                 $rootScope.select(bot);
                 $scope.user.bots.save(bot);
