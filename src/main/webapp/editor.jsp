@@ -90,7 +90,7 @@
                             </button>
                         </li>
                         <li>
-                            <button ng-if="!botSelector.bots[0].shared || botSelector.bots[0].shared == false" class="btn btn-info btn-lg" name = "share_bot"
+                            <button ng-if="!botSelector.bots || botSelector.bots[0].shared == 'false'" class="btn btn-info btn-lg" name = "share_bot"
                                     clip-copy="user.bots.share(botSelector.bots[0])"
                                     clip-click="notificationBar.showSuccess('Share link copied to clipboard')"
                                     ng-disabled="!botSelector.bots">
@@ -98,7 +98,7 @@
                             </button>
                         </li>
                         <li>
-                            <button ng-if="!!botSelector.bots[0].shared && botSelector.bots[0].shared == true" class="btn btn-info btn-lg"
+                            <button ng-if="botSelector.bots && botSelector.bots[0].shared == 'true'" class="btn btn-info btn-lg"
                                     ng-click="user.bots.unshare(botSelector.bots[0])" name="unshare_bot">
                                 Unshare
                             </button>

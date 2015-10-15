@@ -38,6 +38,9 @@ function SearchService($http, $rootScope) {
                             } else{
                                 $rootScope.select(filteredBots[0]);
                             }
+                            if (search.bots.length > 5){
+                                search.bots.shift();
+                            }
                         }
                     })
                     .error(function () {

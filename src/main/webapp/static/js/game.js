@@ -73,12 +73,14 @@ function GameService($http, $interval) {
             },
             create: function (bot1, bot2, testing) {
                 if (notificationBar.active && notificationBar.type == '') return;
-                game.player1 = bot1;
-                game.player2 = bot2;
+                game.hardReset();
                 notificationBar.showProgress("Creating test game");
                 var data = testing ? "" + bot1.id + "\n" + bot1.id + "\n" : "" + bot1.id + "\n" + bot2.id + "\n";
                 $http.post('creategame_b2b', data)
                     .success(function (data, status, headers) {
+                        game.player1 = bot1;
+                        game.player2 = bot2;
+                        notificationBar.showSuccess("Game creation success");
                         game.getMoves(headers("Location"), testing);
                     })
                     .error(function () {
@@ -88,7 +90,6 @@ function GameService($http, $interval) {
             getMoves: function (url, testing) {
                 $http.get(url)
                     .success(function (data) {
-                        notificationBar.showSuccess("Game creation success");
                         if (testing) {
                             game.moves = data.moves.filter(function (move) {
                                 if (move.wasPlayer1) return move;
@@ -101,7 +102,8 @@ function GameService($http, $interval) {
                     })
                     .error(function (data) {
                         notificationBar.error = data;
-                        notificationBar.showWarning("Game could not be run retrieved, Click to find out why")
+                        notificationBar.showWarning("Game could not be run retrieved, Click to find out why");
+                        game.hardReset()
                     })
             },
             run: function () {
@@ -119,8 +121,10 @@ function GameService($http, $interval) {
                 $interval.cancel(game.state);
                 if(game.inProgress){
                     game.inProgress = false;
-                    var winningPlayerName = game.moves[game.position - 1].wasPlayer1 ? game.player1.name : game.player2.name;
-                    notificationBar.showSuccessProgress("Game won by: " + winningPlayerName);
+                    if(game.player1){
+                        var winningPlayerName = game.moves[game.position - 1].wasPlayer1 ? game.player1.name : game.player2.name;
+                        notificationBar.showSuccessProgress("Game won by: " + winningPlayerName);
+                    }
                 }
             },
             restart: function () {
@@ -146,8 +150,8 @@ function GameService($http, $interval) {
                 game.moves = null;
                 game.player1 = undefined;
                 game.player2 = undefined;
-                game.player1ShipList = [];
-                game.player2ShipList = [];
+                game.player1ShipList = game.genShipList();
+                game.player2ShipList = game.genShipList();
             },
             step_forward: function () {
                 game.pause();

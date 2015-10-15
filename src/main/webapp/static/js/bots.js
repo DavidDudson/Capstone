@@ -93,12 +93,12 @@ function BotService($http, Build, $rootScope) {
             unshare: function (bot) {
                 $.post("shareBot", {botId: bot.id, unshare: true});
 
-                bot.shared = false;
+                bot.shared = 'false';
             },
             share: function (bot) {
                 $.post("shareBot", {botId: bot.id});
 
-                bot.shared = true;
+                bot.shared = 'true';
 
                 return bot.name + "," + bot.id;
             }
