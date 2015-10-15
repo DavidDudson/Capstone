@@ -399,6 +399,7 @@ public class BotGameBoard extends GameBoard {
     }
 
     public Coordinate getXthCoord(Coordinate baseCoord, Integer step) {
+        
         int curCoorPos =  (baseCoord.getY())*10 + baseCoord.getX();
         int futurePosition = curCoorPos + step;
         int futureRemain = futurePosition % 99;

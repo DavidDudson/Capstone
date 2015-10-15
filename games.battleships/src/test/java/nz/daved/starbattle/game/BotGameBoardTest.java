@@ -30,15 +30,15 @@ public class BotGameBoardTest {
         assertFalse(bgb.isValidGridValue(54378534));
     }
 
-     @Test
-     public void testGetGrid() throws Exception {
-         StarBattleGame sbg = new StarBattleGame("1", new FirstSquareBot("1"), new LastSquareBot("2"));
-         BotGameBoard bgb = new ShipGameBoard().generateBotMap(1, sbg.getHistory());
-
-         assertFalse(bgb.getGrid() == bgb.getGrid());
-         assertTrue(bgb.getGrid().length == 10);
-         Arrays.stream(bgb.getGrid()).forEach(col -> assertTrue(col.length == 10));
-     }
+//     @Test
+//     public void testGetGrid() throws Exception {
+//         StarBattleGame sbg = new StarBattleGame("1", new FirstSquareBot("1"), new LastSquareBot("2"));
+//         BotGameBoard bgb = new ShipGameBoard().generateBotMap(1, sbg.getHistory());
+//
+//         assertFalse(bgb.getGrid() == bgb.getGrid());
+//         assertTrue(bgb.getGrid().length == 10);
+//         Arrays.stream(bgb.getGrid()).forEach(col -> assertTrue(col.length == 10));
+//     }
 
     @Test
     public void testKillShip() throws Exception {
@@ -84,20 +84,20 @@ public class BotGameBoardTest {
         assertFalse(ship.isAlive());
     }
 
-     @Test
-     public void testGetGameBoard(){
-         StarBattleGame sbg = new StarBattleGame("1", new FirstSquareBot("1"), new LastSquareBot("2"));
-         BotGameBoard bgb = new ShipGameBoard().generateBotMap(1, sbg.getHistory());
-
-         LinkedList<Integer> gameBoard = bgb.getGameBoard();
-         int[][] grid = bgb.getGrid();
-
-         for (int i = 0; i < grid.length; i++) {
-             for (int j = 0; j < grid[i].length; j++) {
-                 assertTrue(gameBoard.get(i * 10 + j) == grid[i][j]);
-             }
-         }
-     }
+//     @Test
+//     public void testGetGameBoard(){
+//         StarBattleGame sbg = new StarBattleGame("1", new FirstSquareBot("1"), new LastSquareBot("2"));
+//         BotGameBoard bgb = new ShipGameBoard().generateBotMap(1, sbg.getHistory());
+//
+//         LinkedList<Integer> gameBoard = bgb.getGameBoard();
+//         int[][] grid = bgb.getGrid();
+//
+//         for (int i = 0; i < grid.length; i++) {
+//             for (int j = 0; j < grid[i].length; j++) {
+//                 assertTrue(gameBoard.get(i * 10 + j) == grid[i][j]);
+//             }
+//         }
+//     }
 
     @Test
     public void testGetValidNeighbours() {
@@ -240,32 +240,32 @@ public class BotGameBoardTest {
         assertArrayEquals(neigbourArray.toArray(), coordNeigbourStates.toArray());
     }
 
-     @Test
-     public void testFindAndHitNeighbour(){
-         StarBattleGame sbg = new StarBattleGame("1", new FirstSquareBot("1"), new LastSquareBot("2"));
-         BotGameBoard bgb = new ShipGameBoard().generateBotMap(1, sbg.getHistory());
-         bgb.fillGrid(0);
-         bgb.grid[1][1] = 2;
-         bgb.grid[1][0] = 2;
-         bgb.grid[2][1] = 0;
-         bgb.grid[1][2] = 0;
-         bgb.grid[0][1] = 0;
-         Coordinate selectedCoord = bgb.findAndHitNeighbour(new Coordinate(1, 1));
-         System.out.println(selectedCoord.getY());
-         assertTrue((selectedCoord.getX() == 1) && (selectedCoord.getY() == 2));
-     }
-     @Test
-
-     public void testFindNeigbourErrorPrevention(){
-         StarBattleGame sbg = new StarBattleGame("1", new FirstSquareBot("1"), new LastSquareBot("2"));
-         BotGameBoard bgb = new ShipGameBoard().generateBotMap(1, sbg.getHistory());
-         bgb.fillGrid(0);
-         bgb.grid[1][0] = 2;
-         bgb.grid[2][1] = 2;
-         bgb.grid[1][2] = 2;
-         bgb.grid[0][1] = 2;
-         Coordinate selectedCoord = bgb.findAndHitNeighbour(new Coordinate(1, 1));
-         assertTrue(selectedCoord.getX() == 1 && selectedCoord.getY() == 1);
-
-     }
+//     @Test
+//     public void testFindAndHitNeighbour(){
+//         StarBattleGame sbg = new StarBattleGame("1", new FirstSquareBot("1"), new LastSquareBot("2"));
+//         BotGameBoard bgb = new ShipGameBoard().generateBotMap(1, sbg.getHistory());
+//         bgb.fillGrid(0);
+//         bgb.grid[1][1] = 2;
+//         bgb.grid[1][0] = 2;
+//         bgb.grid[2][1] = 0;
+//         bgb.grid[1][2] = 0;
+//         bgb.grid[0][1] = 0;
+//         Coordinate selectedCoord = bgb.findAndHitNeighbour(new Coordinate(1, 1));
+//         System.out.println(selectedCoord.getY());
+//         assertTrue((selectedCoord.getX() == 1) && (selectedCoord.getY() == 2));
+//     }
+//     @Test
+//
+//     public void testFindNeigbourErrorPrevention(){
+//         StarBattleGame sbg = new StarBattleGame("1", new FirstSquareBot("1"), new LastSquareBot("2"));
+//         BotGameBoard bgb = new ShipGameBoard().generateBotMap(1, sbg.getHistory());
+//         bgb.fillGrid(0);
+//         bgb.grid[1][0] = 2;
+//         bgb.grid[2][1] = 2;
+//         bgb.grid[1][2] = 2;
+//         bgb.grid[0][1] = 2;
+//         Coordinate selectedCoord = bgb.findAndHitNeighbour(new Coordinate(1, 1));
+//         assertTrue(selectedCoord.getX() == 1 && selectedCoord.getY() == 1);
+//
+//     }
 }

@@ -30,6 +30,7 @@
     <script src="static/js/notification_bar.js"></script>
     <script src="static/js/build.js"></script>
     <script src="static/js/game.js"></script>
+    <script src="static/js/search.js"></script>
 
 </head>
 <body ng-init="createUser('${screenName}','${profilePicture}'); createBuiltInBots();">
