@@ -173,6 +173,26 @@ task buildAndDeployDebug(type: Exec,dependsOn:'buildAll'){
     commandLine 'heroku deploy:war --war target/starbattle-0.1.war --app battleships-capstone'.split()
 }
 
+task buildProductStarbattle(type: Copy, dependsOn: 'buildProduct') {
+    from './null/.SoGaCo/'
+    into './build/output/Capstone/null/.SoGaCo/'
+    include '.config'
+}
+
+task buildProductSoGaCo(type: Copy, dependsOn: 'buildProduct') {
+    from './null/.SoGaCo/'
+    into './build/output/Capstone/null/.SoGaCo/'
+    include 'sogaco.config'
+    rename ('sogaco.config', '.config')
+}
+
+task buildProductDebug(type: Copy, dependsOn: 'buildProduct') {
+    from './null/.SoGaCo/'
+    into './build/output/Capstone/null/.SoGaCo/'
+    include 'debug.config'
+    rename ('debug.config', '.config')
+}
+
 task stage {
     dependsOn buildAll
 }
