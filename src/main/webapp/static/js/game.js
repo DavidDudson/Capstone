@@ -119,13 +119,7 @@ function GameService($http, $interval) {
             },
             stop: function () {
                 $interval.cancel(game.state);
-                if(game.inProgress){
-                    game.inProgress = false;
-                    if(game.player1){
-                        var winningPlayerName = game.moves[game.position - 1].wasPlayer1 ? game.player1.name : game.player2.name;
-                        notificationBar.showSuccessProgress("Game won by: " + winningPlayerName);
-                    }
-                }
+                game.inProgress = false;
             },
             restart: function () {
                 game.reset();
@@ -182,6 +176,8 @@ function GameService($http, $interval) {
                         document.getElementById(coordinate).innerHTML = "<img src='static/images/sunk.png'  height='100%' width='100%';top:0; left:0/>"
                     });
                 } else {
+                    var winningPlayerName = game.moves[game.position - 1].wasPlayer1 ? game.player1.name : game.player2.name;
+                    notificationBar.showSuccessProgress("Game won by: " + winningPlayerName);
                     game.stop()
                 }
                 game.position++;
